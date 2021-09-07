@@ -66,7 +66,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-
+                                    {{ $items->links() }}
                                 </div>
 
                             </div>
@@ -102,7 +102,7 @@
                     $("#faq_answer").val(detail.answer);
 
 
-                    $('#FaqModalModal').modal('toggle');
+                    $('#FaqModal').modal('toggle');
                     $('#FaqModal').modal('show');
                 } else {
                     alert(data.message);

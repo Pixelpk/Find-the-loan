@@ -67,7 +67,7 @@
         // });
 
         $('#add_faq_btn').click(function (){
-            $('#faq_modal_heading').html('Add shift');
+            $('#faq_modal_heading').html('Add Faq');
             $('#faq_modal_btn').html("Add");
             $('#faq-form').trigger("reset");
             $('#update_faq_id').val('');
@@ -77,6 +77,18 @@
 
             $('#faq_modal_heading').html('Update Faq');
             $('#faq_modal_btn').html("Update");
+        });
+
+        $('#add_partner_btn').click(function (){
+            $('#partner_modal_heading').html('Add Finance partner');
+            $('#partner_modal_btn').html("Add");
+            $('#partner-form').trigger("reset");
+            $('#update_partner_id').val('');
+        });
+
+        $('.edit_partner_btn').click(function (){
+            $('#partner_modal_heading').html('Update Finance partner');
+            $('#partner_modal_btn').html("Update");
         });
 
         $(".change_status").click(function (event) {
@@ -100,7 +112,20 @@
         });
 
     });
+    function showImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $(input).siblings('.avatar')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 </script>
 

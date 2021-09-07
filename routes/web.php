@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\FinancePartnerController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,5 +44,10 @@ Route::group(['middleware'=>['auth']],function (){
     Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
     Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
     Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
+
+    Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
+    Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
+    Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
+    Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
 
 });
