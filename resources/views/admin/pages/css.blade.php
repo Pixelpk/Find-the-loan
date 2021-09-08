@@ -1,4 +1,4 @@
-<link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+<link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}">
 {{--<link href="{{ asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">--}}
 <!--Morris Chart CSS -->
 {{--<link rel="stylesheet" href="{{ asset('plugins/morris/morris.css') }}">--}}

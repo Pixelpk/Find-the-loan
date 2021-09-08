@@ -9,6 +9,8 @@
 {{--<script src="{{ asset('assets/pages/dashboard.init.js') }}"></script>--}}
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
+<script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/ckeditor/adapters/jquery.js') }}"></script>
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script>
@@ -48,7 +50,7 @@
 @include('admin.pages.flash-message')
 <script>
     $(document).ready(function() {
-
+        $( '.ckeditor.editor' ).ckeditor();
 
         // $('.date_picker').bootstrapMaterialDatePicker({
         //     format: 'Y-MM-DD',
@@ -69,7 +71,6 @@
         $('#add_faq_btn').click(function (){
             $('#faq_modal_heading').html('Add Faq');
             $('#faq_modal_btn').html("Add");
-            $('#faq-form').trigger("reset");
             $('#update_faq_id').val('');
         });
 
@@ -79,10 +80,33 @@
             $('#faq_modal_btn').html("Update");
         });
 
+        $('#add_blog_btn').click(function (){
+            $('#blog_modal_heading').html('Add blog');
+            $('#blog_modal_btn').html("Add");
+            $('#update_blog_id').val('');
+        });
+
+        $('.edit_blog_btn').click(function (){
+
+            $('#blog_modal_heading').html('Update blog');
+            $('#blog_modal_btn').html("Update");
+        });
+
+        $('#add_testimonial_btn').click(function (){
+            $('#testimonial_modal_heading').html('Add testimonial');
+            $('#testimonial_modal_btn').html("Add");
+            $('#update_testimonial_id').val('');
+        });
+
+        $('.edit_testimonial_btn').click(function (){
+
+            $('#testimonial_modal_heading').html('Update testimonial');
+            $('#testimonial_modal_btn').html("Update");
+        });
+
         $('#add_partner_btn').click(function (){
             $('#partner_modal_heading').html('Add Finance partner');
             $('#partner_modal_btn').html("Add");
-            $('#partner-form').trigger("reset");
             $('#update_partner_id').val('');
         });
 

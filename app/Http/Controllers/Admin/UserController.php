@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Company;
+use App\Models\Faq;
+use App\Models\FinancePartner;
 use App\Models\Horse;
 use App\Models\Jockey;
 use App\Models\Location;
@@ -57,7 +60,10 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
-        $data['user_count'] = User::whereIn('status',[0,1])->count();
+        $data['user_count'] = User::where('role_id','!=','1')->whereIn('status',[0,1])->count();
+        $data['faq_count'] = Faq::whereIn('status',[0,1])->count();
+        $data['blog_count'] = Blog::whereIn('status',[0,1])->count();
+        $data['partner_count'] = FinancePartner::whereIn('status',[0,1])->count();
         return view('admin.dashboard',$data);
     }
 

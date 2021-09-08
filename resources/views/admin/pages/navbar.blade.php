@@ -13,6 +13,16 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('site-data') }}" class="waves-effect @if(Route::CurrentRouteName() == 'site-data') mm-active @endif">
+                        <i class="dripicons-web"></i><span> Site Data </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('blogs') }}" class="waves-effect @if(Route::CurrentRouteName() == 'blogs')  mm-active @endif">
+                        <i class="fa fa-blog"></i><span> Blogs </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('faq') }}" class="waves-effect @if(Route::CurrentRouteName() == 'faq')  mm-active @endif">
                         <i class="dripicons-question"></i><span> Faqs </span>
                     </a>
@@ -20,6 +30,11 @@
                 <li>
                     <a href="{{ route('finance-partners') }}" class="waves-effect @if(Route::CurrentRouteName() == 'finance-partners')  mm-active @endif">
                         <i class="fa fa-handshake"></i><span> Finance partners </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('testimonials') }}" class="waves-effect @if(Route::CurrentRouteName() == 'testimonials')  mm-active @endif">
+                        <i class="fa fa-quote-left"></i><span> Testimonials </span>
                     </a>
                 </li>
 

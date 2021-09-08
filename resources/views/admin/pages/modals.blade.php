@@ -75,3 +75,94 @@
         <!-- /.modal-dialog -->
     </div>
 @endif
+@if(Route::currentRouteName() == 'blogs')
+    <div class="modal fade bs-example-modal-center" id="BlogModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="blog_modal_heading">Add Blog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="blog-form" method="post" action="{{ route('add-blog') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_blog_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Title:</label>
+                            <input type="text" required id="blog_title" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label mb-10">Blog description</label>
+                            <textarea name="description" class="form-control ckeditor" id="blog_description" required ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Blog image:</label>
+                            <br>
+                            <label class="label" data-toggle="tooltip" title="Select blog image">
+                                <img id="testimonial_image" class="rounded avatar"
+                                     src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
+                                     style="width: 120px;height: auto;cursor: pointer;">
+                                <input type="file" id="testimonial-image-file" required onchange="showImage(this)" class="sr-only img-crop" name="image"
+                                       value="" accept="image/*">
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="blog_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+
+@if(Route::currentRouteName() == 'testimonials')
+    <div class="modal fade bs-example-modal-center" id="TestimonialModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="testimonial_modal_heading">Add Blog</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="testimonial-form" method="post" action="{{ route('add-testimonial') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_testimonial_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Review By:</label>
+                            <input type="text" required id="review_by" name="review_by" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <h5>Review</h5>
+                            <textarea name="review" class="form-control ckeditor" id="review" required ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Reviewer Image image:</label>
+                            <br>
+                            <label class="label" data-toggle="tooltip" title="Select blog image">
+                                <img id="reviewer_image" class="rounded avatar"
+                                     src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
+                                     style="width: 120px;height: auto;cursor: pointer;">
+                                <input type="file" id="reviewer-image-file" onchange="showImage(this)" class="sr-only img-crop" name="image"
+                                       value="" accept="image/*">
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="testimonial_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif

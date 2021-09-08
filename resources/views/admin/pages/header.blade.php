@@ -2,10 +2,10 @@
 <div class="topbar">
 
     <!-- LOGO -->
-    <div class="topbar-left">
+    <div class="topbar-left bg-white">
         <a href="{{ route('admin-dashboard') }}" class="logo">
-            <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" height="22">
-            <img src="{{ asset('assets/images/logo-sm1.png') }}" class="logo-sm" alt="Find the loan" height="24">
+            <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" style="height: 3.4em">
+            <img src="{{ asset('assets/images/icon59.png') }}" class="logo-sm" alt="Find the loan" style="height: 2em">
         </a>
     </div>
 

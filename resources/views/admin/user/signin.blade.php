@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div class="text-center mt-0 mb-3">
                                 <a href="{{ route('admin-login') }}" class="logo logo-admin">
-                                    <img src="{{ asset('assets/images/logo.png') }}" class="mt-3" alt="Find the loan" height="26"></a>
+                                    <img src="{{ asset('assets/images/logo.png') }}" class="mt-3" alt="Find the loan" style="height: 4.5em"></a>
                                 <p class="text-muted w-75 mx-auto mb-4 mt-4">Enter your email address and password to access admin panel.</p>
                             </div>
 

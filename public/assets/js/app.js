@@ -79,7 +79,7 @@
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
     },
-    
+
     MainApp.prototype.initToggleSearch = function () {
         $('.toggle-search').on('click', function () {
             var targetId = $(this).data('target');
@@ -116,15 +116,16 @@
             }
         });
     },
-    MainApp.prototype.initdatepicker= function () {
-
-        //   datepicker
-        jQuery('#datepicker').datepicker( {
-        todayHighlight: true, viewDate: true
-    }
-    );
-    jQuery('#datepicker').datepicker('setDate', new Date());
-},
+//     MainApp.prototype.initdatepicker= function () {
+//
+//         //   datepicker
+//         jQuery('#datepicker').datepicker( {
+//         todayHighlight: true, viewDate: true
+//     }
+//     );
+//     jQuery('#datepicker').datepicker('setDate', new Date());
+// }
+// ,
 
 
 
@@ -138,7 +139,7 @@
         this.initComponents();
         this.initToggleSearch();
         this.initFullScreen();
-        this.initdatepicker();
+        // this.initdatepicker();
         Waves.init();
     },
 

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
+use App\Http\Controllers\Admin\SiteController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +26,9 @@ Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-log
 Route::post('/admin-login', [UserController::class,'login'])->name('admin-login');
 
 Route::group(['middleware'=>['auth']],function (){
+    Route::get('/site-data', [SiteController::class,'siteData'])->name('site-data');
+    Route::post('/submit-site-data', [SiteController::class,'submitSiteData'])->name('submit-site-data');
+
     Route::get('/users', [UserController::class,'users'])->name('users');
     Route::get('/active-user', [UserController::class,'todayActiveUser'])->name('active-user');
     Route::get('/admin-profile', [UserController::class,'profile'])->name('admin-profile');
@@ -44,6 +50,16 @@ Route::group(['middleware'=>['auth']],function (){
     Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
     Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
     Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
+
+    Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
+    Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
+    Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
+    Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
+
+    Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
+    Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
+    Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
+    Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
 
     Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
     Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
