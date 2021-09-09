@@ -96,10 +96,14 @@
     <script>
         function resetFormFields(){
             document.getElementById("testimonial-form").reset();
-            $("#update_testimonial_id").val('');
+            $('#testimonial_modal_heading').html('Add testimonial');
+            $('#testimonial_modal_btn').html("Add");
+            $('#update_testimonial_id').val('');
             $("#testimonial_image").attr("src", "{{ asset('assets/images/no_image.png') }}");
         }
         function getTestimonialDetail(id) {
+            $('#testimonial_modal_heading').html('Update testimonial');
+            $('#testimonial_modal_btn').html("Update");
             $.ajax({
                 method: "POST",
                 url: "{{ route('testimonial-detail') }}",
@@ -115,9 +119,7 @@
                     $('#update_testimonial_id').val(detail.id);
                     $("#review_by").val(detail.review_by);
                     CKEDITOR.instances['review'].setData(detail.review);
-                    // $("#blog_description").val(detail.description);
                     if (detail.reviewer_image != "") {
-                        // $('#input').val(json.category_image);
                         var imgsrc = detail.reviewer_image;
                         var src = "{{ url('uploads/testimonialImages/') }}" + "/" + imgsrc;
                         console.log(src)

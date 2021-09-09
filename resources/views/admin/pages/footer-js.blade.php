@@ -68,53 +68,6 @@
         //     // minDate: moment(),
         // });
 
-        $('#add_faq_btn').click(function (){
-            $('#faq_modal_heading').html('Add Faq');
-            $('#faq_modal_btn').html("Add");
-            $('#update_faq_id').val('');
-        });
-
-        $('.edit_faq_btn').click(function (){
-
-            $('#faq_modal_heading').html('Update Faq');
-            $('#faq_modal_btn').html("Update");
-        });
-
-        $('#add_blog_btn').click(function (){
-            $('#blog_modal_heading').html('Add blog');
-            $('#blog_modal_btn').html("Add");
-            $('#update_blog_id').val('');
-        });
-
-        $('.edit_blog_btn').click(function (){
-
-            $('#blog_modal_heading').html('Update blog');
-            $('#blog_modal_btn').html("Update");
-        });
-
-        $('#add_testimonial_btn').click(function (){
-            $('#testimonial_modal_heading').html('Add testimonial');
-            $('#testimonial_modal_btn').html("Add");
-            $('#update_testimonial_id').val('');
-        });
-
-        $('.edit_testimonial_btn').click(function (){
-
-            $('#testimonial_modal_heading').html('Update testimonial');
-            $('#testimonial_modal_btn').html("Update");
-        });
-
-        $('#add_partner_btn').click(function (){
-            $('#partner_modal_heading').html('Add Finance partner');
-            $('#partner_modal_btn').html("Add");
-            $('#update_partner_id').val('');
-        });
-
-        $('.edit_partner_btn').click(function (){
-            $('#partner_modal_heading').html('Update Finance partner');
-            $('#partner_modal_btn').html("Update");
-        });
-
         $(".change_status").click(function (event) {
             event.preventDefault();
             var msg = ($(this).attr('msg'));

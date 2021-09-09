@@ -95,10 +95,14 @@
     <script>
         function resetFormFields(){
             document.getElementById("blog-form").reset();
-            $("#update_blog_id").val('');
+            $('#blog_modal_heading').html('Add blog');
+            $('#blog_modal_btn').html("Add");
+            $('#update_blog_id').val('');
             $("#blog_image").attr("src", "{{ asset('assets/images/no_image.png') }}");
         }
         function getBlogDetail(id) {
+            $('#blog_modal_heading').html('Update blog');
+            $('#blog_modal_btn').html("Update");
             $.ajax({
                 method: "POST",
                 url: "{{ route('blog-detail') }}",

@@ -13,6 +13,21 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('loan-types') }}" class="waves-effect @if(Route::CurrentRouteName() == 'loan-types') mm-active @endif">
+                        <i class="fa fa-money-bill-alt"></i><span> Loan Types </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('loan-reasons') }}" class="waves-effect @if(Route::CurrentRouteName() == 'loan-reasons') mm-active @endif">
+                        <i class="fa fa-list"></i><span> Loan reasons </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('company-structure-type') }}" class="waves-effect @if(Route::CurrentRouteName() == 'company-structure-type') mm-active @endif">
+                        <i class="fa fa-object-group"></i><span> Company structures </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('site-data') }}" class="waves-effect @if(Route::CurrentRouteName() == 'site-data') mm-active @endif">
                         <i class="dripicons-web"></i><span> Site Data </span>
                     </a>

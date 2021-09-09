@@ -10,13 +10,13 @@
                     <div class="row align-items-center ">
                         <div class="col-md-8">
                             <div class="page-title-box">
-                                <h4 class="page-title">Finance partners</h4>
+                                <h4 class="page-title">Company structure type</h4>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
-                                <button onclick="resetFormFields()" type="button" id="add_partner_btn" data-toggle="modal" data-target="#FinancePartnerModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
+                                <button onclick="resetFormFields()" type="button" id="add_company_structure_btn" data-toggle="modal" data-target="#CompanyStructureModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
                             </div>
                         </div>
                     </div>
@@ -32,8 +32,7 @@
                                         <table id="tech-companies-1" class="table  table-striped">
                                             <thead>
                                             <tr>
-                                                <th data-priority="1">Image</th>
-                                                <th data-priority="3">Name</th>
+                                                <th data-priority="3">Type</th>
                                                 <th data-priority="1">Status</th>
                                                 <th data-priority="3">Actions</th>
                                             </tr>
@@ -41,31 +40,22 @@
                                             <tbody>
                                             @foreach($items as $item)
                                                 <tr>
-                                                    <td>
-                                                        @if (file_exists(base_path('uploads/financePartnerImages/'.$item->image)) && $item->image != '')
-                                                            <img class="justify-content-center resize-img"
-                                                                 src="{{ url('uploads/financePartnerImages/'.$item->image) }}"/>
-                                                        @else
-                                                            <img class="justify-content-center resize-img"
-                                                                 src="{{url('assets/images/no_image.png')}}"/>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$item->name}}</td>
+                                                    <td>{{$item->structure_type}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a href="#" onclick="getFinancePartnerDetail({{$item->id}})" class="edit_partner_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="#" onclick="getCompanyStructureDetail({{$item->id}})" class=" edit_company_structure_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
-                                                            <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this partner?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
+                                                            <a href="{{ route('company-structure-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this company structure type?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
                                                                 <i class="m-2 fa fa-thumbs-up"></i>
                                                             </a>
                                                         @elseif($item->status == 1)
-                                                            <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this partner?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
+                                                            <a href="{{ route('company-structure-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this company structure type?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
                                                                 <i class="m-2 fa fa-thumbs-down"></i>
                                                             </a>
                                                         @endif
-                                                        <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this partner?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
+                                                        <a href="{{ route('company-structure-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this company structure type?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
                                                             <i class="m-2 fa fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -92,41 +82,32 @@
     </div>
     <script>
         function resetFormFields(){
-            document.getElementById("partner-form").reset();
-            $('#partner_modal_heading').html('Add Finance partner');
-            $('#partner_modal_btn').html("Add");
-            $('#update_partner_id').val('');
-            $("#partner_image").attr("src", "{{ asset('assets/images/no_image.png') }}");
+            document.getElementById("company-structure-form").reset();
+            $('#company_structure_modal_heading').html('Add company structure type');
+            $('#company_structure_modal_btn').html("Add");
+            $("#update_company_structure_id").val('');
         }
-        function getFinancePartnerDetail(id) {
-            $('#partner_modal_heading').html('Update Finance partner');
-            $('#partner_modal_btn').html("Update");
+        function getCompanyStructureDetail(id) {
+            $('#company_structure_modal_heading').html('Update company structure type');
+            $('#company_structure_modal_btn').html("Update");
+
             $.ajax({
                 method: "POST",
-                url: "{{ route('partner-detail') }}",
+                url: "{{ route('company-structure-detail') }}",
                 data: {
                     '_token': '{{ csrf_token() }}',
                     id: id,
                 }
             }).done(function (data) {
-                let detail = data.data.partner;
+                let detail = data.data.structure_type;
                 console.log(data)
                 console.log(detail)
                 if (data.success === 1) {
-                    $('#update_partner_id').val(detail.id);
-                    $("#partner_name").val(detail.name);
-                    $("#partner_description").val(detail.description);
-                    if (detail.image != "") {
-                        // $('#input').val(json.category_image);
-                        var imgsrc = detail.image;
-                        var src = "{{ url('uploads/financePartnerImages/') }}" + "/" + imgsrc;
-                        console.log(src)
-                        $('#partner_image').attr("src", src);
-                    }
+                    $('#update_company_structure_id').val(detail.id);
+                    $("#structure_type").val(detail.structure_type);
 
-                    document.querySelector('#partner-image-file').required = false;
-                    $('#FinancePartnerModal').modal('toggle');
-                    $('#FinancePartnerModal').modal('show');
+                    $('#CompanyStructureModal').modal('toggle');
+                    $('#CompanyStructureModal').modal('show');
                 } else {
                     alert(data.message);
                 }

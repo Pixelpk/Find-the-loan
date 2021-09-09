@@ -101,10 +101,10 @@
                             <label for="" class="control-label mb-10">Blog image:</label>
                             <br>
                             <label class="label" data-toggle="tooltip" title="Select blog image">
-                                <img id="testimonial_image" class="rounded avatar"
+                                <img id="faq_image" class="rounded avatar"
                                      src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                      style="width: 120px;height: auto;cursor: pointer;">
-                                <input type="file" id="testimonial-image-file" required onchange="showImage(this)" class="sr-only img-crop" name="image"
+                                <input type="file" id="faq-image-file" required onchange="showImage(this)" class="sr-only img-crop" name="image"
                                        value="" accept="image/*">
                             </label>
                         </div>
@@ -157,6 +157,138 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" id="testimonial_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+@if(Route::currentRouteName() == 'loan-types')
+    <div class="modal fade bs-example-modal-center" id="LoanTypeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="loan_type_modal_heading">Add Loan Type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loan-type-form" method="post" action="{{ route('add-loan-type') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_loan_type_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Select Main type</label>
+                            <select class="form-control" name="main_type" id="loan_main_type">
+                                @php
+                                    $main_types = loanMainTypes();
+                                @endphp
+                                @for($i=1;$i<count($main_types);$i++)
+                                    <option value="{{$i}}">{{ getLoanMainType($i) }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Type name:</label>
+                            <input type="text" required id="loan_type_name" name="type_name" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="loan_type_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+@if(Route::currentRouteName() == 'loan-subtypes')
+    <div class="modal fade bs-example-modal-center" id="LoanSubTypeModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="loan_subtype_modal_heading">Add Loan sub Type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loan-subtype-form" method="post" action="{{ route('add-loan-subtype') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_loan_subtype_id">
+                        <input type="hidden" name="parent_id" value="{{$id}}">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Type name:</label>
+                            <input type="text" required id="loan_subtype_name" name="type_name" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="loan_subtype_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+@if(Route::currentRouteName() == 'loan-reasons')
+    <div class="modal fade bs-example-modal-center" id="LoanReasonModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="loan_reason_modal_heading">Add Loan reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loan-reason-form" method="post" action="{{ route('add-loan-reason') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_loan_reason_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Reason</label>
+                            <input type="text" required id="loan_reason" name="reason" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="loan_reason_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+@if(Route::currentRouteName() == 'company-structure-type')
+    <div class="modal fade bs-example-modal-center" id="CompanyStructureModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="company_structure_modal_heading">Add company structure type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="company-structure-form" method="post" action="{{ route('add-company-structure') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_company_structure_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Type name</label>
+                            <input type="text" required id="structure_type" name="structure_type" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="company_structure_modal_btn" class="btn btn-primary">Add</button>
                         </div>
                     </form>
                 </div>

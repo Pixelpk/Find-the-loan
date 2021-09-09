@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CompanyStructureController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
+use App\Http\Controllers\Admin\LoanReasonController;
+use App\Http\Controllers\Admin\LoanTypeController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
@@ -66,4 +69,21 @@ Route::group(['middleware'=>['auth']],function (){
     Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
     Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
 
+    Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
+    Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
+    Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
+    Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
+
+    Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
+    Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
+
+    Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+    Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
+    Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
+    Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
+
+    Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
+    Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
+    Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
+    Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
 });

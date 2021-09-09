@@ -21,7 +21,6 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-
 {{--                                <h4 class="mt-0 header-title">Web Data</h4>--}}
                                 <form method="post" action="{{ route('submit-site-data') }}">
                                     @csrf

@@ -16,7 +16,7 @@
 
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
-                                <button type="button" id="add_faq_btn" data-toggle="modal" data-target="#FaqModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
+                                <button onclick="resetFormFields()" type="button" id="add_faq_btn" data-toggle="modal" data-target="#FaqModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
                             </div>
                         </div>
                     </div>
@@ -83,8 +83,17 @@
         @include('admin.pages.footer')
     </div>
     <script>
+        function resetFormFields(){
+            document.getElementById("faq-form").reset();
+            $('#faq_modal_heading').html('Add Faq');
+            $('#faq_modal_btn').html("Add");
+            $('#update_faq_id').val('');
+            $("#faq_image").attr("src", "{{ asset('assets/images/no_image.png') }}");
+        }
+
         function getFaqDetail(id) {
-            // $('.page-loader-wrapper').show();
+            $('#faq_modal_heading').html('Update Faq');
+            $('#faq_modal_btn').html("Update");
             $.ajax({
                 method: "POST",
                 url: "{{ route('faq-detail') }}",

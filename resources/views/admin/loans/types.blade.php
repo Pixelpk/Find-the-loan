@@ -10,13 +10,13 @@
                     <div class="row align-items-center ">
                         <div class="col-md-8">
                             <div class="page-title-box">
-                                <h4 class="page-title">Finance partners</h4>
+                                <h4 class="page-title">Loan types</h4>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
-                                <button onclick="resetFormFields()" type="button" id="add_partner_btn" data-toggle="modal" data-target="#FinancePartnerModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
+                                <button onclick="resetFormFields()" type="button" id="add_loan_type_btn" data-toggle="modal" data-target="#LoanTypeModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
                             </div>
                         </div>
                     </div>
@@ -32,8 +32,8 @@
                                         <table id="tech-companies-1" class="table  table-striped">
                                             <thead>
                                             <tr>
-                                                <th data-priority="1">Image</th>
-                                                <th data-priority="3">Name</th>
+                                                <th data-priority="1">Main Type</th>
+                                                <th data-priority="3">Type name</th>
                                                 <th data-priority="1">Status</th>
                                                 <th data-priority="3">Actions</th>
                                             </tr>
@@ -41,31 +41,26 @@
                                             <tbody>
                                             @foreach($items as $item)
                                                 <tr>
-                                                    <td>
-                                                        @if (file_exists(base_path('uploads/financePartnerImages/'.$item->image)) && $item->image != '')
-                                                            <img class="justify-content-center resize-img"
-                                                                 src="{{ url('uploads/financePartnerImages/'.$item->image) }}"/>
-                                                        @else
-                                                            <img class="justify-content-center resize-img"
-                                                                 src="{{url('assets/images/no_image.png')}}"/>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{$item->name}}</td>
+                                                    <td>{{getLoanMainType($item->main_type)}}</td>
+                                                    <td>{{$item->type_name}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a href="#" onclick="getFinancePartnerDetail({{$item->id}})" class="edit_partner_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="{{ route('loan-subtypes',['id'=>$item->id]) }}" data-original-title="Sub types">
+                                                            <i class="m-2 fa fa-eye" aria-hidden="true"></i>
+                                                        </a>
+                                                        <a href="#" onclick="getLoanTypeDetail({{$item->id}})" class=" edit_loan_type_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
-                                                            <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this partner?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
+                                                            <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this loanType?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
                                                                 <i class="m-2 fa fa-thumbs-up"></i>
                                                             </a>
                                                         @elseif($item->status == 1)
-                                                            <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this partner?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
+                                                            <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this loanType?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
                                                                 <i class="m-2 fa fa-thumbs-down"></i>
                                                             </a>
                                                         @endif
-                                                        <a href="{{ route('change-partner-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this partner?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
+                                                        <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this loanType?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
                                                             <i class="m-2 fa fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -92,41 +87,33 @@
     </div>
     <script>
         function resetFormFields(){
-            document.getElementById("partner-form").reset();
-            $('#partner_modal_heading').html('Add Finance partner');
-            $('#partner_modal_btn').html("Add");
-            $('#update_partner_id').val('');
-            $("#partner_image").attr("src", "{{ asset('assets/images/no_image.png') }}");
+            $('#loan_type_modal_heading').html('Add Loan Type');
+            $('#loan_type_modal_btn').html("Add");
+            document.getElementById("loan-type-form").reset();
+            $("#update_loan_type_id").val('');
         }
-        function getFinancePartnerDetail(id) {
-            $('#partner_modal_heading').html('Update Finance partner');
-            $('#partner_modal_btn').html("Update");
+
+        function getLoanTypeDetail(id) {
+            $('#loan_type_modal_heading').html('Update Loan Type');
+            $('#loan_type_modal_btn').html("Update");
             $.ajax({
                 method: "POST",
-                url: "{{ route('partner-detail') }}",
+                url: "{{ route('loan-type-detail') }}",
                 data: {
                     '_token': '{{ csrf_token() }}',
                     id: id,
                 }
             }).done(function (data) {
-                let detail = data.data.partner;
+                let detail = data.data.loan_type;
                 console.log(data)
                 console.log(detail)
                 if (data.success === 1) {
-                    $('#update_partner_id').val(detail.id);
-                    $("#partner_name").val(detail.name);
-                    $("#partner_description").val(detail.description);
-                    if (detail.image != "") {
-                        // $('#input').val(json.category_image);
-                        var imgsrc = detail.image;
-                        var src = "{{ url('uploads/financePartnerImages/') }}" + "/" + imgsrc;
-                        console.log(src)
-                        $('#partner_image').attr("src", src);
-                    }
+                    $('#update_loan_type_id').val(detail.id);
+                    $("#loan_main_type").val(detail.main_type);
+                    $("#loan_type_name").val(detail.type_name);
 
-                    document.querySelector('#partner-image-file').required = false;
-                    $('#FinancePartnerModal').modal('toggle');
-                    $('#FinancePartnerModal').modal('show');
+                    $('#LoanTypeModal').modal('toggle');
+                    $('#LoanTypeModal').modal('show');
                 } else {
                     alert(data.message);
                 }

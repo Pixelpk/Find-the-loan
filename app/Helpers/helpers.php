@@ -21,3 +21,14 @@ function getRole($role): string
     $all = allRoles();
     return $all[$role] ?? '';
 }
+
+function loanMainTypes(): array
+{
+    return ['','Business', 'Consumer'];
+}
+
+function getLoanMainType($type): string
+{
+    $all = loanMainTypes();
+    return $all[$type] ?? '';
+}
