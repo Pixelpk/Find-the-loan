@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'partners' => [
+            'driver' => 'session',
+            'provider' => 'partners',
+        ],
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
@@ -67,6 +75,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'partners' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\FinancePartner::class,
         ],
 
         // 'users' => [

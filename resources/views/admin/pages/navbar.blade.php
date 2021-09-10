@@ -28,6 +28,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('sectors') }}" class="waves-effect @if(Route::CurrentRouteName() == 'sectors') mm-active @endif">
+                        <i class="fa fa-industry"></i><span> Sectors </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('site-data') }}" class="waves-effect @if(Route::CurrentRouteName() == 'site-data') mm-active @endif">
                         <i class="dripicons-web"></i><span> Site Data </span>
                     </a>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\FinancePartner;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class FinancePartnerController extends Controller
 {
@@ -35,44 +37,71 @@ class FinancePartnerController extends Controller
 
     public function addPartner(Request $request){
         $data = $request->all();
-        $id = $data['id'] ?? null;
-        if ($id == null){
-            $request->validate([
-                'name' => 'required',
-                'image' => 'required|image',
-            ]);
-        }else{
-            $request->validate([
-                'name' => 'required',
-            ]);
-        }
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'password' => 'required|min:6',
+            'image' => 'required|image',
+        ]);
 
-        $data['description'] = $data['description'] ?? null;
-        $partner = new FinancePartner();
-        if ($id != null){
-            $partner = FinancePartner::query()->where('id','=',$id)->first();
-            if (!$partner){
-                return redirect(route('finance-partners'))->with('error',  "Finance partner does not exist")->withInput();
-            }
+        $if_partner = FinancePartner::where('email','=',$data['email'])->where('status','!=','2')->first();
+        if ($if_partner){
+            return redirect(route('finance-partners'))->with('error',  "Finance partner already exists!")->withInput();
         }
+        $partner = new FinancePartner();
+        $partner->parent_id = 0;
+        $partner->name = $data['name'];
+        $partner->email = $data['email'];
+        $partner->phone = $data['phone'];
+        $partner->password = Hash::make($data['password']);
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'partner' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();
             $destinationPath = "uploads/financePartnerImages/" . $filename;
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath) && $data['image']) {
                 if (file_exists($destinationPath)) {
-                    $data['image'] = $filename;
+                    $partner->image = $filename;
                 } else {
                     return redirect(route('finance-partners'))->with('error',"Oops. Something went wrong with image");
                 }
             }
         }
 
-        $partner->fill($data)->save();
-        if ($id != null){
-            return redirect(route('finance-partners'))->with('success',"Finance partner updated successfully!");
-        }
+        $partner->save();
         return redirect(route('finance-partners'))->with('success',"Finance partner added successfully!");
+    }
+
+    public function updatePartner(Request $request){
+        $data = $request->all();
+        $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+        ]);
+
+        $partner = FinancePartner::where('id','=',$data['id'])->where('status','!=','2')->first();
+        if (!$partner){
+            return redirect(route('finance-partners'))->with('error',  "Finance partner not exists!")->withInput();
+        }
+        $partner->name = $data['name'];
+        $partner->phone = $data['phone'];
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = 'partner' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();
+            $destinationPath = "uploads/financePartnerImages/" . $filename;
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath) && $data['image']) {
+                if (file_exists($destinationPath)) {
+                    $partner->image = $filename;
+                } else {
+                    return redirect(route('finance-partners'))->with('error',"Oops. Something went wrong with image");
+                }
+            }
+        }
+        $partner->save();
+        return redirect(route('finance-partners'))->with('success',"Finance partner updated successfully!");
     }
 
 

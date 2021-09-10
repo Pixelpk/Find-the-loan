@@ -47,10 +47,21 @@
                 <div class="modal-body">
                     <form id="partner-form" method="post" action="{{ route('add-partner') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="id" id="update_partner_id">
                         <div class="form-group">
                             <label for="" class="control-label mb-10">Name:</label>
                             <input type="text" required id="partner_name" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Email:</label>
+                            <input type="email" required id="partner_email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Phone:</label>
+                            <input type="text" required id="partner_phone" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Password:</label>
+                            <input type="password" required id="partner_password" name="password" minlength="6" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label mb-10">Partner image:</label>
@@ -66,6 +77,49 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" id="partner_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade bs-example-modal-center" id="EditFinancePartnerModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="partner_modal_heading">Edit Finance partner</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="partner-form" method="post" action="{{ route('update-partner') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_partner_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Name:</label>
+                            <input type="text" required id="edit_partner_name" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Phone:</label>
+                            <input type="text" required id="edit_partner_phone" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Partner image:</label>
+                            <br>
+                            <label class="label" data-toggle="tooltip" title="Select partner image">
+                                <img id="edit_partner_image" class="rounded avatar"
+                                     src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
+                                     style="width: 120px;height: auto;cursor: pointer;">
+                                <input type="file" onchange="showImage(this)" class="sr-only img-crop" input-id="1" id="partner-image-file" name="image"
+                                       value="" accept="image/*">
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="partner_modal_btn" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
@@ -289,6 +343,36 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" id="company_structure_modal_btn" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif
+@if(Route::currentRouteName() == 'sectors')
+    <div class="modal fade bs-example-modal-center" id="SectorModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="sector_modal_heading">Add sector</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="sector-form" method="post" action="{{ route('add-sector') }}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="update_sector_id">
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Name</label>
+                            <input type="text" required id="sector_name" name="name" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="sector_modal_btn" class="btn btn-primary">Add</button>
                         </div>
                     </form>
                 </div>

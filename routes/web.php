@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
 use App\Http\Controllers\Admin\LoanReasonController;
 use App\Http\Controllers\Admin\LoanTypeController;
+use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
@@ -27,8 +28,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');
 Route::post('/admin-login', [UserController::class,'login'])->name('admin-login');
+Route::group(['middleware'=>['auth:partners','partner']],function (){
+//    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 
-Route::group(['middleware'=>['auth']],function (){
+});
+Route::group(['middleware'=>['auth:users','admin']],function (){
     Route::get('/site-data', [SiteController::class,'siteData'])->name('site-data');
     Route::post('/submit-site-data', [SiteController::class,'submitSiteData'])->name('submit-site-data');
 
@@ -66,6 +70,7 @@ Route::group(['middleware'=>['auth']],function (){
 
     Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
     Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
+    Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
     Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
     Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
 
@@ -86,4 +91,11 @@ Route::group(['middleware'=>['auth']],function (){
     Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
     Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
     Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
+
+    Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
+    Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
+    Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
+    Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
+
+
 });

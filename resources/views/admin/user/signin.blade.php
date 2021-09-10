@@ -14,13 +14,12 @@
                 <div class="col-lg-5">
                     <div class="card card-pages shadow-none mt-4">
                         <div class="card-body">
-                            <div class="text-center mt-0 mb-3">
+                            <div class="text-center mt-0 mb-5">
                                 <a href="{{ route('admin-login') }}" class="logo logo-admin">
                                     <img src="{{ asset('assets/images/logo.png') }}" class="mt-3" alt="Find the loan" style="height: 4.5em"></a>
-                                <p class="text-muted w-75 mx-auto mb-4 mt-4">Enter your email address and password to access admin panel.</p>
                             </div>
 
-                            <form method="post" class="form-horizontal mt-4" action="{{ route('admin-login') }}">
+                            <form method="post" class="form-horizontal mt-6" action="{{ route('admin-login') }}">
                                 @csrf
                                 <div class="form-group">
                                     <div class="col-12">

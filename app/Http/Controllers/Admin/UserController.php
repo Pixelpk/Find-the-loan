@@ -33,7 +33,9 @@ class UserController extends Controller
 {
     public function adminLogin(Request $request)
     {
-        if (!Auth::check()){
+//        dd(Auth::guard('partners')->user());
+//        dd(Auth::guard('partners')->user());
+        if (!Auth::guard('users')->check()){
             return view('admin.user.signin');
         }else{
             return redirect(route('admin-dashboard'));
@@ -49,8 +51,27 @@ class UserController extends Controller
         if ($validator->fails()){
             return redirect(route('admin-login'))->withErrors($validator);
         }
-        $credentials = ['email'=>$request->email, 'password'=>$request->password, 'role_id'=>[1,3,4,5],'status'=>1];
-        if (Auth::attempt($credentials)){
+        if (Auth::guard('users')->attempt(['email'=>$request->email, 'password'=>$request->password, 'role_id'=>1,'status'=>1])){
+            return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
+        }elseif (Auth::guard('partners')->attempt(['email'=>$request->email, 'password'=>$request->password,'status'=>1])){
+            return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
+
+        }else{
+            return redirect(route('admin-login'))->with('error',"Email/Password is wrong");
+        }
+    }
+
+    public function partnerLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        if ($validator->fails()){
+            return redirect(route('admin-login'))->withErrors($validator);
+        }
+        $credentials = ['email'=>$request->email, 'password'=>$request->password];
+        if (Auth::guard('partners')->attempt($credentials)){
             return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
         }else{
             return redirect(route('admin-login'))->with('error',"Email/Password is wrong");
