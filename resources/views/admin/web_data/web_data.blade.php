@@ -25,6 +25,10 @@
                                 <form method="post" action="{{ route('submit-site-data') }}">
                                     @csrf
                                     <div class="form-group">
+                                        <h5>Contact email</h5>
+                                        <input type="email" class="form-control" required  name="contact_email" value="{{$web_data['contact_email'] ?? ""}}"/>
+                                    </div>
+                                    <div class="form-group">
                                         <h5>Footer text</h5>
                                         <textarea type="text" class="form-control ckeditor" required  name="footer_text" >{{$web_data['footer_text'] ?? ""}}</textarea>
                                     </div>

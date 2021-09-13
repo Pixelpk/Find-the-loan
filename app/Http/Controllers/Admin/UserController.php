@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Company;
+use App\Models\CompanyStructure;
 use App\Models\Faq;
 use App\Models\FinancePartner;
 use App\Models\Horse;
 use App\Models\Jockey;
+use App\Models\LoanReason;
+use App\Models\LoanType;
 use App\Models\Location;
 use App\Models\Notification;
 use App\Models\Race;
+use App\Models\Sector;
 use App\Models\Shift;
 use App\Models\Signal;
+use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\UserLog;
@@ -34,8 +39,8 @@ class UserController extends Controller
     public function adminLogin(Request $request)
     {
 //        dd(Auth::guard('partners')->user());
-//        dd(Auth::guard('partners')->user());
-        if (!Auth::guard('users')->check()){
+//        dd(Auth::guard('users')->user());
+        if ((!Auth::guard('users')->check()) && (!Auth::guard('partners')->check())){
             return view('admin.user.signin');
         }else{
             return redirect(route('admin-dashboard'));
@@ -81,10 +86,16 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
+//        dd(Auth::user());exit();
         $data['user_count'] = User::where('role_id','!=','1')->whereIn('status',[0,1])->count();
         $data['faq_count'] = Faq::whereIn('status',[0,1])->count();
         $data['blog_count'] = Blog::whereIn('status',[0,1])->count();
         $data['partner_count'] = FinancePartner::whereIn('status',[0,1])->count();
+        $data['loan_type_count'] = LoanType::whereIn('status',[0,1])->count();
+        $data['loan_reason_count'] = LoanReason::whereIn('status',[0,1])->count();
+        $data['company_struct_count'] = CompanyStructure::whereIn('status',[0,1])->count();
+        $data['sector_count'] = Sector::whereIn('status',[0,1])->count();
+        $data['testimonial_count'] = Testimonial::whereIn('status',[0,1])->count();
         return view('admin.dashboard',$data);
     }
 
@@ -109,7 +120,7 @@ class UserController extends Controller
         }
     }
 
-    function updateProfile(Request $request){
+    function updateAdminProfile(Request $request){
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
@@ -217,6 +228,7 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
+//        dd(Auth::user());exit();
         Auth::logout();
         return redirect(route('admin-login'));
     }

@@ -155,10 +155,10 @@
                             <label for="" class="control-label mb-10">Blog image:</label>
                             <br>
                             <label class="label" data-toggle="tooltip" title="Select blog image">
-                                <img id="faq_image" class="rounded avatar"
+                                <img id="blog_image" class="rounded avatar"
                                      src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                      style="width: 120px;height: auto;cursor: pointer;">
-                                <input type="file" id="faq-image-file" required onchange="showImage(this)" class="sr-only img-crop" name="image"
+                                <input type="file" id="blog-image-file" required onchange="showImage(this)" class="sr-only img-crop" name="image"
                                        value="" accept="image/*">
                             </label>
                         </div>

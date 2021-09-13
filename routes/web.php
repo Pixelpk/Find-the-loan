@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -25,21 +26,30 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//CMS routes
+Route::get('/',[HomeController::class,'home'])->name('home');
+Route::get('faqs',[HomeController::class,'faqs'])->name('faqs');
+Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
+Route::get('blog',[HomeController::class,'blogDetail'])->name('blog');
+Route::get('about-us',[HomeController::class,'aboutUs'])->name('about-us');
+Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
+Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
 
+// Admin routes
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');
 Route::post('/admin-login', [UserController::class,'login'])->name('admin-login');
 Route::group(['middleware'=>['auth:partners','partner']],function (){
 //    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 
 });
-Route::group(['middleware'=>['auth:users','admin']],function (){
+Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('/site-data', [SiteController::class,'siteData'])->name('site-data');
     Route::post('/submit-site-data', [SiteController::class,'submitSiteData'])->name('submit-site-data');
 
     Route::get('/users', [UserController::class,'users'])->name('users');
     Route::get('/active-user', [UserController::class,'todayActiveUser'])->name('active-user');
     Route::get('/admin-profile', [UserController::class,'profile'])->name('admin-profile');
-    Route::post('update-admin', [UserController::class,'updateProfile'])->name('update-admin');
+    Route::post('update-admin', [UserController::class,'updateAdminProfile'])->name('update-admin');
     Route::post('user-detail', [UserController::class,'userDetail'])->name('user-detail');
     Route::post('update-user', [UserController::class,'updateUser'])->name('update-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
