@@ -118,7 +118,8 @@
                 if (data.success === 1) {
                     $('#update_testimonial_id').val(detail.id);
                     $("#review_by").val(detail.review_by);
-                    CKEDITOR.instances['review'].setData(detail.review);
+                    $('#review').val(detail.review);
+                    // CKEDITOR.instances['review'].setData(detail.review);
                     if (detail.reviewer_image != "") {
                         var imgsrc = detail.reviewer_image;
                         var src = "{{ url('uploads/testimonialImages/') }}" + "/" + imgsrc;

@@ -34,6 +34,7 @@ Route::get('blog',[HomeController::class,'blogDetail'])->name('blog');
 Route::get('about-us',[HomeController::class,'aboutUs'])->name('about-us');
 Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
 Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
+Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
 
 // Admin routes
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');

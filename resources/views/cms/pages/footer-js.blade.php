@@ -15,6 +15,8 @@
 <script src="{{ asset('assets/cms/js/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/jquery-validate.bootstrap-tooltip.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/custom.js') }}"></script>
+<script src="{{ asset('assets/cms/js/main.js') }}"></script>
+<script src="{{ asset('assets/cms/js/util.js') }}"></script>
 
 <!--Google map-->
 

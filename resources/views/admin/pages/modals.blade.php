@@ -195,7 +195,7 @@
                         </div>
                         <div class="form-group">
                             <h5>Review</h5>
-                            <textarea name="review" class="form-control ckeditor" id="review" required ></textarea>
+                            <textarea name="review" class="form-control" id="review" required ></textarea>
                         </div>
                         <div class="form-group">
                             <label for="" class="control-label mb-10">Reviewer Image image:</label>
