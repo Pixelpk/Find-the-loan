@@ -3,17 +3,14 @@
     <div class="content-page">
 
         <div class="content">
-
             <div class="container-fluid">
                 <div class="page-title-box">
-
                     <div class="row align-items-center ">
                         <div class="col-md-8">
                             <div class="page-title-box">
                                 <h4 class="page-title">Loan reasons</h4>
                             </div>
                         </div>
-
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
                                 <button onclick="resetFormFields()" type="button" id="add_loan_reason_btn" data-toggle="modal" data-target="#LoanReasonModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
@@ -22,7 +19,6 @@
                     </div>
                 </div>
                 <!-- end page-title -->
-
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -32,18 +28,28 @@
                                         <table id="tech-companies-1" class="table  table-striped">
                                             <thead>
                                             <tr>
+                                                <th data-priority="1">Profile</th>
+                                                <th data-priority="2">Type Name</th>
                                                 <th data-priority="3">Reason</th>
-                                                <th data-priority="1">Status</th>
-                                                <th data-priority="3">Actions</th>
+                                                <th data-priority="4">Status</th>
+                                                <th data-priority="5">Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($items as $item)
                                                 <tr>
+                                                    <td>
+                                                        @if($item->main_type==1)
+                                                        Business
+                                                        @elseif($item->main_type==2)
+                                                        Consumer
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $item->loanType ? $item->loanType->type_name : '' }}</td>
                                                     <td>{{$item->reason}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a href="#" onclick="getLoanReasonDetail({{$item->id}})" class=" edit_loan_reason_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="#" onclick="getLoanReasonDetail({{$item->id}}); getLoanType({{ $item->main_type }},{{ $item->id }})" class=" edit_loan_reason_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
@@ -73,7 +79,6 @@
                     <!-- end col -->
                 </div>
                 <!-- end row -->
-
             </div>
             <!-- container-fluid -->
 
@@ -104,6 +109,7 @@
                 if (data.success === 1) {
                     $('#update_loan_reason_id').val(detail.id);
                     $("#loan_reason").val(detail.reason);
+                    $("#loan_main_type").val(detail.main_type);
 
                     $('#LoanReasonModal').modal('toggle');
                     $('#LoanReasonModal').modal('show');
@@ -111,6 +117,22 @@
                     alert(data.message);
                 }
             });
+        }
+        function getLoanType(main_type, id) {
+            if(main_type){
+                var loan_type_id = main_type
+                var loan_reason_id = id;
+            }else{
+                loan_reason_id =0;
+                var loan_type_id = document.getElementById("loan_main_type").value;
+            }
+            $.ajax({
+                method: "GET",
+                url: "{{ route('get-loan-type', '') }}"+"/"+loan_type_id + '?loan_reason_id='+loan_reason_id,
+                success : function(data){
+                $('#loanType').html(data); 
+                }
+            })
         }
     </script>
 @endsection

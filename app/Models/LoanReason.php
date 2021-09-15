@@ -9,5 +9,9 @@ class LoanReason extends Model
 {
     use HasFactory;
     protected $table = 'loan_reasons';
-    protected $fillable = ['reason'];
+    protected $fillable = ['reason', 'main_type', 'loan_type_id'];
+    public function loanType()
+    {
+        return $this->belongsTo(LoanType::class);
+    }
 }

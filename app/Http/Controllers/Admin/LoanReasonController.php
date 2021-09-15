@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\LoanReason;
+use App\Models\LoanType;
 use Illuminate\Http\Request;
 
 class LoanReasonController extends Controller
@@ -19,6 +20,7 @@ class LoanReasonController extends Controller
 
     function reasonDetail(Request $request)
     {
+       
         try {
             $data = $request->all();
             $id = $data['id'] ?? '';
@@ -35,8 +37,10 @@ class LoanReasonController extends Controller
 
     public function addReason(Request $request){
         $data = $request->all();
+        // return $data;
         $request->validate([
             'reason' => 'required',
+            'main_type' => 'required',
         ]);
         $id = $data['id'] ?? null;
         $reason = new LoanReason();
@@ -51,6 +55,18 @@ class LoanReasonController extends Controller
             return redirect(route('loan-reasons'))->with('success',"Reason updated successfully!");
         }
         return redirect(route('loan-reasons'))->with('success',"Reason added successfully!");
+    }
+
+    public function getLoanType(Request $request, $id)
+    {
+        
+        $loanTypes = LoanType::where('main_type', $id)->where('status', 1)->get();
+        $loanReason = LoanReason::where('id', $request->loan_reason_id)->first();
+        
+        return view('admin.ajax.get-loan-type')
+        ->with('loanReason', $loanReason)
+        ->with('loanTypes', $loanTypes);
+        
     }
 
     public function changeStatus(Request $request)

@@ -14,9 +14,7 @@
 <link rel="stylesheet" href="{{ asset('assets/cms/css/magnific-popup.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/cms/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/cms/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/cms/css/style.scss') }}">
 <link rel="stylesheet" href="{{ asset('assets/cms/css/style01.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/cms/css/style02.css') }}">
 <title>Find The Loan</title>
 <style>
     .resize-img {

@@ -228,8 +228,9 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-//        dd(Auth::user());exit();
+        //dd(Auth::user());exit();
         Auth::logout();
+       
         return redirect(route('admin-login'));
     }
 

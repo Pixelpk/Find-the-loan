@@ -16,6 +16,7 @@ class InstallCommand extends Command
      */
     protected $signature = 'breeze:install {stack=blade : The development stack that should be installed (blade,react,vue)}
                             {--inertia : Indicate that the Vue Inertia stack should be installed (Deprecated)}
+                            {--pest : Indicate that Pest should be installed }
                             {--composer=global : Absolute path to the Composer binary which should be used to install packages}';
 
     /**
@@ -76,7 +77,7 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/App/View/Components', app_path('View/Components'));
 
         // Tests...
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/tests/Feature', base_path('tests/Feature'));
+        $this->installTests();
 
         // Routes...
         copy(__DIR__.'/../../stubs/default/routes/web.php', base_path('routes/web.php'));
@@ -98,6 +99,24 @@ class InstallCommand extends Command
     }
 
     /**
+     * Install Breeze's tests.
+     *
+     * @return void
+     */
+    protected function installTests()
+    {
+        if ($this->option('pest')) {
+            $this->requireComposerPackages('pestphp/pest:^1.16', 'pestphp/pest-plugin-laravel:^1.1');
+
+            (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/pest-tests/Feature', base_path('tests/Feature'));
+            (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/pest-tests/Unit', base_path('tests/Unit'));
+            (new Filesystem)->copy(__DIR__.'/../../stubs/default/pest-tests/Pest.php', base_path('tests/Pest.php'));
+        } else {
+            (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/tests/Feature', base_path('tests/Feature'));
+        }
+    }
+
+    /**
      * Install the Inertia Vue Breeze stack.
      *
      * @return void
@@ -105,14 +124,14 @@ class InstallCommand extends Command
     protected function installInertiaVueStack()
     {
         // Install Inertia...
-        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.4.1', 'laravel/sanctum:^2.6', 'tightenco/ziggy:^1.0');
+        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.4.3', 'laravel/sanctum:^2.6', 'tightenco/ziggy:^1.0');
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
             return [
-                '@inertiajs/inertia' => '^0.9.0',
-                '@inertiajs/inertia-vue3' => '^0.4.0',
-                '@inertiajs/progress' => '^0.2.4',
+                '@inertiajs/inertia' => '^0.10.0',
+                '@inertiajs/inertia-vue3' => '^0.5.1',
+                '@inertiajs/progress' => '^0.2.6',
                 '@tailwindcss/forms' => '^0.2.1',
                 '@vue/compiler-sfc' => '^3.0.5',
                 'autoprefixer' => '^10.2.4',
@@ -150,7 +169,7 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/inertia-vue/resources/js/Pages', resource_path('js/Pages'));
 
         // Tests...
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/tests/Feature', base_path('tests/Feature'));
+        $this->installTests();
 
         // Routes...
         copy(__DIR__.'/../../stubs/inertia-common/routes/web.php', base_path('routes/web.php'));
@@ -227,7 +246,7 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/inertia-react/resources/js/Pages', resource_path('js/Pages'));
 
         // Tests...
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/tests/Feature', base_path('tests/Feature'));
+        $this->installTests();
 
         // Routes...
         copy(__DIR__.'/../../stubs/inertia-common/routes/web.php', base_path('routes/web.php'));

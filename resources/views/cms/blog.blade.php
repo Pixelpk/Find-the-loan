@@ -48,7 +48,7 @@
                         <!--begin popup image -->
                         <div class="popup-wrapper">
                             <div class="popup-gallery">
-                                <a href="#"><img src="{{ url('uploads/blogImages/'.$blog->image) }}" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
+                                <a href="#"><img src="assets/img/blog1.jpg" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
                             </div>
                         </div>
                         <!--begin popup image -->
@@ -56,51 +56,56 @@
                         <!--begin blog-item_inner -->
                         <div class="blog-item-inner margin-bottom-50">
 
-                            <h3 class="blog-title"><a href="#">{{ $blog->title }}</a></h3>
+                            <h3 class="blog-title"><a href="#">Financial Planning</a></h3>
 
-{{--                            <a href="#" class="blog-icons"><i class="icon icon-user"></i> Paul Smith</a>--}}
+                            <a href="#" class="blog-icons"><i class="icon icon-user"></i> Paul Smith</a>
 
-{{--                            <a href="#" class="blog-icons last"><i class="icon icon-tags"></i> WordPress</a>--}}
+                            <a href="#" class="blog-icons last"><i class="icon icon-tags"></i> WordPress</a>
 
-                            {!! $blog->description !!}
+                            <p>Vestibulum malesuada risus vels tortor etimus iaculis pharetra. Vestibulum malesuada risus vels tortor et iaculis pharetra. Nullam tellus arcu, molestie vels nibh utim,  curabitur mattis ipse. Proin sed pharetra nunc. Quisque net ornare luctis augue vel facilisis etims curabitur mattis quam nonis ullamcorper semper vestibulum nullam tellus mattis quam non ullamcorper tempus net semper sed porttitor lacus aliquam suscipit .</p>
+
+                            <p class="blockquote">Suspendisse rhoncus purus eget lorem porta, sed porttitor lacus aliquam. Ut sodales ligula vel arcusim tristique efficitur. Cras non tortor ac turpis bibendum imperdiet. Nullam scelerisque netis aliquet sapien eu ornare. Nulla sit amet, sed porttitor lacus aliquam suscipit ligula. <span class="green">- John Smith</span></p>
+
+                            <p>Vestibulum malesuada risus vels tortor et iaculis pharetra. Nullam tellus arcu, molestie vels nibh utim,  curabitur mattis ipse. Proin sed pharetra nunc. Quisque ornare luctis augue vel facilisis etims curabitur mattis quam nonis ullamcorper semper vestibulum nullam tellus mattis quam non ullamcorper tempus net semper.</p>
+
                         </div>
                         <!--end blog-item-inner -->
 
                         <!--begin post_author -->
-{{--                        <div class="post_author">--}}
+                        <div class="post_author">
 
-{{--                            <img src="assets/img/blog1.jpg" alt="Picture" class="post_author_pic">--}}
+                            <img src="assets/img/blog1.jpg" alt="Picture" class="post_author_pic">
 
-{{--                            <h5>About the author</h5>--}}
+                            <h5>About the author</h5>
 
-{{--                            <p><strong>Jane Smith</strong> is mattis quam non ullamcorper semper, risus vels tortor etim iacus pharetra. Nullam tellus arcu, molestie vels nibh ut, nets molestie ipse. Prod sed pharetra nunc</p>--}}
+                            <p><strong>Jane Smith</strong> is mattis quam non ullamcorper semper, risus vels tortor etim iacus pharetra. Nullam tellus arcu, molestie vels nibh ut, nets molestie ipse. Prod sed pharetra nunc</p>
 
-{{--                            <!--begin author icons -->--}}
-{{--                            <ul class="author_icons">--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <i class="icon icon-twitter"></i>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <i class="icon icon-facebook"></i>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <i class="icon icon-dribble"></i>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <a href="#">--}}
-{{--                                        <i class="icon icon-dropbox"></i>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                            <!--end author icons -->--}}
+                            <!--begin author icons -->
+                            <ul class="author_icons">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-dribble"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon icon-dropbox"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--end author icons -->
 
-{{--                        </div>--}}
+                        </div>
                         <!--end post_author -->
 
                         <h4>2 Comments</h4>
@@ -184,85 +189,84 @@
 
                     <!--begin recent_posts -->
                     <h5>Recent Posts</h5>
-                    @foreach($latest as $new)
-                        <?php
-                        $string = strip_tags($new->description);
-                        $yourText = $new->description;
-                        if (strlen($string) > 100) {
-                            $stringCut = substr($new->description, 0, 100);
-                            $doc = new DOMDocument();
-                            $doc->loadHTML($stringCut);
-                            $yourText = $doc->saveHTML();
-                        }
-                        ?>
-                        <div class="sidebar_posts">
-                            <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img src="{{ url('uploads/blogImages/'.$new->image) }}" alt=""></a>
-                            <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title="">{!! $yourText !!}</a>
-                            <span class="sidebar_post_date">{{ $new->created_at->toFormattedDateString() }}</span>
-                        @endforeach
+                    <div class="sidebar_posts">
+                        <a href="#" title=""><img src="assets/img/blog1.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">21 July 2017</span>
+                    </div>
+                    <div class="sidebar_posts">
+                        <a href="#" title=""><img src="assets/img/blog2.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">17 September 2017</span>
+                    </div>
+                    <div class="sidebar_posts last">
+                        <a href="#" title=""><img src="assets/img/blog3.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">27 October 2017</span>
+                    </div>
                     <!--begin recent_posts -->
 
                     <!--begin tags -->
-{{--                    <h5>Tags:</h5>--}}
-{{--                    <ul class="tags">--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Taxes</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Finances</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Business</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Emplyer</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Audit</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Loans</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Advisors</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Services</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Insurance</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Plannig</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Retirement</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Startups</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Consulting</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    <h5>Tags:</h5>
+                    <ul class="tags">
+                        <li>
+                            <a href="#">Taxes</a>
+                        </li>
+                        <li>
+                            <a href="#">Finances</a>
+                        </li>
+                        <li>
+                            <a href="#">Business</a>
+                        </li>
+                        <li>
+                            <a href="#">Emplyer</a>
+                        </li>
+                        <li>
+                            <a href="#">Audit</a>
+                        </li>
+                        <li>
+                            <a href="#">Loans</a>
+                        </li>
+                        <li>
+                            <a href="#">Advisors</a>
+                        </li>
+                        <li>
+                            <a href="#">Services</a>
+                        </li>
+                        <li>
+                            <a href="#">Insurance</a>
+                        </li>
+                        <li>
+                            <a href="#">Plannig</a>
+                        </li>
+                        <li>
+                            <a href="#">Retirement</a>
+                        </li>
+                        <li>
+                            <a href="#">Startups</a>
+                        </li>
+                        <li>
+                            <a href="#">Consulting</a>
+                        </li>
+                    </ul>
                     <!--end tags -->
                     <!--begin categories -->
-{{--                    <h5>Categories:</h5>--}}
-{{--                    <ul class="sidebar_categories">--}}
-{{--                        <li>--}}
-{{--                            <a href="#"><i class="icon icon-angle-right"></i> Financial Consulting</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#"><i class="icon icon-angle-right"></i> Experts Advisors</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#"><i class="icon icon-angle-right"></i> Insurance Consulting</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#"><i class="icon icon-angle-right"></i> Retirement Planning</a>--}}
-{{--                        </li>--}}
+                    <h5>Categories:</h5>
+                    <ul class="sidebar_categories">
+                        <li>
+                            <a href="#"><i class="icon icon-angle-right"></i> Financial Consulting</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon icon-angle-right"></i> Experts Advisors</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon icon-angle-right"></i> Insurance Consulting</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon icon-angle-right"></i> Retirement Planning</a>
+                        </li>
 
-{{--                    </ul>--}}
+                    </ul>
                     <!--end categories -->
 
                 </div>

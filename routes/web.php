@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController as ControllersUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,7 +37,11 @@ Route::get('blog',[HomeController::class,'blogDetail'])->name('blog');
 Route::get('about-us',[HomeController::class,'aboutUs'])->name('about-us');
 Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
 Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
-Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
+Route::get('login',[LoginController::class,'index'])->name('login');
+Route::post('login',[LoginController::class,'loginAttempt'])->name('loginAttempt');
+Route::get('registration',[RegistrationController::class,'index'])->name('registration');
+Route::post('registration',[RegistrationController::class,'store'])->name('registrationStore');
+Route::get('verify',[RegistrationController::class,'verifyEmail'])->name('verifyEmail');
 
 // Admin routes
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');
@@ -55,11 +62,11 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('update-user', [UserController::class,'updateUser'])->name('update-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
-    Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
+   
     Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
-    Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
+    // Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
 
     Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
     Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
@@ -94,6 +101,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
 
     Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+    Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
     Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
     Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
     Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
@@ -107,6 +115,13 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
     Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
     Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
+    Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
 
 
+});
+
+
+
+Route::group(['middleware'=>['customer']],function (){
+    Route::get('/customer-dashboard', [ControllersUserController::class,'dashboard'])->name('customer-dashboard');
 });

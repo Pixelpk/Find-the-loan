@@ -48,7 +48,7 @@
                         <!--begin popup image -->
                         <div class="popup-wrapper">
                             <div class="popup-gallery">
-                                <a href="{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}"><img src="{{ url('uploads/blogImages/'.$blog->image) }}" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
+                                <a href="{{ route('blog',['id'=>$blog->id]) }}"><img src="{{ url('uploads/blogImages/'.$blog->image) }}" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
                             </div>
                         </div>
                         <!--begin popup image -->
@@ -56,11 +56,11 @@
                         <!--begin blog-item_inner -->
                         <div class="blog-item-inner">
 
-                            <h3 class="blog-title"><a href="{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}">{{ $blog->title }}</a></h3>
+                            <h3 class="blog-title"><a href="blog-single.html">{{ $blog->title }}</a></h3>
 
-{{--                            <a href="#" class="blog-icons"><i class="icon icon-user"></i> Paul Smith</a>--}}
+                            <a href="#" class="blog-icons"><i class="icon icon-user"></i> Paul Smith</a>
 
-{{--                            <a href="#" class="blog-icons last"><i class="icon icon-tags blue"></i> Finance</a>--}}
+                            <a href="#" class="blog-icons last"><i class="icon icon-tags blue"></i> Finance</a>
                             <?php
                             $string = strip_tags($blog->description);
                             $yourText = $blog->description;
@@ -71,13 +71,13 @@
                                 $yourText = $doc->saveHTML();
                             }
                             ?>
-                            <p>{!! $yourText !!}...<a href='{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}'>View More</a></p>
+                            <p>{!! $yourText !!}...<a href='{{ route('blog',['id'=>$blog->id]) }}'>View More</a></p>
                         </div>
                         <!--end blog-item-inner -->
 
                     </div>
                     @endforeach
-                        {{ $blogs->links() }}
+
                 </div>
                 <!--end col-sm-8-->
 
@@ -86,69 +86,66 @@
 
                     <!--begin recent_posts -->
                     <h5>Recent Posts</h5>
-                    @foreach($latest as $new)
-                        <?php
-                        $string = strip_tags($new->description);
-                        $yourText = $new->description;
-                        if (strlen($string) > 100) {
-                            $stringCut = substr($new->description, 0, 100);
-                            $doc = new DOMDocument();
-                            $doc->loadHTML($stringCut);
-                            $yourText = $doc->saveHTML();
-                        }
-                        ?>
                     <div class="sidebar_posts">
-                        <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img src="{{ url('uploads/blogImages/'.$new->image) }}" alt=""></a>
-                        <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title="">{!! $yourText !!}</a>
-                        <span class="sidebar_post_date">{{ $new->created_at->toFormattedDateString() }}</span>
+                        <a href="#" title=""><img src="assets/img/blog1.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">21 July 2017</span>
                     </div>
-                    @endforeach
-
+                    <div class="sidebar_posts">
+                        <a href="#" title=""><img src="assets/img/blog2.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">17 September 2017</span>
+                    </div>
+                    <div class="sidebar_posts last">
+                        <a href="#" title=""><img src="assets/img/blog3.jpg" alt=""></a>
+                        <a href="#" title="">Eodem modo typi, quisty et nunc nobis videntur parum clarits, it magna...</a>
+                        <span class="sidebar_post_date">27 October 2017</span>
+                    </div>
                     <!--begin recent_posts -->
 
                     <!--begin tags -->
-{{--                    <h5>Tags:</h5>--}}
-{{--                    <ul class="tags">--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Taxes</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Finances</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Business</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Emplyer</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Audit</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Loans</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Advisors</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Services</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Insurance</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Plannig</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Retirement</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Startups</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="#">Consulting</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
+                    <h5>Tags:</h5>
+                    <ul class="tags">
+                        <li>
+                            <a href="#">Taxes</a>
+                        </li>
+                        <li>
+                            <a href="#">Finances</a>
+                        </li>
+                        <li>
+                            <a href="#">Business</a>
+                        </li>
+                        <li>
+                            <a href="#">Emplyer</a>
+                        </li>
+                        <li>
+                            <a href="#">Audit</a>
+                        </li>
+                        <li>
+                            <a href="#">Loans</a>
+                        </li>
+                        <li>
+                            <a href="#">Advisors</a>
+                        </li>
+                        <li>
+                            <a href="#">Services</a>
+                        </li>
+                        <li>
+                            <a href="#">Insurance</a>
+                        </li>
+                        <li>
+                            <a href="#">Plannig</a>
+                        </li>
+                        <li>
+                            <a href="#">Retirement</a>
+                        </li>
+                        <li>
+                            <a href="#">Startups</a>
+                        </li>
+                        <li>
+                            <a href="#">Consulting</a>
+                        </li>
+                    </ul>
                     <!--end tags -->
 
 {{--                    <!--begin categories -->--}}
