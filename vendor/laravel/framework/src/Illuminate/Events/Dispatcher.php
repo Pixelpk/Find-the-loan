@@ -77,15 +77,9 @@ class Dispatcher implements DispatcherContract
     public function listen($events, $listener = null)
     {
         if ($events instanceof Closure) {
-            return collect($this->firstClosureParameterTypes($events))
-                ->each(function ($event) use ($events) {
-                    $this->listen($event, $events);
-                });
+            return $this->listen($this->firstClosureParameterType($events), $events);
         } elseif ($events instanceof QueuedClosure) {
-            return collect($this->firstClosureParameterTypes($events->closure))
-                ->each(function ($event) use ($events) {
-                    $this->listen($event, $events->resolve());
-                });
+            return $this->listen($this->firstClosureParameterType($events->closure), $events->resolve());
         } elseif ($listener instanceof QueuedClosure) {
             $listener = $listener->resolve();
         }
@@ -182,13 +176,7 @@ class Dispatcher implements DispatcherContract
 
         if (is_array($events)) {
             foreach ($events as $event => $listeners) {
-                foreach (Arr::wrap($listeners) as $listener) {
-                    if (is_string($listener) && method_exists($subscriber, $listener)) {
-                        $this->listen($event, [get_class($subscriber), $listener]);
-
-                        continue;
-                    }
-
+                foreach ($listeners as $listener) {
                     $this->listen($event, $listener);
                 }
             }
@@ -382,7 +370,7 @@ class Dispatcher implements DispatcherContract
     /**
      * Register an event listener with the dispatcher.
      *
-     * @param  \Closure|string|array  $listener
+     * @param  \Closure|string  $listener
      * @param  bool  $wildcard
      * @return \Closure
      */

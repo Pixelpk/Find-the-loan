@@ -1584,11 +1584,10 @@ trait Date
      */
     public function shiftTimezone($value)
     {
-        $dateTimeString = $this->format('Y-m-d H:i:s.u');
+        $offset = $this->offset;
+        $date = $this->setTimezone($value);
 
-        return $this
-            ->setTimezone($value)
-            ->modify($dateTimeString);
+        return $date->addRealMicroseconds(($offset - $date->offset) * static::MICROSECONDS_PER_SECOND);
     }
 
     /**

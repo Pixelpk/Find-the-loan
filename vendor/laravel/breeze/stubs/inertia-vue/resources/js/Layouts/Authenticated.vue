@@ -8,23 +8,23 @@
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <BreezeApplicationLogo class="block h-9 w-auto" />
-                                </Link>
+                                <inertia-link :href="route('dashboard')">
+                                    <breeze-application-logo class="block h-9 w-auto" />
+                                </inertia-link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
-                                </BreezeNavLink>
+                                </breeze-nav-link>
                             </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
-                                <BreezeDropdown align="right" width="48">
+                                <breeze-dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -38,11 +38,11 @@
                                     </template>
 
                                     <template #content>
-                                        <BreezeDropdownLink :href="route('logout')" method="post" as="button">
+                                        <breeze-dropdown-link :href="route('logout')" method="post" as="button">
                                             Log Out
-                                        </BreezeDropdownLink>
+                                        </breeze-dropdown-link>
                                     </template>
-                                </BreezeDropdown>
+                                </breeze-dropdown>
                             </div>
                         </div>
 
@@ -61,9 +61,9 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <breeze-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
-                        </BreezeResponsiveNavLink>
+                        </breeze-responsive-nav-link>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -74,9 +74,9 @@
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <BreezeResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <breeze-responsive-nav-link :href="route('logout')" method="post" as="button">
                                 Log Out
-                            </BreezeResponsiveNavLink>
+                            </breeze-responsive-nav-link>
                         </div>
                     </div>
                 </div>
@@ -98,27 +98,25 @@
 </template>
 
 <script>
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue'
-import BreezeDropdown from '@/Components/Dropdown.vue'
-import BreezeDropdownLink from '@/Components/DropdownLink.vue'
-import BreezeNavLink from '@/Components/NavLink.vue'
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-import { Link } from '@inertiajs/inertia-vue3';
+    import BreezeApplicationLogo from '@/Components/ApplicationLogo'
+    import BreezeDropdown from '@/Components/Dropdown'
+    import BreezeDropdownLink from '@/Components/DropdownLink'
+    import BreezeNavLink from '@/Components/NavLink'
+    import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
 
-export default {
-    components: {
-        BreezeApplicationLogo,
-        BreezeDropdown,
-        BreezeDropdownLink,
-        BreezeNavLink,
-        BreezeResponsiveNavLink,
-        Link,
-    },
+    export default {
+        components: {
+            BreezeApplicationLogo,
+            BreezeDropdown,
+            BreezeDropdownLink,
+            BreezeNavLink,
+            BreezeResponsiveNavLink,
+        },
 
-    data() {
-        return {
-            showingNavigationDropdown: false,
-        }
-    },
-}
+        data() {
+            return {
+                showingNavigationDropdown: false,
+            }
+        },
+    }
 </script>

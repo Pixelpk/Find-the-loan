@@ -16,8 +16,6 @@ use Illuminate\Support\Testing\Fakes\EventFake;
  * @method static void assertDispatched(string|\Closure $event, callable|int $callback = null)
  * @method static void assertDispatchedTimes(string $event, int $times = 1)
  * @method static void assertNotDispatched(string|\Closure $event, callable|int $callback = null)
- * @method static void assertNothingDispatched()
- * @method static void assertListening(string $expectedEvent, string expectedListener)
  * @method static void flush(string $event)
  * @method static void forget(string $event)
  * @method static void forgetPushed()
@@ -50,7 +48,7 @@ class Event extends Facade
      *
      * @param  callable  $callable
      * @param  array  $eventsToFake
-     * @return mixed
+     * @return callable
      */
     public static function fakeFor(callable $callable, array $eventsToFake = [])
     {

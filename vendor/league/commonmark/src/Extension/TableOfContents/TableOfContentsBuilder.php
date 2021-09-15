@@ -41,8 +41,7 @@ final class TableOfContentsBuilder implements ConfigurationAwareInterface
             (string) $this->config->get('table_of_contents/style'),
             (string) $this->config->get('table_of_contents/normalize'),
             (int) $this->config->get('table_of_contents/min_heading_level'),
-            (int) $this->config->get('table_of_contents/max_heading_level'),
-            (string) $this->config->get('heading_permalink/fragment_prefix'),
+            (int) $this->config->get('table_of_contents/max_heading_level')
         );
 
         $toc = $generator->generate($document);

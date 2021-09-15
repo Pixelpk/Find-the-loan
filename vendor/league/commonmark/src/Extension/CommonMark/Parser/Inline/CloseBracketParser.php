@@ -86,20 +86,14 @@ final class CloseBracketParser implements InlineParserInterface, EnvironmentAwar
         $inline = $this->createInline($link['url'], $link['title'], $isImage, $reference ?? null);
         $opener->getInlineNode()->replaceWith($inline);
         while (($label = $inline->next()) !== null) {
-            // Is there a Mention or Link contained within this link?
+            // Is there a Mention contained within this link?
             // CommonMark does not allow nested links, so we'll restore the original text.
             if ($label instanceof Mention) {
                 $label->replaceWith($replacement = new Text($label->getPrefix() . $label->getIdentifier()));
-                $inline->appendChild($replacement);
-            } elseif ($label instanceof Link) {
-                foreach ($label->children() as $child) {
-                    $label->insertBefore($child);
-                }
-
-                $label->detach();
-            } else {
-                $inline->appendChild($label);
+                $label = $replacement;
             }
+
+            $inline->appendChild($label);
         }
 
         // Process delimiters such as emphasis inside link/image

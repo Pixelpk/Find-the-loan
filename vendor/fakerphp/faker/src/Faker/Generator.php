@@ -78,13 +78,13 @@ use Psr\Container\ContainerInterface;
  *
  * @method mixed randomElement($array = ['a', 'b', 'c'])
  *
- * @property int|string|null $randomKey
+ * @property int $randomKey
  *
- * @method int|string|null randomKey($array = [])
+ * @method int randomKey($array = [])
  *
- * @property array|string $shuffle
+ * @property array $shuffle
  *
- * @method array|string shuffle($arg = '')
+ * @method array shuffle($arg = '')
  *
  * @property array $shuffleArray
  *
@@ -366,25 +366,25 @@ use Psr\Container\ContainerInterface;
  *
  * @method string word()
  *
- * @property array|string $words
+ * @property array $words
  *
- * @method array|string words($nb = 3, $asText = false)
+ * @method array words($nb = 3, $asText = false)
  *
  * @property string $sentence
  *
  * @method string sentence($nbWords = 6, $variableNbWords = true)
  *
- * @property array|string $sentences
+ * @property array $sentences
  *
- * @method array|string sentences($nb = 3, $asText = false)
+ * @method array sentences($nb = 3, $asText = false)
  *
  * @property string $paragraph
  *
  * @method string paragraph($nbSentences = 3, $variableNbSentences = true)
  *
- * @property array|string $paragraphs
+ * @property array $paragraphs
  *
- * @method array|string paragraphs($nb = 3, $asText = false)
+ * @method array paragraphs($nb = 3, $asText = false)
  *
  * @property string $text
  *
@@ -617,44 +617,31 @@ class Generator
         }
     }
 
-    public function format($format, $arguments = [])
+    public function format($formatter, $arguments = [])
     {
-        return call_user_func_array($this->getFormatter($format), $arguments);
+        return call_user_func_array($this->getFormatter($formatter), $arguments);
     }
 
     /**
-     * @param string $format
+     * @param string $formatter
      *
      * @return callable
      */
-    public function getFormatter($format)
+    public function getFormatter($formatter)
     {
-        if (isset($this->formatters[$format])) {
-            return $this->formatters[$format];
-        }
-
-        if (method_exists($this, $format)) {
-            $this->formatters[$format] = [$this, $format];
-
-            return $this->formatters[$format];
-        }
-
-        // "Faker\Core\Barcode->ean13"
-        if (preg_match('|^([a-zA-Z0-9\\\]+)->([a-zA-Z0-9]+)$|', $format, $matches)) {
-            $this->formatters[$format] = [$this->ext($matches[1]), $matches[2]];
-
-            return $this->formatters[$format];
+        if (isset($this->formatters[$formatter])) {
+            return $this->formatters[$formatter];
         }
 
         foreach ($this->providers as $provider) {
-            if (method_exists($provider, $format)) {
-                $this->formatters[$format] = [$provider, $format];
+            if (method_exists($provider, $formatter)) {
+                $this->formatters[$formatter] = [$provider, $formatter];
 
-                return $this->formatters[$format];
+                return $this->formatters[$formatter];
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('Unknown format "%s"', $format));
+        throw new \InvalidArgumentException(sprintf('Unknown formatter "%s"', $formatter));
     }
 
     /**
@@ -666,11 +653,7 @@ class Generator
      */
     public function parse($string)
     {
-        $callback = function ($matches) {
-            return $this->format($matches[1]);
-        };
-
-        return preg_replace_callback('/\{\{\s?(\w+)\s?\}\}/u', $callback, $string);
+        return preg_replace_callback('/\{\{\s?(\w+)\s?\}\}/u', [$this, 'callFormatWithMatches'], $string);
     }
 
     /**
@@ -841,28 +824,8 @@ class Generator
         );
     }
 
-    /**
-     * Get a version number in semantic versioning syntax 2.0.0. (https://semver.org/spec/v2.0.0.html)
-     *
-     * @param bool $preRelease Pre release parts may be randomly included
-     * @param bool $build      Build parts may be randomly included
-     *
-     * @example 1.0.0
-     * @example 1.0.0-alpha.1
-     * @example 1.0.0-alpha.1+b71f04d
-     */
-    public function semver(bool $preRelease = false, bool $build = false): string
-    {
-        return $this->ext(Extension\VersionExtension::class)->semver($preRelease, $build);
-    }
-
-    /**
-     * @deprecated
-     */
     protected function callFormatWithMatches($matches)
     {
-        trigger_deprecation('fakerphp/faker', '1.14', 'Protected method "callFormatWithMatches()" is deprecated and will be removed.');
-
         return $this->format($matches[1]);
     }
 

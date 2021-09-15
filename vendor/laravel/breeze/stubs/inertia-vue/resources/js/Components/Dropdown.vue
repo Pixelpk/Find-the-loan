@@ -5,7 +5,8 @@
         </div>
 
         <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="open = false"></div>
+        <div v-show="open" class="fixed inset-0 z-40" @click="open = false">
+        </div>
 
         <transition
             enter-active-class="transition ease-out duration-200"
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from "vue";
 
 export default {
     props: {

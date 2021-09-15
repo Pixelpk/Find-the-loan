@@ -1123,7 +1123,7 @@ class SSH2
                   31 => 'NET_SSH2_MSG_KEX_ECDH_REPLY']
         );
 
-        self::$connections[$this->getResourceId()] = class_exists('WeakReference') ? \WeakReference::create($this) : $this;
+        self::$connections[$this->getResourceId()] = $this;
 
         if (is_resource($host)) {
             $this->fsock = $host;
@@ -3092,7 +3092,7 @@ class SSH2
             return $this->reconnect();
         }
 
-        $this->close_channel(self::CHANNEL_KEEP_ALIVE);
+        $this->close_channel(NET_SSH2_CHANNEL_KEEP_ALIVE);
         return true;
     }
 
@@ -4896,10 +4896,7 @@ class SSH2
      */
     public static function getConnectionByResourceId($id)
     {
-        if (isset(self::$connections[$id])) {
-            return self::$connections[$id] instanceof \WeakReference ? self::$connections[$id]->get() : self::$connections[$id];
-        }
-        return false;
+        return isset(self::$connections[$id]) ? self::$connections[$id] : false;
     }
 
     /**
@@ -4909,14 +4906,7 @@ class SSH2
      */
     public static function getConnections()
     {
-        if (!class_exists('WeakReference')) {
-            return self::$connections;
-        }
-        $temp = [];
-        foreach (self::$connections as $key=>$ref) {
-            $temp[$key] = $ref->get();
-        }
-        return $temp;
+        return self::$connections;
     }
 
     /*

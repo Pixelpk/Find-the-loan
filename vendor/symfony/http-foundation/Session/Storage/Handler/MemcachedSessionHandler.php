@@ -57,7 +57,6 @@ class MemcachedSessionHandler extends AbstractSessionHandler
     /**
      * @return bool
      */
-    #[\ReturnTypeWillChange]
     public function close()
     {
         return $this->memcached->quit();
@@ -74,7 +73,6 @@ class MemcachedSessionHandler extends AbstractSessionHandler
     /**
      * @return bool
      */
-    #[\ReturnTypeWillChange]
     public function updateTimestamp($sessionId, $data)
     {
         $this->memcached->touch($this->prefix.$sessionId, time() + $this->ttl);

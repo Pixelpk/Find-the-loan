@@ -382,7 +382,6 @@ class Logger implements LoggerInterface, ResettableInterface
      * Gets all supported logging levels.
      *
      * @return array<string, int> Assoc array with human-readable level names => level codes.
-     * @phpstan-return array<LevelName, Level>
      */
     public static function getLevels(): array
     {
