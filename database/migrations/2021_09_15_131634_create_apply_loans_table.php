@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSomeColumnToLoanReason extends Migration
+class CreateApplyLoansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddSomeColumnToLoanReason extends Migration
      */
     public function up()
     {
-        Schema::table('loan_reasons', function (Blueprint $table) {
-            $table->integer('loan_tpye_id');
+        Schema::create('apply_loans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id');
+            $table->foreignId('loan_type_id');
+            $table->integer('amount');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddSomeColumnToLoanReason extends Migration
      */
     public function down()
     {
-        Schema::table('loan_reasons', function (Blueprint $table) {
-            $table->dropColumn('loan_tpye_id');
-        });
+        Schema::dropIfExists('apply_loans');
     }
 }

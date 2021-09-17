@@ -59,14 +59,17 @@ class LoanReasonController extends Controller
 
     public function getLoanType(Request $request, $id)
     {
-        
-        $loanTypes = LoanType::where('main_type', $id)->where('status', 1)->get();
-        $loanReason = LoanReason::where('id', $request->loan_reason_id)->first();
-        
+        if($request->loan_reason_id == 0)
+        {
+            $loanReason= '';    
+        }
+        else{
+            $loanReason = LoanReason::where('id', $request->loan_reason_id)->first();
+        }
+        $loanTypes = LoanType::where('profile', $id)->where('status', 1)->get();
         return view('admin.ajax.get-loan-type')
         ->with('loanReason', $loanReason)
         ->with('loanTypes', $loanTypes);
-        
     }
 
     public function changeStatus(Request $request)

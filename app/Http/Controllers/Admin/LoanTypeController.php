@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoanSubType;
 use App\Models\LoanType;
+use App\Models\MainType;
 use Illuminate\Http\Request;
 
 class LoanTypeController extends Controller
@@ -23,6 +25,7 @@ class LoanTypeController extends Controller
     public function loanSubTypes(Request $request){
 
         $data = $request->all();
+       
         $id = isset($data['id']) ? $data['id'] : null;
         if ($id == null){
             return redirect(route('loan-types'))->with('error',  "Oops. something went wrong");
@@ -60,9 +63,11 @@ class LoanTypeController extends Controller
 
     public function addLoanType(Request $request){
         $data = $request->all();
+        // dd($data);
         $request->validate([
-            'main_type' => 'required',
-            'type_name' => 'required',
+            'profile' => 'required',
+            'main_type_id' => 'required',
+            'sub_type' => 'required',
         ]);
         $id = $data['id'] ?? null;
         $loan_type = new LoanType();
@@ -72,8 +77,10 @@ class LoanTypeController extends Controller
                 return redirect(route('loan-types'))->with('error',  "Loan type does not exist")->withInput();
             }
         }
-        $loan_type->main_type = $data['main_type'];
-        $loan_type->type_name = $data['type_name'];
+        //   dd($data);
+        $loan_type->profile = $data['profile'];
+        $loan_type->main_type_id = $data['main_type_id'];
+        $loan_type->sub_type = $data['sub_type'];
         $loan_type->save();
         if ($id != null){
             return redirect(route('loan-types'))->with('success',"Loan type updated successfully!");
@@ -83,6 +90,7 @@ class LoanTypeController extends Controller
 
     public function addLoanSubType(Request $request){
         $data = $request->all();
+        // dd($data);
         $request->validate([
             'parent_id' => 'required',
             'type_name' => 'required',
@@ -149,4 +157,16 @@ class LoanTypeController extends Controller
             return redirect(route('loan-types'))->with("error", $exception->getMessage());
         }
     }
+    public function getMainTypes(Request $request, $id)
+    {
+        
+        $loanType = LoanType::find($request->loan_type_id);
+       
+        $mainType =  MainType::where('profile_id', $id)->get();
+        
+        return view('admin.ajax.get-loan-sub-type')
+        ->with('mainType', $mainType)
+        ->with('loanType', $loanType);
+    }
+    // public function loanSubTypes()
 }

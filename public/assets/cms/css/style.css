@@ -1051,7 +1051,7 @@ blockquote h6 {
     padding: .5rem 1.25rem;
     position: relative;
     outline: none !important;
-    background-color: #1db046 !important;
+    /* background-color: #1db046; */
 }
 
 .btn span {
@@ -1323,12 +1323,12 @@ form.ts-labels-inside-input .form-group label.focused,
     opacity: 1;
 }
 
-.form-control {
+/* .form-control {
     border: 0;
     box-shadow: 0 0 0 .125rem rgba(0, 0, 0, .2);
     border-radius: .125rem;
     padding: .5625rem .75rem;
-}
+} */
 
 .form-control:focus {
     box-shadow: 0 0 0 .125rem rgba(0, 0, 0, .4);

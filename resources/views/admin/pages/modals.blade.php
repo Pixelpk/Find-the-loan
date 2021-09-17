@@ -245,19 +245,27 @@
                     @csrf
                     <input type="hidden" name="id" id="update_loan_type_id">
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">Select Main type</label>
-                        <select class="form-control" name="main_type" id="loan_main_type">
+                        <label for="" class="control-label mb-10">Select Profile</label>
+                        <select onchange="getLoanMainType()" class="form-control" name="profile" id="profile">
+                            <option value="" hidden>Select</option>
                             @php
-                            $main_types = loanMainTypes();
+                            $main_types = loanProfile();
                             @endphp
-                            @for($i=1;$i<count($main_types);$i++) <option value="{{$i}}">{{ getLoanMainType($i) }}
+                            @for($i=1;$i<count($main_types);$i++) <option value="{{$i}}">{{ getProfile($i) }}
                                 </option>
                                 @endfor
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">Type name:</label>
-                        <input type="text" required id="loan_type_name" name="type_name" class="form-control">
+                        <label for="" class="control-label mb-10">Select Main Type</label>
+                        <select class="form-control" name="main_type_id" id="main_type">
+                           
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Select Sub Type</label>
+                        <input type="text" required id="sub_type" name="sub_type" class="form-control">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -324,9 +332,9 @@
                         <select  required onclick="getLoanType()" class="form-control" name="main_type" id="loan_main_type">
                             <option value="" hidden>Select</option>
                             @php
-                            $main_types = loanMainTypes();
+                            $main_types = loanProfile();
                             @endphp
-                            @for($i=1;$i<count($main_types);$i++) <option value="{{$i}}">{{ getLoanMainType($i) }}
+                            @for($i=1;$i<count($main_types);$i++) <option value="{{$i}}">{{ getProfile($i) }}
                                 </option>
                                 @endfor
                         </select>
@@ -335,9 +343,6 @@
                         <label for="" class="control-label mb-10">Type Name</label>
                         <select  class="form-control" name="loan_type_id" id="loan_main_type">
                             <option value="" hidden>Select</option>
-                           {{-- @foreach($loanTypes as $item)
-                                <option value="{{ $item->id }}">{{ $item->type_name }}</option>
-                           @endforeach --}}
                         </select>
                     </div>
                     <input type="hidden" name="id" id="update_loan_reason_id">

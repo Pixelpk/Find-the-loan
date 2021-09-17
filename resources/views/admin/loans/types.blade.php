@@ -32,8 +32,9 @@
                                         <table id="tech-companies-1" class="table  table-striped">
                                             <thead>
                                             <tr>
+                                                <th data-priority="1">Profile</th>
                                                 <th data-priority="1">Main Type</th>
-                                                <th data-priority="3">Type name</th>
+                                                <th data-priority="3">Sub Type</th>
                                                 <th data-priority="1">Status</th>
                                                 <th data-priority="3">Actions</th>
                                             </tr>
@@ -41,14 +42,15 @@
                                             <tbody>
                                             @foreach($items as $item)
                                                 <tr>
-                                                    <td>{{getLoanMainType($item->main_type)}}</td>
-                                                    <td>{{$item->type_name}}</td>
+                                                    <td>{{getProfile($item->profile)}}</td>
+                                                    <td>{{$item->mainType ?  $item->mainType->main_type : ''}}</td>
+                                                    <td>{{$item->sub_type}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
                                                         <a href="{{ route('loan-subtypes',['id'=>$item->id]) }}" data-original-title="Sub types">
                                                             <i class="m-2 fa fa-eye" aria-hidden="true"></i>
                                                         </a>
-                                                        <a href="#" onclick="getLoanTypeDetail({{$item->id}})" class=" edit_loan_type_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="#" onclick="getLoanTypeDetail({{$item->id}}); getLoanMainType({{ $item->profile }},{{ $item->id }})" class=" edit_loan_type_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
@@ -109,8 +111,8 @@
                 console.log(detail)
                 if (data.success === 1) {
                     $('#update_loan_type_id').val(detail.id);
-                    $("#loan_main_type").val(detail.main_type);
-                    $("#loan_type_name").val(detail.type_name);
+                    $("#profile").val(detail.profile);
+                    $("#sub_type").val(detail.sub_type);
 
                     $('#LoanTypeModal').modal('toggle');
                     $('#LoanTypeModal').modal('show');
@@ -118,6 +120,24 @@
                     alert(data.message);
                 }
             });
+        }
+     
+        function getLoanMainType(main_type, id) {
+            
+            if(main_type){
+                var main_type = main_type
+                var loan_type_id = id;
+            }else{
+                loan_type_id =0;
+                var main_type = document.getElementById("profile").value;
+            }
+            $.ajax({
+                method: "GET",
+                url: "{{ route('get-main-type', '') }}"+"/"+main_type + '?loan_type_id='+loan_type_id,
+                success : function(data){
+                $('#main_type').html(data); 
+                }
+            })
         }
     </script>
 @endsection

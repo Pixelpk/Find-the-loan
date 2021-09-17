@@ -26,7 +26,7 @@ class LoginController extends Controller
         }
         if($approve && $approve->status == 1){
             Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
-            return redirect()->route('customer-dashboard');
+            return redirect()->route('home');
         }elseif($approve && $approve->status == 0){
             return redirect()->route('login')->with('error', 'User deactivated');
         }

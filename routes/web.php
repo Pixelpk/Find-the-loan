@@ -93,6 +93,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
 
     Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
+    Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
     Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
     Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
     Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
@@ -123,5 +124,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
 
 Route::group(['middleware'=>['customer']],function (){
-    Route::get('/customer-dashboard', [ControllersUserController::class,'dashboard'])->name('customer-dashboard');
+    Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
+    Route::post('/apply-loan', [ControllersUserController::class,'applyLoanStore'])->name('apply-loan-store');
+    Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
 });

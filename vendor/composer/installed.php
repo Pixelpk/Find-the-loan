@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2a0dd9bd642f71cc27d708cf97c5a61b4c0bcbc4',
+        'reference' => 'c74a2ffcd65c2e9a6dc2140b6635afed851045b4',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+            'dev_requirement' => false,
+        ),
+        'composer/package-versions-deprecated' => array(
+            'pretty_version' => '1.11.99.4',
+            'version' => '1.11.99.4',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/./package-versions-deprecated',
+            'aliases' => array(),
+            'reference' => 'b174585d1fe49ceed21928a945138948cb394600',
             'dev_requirement' => false,
         ),
         'cordoval/hamcrest-php' => array(
@@ -56,6 +65,42 @@
             'install_path' => __DIR__ . '/../dflydev/dot-access-data',
             'aliases' => array(),
             'reference' => '0992cc19268b259a39e86f296da5f0677841f42c',
+            'dev_requirement' => false,
+        ),
+        'doctrine/cache' => array(
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/cache',
+            'aliases' => array(),
+            'reference' => '331b4d5dbaeab3827976273e9356b3b453c300ce',
+            'dev_requirement' => false,
+        ),
+        'doctrine/dbal' => array(
+            'pretty_version' => '3.1.2',
+            'version' => '3.1.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/dbal',
+            'aliases' => array(),
+            'reference' => '3ee2622b57370c786f531678f6641208747f7bfc',
+            'dev_requirement' => false,
+        ),
+        'doctrine/deprecations' => array(
+            'pretty_version' => 'v0.5.3',
+            'version' => '0.5.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/deprecations',
+            'aliases' => array(),
+            'reference' => '9504165960a1f83cc1480e2be1dd0a0478561314',
+            'dev_requirement' => false,
+        ),
+        'doctrine/event-manager' => array(
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/event-manager',
+            'aliases' => array(),
+            'reference' => '41370af6a30faa9dc0368c4a6814d596e81aba7f',
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
@@ -436,7 +481,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2a0dd9bd642f71cc27d708cf97c5a61b4c0bcbc4',
+            'reference' => 'c74a2ffcd65c2e9a6dc2140b6635afed851045b4',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -639,6 +684,12 @@
             'aliases' => array(),
             'reference' => '2212385b47153ea71b1c1b1374f8cb5e4f7892ec',
             'dev_requirement' => false,
+        ),
+        'ocramius/package-versions' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '1.11.99',
+            ),
         ),
         'opis/closure' => array(
             'pretty_version' => '3.6.2',
@@ -889,8 +940,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0',
+                0 => '1.0.0 || 2.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(

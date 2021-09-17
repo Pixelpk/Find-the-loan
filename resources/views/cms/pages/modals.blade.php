@@ -241,7 +241,7 @@
                                     $main_types = loanMainTypes();
                                 @endphp
                                 @for($i=1;$i<count($main_types);$i++)
-                                    <option value="{{$i}}">{{ getLoanMainType($i) }}</option>
+                                    <option value="{{$i}}">{{ getProfile($i) }}</option>
                                 @endfor
                             </select>
                         </div>

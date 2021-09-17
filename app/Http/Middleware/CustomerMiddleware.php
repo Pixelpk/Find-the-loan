@@ -21,6 +21,7 @@ class CustomerMiddleware
         if (Auth::guard('web')->check() && Auth::guard('web')->user()->role_id == 2 ){
             return $next($request);
         }
+        
         return redirect(route('login'));
     }
 }

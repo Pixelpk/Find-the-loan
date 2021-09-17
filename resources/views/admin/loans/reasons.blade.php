@@ -29,7 +29,7 @@
                                             <thead>
                                             <tr>
                                                 <th data-priority="1">Profile</th>
-                                                <th data-priority="2">Type Name</th>
+                                                <th data-priority="2">Loan Type</th>
                                                 <th data-priority="3">Reason</th>
                                                 <th data-priority="4">Status</th>
                                                 <th data-priority="5">Actions</th>
@@ -45,7 +45,7 @@
                                                         Consumer
                                                         @endif
                                                     </td>
-                                                    <td>{{ $item->loanType ? $item->loanType->type_name : '' }}</td>
+                                                    <td>{{ $item->loanType ? $item->loanType->sub_type : '' }}</td>
                                                     <td>{{$item->reason}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
