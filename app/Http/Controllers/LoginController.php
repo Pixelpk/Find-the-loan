@@ -20,14 +20,14 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $approve = User::where('email', $request->email)->where('status', '!=',2)->first();
+        $approve = User::where('email', $request->email)->where('status', '!=',2)->where('role_id', 2)->first();
         if(!$approve){
             return redirect(route('login'))->with('error','User not exists');
         }
-        if($approve && $approve->status == 1){
+        if($approve && $approve->status == 1 && $approve->role_id == 2){
             Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password]);
             return redirect()->route('home');
-        }elseif($approve && $approve->status == 0){
+        }elseif($approve && $approve->status == 0 && $approve->role_id == 2){
             return redirect()->route('login')->with('error', 'User deactivated');
         }
         return redirect()->route('login')->with('error', 'User is not approved please verify through email');      
