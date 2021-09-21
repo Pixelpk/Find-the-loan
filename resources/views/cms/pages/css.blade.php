@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="{{ asset('assets/cms/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/cms/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/cms/css/style01.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
 <title>Find The Loan</title>
 <style>
     .resize-img {

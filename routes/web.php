@@ -126,5 +126,8 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
     Route::post('/apply-loan', [ControllersUserController::class,'applyLoanStore'])->name('apply-loan-store');
+    Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
+    Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
     Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
+    Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
 });

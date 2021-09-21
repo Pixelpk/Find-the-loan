@@ -5,10 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\LoanReason;
 use App\Models\LoanType;
+use App\Models\MainType;
 use Illuminate\Http\Request;
 
 class LoanReasonController extends Controller
 {
+    public function getLoanMainType(Request $request)
+    {
+        $mainTypes = MainType::where('profile_id', $request->id)->get();
+        return view('cms.ajax.main-type')->with('mainTypes', $mainTypes);
+       
+    }
     public function loanReasons(Request $request){
         $data = $request->all();
         $data['items'] = LoanReason::query()
