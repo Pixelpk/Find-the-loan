@@ -64,9 +64,8 @@
 
                     <!--begin testimonials_item -->
                         @foreach($testimonials as $testimonial)
-                    <div class="testimonials_item4">
-
-                        <div class="testimonials_box4">
+                    <div class="testimonials_item4 pb-5" style="border-bottom: #69696926 1px solid !important;">
+                        <div class="testimonials_box4 mt-0">
                             <p>"{!! $testimonial->review !!}"</p>
                             <span class="testimonials_arrow"></span>
                         </div>

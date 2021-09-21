@@ -31,7 +31,7 @@
 
     <!--begin blog -->
     <section class="section-white small-padding">
-
+        @include('cms.pages.flash-message')
         <!--begin container-->
         <div class="container">
 
@@ -48,15 +48,13 @@
                     <!--end success message -->
 
                     <!--begin contact form -->
-                    <form id="contact-form" class="contact" action="#" method="post">
-
-                        <input class="contact-input white-input" required="" name="contact_names" placeholder="Full Name*" type="text">
-                        <input class="contact-input white-input" required="" name="contact_email" placeholder="Email Adress*" type="email">
-                        <input class="contact-input white-input" required="" name="contact_phone" placeholder="Phone Number*" type="text">
-                        <textarea class="contact-commnent white-input" rows="2" cols="20" name="contact_message" placeholder="Your Message...">
-                        </textarea>
+                    <form id="contact-form" class="contact" action="{{ route('contact-us') }}" method="post">
+                        @csrf
+                        <input class="contact-input white-input" required name="name" placeholder="Full Name*" type="text">
+                        <input class="contact-input white-input" required name="email" placeholder="Email Adress*" type="email">
+                        <input class="contact-input white-input" required name="phone" placeholder="Phone Number*" type="text">
+                        <textarea required class="contact-commnent white-input" rows="2" cols="20" name="contact_message" placeholder="Your Message..."></textarea>
                         <input value="Send Message" id="submit-button" class="btn btn-primary" type="submit">
-
                     </form>
                     <!--end contact form -->
 

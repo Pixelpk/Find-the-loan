@@ -13,50 +13,69 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('loan-types') }}" class="waves-effect @if(Route::CurrentRouteName() == 'loan-types') mm-active @endif">
-                        <i class="fa fa-money-bill-alt"></i><span> Loan Types </span>
-                    </a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-web"></i><span> CMS <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('site-data') }}" class="@if(Route::CurrentRouteName() == 'site-data') mm-active @endif">
+                                <i class="dripicons-web"></i><span> Site Data </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('blogs') }}" class="@if(Route::CurrentRouteName() == 'blogs')  mm-active @endif">
+                                <i class="fa fa-blog"></i><span> Blogs </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('faq') }}" class="@if(Route::CurrentRouteName() == 'faq')  mm-active @endif">
+                                <i class="dripicons-question"></i><span> Faqs </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('testimonials') }}" class="@if(Route::CurrentRouteName() == 'testimonials')  mm-active @endif">
+                                <i class="fa fa-quote-left"></i><span> Testimonials </span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li>
-                    <a href="{{ route('loan-reasons') }}" class="waves-effect @if(Route::CurrentRouteName() == 'loan-reasons') mm-active @endif">
-                        <i class="fa fa-list"></i><span> Loan reasons </span>
-                    </a>
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan Management <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="{{ route('loan-types') }}" class="@if(Route::CurrentRouteName() == 'loan-types') mm-active @endif">
+                                <i class="fa fa-money-bill-alt"></i><span> Loan Types </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('loan-reasons') }}" class="@if(Route::CurrentRouteName() == 'loan-reasons') mm-active @endif">
+                                <i class="fa fa-list"></i><span> Loan reasons </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('company-structure-type') }}" class="waves-effect @if(Route::CurrentRouteName() == 'company-structure-type') mm-active @endif">
+                                <i class="fa fa-object-group"></i><span> Company structures </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sectors') }}" class="waves-effect @if(Route::CurrentRouteName() == 'sectors') mm-active @endif">
+                                <i class="fa fa-industry"></i><span> Sectors </span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li>
-                    <a href="{{ route('company-structure-type') }}" class="waves-effect @if(Route::CurrentRouteName() == 'company-structure-type') mm-active @endif">
-                        <i class="fa fa-object-group"></i><span> Company structures </span>
+                    <a href="{{ route('users') }}" class="waves-effect @if(Route::CurrentRouteName() == 'users') mm-active @endif">
+                        <i class="fa fa-users"></i><span> Users </span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('sectors') }}" class="waves-effect @if(Route::CurrentRouteName() == 'sectors') mm-active @endif">
-                        <i class="fa fa-industry"></i><span> Sectors </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('site-data') }}" class="waves-effect @if(Route::CurrentRouteName() == 'site-data') mm-active @endif">
-                        <i class="dripicons-web"></i><span> Site Data </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('blogs') }}" class="waves-effect @if(Route::CurrentRouteName() == 'blogs')  mm-active @endif">
-                        <i class="fa fa-blog"></i><span> Blogs </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('faq') }}" class="waves-effect @if(Route::CurrentRouteName() == 'faq')  mm-active @endif">
-                        <i class="dripicons-question"></i><span> Faqs </span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="{{ route('finance-partners') }}" class="waves-effect @if(Route::CurrentRouteName() == 'finance-partners')  mm-active @endif">
                         <i class="fa fa-handshake"></i><span> Finance partners </span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('testimonials') }}" class="waves-effect @if(Route::CurrentRouteName() == 'testimonials')  mm-active @endif">
-                        <i class="fa fa-quote-left"></i><span> Testimonials </span>
-                    </a>
-                </li>
+
 
 {{--                <li>--}}
 {{--                    <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-mail"></i><span> User Management <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>--}}

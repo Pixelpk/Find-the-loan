@@ -13,7 +13,7 @@
                 <!--begin col-xs-12 -->
                 <div class="col-sm-12 col-lg-12 col-xs-12">
 
-                    <h2 class="page-title white text-center">Privacy policy</h2>
+                    <h2 class="page-title white text-center">Terms & Conditions</h2>
 
                 </div>
 
@@ -38,7 +38,7 @@
             <!--begin row-->
             <div class="row">
                 <div class="col-md-12">
-                {!! $privacy_policy !!}
+                {!! $terms_conditions !!}
                 </div>
             </div>
             <!--end row-->
