@@ -62,7 +62,7 @@ class BlogController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'blog' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();
-            $destinationPath = "uploads/blogImages/" . $filename;
+            $destinationPath = public_path("uploads/blogImages/" . $filename);
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath) && $data['image']) {
                 if (file_exists($destinationPath)) {
                     $data['image'] = $filename;

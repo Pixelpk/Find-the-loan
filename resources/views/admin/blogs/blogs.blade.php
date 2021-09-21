@@ -43,7 +43,7 @@
                                             @foreach($items as $item)
                                                 <tr>
                                                     <td>
-                                                        @if (file_exists(base_path('uploads/blogImages/'.$item->image)) && $item->image != '')
+                                                        @if (file_exists(public_path('uploads/blogImages/'.$item->image)) && $item->image != '')
                                                             <img class="justify-content-center resize-img"
                                                                  src="{{ url('uploads/blogImages/'.$item->image) }}"/>
                                                         @else

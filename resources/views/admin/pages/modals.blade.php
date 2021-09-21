@@ -67,6 +67,58 @@
                             class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="" class="control-label mb-10">Min quantum:</label>
+                        <input type="number" required id="min_quantum" name="min_quantum" min="0"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Max quantum:</label>
+                        <input type="number" required id="max_quantum" name="max_quantum" min="0"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Type:</label>
+                        <select required class="form-control" name="type" id="partner_type">
+                            <option value="1">Bank</option>
+                            <option value="2">Excluded moneylender</option>
+                            <option value="3">Fintech</option>
+                            <option value="4">Moneylender</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Company structure:</label>
+                        <select required class="form-control" name="company_structure_id" id="partner_company_structure">
+                            @foreach($structures as $structure)
+                            <option value="{{$structure->id}}">{{ $structure->structure_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Loan type:</label>
+                        <select required multiple class="form-control" name="loan_type_id[]" id="partner_loan_type">
+                            @foreach($loan_types as $type)
+                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Length of incorporation</label>
+                        <input required type="number" min="0" class="form-control" name="length_of_incorporation" id="length_of_incorporation">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">% of local shareholding required</label>
+                        <input required type="number" min="0" class="form-control" name="local_shareholding" id="local_shareholding">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Subsidiaries</label>
+                        <input required type="number" min="0" class="form-control" name="subsidiaries" id="subsidiaries">
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input required type="checkbox" class="custom-control-input" name="cbs_member" id="cbs_member">
+                        <label class="custom-control-label" for="cbs_member">CBS member</label>
+                    </div>
+
+                    <div class="form-group">
                         <label for="" class="control-label mb-10">Partner image:</label>
                         <br>
                         <label class="label" data-toggle="tooltip" title="Select partner image">
@@ -111,6 +163,57 @@
                         <label for="" class="control-label mb-10">Phone:</label>
                         <input type="text" required id="edit_partner_phone" name="phone" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Min quantum:</label>
+                        <input type="number" required id="edit_min_quantum" name="min_quantum" min="0"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Max quantum:</label>
+                        <input type="number" required id="edit_max_quantum" name="max_quantum" min="0"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Type:</label>
+                        <select required class="form-control" name="type" id="edit_partner_type">
+                            <option value="1">Bank</option>
+                            <option value="2">Excluded moneylender</option>
+                            <option value="3">Fintech</option>
+                            <option value="4">Moneylender</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Company structure:</label>
+                        <select class="form-control" name="company_structure_id" id="edit_partner_company_structure">
+                            @foreach($structures as $structure)
+                                <option value="{{$structure->id}}">{{ $structure->structure_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Loan type:</label>
+                        <select multiple class="form-control" name="loan_type_id[]" id="edit_partner_loan_type">
+                            @foreach($loan_types as $type)
+                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Length of incorporation</label>
+                        <input type="number" min="0" class="form-control" name="length_of_incorporation" id="edit_length_of_incorporation">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">% of local shareholding required</label>
+                        <input type="number" min="0" class="form-control" name="local_shareholding" id="edit_local_shareholding">
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Subsidiaries</label>
+                        <input type="number" min="0" class="form-control" name="subsidiaries" id="edit_subsidiaries">
+                    </div>
+{{--                    <div class="custom-control custom-switch">--}}
+{{--                        <input type="checkbox" class="custom-control-input" name="cbs_member" id="edit_cbs_member">--}}
+{{--                        <label class="custom-control-label" for="edit_cbs_member">CBS member</label>--}}
+{{--                    </div>--}}
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Partner image:</label>
                         <br>
@@ -259,10 +362,10 @@
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Select Main Type</label>
                         <select class="form-control" name="main_type_id" id="main_type">
-                           
+
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Select Sub Type</label>
                         <input type="text" required id="sub_type" name="sub_type" class="form-control">

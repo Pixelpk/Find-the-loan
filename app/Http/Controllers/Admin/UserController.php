@@ -99,10 +99,25 @@ class UserController extends Controller
         return view('admin.dashboard',$data);
     }
 
-    public function profile(Request $request)
+    public function adminProfile(Request $request)
     {
         return view('admin.user.profile');
     }
+
+    public function partnerProfile(Request $request)
+    {
+        $data['structures'] = CompanyStructure::where('status','=','1')
+            ->get();
+        $data['loan_types'] = LoanType::where('status','=',1)->get();
+        $data['selected_structure'] = $request->user()->company_structure_id;
+        $data['selected_loan_types'] = explode(',',$request->user()->loan_type_id);
+        return view('admin.user.partner-profile',$data);
+    }
+
+//    public function profile(Request $request)
+//    {
+//        return view('admin.user.profile');
+//    }
 
     function userDetail(Request $request)
     {
@@ -124,7 +139,7 @@ class UserController extends Controller
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
         ]);
 
         $user = $request->user();
@@ -134,7 +149,29 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->phone = $request->phone;
         $user->save();
-        return redirect(route('profile'))->with('success','Profile is updated successfully');
+        return redirect()->back()->with('success','Profile is updated successfully');
+    }
+
+    function updatePartnerProfile(Request $request){
+        $data = $request->all();
+        $this->validate($request,[
+            'name' => 'required',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'min_quantum' => 'required|min:0',
+            'max_quantum' => 'required|min:0',
+            'company_structure_id' => 'required',
+            'loan_type_id' => 'required',
+            'length_of_incorporation' => 'required|min:0',
+            'local_shareholding' => 'required|min:0',
+            'subsidiaries' => 'required|min:0',
+        ]);
+        $data['loan_type_id'] = implode(',',$data['loan_type_id']);
+
+        $user = $request->user();
+
+        $user->fill($data)->save();
+
+        return redirect()->back()->with('success','Profile is updated successfully');
     }
 
     function updatePassword(Request $request){
@@ -145,10 +182,15 @@ class UserController extends Controller
         $user = Auth::user();
         if (Hash::check($request->old_password , $user->password)){
             $password = Hash::make($request->password);
-            User::where('id','=',$user->id)->update(['password'=>$password]);
-            return redirect(route('profile'))->with('success','Password updated successfully');
+            if (Auth::guard('partners')){
+                FinancePartner::where('id','=',$user->id)->update(['password'=>$password]);
+            }
+            else{
+                User::where('id','=',$user->id)->update(['password'=>$password]);
+            }
+            return redirect()->back()->with('success','Password updated successfully');
         }
-        return redirect(route('profile'))->with('success',"You old password is wrong. try again");
+        return redirect()->back()->with('success',"You old password is wrong. try again");
     }
 
     public function users(Request $request){
@@ -156,7 +198,7 @@ class UserController extends Controller
             ->where('role_id','=','2')
             ->whereIn('status',[0,1])
             ->orderby('id','desc')
-            ->get();
+            ->paginate(20);
         return view('admin.user.users',$data);
     }
 
@@ -208,9 +250,9 @@ class UserController extends Controller
 
         $data['password'] = Hash::make($data['password']);
         $dup = User::where(function ($query) use($data){
-                $query->where('email','=',$data['email']);
-                $query->orwhere('phone','=',$data['phone']);
-            })->where('status','!=','2')->first();
+            $query->where('email','=',$data['email']);
+            $query->orwhere('phone','=',$data['phone']);
+        })->where('status','!=','2')->first();
 
         if ($dup){
             return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',  "User already exists!")->withInput();
@@ -228,9 +270,8 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        //dd(Auth::user());exit();
+//        dd(Auth::user());exit();
         Auth::logout();
-       
         return redirect(route('admin-login'));
     }
 

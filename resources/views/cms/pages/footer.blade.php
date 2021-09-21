@@ -14,10 +14,10 @@
                 <h6>Site Map</h6>
                 <ul class="footer-links">
 
-                    <li><a href="/">Home </a></li>
-                    <li><a href="/">About Us</a></li>
-                    <li><a href="/">Faq's</a></li>
-                    <li><a href="/">Contact Us</a></li>
+                    <li><a href="{{ route('home') }}">Home </a></li>
+                    <li><a href="{{ route('about-us') }}">About Us</a></li>
+                    <li><a href="{{ route('faqs') }}">Faq's</a></li>
+                    <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
                 </ul>
             </div>
 
@@ -33,8 +33,8 @@
             <div class="col-md-3 col-sm-6 col-xs-12 align-self-center align-items-center">
                 <h6></h6>
                 <ul class="footer-links">
-                    <li><a href="/">Privacy Policy </a></li>
-                    <li><a href="/">Terms & Conditions</a></li>
+                    <li><a href="{{ route('privacy-policy') }}">Privacy Policy </a></li>
+                    <li><a href="{{ route('terms-conditions') }}">Terms & Conditions</a></li>
                 </ul>
             </div>
         </div>
