@@ -22,8 +22,9 @@
                         <a href="{{ route('login') }}" class="btnnew1" style="color:#161b5b; font-size:14px !important;"> <i class="fas fa-user ts-opacity__80 pr-2"></i>LOGIN </a>
                         <a class="logpad btnnew1" href="{{ route('registration') }}" style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
                         @endif
-                        <a href="/" class="btnnew2" style="color:#1db046; font-size:14px !important;"> <i class="fas fa-tags ts-opacity__80 pr-2"></i>Bookmark us for later </a>
-
+                        @if(Auth::guard('web')->check())
+                        <a href="{{ route('applyLoan') }}" class="btnnew2" style="color:#1db046; font-size:14px !important;"> <i class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
+                        @endif
                     </div>
                     <!--end navbar-nav-->
                 </div>
@@ -75,9 +76,13 @@
                         <a class="nav-item nav-link ts-scroll" href="{{ route('about-us') }}">ABOUT US</a>
                         <a class="nav-item nav-link ts-scroll" href="{{ route('faqs') }}">FAQ'S</a>
                         <a class="nav-item nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
-                        <a href="/" class="btnnew1" style="color:#161b5b; font-size:14px !important;"> <i class="fas fa-user ts-opacity__80 pr-2"></i>LOGIN </a>
-                        <a class="logpad btnnew1" href="/" style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
-                        <a href="/" class="btnnew2" style="color:#1db046; font-size:14px !important;"> <i class="fas fa-tags ts-opacity__80 pr-2"></i>Bookmark us for later </a>
+                        @if(!Auth::guard('web')->check())
+                        <a href="{{ route('login') }}" class="btnnew1" style="color:#161b5b; font-size:14px !important;"> <i class="fas fa-user ts-opacity__80 pr-2"></i>LOGIN </a>
+                        <a class="logpad btnnew1" href="{{ route('registration') }}" style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
+                        @endif
+                        @if(Auth::guard('web')->check())
+                        <a href="{{ route('applyLoan') }}" class="btnnew2" style="color:#1db046; font-size:14px !important;"> <i class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
+                        @endif
 
                     </div>
                     <!--end navbar-nav-->
