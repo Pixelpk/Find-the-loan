@@ -3,13 +3,11 @@
 @section('content')
 <form id="shareholderform" enctype="multipart/form-data" method="POST">
     @csrf
-    {{-- //////////// --}}
-    
     @php $sr = 1; 
         $no =  $companyDetail->number_of_share_holder - 1
     @endphp; 
-    {{-- <input type="hidden" value="{{ $no }}" id="countShareHolder"> --}}
-    @for ($x = 0; $x <= 1; $x++)
+    <input type="hidden" value="{{ $no }}" id="countShareHolder">
+    @for ($x = 0; $x <= $no; $x++)
     <div style="padding: 15px;" class="card">
         {{-- <input type="hidden"> --}}
         <div class="row" style="padding: 15px;">
@@ -22,7 +20,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-                <a class="btn btn-light">Share holder </a>
+                <a class="btn btn-light">Share holder {{ $sr++ }}</a>
             </div>
 
             <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
