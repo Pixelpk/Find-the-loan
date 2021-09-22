@@ -1,6 +1,6 @@
 
-@extends('cms.layouts.master')
-@section('content')
+{{-- @extends('cms.layouts.master') --}}
+{{-- @section('content') --}}
 <form id="shareholderform" enctype="multipart/form-data" method="POST">
     @csrf
     @php $sr = 1; 
@@ -113,5 +113,5 @@
     });
 
 </script>
-@endsection
+{{-- @endsection --}}
 
