@@ -3,9 +3,11 @@
 @section('content')
 <form id="shareholderform" enctype="multipart/form-data" method="POST">
     @csrf
-    {{-- @php $sr = 1; 
+    {{-- //////////// --}}
+    
+    @php $sr = 1; 
         $no =  $companyDetail->number_of_share_holder - 1
-    @endphp;  --}}
+    @endphp; 
     {{-- <input type="hidden" value="{{ $no }}" id="countShareHolder"> --}}
     @for ($x = 0; $x <= 1; $x++)
     <div style="padding: 15px;" class="card">
@@ -80,7 +82,7 @@
         var getCompany=document.getElementById('companyCheck'+id)
         var checked = getCompany.checked
         if(checked){
-            alert('sad')
+            // window.open('company-share-holder/{{ $companyDetail->apply_loan_id }}', '_blank');
         }
     }
     $('#shareholderform').submit(function (e) {

@@ -182,7 +182,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
     Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
     Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
-    Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
+    Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
 
 
 });
