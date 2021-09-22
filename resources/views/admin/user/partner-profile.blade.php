@@ -22,12 +22,12 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="mt-0 header-title">Update profile</h4>
+                                <h4 class="mt-0 header-title">Profile</h4>
                                 <form class="" method="post" action="{{ route('partner-profile') }}">
                                     @csrf
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input type="text" value="{{ Auth::user()->name }}" class="form-control" required placeholder="First name" value="{{ Auth::user()->first_name }}" name="first_name" />
+                                        <input disabled type="text" value="{{ Auth::user()->name }}" class="form-control" required placeholder="First name" value="{{ Auth::user()->first_name }}" name="first_name" />
                                     </div>
 
                                     <div class="form-group">
@@ -40,22 +40,22 @@
                                     <div class="form-group">
                                         <label>Mobile number</label>
                                         <div>
-                                            <input type="text" value="{{ Auth::user()->phone }}" class="form-control" required placeholder="phone" name="phone" />
+                                            <input disabled type="text" value="{{ Auth::user()->phone }}" class="form-control" required placeholder="phone" name="phone" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Min quantum:</label>
-                                        <input type="number" required id="min_quantum" value="{{ Auth::user()->min_quantum }}" name="min_quantum" min="0"
+                                        <input disabled type="number" required id="min_quantum" value="{{ Auth::user()->min_quantum }}" name="min_quantum" min="0"
                                                class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Max quantum:</label>
-                                        <input type="number" required id="max_quantum" value="{{ Auth::user()->max_quantum }}" name="max_quantum" min="0"
+                                        <input disabled type="number" required id="max_quantum" value="{{ Auth::user()->max_quantum }}" name="max_quantum" min="0"
                                                class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Type:</label>
-                                        <select required class="form-control" name="type" id="edit_partner_type">
+                                        <select  disabled required class="form-control" name="type" id="edit_partner_type">
                                             <option value="1" @if(Auth::user()->type == '1') selected @endif>Bank</option>
                                             <option value="2" @if(Auth::user()->type == '2') selected @endif>Excluded moneylender</option>
                                             <option value="3" @if(Auth::user()->type == '3') selected @endif>Fintech</option>
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Company structure:</label>
-                                        <select required class="form-control" name="company_structure_id" id="partner_company_structure">
+                                        <select disabled required class="form-control" name="company_structure_id" id="partner_company_structure">
                                             @foreach($structures as $structure)
                                                 <option value="{{$structure->id}}" @if($selected_structure == $structure->id) selected @endif>{{ $structure->structure_type }}</option>
                                             @endforeach
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Loan type:</label>
-                                        <select required multiple class="form-control" name="loan_type_id[]" id="partner_loan_type">
+                                        <select disabled required multiple class="form-control" name="loan_type_id[]" id="partner_loan_type">
                                             @foreach($loan_types as $type)
                                                 <option value="{{$type->id}}" @if(in_array($type->id,$selected_loan_types)) selected @endif>{{ $type->sub_type }}</option>
                                             @endforeach
@@ -80,24 +80,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Length of incorporation</label>
-                                        <input required type="number" value="{{ Auth::user()->length_of_incorporation }}" min="0" class="form-control" name="length_of_incorporation" id="length_of_incorporation">
+                                        <input disabled required type="number" value="{{ Auth::user()->length_of_incorporation }}" min="0" class="form-control" name="length_of_incorporation" id="length_of_incorporation">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">% of local shareholding required</label>
-                                        <input required type="number" min="0" value="{{ Auth::user()->local_shareholding }}" class="form-control" name="local_shareholding" id="local_shareholding">
+                                        <input disabled required type="number" min="0" value="{{ Auth::user()->local_shareholding }}" class="form-control" name="local_shareholding" id="local_shareholding">
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10">Subsidiaries</label>
-                                        <input required type="number" min="0" value="{{ Auth::user()->subsidiaries }}" class="form-control" name="subsidiaries" id="subsidiaries">
+                                        <input disabled required type="number" min="0" value="{{ Auth::user()->subsidiaries }}" class="form-control" name="subsidiaries" id="subsidiaries">
                                     </div>
-                                    <div class="form-group mb-0">
-                                        <div>
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
-                                                Submit
-                                            </button>
+{{--                                    <div class="form-group mb-0">--}}
+{{--                                        <div>--}}
+{{--                                            <button type="submit" class="btn btn-primary waves-effect waves-light">--}}
+{{--                                                Submit--}}
+{{--                                            </button>--}}
 
-                                        </div>
-                                    </div>
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </form>
 
                             </div>
