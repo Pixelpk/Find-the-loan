@@ -4,6 +4,7 @@
     @php $sr = 1; 
         $no =  $companyDetail->number_of_share_holder - 1
     @endphp; 
+    <input type="hidden" value="{{ $no }}" id="countShareHolder">
     @for ($x = 0; $x <= $no; $x++)
     <div style="padding: 15px;" class="card">
         <div class="row" style="padding: 15px;">
@@ -16,7 +17,7 @@
                 </div>
             </div>
             <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-                <button class="btn btn-light">Share holder {{ $sr++ }}</button>
+                <a class="btn btn-light">Share holder {{ $sr++ }}</a>
             </div>
 
             <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
@@ -24,12 +25,12 @@
             </div>
             <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
                 <label for="">Front</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg" required id="image-input"
+                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
                     name="nric_front[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
             </div>
             <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
                 <label for="">Back</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg" required id="image-input"
+                <input  style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
                     name="nric_back[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
             </div>
             <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
@@ -38,12 +39,12 @@
             </div>
             <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
                 <label for="">Lastest</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg" required id="image-input"
+                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
                     name="nao_latest[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
             </div>
             <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
                 <label for="">Older</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg" required id="image-input"
+                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
                     name="nao_older[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
             </div>
             <div class="col-md-1"></div>
@@ -53,7 +54,7 @@
             </div>
             <div class="col-md-1" style="padding-left: 0px;margin-top:35px;">
                 {{-- <label for="">Older</label> --}}
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg" required id="image-input"
+                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
                     name="cbs[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
             </div>
 
@@ -63,7 +64,7 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-3"></div>
         <div class="col-md-3">
-            <button onclick="backToAmount()" class="btn btn-light">Previous</a>
+            <a class="btn btn-light">Previous</a>
         </div>
         <div class="col-md-3" style="text-align: right;">
             <button  class="btn btn-light">Next</button>
@@ -74,10 +75,11 @@
 <script>
     $('#shareholderform').submit(function (e) {
         e.preventDefault();
-        // var profitable_before_year = document.getElementById('profitable_before_year').value
+        var countShareHolder = document.getElementById('countShareHolder').value
         // var revenuee = document.getElementById('revenuee').value
         let formData = new FormData(this);
         formData.append("apply_loan_id", 1);
+        formData.append("countShareHolder", countShareHolder);
         $('#image-input-error').text('');
         $.ajax({
             type: 'POST',

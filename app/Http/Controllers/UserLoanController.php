@@ -158,10 +158,10 @@ class UserLoanController extends Controller
     public function shareHolderStore(Request $request)
     {
         
-    //    return sizeof($request->nric_front) ;
+        $count = $request->countShareHolder + 1;
         DB::beginTransaction();
         try {
-            if(sizeof($request->nric_front) >= 3){
+            if($count  >= 3){
                
                 $validator = Validator::make($request->all(), [ 
                     'nric_front' => ["required","array","min:3"],
@@ -181,7 +181,7 @@ class UserLoanController extends Controller
                 ]);
             }
 
-            if(sizeof($request->nric_front) == 2){
+            if($count  == 2){
                 $validator = Validator::make($request->all(), [ 
                     'nric_front' => ["required","array","min:2"],
                     'nric_front.*' => 'image|mimes:jpg,jpeg,png',
@@ -200,7 +200,7 @@ class UserLoanController extends Controller
                 ]);
             }
 
-            if(sizeof($request->nric_front) == 1){
+            if($count  == 1){
                 $validator = Validator::make($request->all(), [ 
                     'nric_front' => ["required","array","min:1"],
                     'nric_front.*' => 'image|mimes:jpg,jpeg,png',

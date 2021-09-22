@@ -113,18 +113,29 @@
                     <a class="logpad btnnew1" href="{{ route('registration') }}"
                         style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
                     @endif
-                    @if(Auth::guard('web')->check())
-                    <a href="{{ route('applyLoan') }}" class="btnnew2"
-                        style="color:#1db046; font-size:14px !important;"> <i
-                            class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
-                            
-                            <a class="nav-item nav-link ts-scroll" href="{{ route('customer-logout') }}">Logout</a>
-                    @endif
+                    
 
                 </div>
+                
                
                 <!--end navbar-nav-->
             </div>
+            @if(Auth::guard('web')->check())
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::guard('web')->user()->first_name }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
+                                   
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    @endif
             <!--end collapse-->
         </div>
         <!--end container-->
