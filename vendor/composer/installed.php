@@ -521,12 +521,12 @@
             'dev_requirement' => false,
         ),
         'lcobucci/jwt' => array(
-            'pretty_version' => '4.1.4',
-            'version' => '4.1.4.0',
+            'pretty_version' => '4.0.3',
+            'version' => '4.0.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../lcobucci/jwt',
             'aliases' => array(),
-            'reference' => '71cf170102c8371ccd933fa4df6252086d144de6',
+            'reference' => 'ae4165a76848e070fdac691e773243d10cd06ce1',
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(

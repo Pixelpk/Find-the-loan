@@ -106,7 +106,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                         <!-- item-->
-                        <a class="dropdown-item" href="{{ route('admin-profile') }}"><i class="mdi mdi-account-circle"></i> Profile</a>
+                        @if(Auth::guard('partners')->check())
+                            <a class="dropdown-item" href="{{ route('partner-profile') }}"><i class="mdi mdi-account-circle"></i> Profile</a>
+                        @else
+                            <a class="dropdown-item" href="{{ route('admin-profile') }}"><i class="mdi mdi-account-circle"></i> Profile</a>
+                        @endif
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="{{ route('admin-logout') }}"><i class="mdi mdi-power text-danger"></i> Logout</a>
                     </div>

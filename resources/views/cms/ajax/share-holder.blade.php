@@ -1,23 +1,26 @@
 
+@extends('cms.layouts.master')
+@section('content')
 <form id="shareholderform" enctype="multipart/form-data" method="POST">
     @csrf
-    @php $sr = 1; 
+    {{-- @php $sr = 1; 
         $no =  $companyDetail->number_of_share_holder - 1
-    @endphp; 
-    <input type="hidden" value="{{ $no }}" id="countShareHolder">
-    @for ($x = 0; $x <= $no; $x++)
+    @endphp;  --}}
+    {{-- <input type="hidden" value="{{ $no }}" id="countShareHolder"> --}}
+    @for ($x = 0; $x <= 1; $x++)
     <div style="padding: 15px;" class="card">
+        {{-- <input type="hidden"> --}}
         <div class="row" style="padding: 15px;">
             <div class="col-md-12">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="companyCheck">
+                    <input class="form-check-input" type="checkbox" value="{{ $x }}" id="companyCheck{{ $x }}" onchange="getCompanyForm({{ $x }})">
                     <label class="form-check-label" for="companyCheck">
                         Company
                     </label>
                 </div>
             </div>
             <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-                <a class="btn btn-light">Share holder {{ $sr++ }}</a>
+                <a class="btn btn-light">Share holder </a>
             </div>
 
             <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
@@ -73,6 +76,13 @@
     </div>
 </form>
 <script>
+    function getCompanyForm(id){
+        var getCompany=document.getElementById('companyCheck'+id)
+        var checked = getCompany.checked
+        if(checked){
+            alert('sad')
+        }
+    }
     $('#shareholderform').submit(function (e) {
         e.preventDefault();
         var countShareHolder = document.getElementById('countShareHolder').value
@@ -103,4 +113,5 @@
     });
 
 </script>
+@endsection
 

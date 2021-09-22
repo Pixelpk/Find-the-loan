@@ -22,7 +22,9 @@
                 <!-- end page-title -->
 
                 <!-- start top-Contant -->
+
                 <div class="row">
+                    @if(Auth::guard('users')->check())
                     <div class="col-sm-6 col-xl-3">
                         <div class="card">
                             <div class="card-body">
@@ -146,7 +148,40 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center p-1">
+                                        <div class="col-lg-9">
+                                            <h5 class="font-16">Partner users</h5>
+                                            <h4 class="text-info pt-1 mb-0">0</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <i class="fa fa-2x fa-user-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row align-items-center p-1">
+                                        <div class="col-lg-9">
+                                            <h5 class="font-16">Loan applications</h5>
+                                            <h4 class="text-info pt-1 mb-0">0</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <i class="fa fa-2x fa-list"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
+
                 <!-- end top-Contant -->
             </div>
             <!-- container-fluid -->

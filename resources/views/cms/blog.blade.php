@@ -48,7 +48,7 @@
                         <!--begin popup image -->
                         <div class="popup-wrapper">
                             <div class="popup-gallery">
-                                <a href="#"><img src="{{ url('uploads/blogImages/'.$blog->image) }}" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
+                                <a href="#"><img src="{{ asset('uploads/blogImages/'.$blog->image) }}" class="width-100" alt="pic"><span class="eye-wrapper2"><i class="icon icon-link eye-icon"></i></span></a>
                             </div>
                         </div>
                         <!--begin popup image -->
@@ -196,7 +196,7 @@
                         }
                         ?>
                         <div class="sidebar_posts">
-                            <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img src="{{ url('uploads/blogImages/'.$new->image) }}" alt=""></a>
+                            <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img src="{{ asset('uploads/blogImages/'.$new->image) }}" alt=""></a>
                             <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title="">{!! $yourText !!}</a>
                             <span class="sidebar_post_date">{{ $new->created_at->toFormattedDateString() }}</span>
                         @endforeach

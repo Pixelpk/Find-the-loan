@@ -44,7 +44,7 @@
                                             @foreach($items as $item)
                                                 <tr>
                                                     <td>
-                                                        @if (file_exists(base_path('uploads/financePartnerImages/'.$item->image)) && $item->image != '')
+                                                        @if (file_exists(public_path('uploads/financePartnerImages/'.$item->image)) && $item->image != '')
                                                             <img class="justify-content-center resize-img"
                                                                  src="{{ url('uploads/financePartnerImages/'.$item->image) }}"/>
                                                         @else
@@ -118,8 +118,16 @@
                 console.log(detail)
                 if (data.success === 1) {
                     $('#update_partner_id').val(detail.id);
+                    $("#edit_partner_type").val(detail.type);
                     $("#edit_partner_name").val(detail.name);
                     $("#edit_partner_phone").val(detail.phone);
+                    $("#edit_min_quantum").val(detail.min_quantum);
+                    $("#edit_max_quantum").val(detail.max_quantum);
+                    $("#edit_partner_company_structure").val(detail.company_structure_id);
+                    $("#edit_partner_loan_type").val(detail.loan_type_id);
+                    $("#edit_length_of_incorporation").val(detail.length_of_incorporation);
+                    $("#edit_local_shareholding").val(detail.local_shareholding);
+                    $("#edit_subsidiaries").val(detail.subsidiaries);
                     if (detail.image != "") {
                         var imgsrc = detail.image;
                         var src = "{{ url('uploads/financePartnerImages/') }}" + "/" + imgsrc;

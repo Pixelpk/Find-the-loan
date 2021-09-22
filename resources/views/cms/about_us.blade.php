@@ -69,7 +69,7 @@
                             <p>"{!! $testimonial->review !!}"</p>
                             <span class="testimonials_arrow"></span>
                         </div>
-                            <img src="{{ url('uploads/testimonialImages/'.$testimonial->reviewer_image) }}" alt="Picture" class="autor_pic">
+                            <img src="{{ asset('uploads/testimonialImages/'.$testimonial->reviewer_image) }}" alt="Picture" class="autor_pic">
                             <p class="autor"><span>{{ $testimonial->review_by }}</span></p>
                     </div>
                     @endforeach
@@ -99,7 +99,7 @@
                     <div data-owl-auto-height="20" data-owl-items="6" data-owl-auto-width="19" class="col-sm-12 sponsors d-block d-md-flex justify-content-between align-items-center text-center ts-partners owl-carousel">
                         @foreach($partners as $partner)
                         <div href="#" class="ml-5" style="width: 120px;height: 120px;">
-                            <img src="{{ url('uploads/financePartnerImages/'.$partner->image) }}" alt="">
+                            <img src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
                         </div>
                         @endforeach
                 </div>

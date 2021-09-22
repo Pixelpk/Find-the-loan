@@ -12,7 +12,7 @@
             <div data-owl-auto-height="10" data-owl-items="6" data-owl-auto-width="10" class="d-block d-md-flex justify-content-between align-items-center text-center ts-partners owl-carousel">
                 @foreach($partners as $partner)
                 <div href="#" class="ml-5" style="width: 120px;height: 120px;">
-                    <img class="" src="{{ url('uploads/financePartnerImages/'.$partner->image) }}" alt="">
+                    <img class="" src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
                 </div>
                 @endforeach
             </div>
