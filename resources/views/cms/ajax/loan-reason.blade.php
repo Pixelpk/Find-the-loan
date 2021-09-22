@@ -1,4 +1,4 @@
-<div id="reasonDisplay" style="display: none;">
+<div id="reasonDisplay">
     <div class="row">
         @if($loanReasons->count() > 0)
         <div class="col-md-12" style="text-align: center">
@@ -289,7 +289,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <br>
-                            <input required type="number" placeholder="$" id="revenuee" class="form-control">
+                            <input  type="number" placeholder="$" id="revenuee" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -323,37 +323,8 @@
         </div>
     </form>
 </div>
-<div id="goToShareholder">
-    <div style="padding: 15px;" class="card">
-        <div class="row" style="padding: 15px;">
-            <div class="col-md-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="companyCheck">
-                    <label class="form-check-label" for="companyCheck">
-                        Company
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-               <button class="btn btn-light">Share holder</button>
-            </div>
-
-            <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-                <b>NRIC</b>
-             </div>
-          
-        </div>
-    </div>
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
-            <button onclick="backToAmount()" class="btn btn-light">Previous</a>
-        </div>
-        <div class="col-md-3" style="text-align: right;">
-            <button onclick="goToCompanyDocuments()" class="btn btn-light">Next</button>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
+<div id="showShareholderScreen">
+    
 </div>
 <script>
     var reasons = [];
@@ -438,6 +409,7 @@
         document.getElementById("loanForm").style.display = "block";
         document.getElementById("goToCompanyDocument").style.display = "none";
     }
+    
 
     function goToCompanyDocuments() {
         var company_year = document.getElementById('company_year').value
@@ -495,11 +467,13 @@
 
 </script>
 <script>
+    var apply_loan_id = 0;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
+        ////////
         $('#bankStatment').submit(function(e) {
             e.preventDefault();
             var profile = document.getElementById("profile").value
@@ -548,6 +522,20 @@
                 success: (response) => {
                     if (response) {
                         this.reset();
+                        apply_loan_id = response.apply_loan_id
+                        document.getElementById("goToCompanyDocument").style.display = "none";
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ route('get-share-holder-screen') }}",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                id: apply_loan_id,
+                            }
+                        }).done(function (data) {
+                            document.getElementById("display").style.display = "none";
+                            $('#showShareholderScreen').html(data)
+
+                        });
                     }
                 },
                 
@@ -557,4 +545,7 @@
                 }
             });
         });
+        /////////
+
+        
 </script>

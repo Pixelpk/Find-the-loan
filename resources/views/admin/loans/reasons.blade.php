@@ -128,7 +128,7 @@
             }
             $.ajax({
                 method: "GET",
-                url: "{{ route('get-loan-type', '') }}"+"/"+loan_type_id + '?loan_reason_id='+loan_reason_id,
+                url: "{{ route('get-loan-types', '') }}"+"/"+loan_type_id + '?loan_reason_id='+loan_reason_id,
                 success : function(data){
                 $('#loanType').html(data); 
                 }

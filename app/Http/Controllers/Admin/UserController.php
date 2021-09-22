@@ -274,5 +274,10 @@ class UserController extends Controller
         Auth::logout();
         return redirect(route('admin-login'));
     }
+    public function customerLogout(){
+        Auth::logout();
+       
+        return redirect(route('login'));
+    }
 
 }

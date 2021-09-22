@@ -14,6 +14,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController as ControllersUserController;
+use App\Http\Controllers\UserLoanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -126,7 +127,62 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 //    Route::get('/profile', [UserController::class,'profile'])->name('profile');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
-    Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
+    Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
+   
+    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
+    Route::get('/profile', [UserController::class,'profile'])->name('profile');
+    Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
+    // Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
+
+    Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
+    Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
+
+    Route::get('/faq', [FaqController::class,'faq'])->name('faq');
+    Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
+    Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
+    Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
+
+    Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
+    Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
+    Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
+    Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
+
+    Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
+    Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
+    Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
+    Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
+
+    Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
+    Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
+    Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
+    Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
+    Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
+
+    Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
+    Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
+    Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
+    Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
+    Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
+
+    Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
+    Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
+
+    Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+    Route::get('/get-loan-types/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
+    Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
+    Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
+    Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
+
+    Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
+    Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
+    Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
+    Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
+
+    Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
+    Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
+    Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
+    Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
+    Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
 
 
 });
@@ -135,9 +191,13 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
 Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
-    Route::post('/apply-loan', [ControllersUserController::class,'applyLoanStore'])->name('apply-loan-store');
+    Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
     Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
     Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
     Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
     Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
+     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
+     Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
+     Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
 });
+Route::view('test', 'cms.ajax.share-holder');
