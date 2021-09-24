@@ -48,7 +48,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-
+                           
                         </ul>
                     </li>
                 </ul>
@@ -69,7 +69,7 @@
                 <p class="hedtext" style="padding-bottom: 20px;">No more paying a broker fee or approaching the banks
                     one by one. </p>
 
-                <a href="#what-youll-get" class="btn btn-primary btn-lg ts-scroll">APPLY NOW</a>
+                <a href="{{ route('applyLoan') }}" class="btn btn-primary btn-lg ts-scroll">APPLY NOW</a>
             </div>
             <div class="col-md-5 col-xl-5 text-right align-self-center align-items-center">
                 <img src="{{ asset('assets/cms/img/dollercirle1.png') }}" class="mw-100" alt="">
@@ -113,11 +113,11 @@
                     <a class="logpad btnnew1" href="{{ route('registration') }}"
                         style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
                     @endif
-
+                    
 
                 </div>
-
-
+                
+               
                 <!--end navbar-nav-->
             </div>
             @if(Auth::guard('web')->check())
@@ -130,7 +130,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-
+                                   
                                 </ul>
                             </li>
                         </ul>
