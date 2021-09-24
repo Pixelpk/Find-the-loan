@@ -11,11 +11,17 @@ use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\UserLoanController;
+use App\Http\Livewire\Cms\ApplyLoan;
+use App\Http\Livewire\Cms\Home;
+use App\Http\Livewire\Cms\Login;
+use App\Http\Livewire\Cms\RegisterComponent;
+use App\Models\LoanCompanyDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +38,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //CMS routes
-Route::get('/',[HomeController::class,'home'])->name('home');
+// Route::get('/',[HomeController::class,'home'])->name('home');
+Route::get('/',Home::class)->name('home');
+Route::get('registration',RegisterComponent::class)->name('registration');
+Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
 Route::get('faqs',[HomeController::class,'faqs'])->name('faqs');
 Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
 Route::get('blog',[HomeController::class,'blogDetail'])->name('blog');
@@ -41,11 +50,11 @@ Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('priv
 Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
 Route::get('terms-conditions',[HomeController::class,'termsConditions'])->name('terms-conditions');
 Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
-Route::get('login',[LoginController::class,'index'])->name('login');
-Route::post('login',[LoginController::class,'loginAttempt'])->name('loginAttempt');
-Route::get('registration',[RegistrationController::class,'index'])->name('registration');
-Route::post('registration',[RegistrationController::class,'store'])->name('registrationStore');
-Route::get('verify',[RegistrationController::class,'verifyEmail'])->name('verifyEmail');
+// Route::get('login',[Login::class])->name('login');
+// Route::post('login',[LoginController::class,'loginAttempt'])->name('loginAttempt');
+// Route::get('registration',[RegistrationController::class,'index'])->name('registration');
+// Route::post('registration',[RegistrationController::class,'store'])->name('registrationStore');
+
 
 // Admin routes
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');
@@ -202,16 +211,22 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 });
 
 
-
+Route::get('/login', Login::class)->name('login');
 Route::group(['middleware'=>['customer']],function (){
-    Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
-    Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
-    Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
-    Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
-    Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
-    Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
+    Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
+    // Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
+    // Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
+    // Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
+    // Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
+    // Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
+    // Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
      Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
-     Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
-     Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
+    //  Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
+    //  Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
+    //  Route::get('/company-share-holder/{apply_loan_id}/{index}', [UserLoanController::class,'CompanyShareHolder'])->name('company-share-holder');
+
 });
-Route::view('test', 'cms.ajax.share-holder');
+Route::get('test', function (){
+    $companyDetail = LoanCompanyDetail::where('apply_loan_id', 175)->where('share_holder', 0)->first();
+    return view('cms.ajax.share-holder')->with('companyDetail', $companyDetail);
+});

@@ -1,6 +1,6 @@
 
-{{-- @extends('cms.layouts.master') --}}
-{{-- @section('content') --}}
+@extends('cms.layouts.master')
+@section('content')
 <form id="shareholderform" enctype="multipart/form-data" method="POST">
     @csrf
     @php $sr = 1; 
@@ -11,7 +11,13 @@
     <div style="padding: 15px;" class="card">
         {{-- <input type="hidden"> --}}
         <div class="row" style="padding: 15px;">
+            
+            <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
+                <a class="btn btn-light">Share holder {{ $sr++ }}</a>
+            </div>
+
             <div class="col-md-12">
+                <br>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="{{ $x }}" id="companyCheck{{ $x }}" onchange="getCompanyForm({{ $x }})">
                     <label class="form-check-label" for="companyCheck">
@@ -19,46 +25,47 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-12" style="padding-left: 0px;margin-top:30px;">
-                <a class="btn btn-light">Share holder {{ $sr++ }}</a>
-            </div>
 
-            <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
-                <b>NRIC</b>
-            </div>
-            <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
-                <label for="">Front</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
-                    name="nric_front[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
-            </div>
-            <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
-                <label for="">Back</label>
-                <input  style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
-                    name="nric_back[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
-            </div>
-            <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
-                <b>Personal NOA</b>
-                <p>(Notice of Assessment) (2 Years)</p>
-            </div>
-            <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
-                <label for="">Lastest</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
-                    name="nao_latest[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
-            </div>
-            <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
-                <label for="">Older</label>
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
-                    name="nao_older[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
-                <b>CBS</b>
-                <p>(Download within the last 30 days) Optional</p>
-            </div>
-            <div class="col-md-1" style="padding-left: 0px;margin-top:35px;">
-                {{-- <label for="">Older</label> --}}
-                <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
-                    name="cbs[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+            <div class="col-md-12" id="personShareHolder{{ $x }}">
+                <div class="row">
+                    <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
+                        <b>NRIC</b>
+                    </div>
+                    <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
+                        <label for="">Front</label>
+                        <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
+                            name="nric_front[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+                    </div>
+                    <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
+                        <label for="">Back</label>
+                        <input  style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
+                            name="nric_back[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+                    </div>
+                    <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
+                        <b>Personal NOA</b>
+                        <p>(Notice of Assessment) (2 Years)</p>
+                    </div>
+                    <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
+                        <label for="">Lastest</label>
+                        <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
+                            name="nao_latest[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+                    </div>
+                    <div class="col-md-1" style="padding-left: 0px;margin-top:20px;">
+                        <label for="">Older</label>
+                        <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
+                            name="nao_older[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2" style="padding-left: 0px;margin-top:30px;">
+                        <b>CBS</b>
+                        <p>(Download within the last 30 days) Optional</p>
+                    </div>
+                    <div class="col-md-1" style="padding-left: 0px;margin-top:35px;">
+                        {{-- <label for="">Older</label> --}}
+                        <input style="font-size: 13px;" accept="image/png, image/jpeg,image/jpg"  id="image-input"
+                            name="cbs[{{ $x }}]" class="form-control form-control-sm" id="formFileSm" type="file" />
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -80,9 +87,16 @@
         var getCompany=document.getElementById('companyCheck'+id)
         var checked = getCompany.checked
         if(checked){
-            // window.open('company-share-holder/{{ $companyDetail->apply_loan_id }}', '_blank');
+            
+            document.getElementById("personShareHolder"+id).style.display = "none";
+            window.open('company-share-holder/{{ $companyDetail->apply_loan_id }}'+'/'+id, '_blank');
+        }else{
+            document.getElementById("personShareHolder"+id).style.display = "block";
         }
     }
+</script>
+<script>
+    
     $('#shareholderform').submit(function (e) {
         e.preventDefault();
         var countShareHolder = document.getElementById('countShareHolder').value
@@ -113,5 +127,5 @@
     });
 
 </script>
-{{-- @endsection --}}
+@endsection
 

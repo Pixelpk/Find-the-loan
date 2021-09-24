@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '940354be00cddcc53b22f25e03151a26bea7e4bb',
+        'reference' => '0fbce2d77c37ed0ee3245d64584c70d5e65b5fe1',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -481,7 +481,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '940354be00cddcc53b22f25e03151a26bea7e4bb',
+            'reference' => '0fbce2d77c37ed0ee3245d64584c70d5e65b5fe1',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -588,6 +588,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'livewire/livewire' => array(
+            'pretty_version' => 'v2.6.5',
+            'version' => '2.6.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../livewire/livewire',
+            'aliases' => array(),
+            'reference' => 'e39edcae6b1971b2d0f327a8e25c40e3d68cb7a0',
+            'dev_requirement' => false,
         ),
         'lncd/oauth2' => array(
             'dev_requirement' => false,
@@ -940,8 +949,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -966,6 +975,15 @@
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
             'reference' => 'e4573f47750dd6c92dca5aee543fa77513cbd8d3',
+            'dev_requirement' => false,
+        ),
+        'rahulhaque/laravel-filepond' => array(
+            'pretty_version' => 'v1.2.6',
+            'version' => '1.2.6.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../rahulhaque/laravel-filepond',
+            'aliases' => array(),
+            'reference' => '0f7c10ec87d98f20a8779cb90a7bc138b3d97faf',
             'dev_requirement' => false,
         ),
         'ralouphie/getallheaders' => array(
@@ -1144,6 +1162,15 @@
             'aliases' => array(),
             'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
             'dev_requirement' => true,
+        ),
+        'sopamo/laravel-filepond' => array(
+            'pretty_version' => 'v0.6.2',
+            'version' => '0.6.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sopamo/laravel-filepond',
+            'aliases' => array(),
+            'reference' => '09b9adb48505962cf7a432aa10f659c8bef986c7',
+            'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(
             'pretty_version' => 'v6.2.7',

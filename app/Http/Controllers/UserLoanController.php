@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ApplyLoan;
+use App\Models\CompanyStructure;
 use App\Models\LoanCompanyDetail;
 use App\Models\LoanDocument;
 use App\Models\LoanPersonShareHolder;
 use App\Models\LoanStatement;
+use App\Models\Sector;
 use App\Models\UserLoanReason;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -263,5 +265,12 @@ class UserLoanController extends Controller
             DB::rollback();
             // something went wrong
         }
+    }
+    public function CompanyShareHolder(){
+        $sector = Sector::where('status', 1)->get();
+        $company_structure = CompanyStructure::where('status', 1)->get();
+        return view('cms.company-share-holder')
+        ->with('company_structure', $company_structure)
+        ->with('sector', $sector);
     }
 }

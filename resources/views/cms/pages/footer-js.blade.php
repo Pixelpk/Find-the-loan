@@ -18,6 +18,7 @@
 <script src="{{ asset('assets/cms/js/custom.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!--Google map-->
 
 <script>
@@ -62,6 +63,22 @@
                     '<a href="{3}" target="{4}" data-notify="url"></a>' +
                     '</div>'
             });
+    }
+</script>
+<script>
+    function showImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $(input).siblings('.avatar')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 </script>
 

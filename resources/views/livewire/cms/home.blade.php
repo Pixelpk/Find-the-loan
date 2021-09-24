@@ -1,5 +1,3 @@
-@extends('cms.layouts.master')
-@section('content')
 <main id="ts-content">
     <!--PARTNERS ********************************************************************************************-->
     <section id="partners" class="ts-block0 text-center" data-bg-color="#f6f7f9" data-mask-top-nw-color="#fff"><h3 >
@@ -222,4 +220,3 @@
     </section>
     <!--END apply now ***************************************************************************************-->
 </main>
-@endsection

@@ -1042,21 +1042,21 @@ blockquote h6 {
   -- Buttons
 -------------------------------------------*/
 
-.btn {
-    border-radius: 5.25rem;
+/* .btn { */
+    /* border-radius: 5.25rem;
     border-width: 0rem;
     box-shadow: .125rem .1875rem .9375rem rgba(0, 0, 0, .15);
     font-weight: 500;
     font-size: 14px !important;
     padding: .5rem 1.25rem;
     position: relative;
-    outline: none !important;
+    outline: none !important; */
     /* background-color: #1db046; */
-}
+/* } */
 
-.btn span {
-    transition: .3s ease;
-}
+/* .btn span { */
+    /* transition: .3s ease; */
+/* } */
 
 .btn .status {
     bottom: 0;
@@ -1067,6 +1067,30 @@ blockquote h6 {
     top: 0;
     right: 0;
     width: 1.5rem;
+}
+.custmbtn {
+    background: #5FC47B !important;
+    border: #5FC47B !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff !important;
+    background-color: #5FC47B !important;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    color: #5FC47B !important;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #5FC47B !important;
+    border-color: #5FC47B !important;
+}
+.form-check-input:checked {
+    background-color: #5FC47B !important;
+    border-color: #5FC47B !important;
 }
 
 .btn .status .spinner {
@@ -1114,19 +1138,19 @@ blockquote h6 {
     opacity: 1;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    /*background-color: darken( var(--color-primary), 20% );
-    border-color: darken( var(--color-primary), 20% );*/
-    background-color: #ff6a6a;
-    border-color: #ff6a6a;
-    box-shadow: .125rem .1875rem .9375rem rgba(0, 0, 0, .3);
-}
-
+/* .btn-primary:hover, .btn-primary:focus, .btn-primary:active { */
+    /* background-color: darken( var(--color-primary), 20% );
+    border-color: darken( var(--color-primary), 20% ); */
+    /* background-color: #ff6a6a; */
+    /* border-color: #ff6a6a; */
+    /* box-shadow: .125rem .1875rem .9375rem rgba(0, 0, 0, .3); */
+/* } */
+/* 
 .btn-primary {
     background-color: #ff6a6a;
     border-color: #ff6a6a;
     color: #fff;
-}
+} */
 
 .btn-primary.disabled, .btn-primary:disabled {
     background-color: rgb(255, 36, 36);
@@ -2694,3 +2718,7 @@ E. Template Specific Elements
     font-weight: 400;
     color: red;
 }
+.file {
+    visibility: hidden;
+    position: absolute;
+  }
