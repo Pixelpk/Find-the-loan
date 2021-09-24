@@ -1,5 +1,3 @@
-@extends('cms.layouts.master')
-@section('content')
 <div class="breadcrumb-wrapper">
 
     <div class="breadcrumb-wrapper-overlay"></div>
@@ -122,4 +120,3 @@
 
 </section>
 <!--end blog -->
-@endsection

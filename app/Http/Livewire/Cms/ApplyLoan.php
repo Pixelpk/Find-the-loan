@@ -26,7 +26,8 @@ class ApplyLoan extends Component
     public $values;
     public $reasonValue;
     public $amount;
-    public $tab = '1';
+    public $tab = '6';
+    public $share_holder_count;
     public $company_name;
     public $company_year;
     public $company_month;
