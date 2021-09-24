@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 //CMS routes
 Route::get('/',[HomeController::class,'home'])->name('home');
 Route::get('faqs',[HomeController::class,'faqs'])->name('faqs');
@@ -204,22 +203,15 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
 
 
-Route::get('/login', Login::class)->name('login');
 Route::group(['middleware'=>['customer']],function (){
-    Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
-    // Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
-    // Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
-    // Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
-    // Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
-    // Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
-    // Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
-    Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
-    //  Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
-    //  Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
-    //  Route::get('/company-share-holder/{apply_loan_id}/{index}', [UserLoanController::class,'CompanyShareHolder'])->name('company-share-holder');
-
+    Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
+    Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
+    Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
+    Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
+    Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
+    Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
+     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
+     Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
+     Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
 });
-Route::get('test', function (){
-    $companyDetail = LoanCompanyDetail::where('apply_loan_id', 175)->where('share_holder', 0)->first();
-    return view('cms.ajax.share-holder')->with('companyDetail', $companyDetail);
-});
+Route::view('test', 'cms.ajax.share-holder');
