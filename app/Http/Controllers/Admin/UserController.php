@@ -40,8 +40,22 @@ class UserController extends Controller
     {
 //        dd(Auth::guard('partners')->user());
 //        dd(Auth::guard('users')->user());
-        if ((!Auth::guard('users')->check()) && (!Auth::guard('partners')->check())){
-            return view('admin.user.signin');
+        if (!Auth::guard('users')->check()){
+            $data['login_url'] = route('admin-login');
+
+            return view('admin.user.signin',$data);
+        }else{
+            return redirect(route('admin-dashboard'));
+        }
+    }
+
+    public function partnerLogin(Request $request)
+    {
+//        dd(Auth::guard('partners')->user());
+//        dd(Auth::guard('users')->user());
+        if (!Auth::guard('partners')->check()){
+            $data['login_url'] = route('partner-login-submit');
+            return view('admin.user.signin',$data);
         }else{
             return redirect(route('admin-dashboard'));
         }
@@ -58,28 +72,25 @@ class UserController extends Controller
         }
         if (Auth::guard('users')->attempt(['email'=>$request->email, 'password'=>$request->password, 'role_id'=>1,'status'=>1])){
             return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
-        }elseif (Auth::guard('partners')->attempt(['email'=>$request->email, 'password'=>$request->password,'status'=>1])){
-            return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
-
         }else{
             return redirect(route('admin-login'))->with('error',"Email/Password is wrong");
         }
     }
 
-    public function partnerLogin(Request $request)
+    public function partnerLoginSubmit(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'email' => 'required|email',
             'password' => 'required'
         ]);
         if ($validator->fails()){
-            return redirect(route('admin-login'))->withErrors($validator);
+            return redirect(route('partner-login'))->withErrors($validator);
         }
-        $credentials = ['email'=>$request->email, 'password'=>$request->password];
+        $credentials = ['email'=>$request->email, 'password'=>$request->password,'status'=>1];
         if (Auth::guard('partners')->attempt($credentials)){
             return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
         }else{
-            return redirect(route('admin-login'))->with('error',"Email/Password is wrong");
+            return redirect(route('partner-login'))->with('error',"Email/Password is wrong");
         }
     }
 
@@ -271,12 +282,17 @@ class UserController extends Controller
     public function logout(Request $request)
     {
 //        dd(Auth::user());exit();
-        Auth::logout();
-        return redirect(route('admin-login'));
+        if (Auth::guard('users')->check()){
+            Auth::logout();
+            return redirect(route('admin-login'));
+        }else{
+            Auth::logout();
+            return redirect(route('partner-login'));
+        }
     }
     public function customerLogout(){
         Auth::logout();
-       
+
         return redirect(route('login'));
     }
 

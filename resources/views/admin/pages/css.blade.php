@@ -15,4 +15,17 @@
         height: 2.5em;
     }
 
+    /*blinking*/
+    .blinking{
+        animation:blinkingText 1.2s infinite;
+    }
+    @keyframes blinkingText{
+        0%{     color: #27b34d;    }
+        49%{    color: #27b34d; }
+        60%{    color: transparent; }
+        99%{    color:transparent;  }
+        100%{   color: #27b34d;    }
+    }
+    /*blinking end*/
+
 </style>
