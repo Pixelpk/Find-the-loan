@@ -69,7 +69,7 @@
                 <p class="hedtext" style="padding-bottom: 20px;">No more paying a broker fee or approaching the banks
                     one by one. </p>
 
-                <a href="#what-youll-get" class="btn btn-primary btn-lg ts-scroll">APPLY NOW</a>
+                <a href="{{ route('applyLoan') }}" class="btn btn-primary btn-lg ts-scroll">APPLY NOW</a>
             </div>
             <div class="col-md-5 col-xl-5 text-right align-self-center align-items-center">
                 <img src="{{ asset('assets/cms/img/dollercirle1.png') }}" class="mw-100" alt="">

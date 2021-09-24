@@ -2759,7 +2759,7 @@ p.contact_success_box{
 
 
 /* ----- Buttons ----- */
-.btn {
+/* .btn {
 	font-size: 16px;
 	font-weight: 600;	
 	line-height: 22px;
@@ -2773,7 +2773,7 @@ p.contact_success_box{
 	-ms-transition: all 0.4s ease-in-out;
 	-o-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
-}
+} */
 
 .btn-line {
 	font-size: 16px;
