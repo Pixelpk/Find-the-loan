@@ -48,7 +48,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-                           
+
                         </ul>
                     </li>
                 </ul>
@@ -113,11 +113,11 @@
                     <a class="logpad btnnew1" href="{{ route('registration') }}"
                         style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
                     @endif
-                    
+
 
                 </div>
-                
-               
+
+
                 <!--end navbar-nav-->
             </div>
             @if(Auth::guard('web')->check())
@@ -130,7 +130,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-                                   
+
                                 </ul>
                             </li>
                         </ul>

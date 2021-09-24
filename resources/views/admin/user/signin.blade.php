@@ -19,7 +19,7 @@
                                     <img src="{{ asset('assets/images/logo.png') }}" class="mt-3" alt="Find the loan" style="height: 4.5em"></a>
                             </div>
 
-                            <form method="post" class="form-horizontal mt-6" action="{{ route('admin-login') }}">
+                            <form method="post" class="form-horizontal mt-6" action="{{ $login_url }}">
                                 @csrf
                                 <div class="form-group">
                                     <div class="col-12">

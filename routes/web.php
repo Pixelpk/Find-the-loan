@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
 use App\Http\Controllers\Admin\LoanReasonController;
 use App\Http\Controllers\Admin\LoanTypeController;
+use App\Http\Controllers\Admin\PartnerUserController;
 use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -49,6 +50,8 @@ Route::get('verify',[RegistrationController::class,'verifyEmail'])->name('verify
 // Admin routes
 Route::get('admin-login', [UserController::class,'adminLogin'])->name('admin-login');
 Route::post('/admin-login', [UserController::class,'login'])->name('admin-login');
+Route::get('partner-login', [UserController::class,'partnerLogin'])->name('partner-login');
+Route::post('/partner-login-submit', [UserController::class,'partnerLoginSubmit'])->name('partner-login-submit');
 Route::group(['middleware'=>['auth:partners','partner']],function (){
 //    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 
@@ -91,6 +94,8 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
         Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
         Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
+        Route::get('conditions-approval-requests', [FinancePartnerController::class,'conditionsApprovalRequests'])->name('conditions-approval-requests');
+        Route::get('approve-request', [FinancePartnerController::class,'approveTermsConditions'])->name('approve-request'); //by super admin
 
         Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
         Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
@@ -119,8 +124,17 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     });
 
     Route::group(['middleware'=>['partner']],function (){
-        Route::get('/profile', [UserController::class,'partnerProfile'])->name('partner-profile');
+        Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
+        Route::get('partner-users',[PartnerUserController::class,'users'])->name('partner-users');
+        Route::get('partner-terms-conditions',[PartnerUserController::class,'termsConditions'])->name('partner-terms-conditions');
+        Route::post('add-partner-user',[PartnerUserController::class,'addUser'])->name('add-partner-user');
+        Route::post('request-terms-conditions',[PartnerUserController::class,'requestTermsConditions'])->name('request-terms-conditions');
+        Route::post('update-partner-user',[PartnerUserController::class,'updateUser'])->name('update-partner-user');
+        Route::post('partner-user-detail',[PartnerUserController::class,'userDetail'])->name('partner-user-detail');
+        Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
+        Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
+
 
     });
 
@@ -128,7 +142,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 //    Route::get('/profile', [UserController::class,'profile'])->name('profile');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
-   
+
     Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');

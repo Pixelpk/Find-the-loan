@@ -1,8 +1,30 @@
 <?php
+
+use App\Models\FinancePartner;
+use Illuminate\Support\Facades\Auth;
+
 function getStatus($status): string
 {
     $all = ['Deactivated', 'Activated', 'Deleted'];
     return $all[$status] ?? '';
+}
+
+function adminTermsRequests(){
+    return FinancePartner::where('status','=','1')
+        ->where('parent_id','=',0)
+        ->where('terms_request_status','1')->count();
+}
+
+function bankUserTermsRequest(){
+    $user = Auth::user();
+    if ($user->parent_id == 0){
+        if ($user->terms_request_status == 0){
+            return 1;
+        }
+        return 0;
+    }else{
+        return 0;
+    }
 }
 
 function getYesNo($status): string
@@ -19,6 +41,17 @@ function allRoles(): array
 function getRole($role): string
 {
     $all = allRoles();
+    return $all[$role] ?? '';
+}
+
+function partnerUserRoles(): array
+{
+    return ['', 'Admin', 'Manager','Normal user'];
+}
+
+function getPartnerUserRole($role): string
+{
+    $all = partnerUserRoles();
     return $all[$role] ?? '';
 }
 
