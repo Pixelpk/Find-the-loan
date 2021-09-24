@@ -212,7 +212,6 @@ $main_types = loanProfile();
                         </div>
                         @enderror
                     </div>
-
                     <div class="col-md-6" style="margin-top: 30px;">
                         <label class="form-label">Company structure type</label>
                         <select wire:model="company_structure_type_id" class="form-select"
@@ -228,7 +227,6 @@ $main_types = loanProfile();
                         </div>
                         @enderror
                     </div>
-
                     <div class="col-md-6" style="margin-top: 30px;">
                         <label class="form-label" for="">Sector</label>
                         <select wire:model="sector_id" class="form-select" aria-label="Default select example">
@@ -254,13 +252,11 @@ $main_types = loanProfile();
                         </div>
                         @enderror
                     </div>
-
                     <div class="col-md-6" style="margin-top: 30px;">
                         <label for="revenue" class="form-label">Revenue (rounded up is fine)</label>
                         <div class="input-group">
                             <input placeholder="$" wire:model="revenue" type="number" class="form-control"
                                 aria-label="Text input with dropdown button">
-
                         </div>
                         @error('revenue')
                         <div style="color: red;">
@@ -299,7 +295,6 @@ $main_types = loanProfile();
                             from Dec And Not Nov As The Latest Months. For companies less than 6 months old or
                             unprofitable do check out our FAQ here.</p>
                     </div>
-
                     @for ($x = 1; $x <= 7; $x++) <div class="col-md-3" style="margin-top: 30px;">
                         {{-- <label class="form-check-label" for="flexSwitchCheckDefault">
                             @php echo date('M', strtotime( "-".$x."month")) @endphp
@@ -314,7 +309,7 @@ $main_types = loanProfile();
                             {{-- <input type="file"   wire:model="photo.{{ date('M', strtotime( "-".$x."month")) }}"
                             class="form-control-file" id="exampleFormControlFile1"> --}}
                             {{-- <p>pdf,png,jpeg</p> --}}
-                            <div class="form-group text-center">
+                            <div class="form-group">
                                 <label class="control-label mb-10">
                                     @php echo date('M', strtotime( "-".$x."month")) @endphp
                                     @if(1 == $x) (Optional) @endif
@@ -322,28 +317,26 @@ $main_types = loanProfile();
                                 {{-- <label for="" class="control-label mb-10">Blog image:</label> --}}
                                 <br>
                                 <label wire:ignore class="label" data-toggle="tooltip" title="Select blog image">
-                                    <img id="blog_image" class="rounded avatar"
+                                   <input type="file" wire:model="photo.{{ date('M', strtotime( "-".$x."month")) }}" type="file">
+                                    {{-- <img id="blog_image" class="rounded avatar"
                                         src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                         style="width: 120px;height: auto;cursor: pointer;">
                                     <input wire:model="photo.{{ date('M', strtotime( "-".$x."month")) }}" type="file"
                                         id="blog-image-file" required onchange="showImage(this)"
-                                        class="sr-only img-crop" name="image" value="" accept="image/*">
+                                        class="sr-only img-crop" name="image" value="" accept="image/*"> --}}
                                 </label>
                             </div>
                             {{-- @error('photo')
-                            
                             @enderror --}}
                             @foreach($errorArray as $error)
                             @if($error == date('M', strtotime( "-".$x."month")))
-                            <div style="text-align: center;" class="text-danger">
+                            <div  class="text-danger">
                                 {{ $error. ' month required' }}
                             </div>
                             @endif
                             @endforeach
-
                             <!-- Progress Bar -->
-
-                            <div x-show="isUploading" style="text-align: center;">
+                            <div x-show="isUploading" >
                                 <progress max="100" x-bind:value="progress"></progress>
                             </div>
                         </div>
@@ -369,12 +362,13 @@ $main_types = loanProfile();
                                 {{-- <label for="" class="control-label mb-10">Blog image:</label> --}}
                                 <br>
                                 <label wire:ignore class="label" data-toggle="tooltip" title="Select blog image">
-                                    <img id="blog_image" class="rounded avatar"
+                                    <input type="file" wire:model="statement">
+                                    {{-- <img id="blog_image" class="rounded avatar"
                                         src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                         style="width: 120px;height: auto;cursor: pointer;">
                                     <input wire:model="statement" type="file" id="blog-image-file" required
                                         onchange="showImage(this)" class="sr-only img-crop" name="image" value=""
-                                        accept="image/*">
+                                        accept="image/*"> --}}
                                 </label>
                             </div>
                             @error('statement')
@@ -386,7 +380,7 @@ $main_types = loanProfile();
                             @enderror --}}
                             <!-- Progress Bar -->
 
-                            <div x-show="isUploading" style="text-align: center;">
+                            <div x-show="isUploading" >
                                 <progress max="100" x-bind:value="progress"></progress>
                             </div>
                         </div>
@@ -414,12 +408,13 @@ $main_types = loanProfile();
                                 {{-- <label for="" class="control-label mb-10">Blog image:</label> --}}
                                 <br>
                                 <label wire:ignore class="label" data-toggle="tooltip" title="Select blog image">
-                                    <img id="blog_image" class="rounded avatar"
+                                    <input type="file" wire:model="latest_year">
+                                    {{-- <img id="blog_image" class="rounded avatar"
                                         src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                         style="width: 120px;height: auto;cursor: pointer;">
                                     <input wire:model="latest_year" type="file" id="blog-image-file" required
                                         onchange="showImage(this)" class="sr-only img-crop" name="image" value=""
-                                        accept="image/*">
+                                        accept="image/*"> --}}
                                 </label>
                             </div>
                             @error('latest_year')
@@ -429,7 +424,7 @@ $main_types = loanProfile();
                             @enderror
                             <!-- Progress Bar -->
 
-                            <div x-show="isUploading" style="text-align: center;">
+                            <div x-show="isUploading" >
                                 <progress max="100" x-bind:value="progress"></progress>
                             </div>
                         </div>
@@ -448,12 +443,13 @@ $main_types = loanProfile();
                                 {{-- <label for="" class="control-label mb-10">Blog image:</label> --}}
                                 <br>
                                 <label wire:ignore class="label" data-toggle="tooltip" title="Select blog image">
-                                    <img id="blog_image" class="rounded avatar"
+                                    <input type="file" wire:model="year_before">
+                                    {{-- <img id="blog_image" class="rounded avatar"
                                         src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                         style="width: 120px;height: auto;cursor: pointer;">
                                     <input wire:model="year_before" type="file" id="blog-image-file" required
                                         onchange="showImage(this)" class="sr-only img-crop" name="image" value=""
-                                        accept="image/*">
+                                        accept="image/*"> --}}
                                 </label>
                             </div>
                             @error('year_before')
@@ -469,7 +465,7 @@ $main_types = loanProfile();
                             @enderror --}}
                             <!-- Progress Bar -->
 
-                            <div x-show="isUploading" style="text-align: center;">
+                            <div x-show="isUploading" >
                                 <progress max="100" x-bind:value="progress"></progress>
                             </div>
                         </div>
@@ -549,12 +545,13 @@ $main_types = loanProfile();
                                 {{-- <label for="" class="control-label mb-10">Blog image:</label> --}}
                                 <br>
                                 <label wire:ignore class="label" data-toggle="tooltip" title="Select blog image">
-                                    <img id="blog_image" class="rounded avatar"
+                                    <input type="file" wire:model="current_year">
+                                    {{-- <img id="blog_image" class="rounded avatar"
                                         src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                         style="width: 120px;height: auto;cursor: pointer;">
                                     <input wire:model="current_year" type="file" id="blog-image-file" required
                                         onchange="showImage(this)" class="sr-only img-crop" name="image" value=""
-                                        accept="image/*">
+                                        accept="image/*"> --}}
                                 </label>
                             </div>
                             @error('current_year')
@@ -569,7 +566,7 @@ $main_types = loanProfile();
 
                             <!-- Progress Bar -->
 
-                            <div x-show="isUploading" style="text-align: center;">
+                            <div x-show="isUploading" >
                                 <progress max="100" x-bind:value="progress"></progress>
                             </div>
                         </div>
@@ -590,27 +587,38 @@ $main_types = loanProfile();
                             </div>
                             @enderror
                         </div>
-                      
-
-                       
                     </div>
-
-
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <br>
-                    <button  class="btn btn-primary" type="button"
-                        wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
-                        <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm"
-                            role="status" aria-hidden="true"></span>
-                        Submit
-                    </button>
+                <div class="row">
+                    <div class="col-12">
+                        <br>
+                        <button  class="btn btn-primary" type="button"
+                            wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
+                            <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm"
+                                role="status" aria-hidden="true"></span>
+                            Submit
+                        </button>
+                    </div>
                 </div>
+                @elseif($tab == 6)
+                <div class="row">
+                @for ($count = 1; $count <= 3; $count++)
+                <div class="col-md-12" style="margin-top:30px;">
+                    <label for="share_holder_count" class="form-label">Share holder {{ $count }}</label>
+                    <select wire:model="share_holder_count.{{ $count }}" class="form-select" aria-label="Default select example">
+                    <option value="" hidden>Select</option>
+                    <option value="1">Person</option>
+                    <option value="2">Company</option>
+                  
+                </select>       
+                </div>        
+                @endfor
+                </div>
+                @endif
+                
             </div>
-          
-            @endif
+           
+           
         </div>
     </div>
     </div>
@@ -618,7 +626,6 @@ $main_types = loanProfile();
         $(document).on('click', '.singleCheck', function () {
             $('.singleCheck').not(this).prop('checked', false);
         });
-
     </script>
     <script>
         // Set default FilePond options
@@ -631,7 +638,6 @@ $main_types = loanProfile();
                 }
             }
         });
-
         // Create the FilePond instance
         FilePond.create(document.querySelector('input[name="avatar"]'));
         FilePond.create(document.querySelector('input[name="gallery[]"]'));
