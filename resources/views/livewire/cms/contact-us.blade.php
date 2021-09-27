@@ -1,5 +1,4 @@
-@extends('cms.layouts.master')
-@section('content')
+<div>
     <div class="breadcrumb-wrapper">
 
         <div class="breadcrumb-wrapper-overlay"></div>
@@ -31,8 +30,14 @@
 
     <!--begin blog -->
     <section class="section-white small-padding">
-        @include('cms.pages.flash-message')
-        <!--begin container-->
+{{--        @if ($message = Session::get('success'))--}}
+{{--            <div class="alert alert-success alert-block">--}}
+{{--                <a type="button" class="close" data-dismiss="alert">×</a>--}}
+{{--                <strong>{{ $message }}</strong>--}}
+{{--            </div>--}}
+{{--    @endif--}}
+    @include('cms.pages.flash-message')
+    <!--begin container-->
         <div class="container">
 
             <!--begin row-->
@@ -48,15 +53,28 @@
                     <!--end success message -->
 
                     <!--begin contact form -->
-                    <form id="contact-form" class="contact" action="{{ route('contact-us') }}" method="post">
-                        @csrf
-                        <input class="contact-input white-input" required name="name" placeholder="Full Name*" type="text">
-                        <input class="contact-input white-input" required name="email" placeholder="Email Adress*" type="email">
-                        <input class="contact-input white-input" required name="phone" placeholder="Phone Number*" type="text">
-                        <textarea required class="contact-commnent white-input" rows="2" cols="20" name="contact_message" placeholder="Your Message..."></textarea>
-                        <input value="Send Message" id="submit-button" class="btn btn-primary" type="submit">
+                    <form wire:submit.prevent="contactUsSubmit">
+                        <div class="form-group">
+                            <label for="exampleInputName">Name</label>
+                            <input type="text" class="contact-input white-input" id="exampleInputName" placeholder="Enter name" wire:model="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Phone</label>
+                            <input type="text" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter name" wire:model="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Email</label>
+                            <input type="email" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter name" wire:model="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputbody">Body</label>
+                            <textarea class="contact-input white-input" id="exampleInputbody" placeholder="Enter Body" wire:model="contact_message"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save Contact</button>
                     </form>
-                    <!--end contact form -->
 
                 </div>
                 <!--end col-sm-6-->
@@ -79,4 +97,5 @@
 
     </section>
     <!--end blog -->
-@endsection
+
+</div>

@@ -26,7 +26,7 @@ class ApplyLoan extends Component
     public $values;
     public $reasonValue;
     public $amount;
-    public $tab = '6';
+    public $tab = '1';
     public $share_holder_count;
     public $company_name;
     public $company_year;
@@ -63,7 +63,7 @@ class ApplyLoan extends Component
     {
         $this->errorArray = [];
         for ($x = 2; $x <= 7; $x++){
-            $montn = date('M', strtotime( "-".$x."month"));   
+            $montn = date('M', strtotime( "-".$x."month"));
             if(isset($this->photo[$montn])){
                 if($montn == $this->photo[$montn]){
                 }
@@ -96,10 +96,10 @@ class ApplyLoan extends Component
             'current_year' => isset($this->current_year) ? $this->current_year->store('documents') : '',
 
         ]);
-        
-        
+
+
         if(sizeof($this->errorArray) == 0){
-           
+
             foreach($this->photo as $key =>  $item){
                 // dd($item->getClientOriginalExtension());
                 LoanStatement::forceCreate([
@@ -121,7 +121,7 @@ class ApplyLoan extends Component
     {
         $this->mainTypes = MainType::where('profile_id', $this->main_type)->get();
     }
-    
+
     public function getLoanReason($loan_type_id, $key)
     {
         $test = $this->values[$loan_type_id];
@@ -131,8 +131,8 @@ class ApplyLoan extends Component
             $this->values = [$loan_type_id => true];
         }else{
             $this->loan_type_id = null;
-        }   
-        
+        }
+
     }
 
     public function goToReasons()
@@ -145,7 +145,7 @@ class ApplyLoan extends Component
     {
         if($this->apply_loan)
         {
-           
+
             UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();
             foreach($this->reasonValue as $key => $item)
             {
@@ -155,7 +155,7 @@ class ApplyLoan extends Component
                         'loan_reason_id' => $key,
                         'loan_type_id' => $this->loan_type_id,
                     ]);
-                } 
+                }
             }
         }
         foreach($this->reasonValue as $item)
@@ -165,7 +165,7 @@ class ApplyLoan extends Component
                 return;
             }
         }
-       
+
     }
 
     public function companyDetail()
@@ -174,7 +174,7 @@ class ApplyLoan extends Component
             $this->apply_loan->amount = $this->amount;
             $this->apply_loan->loan_type_id = $this->loan_type_id;
             $this->apply_loan->update();
-            
+
         }
         foreach($this->reasonValue as $item)
         {
@@ -183,7 +183,7 @@ class ApplyLoan extends Component
                 return;
             }
         }
-       
+
     }
     public function updateCompanyDetal()
     {
@@ -217,21 +217,21 @@ class ApplyLoan extends Component
             'company_structure_type_id' => 'required',
             'number_of_employees' => 'required',
             'website' => 'url',
-           
+
         ]);
         if($this->apply_loan){
             $this->updateCompanyDetal();
             return;
-        }   
+        }
         $company_start_date = $this->company_year.'/'.$this->company_month;
         // $revenue = $this->revenue_amount1.'.'.$this->revenue_amount2;
         $applyLoan=ModelsApplyLoan::forceCreate([
             'amount' => $this->amount,
             'loan_type_id' => $this->loan_type_id,
             'user_id' => Auth::guard('web')->user()->id,
-            
+
         ]);
-        
+
         foreach($this->reasonValue as $key => $item)
         {
             if($item){

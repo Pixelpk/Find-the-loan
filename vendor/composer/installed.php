@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd8498b67866f582ac7a32ba2c803e207c08f1092',
+        'reference' => '96e0d02e027d4b3f1b49af434630b3401cd13223',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -481,7 +481,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd8498b67866f582ac7a32ba2c803e207c08f1092',
+            'reference' => '96e0d02e027d4b3f1b49af434630b3401cd13223',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(

@@ -68,6 +68,14 @@
         //     // minDate: moment(),
         // });
 
+        $(".bulk_assign").click(function (event) {
+            var SelectedList = [];
+            $("input:checkbox[name=selected_application]:checked").each(function(){
+                SelectedList.push($(this).val());
+            });
+            console.log(SelectedList)
+        });
+
         $(".change_status").click(function (event) {
             event.preventDefault();
             var msg = ($(this).attr('msg'));

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CompanyStructureController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
+use App\Http\Controllers\Admin\LoanApplications;
 use App\Http\Controllers\Admin\LoanReasonController;
 use App\Http\Controllers\Admin\LoanTypeController;
 use App\Http\Controllers\Admin\PartnerUserController;
@@ -17,8 +18,11 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\UserLoanController;
+use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\ApplyLoan;
 use App\Http\Livewire\Cms\BlogComponent;
+use App\Http\Livewire\Cms\BlogDetailComponent;
+use App\Http\Livewire\Cms\ContactUs;
 use App\Http\Livewire\Cms\Home;
 use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
@@ -46,12 +50,12 @@ Route::get('registration',RegisterComponent::class)->name('registration');
 Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
 Route::get('faqs',[HomeController::class,'faqs'])->name('faqs');
 // Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
-Route::get('blog',[HomeController::class,'blogDetail'])->name('blog');
-Route::get('about-us',[HomeController::class,'aboutUs'])->name('about-us');
+Route::get('blog',BlogDetailComponent::class)->name('blog');
+Route::get('about-us',AboutUs::class)->name('about-us');
 Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
-Route::get('contact-us',[HomeController::class,'contactUs'])->name('contact-us');
+Route::get('contact-us',ContactUs::class)->name('contact-us');
 Route::get('terms-conditions',[HomeController::class,'termsConditions'])->name('terms-conditions');
-Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
+//Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
 // Route::get('login',[Login::class])->name('login');
 // Route::post('login',[LoginController::class,'loginAttempt'])->name('loginAttempt');
 // Route::get('registration',[RegistrationController::class,'index'])->name('registration');
@@ -146,6 +150,8 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
         Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
 
+        Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
+        Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
 
     });
 

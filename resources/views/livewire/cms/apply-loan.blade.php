@@ -458,10 +458,10 @@ $main_types = loanProfile();
                             </div>
                             @enderror
                             {{-- @error('company_month') --}}
-                       
+
                         {{-- @enderror --}}
                             {{-- @error('photo')
-                            
+
                             @enderror --}}
                             <!-- Progress Bar -->
 
@@ -518,7 +518,7 @@ $main_types = loanProfile();
                         </div>
 
 
-                      
+
                     </div>
                     <div class="col-md-12" style="margin-top: 30px;">
                         <b style="color: grey;">Optional info</b>
@@ -560,7 +560,7 @@ $main_types = loanProfile();
                             </div>
                             @enderror
                             {{-- @error('photo')
-                            
+
                             @enderror --}}
 
 
@@ -609,16 +609,16 @@ $main_types = loanProfile();
                     <option value="" hidden>Select</option>
                     <option value="1">Person</option>
                     <option value="2">Company</option>
-                  
-                </select>       
-                </div>        
+
+                </select>
+                </div>
                 @endfor
                 </div>
                 @endif
-                
+
             </div>
-           
-           
+
+
         </div>
     </div>
     </div>
