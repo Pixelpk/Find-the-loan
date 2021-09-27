@@ -57,7 +57,7 @@ final class Versions
   'laravel/passport' => 'v10.1.3@a5e4471dd99b7638ab5ca3ecab6cd87cf37eb410',
   'laravel/tinker' => 'v2.6.1@04ad32c1a3328081097a181875733fa51f402083',
   'lcobucci/clock' => '2.0.0@353d83fe2e6ae95745b16b3d911813df6a05bfb3',
-  'lcobucci/jwt' => '4.0.3@ae4165a76848e070fdac691e773243d10cd06ce1',
+  'lcobucci/jwt' => '4.1.4@71cf170102c8371ccd933fa4df6252086d144de6',
   'league/commonmark' => '2.0.2@2df87709f44b0dd733df86aef0830dce9b1f0f13',
   'league/config' => 'v1.1.1@a9d39eeeb6cc49d10a6e6c36f22c4c1f4a767f3e',
   'league/event' => '2.2.0@d2cc124cf9a3fab2bb4ff963307f60361ce4d119',
@@ -165,7 +165,7 @@ final class Versions
   'sebastian/type' => '2.3.4@b8cd8a1c753c90bc1a0f5372170e3e489136f914',
   'sebastian/version' => '3.0.2@c6c1022351a901512170118436c764e473f6de8c',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'laravel/laravel' => 'dev-main@0fbce2d77c37ed0ee3245d64584c70d5e65b5fe1',
+  'laravel/laravel' => 'dev-main@c62ac56d8458eff80d3fd0434816b85aca4c33de',
 );
 
     private function __construct()

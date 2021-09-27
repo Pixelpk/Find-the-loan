@@ -6,10 +6,12 @@ use App\Models\ApplyLoan as ModelsApplyLoan;
 use App\Models\CompanyStructure;
 use App\Models\LoanCompanyDetail;
 use App\Models\LoanDocument;
+use App\Models\LoanPersonShareHolder;
 use App\Models\LoanReason;
 use App\Models\LoanStatement;
 use App\Models\MainType;
 use App\Models\Sector;
+use App\Models\ShareHolderDetail;
 use App\Models\UserLoanReason;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,8 +28,8 @@ class ApplyLoan extends Component
     public $values;
     public $reasonValue;
     public $amount;
-    public $tab = '6';
-    public $share_holder_count;
+    public $tab = '1';
+    public $all_share_holder;
     public $company_name;
     public $company_year;
     public $company_month;
@@ -49,8 +51,27 @@ class ApplyLoan extends Component
     public $profitable_before_year;
     public $current_year;
     public $optional_revenuee;
+    public $errorMessage;
     public $photo;
     public $errorArray = [];
+    public $get_share_holder_type;
+    public $nric_front;
+    public $nric_back;
+    public $passport;
+    public $nao_latest;
+    public $nao_older;
+    public $not_proof;
+    public $subtab = '1';
+    public $share_holder_company_name;
+    public $share_holder_company_year;
+    public $share_holder_company_month;
+    public $share_holder_percentage_shareholder;
+    public $share_holder_number_of_share_holder;
+    public $share_holder_company_structure_type_id;
+    public $share_holder_sector_id;
+    public $share_holder_number_of_employees;
+    public $share_holder_revenue;
+    public $share_holder_website;
     public function mount()
     {
         $this->mainTypes = [];
@@ -58,6 +79,7 @@ class ApplyLoan extends Component
         $this->reasonValue = [];
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
         $this->sectors = Sector::where('status', 1)->get();
+        // $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', 2)->get();
     }
     public function saveCompanyDocuments()
     {
@@ -119,11 +141,13 @@ class ApplyLoan extends Component
 
     public function getMainType()
     {
+     
         $this->mainTypes = MainType::where('profile_id', $this->main_type)->get();
     }
     
     public function getLoanReason($loan_type_id, $key)
     {
+       
         $test = $this->values[$loan_type_id];
         $this->values = [];
         if($test){
@@ -137,12 +161,14 @@ class ApplyLoan extends Component
 
     public function goToReasons()
     {
+       
         $this->loanReasons = LoanReason::where('loan_type_id', $this->loan_type_id)->where('status', 1)->get();
         $this->tab = 2;
     }
 
     public function storeReason()
     {
+       
         if($this->apply_loan)
         {
            
@@ -170,6 +196,9 @@ class ApplyLoan extends Component
 
     public function companyDetail()
     {
+        if(!$this->amount){
+            return;
+        }
         if($this->apply_loan){
             $this->apply_loan->amount = $this->amount;
             $this->apply_loan->loan_type_id = $this->loan_type_id;
@@ -257,5 +286,110 @@ class ApplyLoan extends Component
         ]);
         $this->apply_loan = $applyLoan;
         $this->tab = 5;
+    }
+
+    public function share_holder_detail()
+    {
+        
+        if(!isset($this->all_share_holder)){
+            $this->errorMessage  = 'Share holder type required';
+            return;
+        }
+        if(sizeof($this->all_share_holder) == 3){
+            ShareHolderDetail::where('apply_loan_id', 2)->delete();
+            foreach($this->all_share_holder as $item)
+            {
+
+                $data = ShareHolderDetail::forceCreate([
+                    'apply_loan_id' => 2,
+                    'share_holder_type' => $item
+                ]);
+                $this->get_share_holder_type[] = $data;
+            }
+            $this->errorMessage = '';
+            $this->tab = 7;
+        }else{
+            $this->errorMessage  = 'Share holder type required';
+            return;  
+        }
+    }
+
+    public function share_holder_document_store()
+    {
+       
+        foreach($this->get_share_holder_type as $item){
+            if($item['share_holder_type'] == 1){
+                 $getsholder = ShareHolderDetail::where('id', $item['id'])->first();
+                 $this->validate([
+                     "nric_front.$getsholder->id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                     "nric_back.$getsholder->id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                     "passport.$getsholder->id" => isset($this->nric_front[$getsholder->id]) && isset($this->nric_front[$getsholder->id]) ? '' : 'image|required',
+                     "not_proof.$getsholder->id" => isset($this->nao_latest[$getsholder->id]) && isset($this->nao_older[$getsholder->id]) ? '' : 'image|required',
+                     "nao_latest.$getsholder->id" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                     "nao_older.$getsholder->id" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                 ]);
+                
+             }
+             
+        }
+        foreach($this->get_share_holder_type as $item){
+            if($item['share_holder_type'] == 2){
+                $getsholder = ShareHolderDetail::where('id', $item['id'])->first();
+                $this->validate([
+                    "share_holder_company_name.$getsholder->id" => 'required',
+                    "share_holder_company_year.$getsholder->id" => 'required',
+                    "share_holder_company_month.$getsholder->id" => 'required',
+                    "share_holder_number_of_share_holder.$getsholder->id" => 'required',
+                    "share_holder_sector_id.$getsholder->id" => 'required',
+                    "share_holder_revenue.$getsholder->id" => 'required',
+                    "share_holder_percentage_shareholder.$getsholder->id" => 'required',
+                    "share_holder_company_structure_type_id.$getsholder->id" => 'required',
+                    "share_holder_number_of_employees.$getsholder->id" => 'required',
+                    "share_holder_website.$getsholder->id" => 'url',
+                ]);
+                
+            }
+            
+        }
+        foreach($this->get_share_holder_type as $item){
+        if($item['share_holder_type'] == 1){
+            $getsholder = ShareHolderDetail::where('id', $item['id'])->first();
+            
+            LoanPersonShareHolder::forceCreate([
+                'apply_loan_id' => 2,
+                'share_holder_detail_id' => $getsholder->id,
+                "nric_front" => isset($this->nric_front[$getsholder->id]) ?  $this->nric_front[$getsholder->id]->store('documents') : '',
+                "nric_back" => isset($this->nric_back[$getsholder->id]) ?  $this->nric_back[$getsholder->id]->store('documents') : '',
+                "passport" => isset($this->passport[$getsholder->id]) ?  $this->passport[$getsholder->id]->store('documents') : '',
+                "nao_latest" => isset($this->nao_latest[$getsholder->id]) ?  $this->nao_latest[$getsholder->id]->store('documents') : '',
+                "nao_older" => isset($this->nao_older[$getsholder->id]) ?  $this->nao_older[$getsholder->id]->store('documents') : '',
+            ]);
+        }
+            
+       }
+       
+       foreach($this->get_share_holder_type as $item){
+            if($item['share_holder_type'] == 2){
+                $getsholder = ShareHolderDetail::where('id', $item['id'])->first();
+               
+                LoanCompanyDetail::forceCreate([
+                    "apply_loan_id" => 2,
+                    "share_holder" => $getsholder->id,
+                    "company_start_date" =>  $this->share_holder_company_year[$getsholder->id].'/'.$this->share_holder_company_month[$getsholder->id],
+                    "revenue" => $this->share_holder_revenue[$getsholder->id],
+                    "number_of_share_holder" => $this->share_holder_number_of_share_holder[$getsholder->id],
+                    "sector_id" => $this->share_holder_sector_id[$getsholder->id],
+                    "percentage_shareholder" => $this->share_holder_percentage_shareholder[$getsholder->id],
+                    "company_structure_type_id" => $this->share_holder_company_structure_type_id[$getsholder->id],
+                    "number_of_employees" => $this->share_holder_number_of_employees[$getsholder->id],
+                    "company_name" => $this->share_holder_company_name[$getsholder->id],
+                    "website" => $this->share_holder_website[$getsholder->id],
+                ]);
+                $this->subtab = '2';
+                
+            }
+            
+        }
+        
     }
 }
