@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="{{ route('loan-applications') }}" class="waves-effect">
                             <i class="fa fa-list"></i><span> Loan Applications </span>
                         </a>
                     </li>

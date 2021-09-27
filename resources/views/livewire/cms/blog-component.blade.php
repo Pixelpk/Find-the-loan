@@ -46,7 +46,7 @@
                     <!--begin popup image -->
                     <div class="popup-wrapper">
                         <div class="popup-gallery">
-                            <a href="{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}"><img
+                            <a href="{{ route('blog',['blog_id'=>$blog->id,'name'=>$blog->slug]) }}"><img
                                     src="{{ asset('uploads/blogImages/'.$blog->image) }}" class="width-100"
                                     alt="pic"><span class="eye-wrapper2"><i
                                         class="icon icon-link eye-icon"></i></span></a>
@@ -58,7 +58,7 @@
                     <div class="blog-item-inner">
 
                         <h3 class="blog-title"><a
-                                href="{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}">{{ $blog->title }}</a>
+                                href="{{ route('blog',['blog_id'=>$blog->id,'name'=>$blog->slug]) }}">{{ $blog->title }}</a>
                         </h3>
 
                         {{--                            <a href="#" class="blog-icons"><i class="icon icon-user"></i> Paul Smith</a>--}}
@@ -74,7 +74,7 @@
                                 $yourText = $doc->saveHTML();
                             }
                             ?>
-                        <p>{!! $yourText !!}...<a href='{{ route('blog',['id'=>$blog->id,'name'=>$blog->slug]) }}'>View
+                        <p>{!! $yourText !!}...<a href='{{ route('blog',['blog_id'=>$blog->id,'name'=>$blog->slug]) }}'>View
                                 More</a></p>
                     </div>
                     <!--end blog-item-inner -->
@@ -102,9 +102,9 @@
                         }
                         ?>
                 <div class="sidebar_posts">
-                    <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img
+                    <a href="{{ route('blog',['blog_id'=>$new->id,'name'=>$blog->slug]) }}" title=""><img
                             src="{{ asset('uploads/blogImages/'.$new->image) }}" alt=""></a>
-                    <a href="{{ route('blog',['id'=>$new->id,'name'=>$blog->slug]) }}" title="">{!! $yourText !!}</a>
+                    <a href="{{ route('blog',['blog_id'=>$new->id,'name'=>$blog->slug]) }}" title="">{!! $yourText !!}</a>
                     <span class="sidebar_post_date">{{ $new->created_at->toFormattedDateString() }}</span>
                 </div>
                 @endforeach
