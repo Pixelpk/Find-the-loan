@@ -36,4 +36,8 @@ class ApplyLoan extends Model
     public function loan_statements(){
         return $this->hasMany(LoanStatement::class,'apply_loan_id','id');
     }
+
+    public function parentCompany(){
+        return $this->belongsTo(LoanCompanyDetail::class,'id', 'apply_loan_id')->where('share_holder', 0);
+    }
 }
