@@ -42,6 +42,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('clear-cache',function (){
+   \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+});
 //CMS routes
 // Route::get('/',[HomeController::class,'home'])->name('home');
 Route::get('/',Home::class)->name('home');
@@ -152,6 +156,9 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
+        Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
+        Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
+        Route::post('enquiry-color',[LoanApplications::class,'enquiryColor'])->name('enquiry-color');
 
     });
 

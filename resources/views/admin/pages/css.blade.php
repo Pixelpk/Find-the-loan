@@ -8,6 +8,8 @@
 <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
+
 
 <style>
     .resize-img {
@@ -27,5 +29,38 @@
         100%{   color: #27b34d;    }
     }
     /*blinking end*/
+
+    /*start autocomplete*/
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 16px;
+        right: 14px;
+    }
+
+    .search-link {
+        display: block;
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+    .autocomplete-items div:hover {
+        /*when hovering an item:*/
+        background-color: #e9e9e9;
+    }
+
+    .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+    }
+    /*end autocomplete*/
 
 </style>

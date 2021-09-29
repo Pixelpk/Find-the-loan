@@ -13,6 +13,7 @@
 <script src="{{ asset('assets/ckeditor/adapters/jquery.js') }}"></script>
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
     function showNotificationModal(message,colorName,placementFrom,placementAlign){
         // if (text === null || text === '') { text = 'Turning standard Bootstrap alerts'; }
@@ -52,28 +53,70 @@
     $(document).ready(function() {
         $( '.ckeditor.editor' ).ckeditor();
 
-        // $('.date_picker').bootstrapMaterialDatePicker({
-        //     format: 'Y-MM-DD',
-        //     okButton:false,
-        //     // From Today
-        //     // minDate: moment(),
-        //     time: false
-        // });
-        // $('.datetime-picker').bootstrapMaterialDatePicker({
-        //     format: 'Y-MM-DD H:mm:ss',
-        //     // clearButton: true,
-        //     // switchOnClick:true,
-        //     okButton:false,
-        //     // From Today
-        //     // minDate: moment(),
-        // });
+        $('.datetime-picker').datetimepicker({
+            minuteStep:5,
+            weekStart: 0,
+        });
+        $('.date-picker').datetimepicker({
+            minView: 2,
+            format: 'yyyy-mm-dd',
+            pickTime:false
+        });
 
-        $(".bulk_assign").click(function (event) {
+        $('.search-user').keyup(function (event) {
+            let search = $(this).val();
+            console.log(search)
+            $.ajax({
+                method: 'POST',
+                url: "{{route('application-search')}}",
+                data: {
+                    '_token': '{{ csrf_token()}}',
+                    'search': search
+                }
+            }).done(function (data) {
+                console.log(data)
+                $('#search_list').html('');
+                $('#search_list').html(data);
+                $('#search_list').css('display', 'block');
+            });
+        });
+
+        $("#bulk_assign").click(function (event) {
+            event.preventDefault();
+            var user_id = $('#assign_user_id').val();
             var SelectedList = [];
             $("input:checkbox[name=selected_application]:checked").each(function(){
                 SelectedList.push($(this).val());
             });
-            console.log(SelectedList)
+
+            if (SelectedList.length <= 0){
+                $('#assign_error').show();
+                return false;
+            }else {
+                $('#assign_error').hide();
+            }
+            $.ajax({
+                method: "POST",
+                url: "{{ route('assign-application') }}",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id':user_id,
+                    'selected_list':SelectedList
+                }
+            }).done(function (data) {
+                window.location.href = "{{ route('loan-applications') }}";
+            });
+        });
+        // $('#application_filter_btn').click(function (){
+        //    $('#application_filter_form').toggle();
+        // });
+        $(document).on('click', '#application_filter_form', function (e) {
+            e.stopPropagation();
+        });
+
+        $("#mobile-dropdown .dropdown-toggle").click(function() {
+            $(this).dropdown("toggle");
+            return false;
         });
 
         $(".change_status").click(function (event) {

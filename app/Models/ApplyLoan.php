@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ApplyLoan extends Model
 {
@@ -38,7 +39,14 @@ class ApplyLoan extends Model
         return $this->hasMany(LoanStatement::class,'apply_loan_id','id');
     }
 
-    public function parentCompany(){
-        return $this->belongsTo(LoanCompanyDetail::class,'id', 'apply_loan_id')->where('share_holder', 0);
+    public function assigned_application(){
+        $user = Auth::user();
+        $partner_id = "";
+        if ($user->parent_id == 0){
+            $partner_id = $user->id;
+        }else{
+            $partner_id = $user->parent_id;
+        }
+        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->where('partner_id','=',$partner_id)->with('user');
     }
 }
