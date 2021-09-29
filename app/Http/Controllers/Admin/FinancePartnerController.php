@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\PartnerMail;
 use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
+use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,6 +26,49 @@ class FinancePartnerController extends Controller
             ->get();
         $data['loan_types'] = LoanType::where('status','=',1)->get();
         return view('admin.finance_partners.partners',$data);
+    }
+
+    public function enquiryColor(Request $request){
+        $data = $request->all();
+        $user = $request->user();
+        $partner_id = "";
+        if ($user->parent_id == 0){
+            $partner_id = $user->id;
+        }else{
+            $partner_id = $user->parent_id;
+        }
+
+        $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
+            ->pluck('value', 'key_name');
+        return view('admin.finance_partners.edit_enquiry_color',$data);
+    }
+
+    function submitPartnerMeta(Request $request){
+        $data = $request->all();
+        $user = $request->user();
+        $partner_id = "";
+        if ($user->parent_id == 0){
+            $partner_id = $user->id;
+        }else{
+            $partner_id = $user->parent_id;
+        }
+//        dd($request->all());
+        foreach ($data as $key=>$value){
+            if ($key != '_token'){
+                $web_data = FinancePartnerMeta::where('key_name','=',$key)
+                    ->where('partner_id','=',$partner_id)
+                    ->first();
+                if (!$web_data){
+                    $web_data = new FinancePartnerMeta();
+                }
+                $web_data->partner_id = $partner_id;
+                $web_data->key_name = $key;
+                $web_data->value = $value;
+                $web_data->save();
+            }
+        }
+        return redirect(route('enquiry-color'))->with('success','Data is updated successfully.');
+
     }
 
     function partnerDetail(Request $request)

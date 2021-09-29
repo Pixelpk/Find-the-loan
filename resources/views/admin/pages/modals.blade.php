@@ -446,6 +446,7 @@
                 <form id="loan-reason-form" method="post" action="{{ route('add-loan-reason') }}"
                     enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id" id="update_loan_reason_id">
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Select Profile</label>
                         <select  required onclick="getLoanType()" class="form-control" name="main_type" id="loan_main_type">
@@ -461,10 +462,9 @@
                     <div class="form-group" id="loanType">
                         <label for="" class="control-label mb-10">Type Name</label>
                         <select  class="form-control" name="loan_type_id" id="loan_main_type">
-                            <option value="" hidden>Select</option>
+                            <option value="">Select</option>
                         </select>
                     </div>
-                    <input type="hidden" name="id" id="update_loan_reason_id">
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Reason</label>
                         <input type="text" required id="loan_reason" name="reason" class="form-control">

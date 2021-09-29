@@ -22,11 +22,21 @@
                         <div class="card">
                             <div class="card-body">
                                 {{--                                <h4 class="mt-0 header-title">Web Data</h4>--}}
-                                <form method="post" action="#">
+                                <form method="post" action="{{ route('submit-partner-meta') }}">
                                     @csrf
-                                    <div class="form-group">
-                                        <h5>Contact email</h5>
-                                        <input type="email" class="form-control" required  name="contact_email" value="{{$web_data['contact_email'] ?? ""}}"/>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <h5>Profitable color</h5>
+                                                <input type="color" class="form-control" required  name="profitable_color" value="{{$enquiry_data['profitable_color'] ?? ""}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <h5>Loss color</h5>
+                                                <input type="color" class="form-control" required  name="loss_color" value="{{$enquiry_data['loss_color'] ?? ""}}"/>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group mb-0">
@@ -34,7 +44,6 @@
                                             <button type="submit" class="btn btn-primary waves-effect waves-light">
                                                 Submit
                                             </button>
-
                                         </div>
                                     </div>
                                 </form>

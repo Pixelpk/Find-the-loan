@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class ApplyLoan extends Model
 {
     use HasFactory;
-  
+
 
     public function loan_user(){
         return $this->belongsTo(User::class,'user_id','id');
@@ -49,4 +49,9 @@ class ApplyLoan extends Model
         }
         return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->where('partner_id','=',$partner_id)->with('user');
     }
+
+    public function parentCompany(){
+        return $this->belongsTo(LoanCompanyDetail::class,'id', 'apply_loan_id')->where('share_holder', 0);
+    }
+
 }

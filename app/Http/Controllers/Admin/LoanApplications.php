@@ -7,6 +7,7 @@ use App\Models\ApplyLoan;
 use App\Models\AssignedApplication;
 use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
+use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -77,6 +78,8 @@ class LoanApplications extends Controller
             ->get();
         $data['company_structure'] = CompanyStructure::where('status','=','1')
             ->get();
+        $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
+            ->pluck('value', 'key_name');
 
         //setting filter values for pagination
         if($loan_type_id != null){
@@ -99,10 +102,6 @@ class LoanApplications extends Controller
         return view('admin.loan_applications.loan_applications',$data);
     }
 
-    public function enquiryColor(Request $request){
-        $data = $request->all();
-        return view('admin.finance_partners.edit_enquiry_color',$data);
-    }
 
     public function applicationSearch(Request $request){
         $search = isset($request->search) ? $request->search : '';

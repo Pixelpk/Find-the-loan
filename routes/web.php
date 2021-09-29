@@ -153,12 +153,13 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('partner-user-detail',[PartnerUserController::class,'userDetail'])->name('partner-user-detail');
         Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
         Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
+        Route::get('enquiry-color',[FinancePartnerController::class,'enquiryColor'])->name('enquiry-color');
+        Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
-        Route::post('enquiry-color',[LoanApplications::class,'enquiryColor'])->name('enquiry-color');
 
     });
 

@@ -115,7 +115,7 @@
                                             </thead>
                                             <tbody>
                                             @foreach($applications as $application)
-                                                <tr style="background-color: @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) #00800038 @else #ed2c2c24 @endif">
+                                                <tr style="background-color: @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif">
                                                     <td>
                                                         @if($application->assigned_application == null)
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
