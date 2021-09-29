@@ -18,7 +18,6 @@
                             <a  wire:click="goToReasons()"  style="padding: .1rem 1rem;" class="{{ !$loan_type_id ? 'disabled' : '' }} nav-link {{ $tab == '2' ? 'active' : '' }}"
                                 href="#">REASON</a>
                         </li>
-
                         <li class="nav-item">
                             <a wire:click="storeReason()" aria-disabled="true" style="padding: .1rem 1rem;"
                                 class="{{ !$loan_type_id ? 'disabled' : '' }} nav-link {{ $tab == '3' ? 'active' : '' }}" href="#">AMOUNT</a>
