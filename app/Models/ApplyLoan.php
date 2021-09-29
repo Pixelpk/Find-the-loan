@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApplyLoan extends Model
 {
     use HasFactory;
+  
 
     public function loan_user(){
         return $this->belongsTo(User::class,'user_id','id');

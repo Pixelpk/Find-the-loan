@@ -14,6 +14,7 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.6",
+        "monarobase/country-list": "^3.2",
         "rahulhaque/laravel-filepond": "^1.2",
         "sopamo/laravel-filepond": "^0.6.2"
     },
