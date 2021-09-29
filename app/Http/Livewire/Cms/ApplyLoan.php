@@ -54,7 +54,7 @@ class ApplyLoan extends Component
     public $errorMessage;
     public $photo;
     public $errorArray = [];
-    public $get_share_holder_type;
+    public $get_share_holder_type = [];
     public $nric_front;
     public $nric_back;
     public $passport;
@@ -245,7 +245,7 @@ class ApplyLoan extends Component
             'percentage_shareholder' => 'required',
             'company_structure_type_id' => 'required',
             'number_of_employees' => 'required',
-            'website' => 'url',
+            'website' => 'nullable',
 
         ]);
         if($this->apply_loan){
@@ -290,7 +290,7 @@ class ApplyLoan extends Component
 
     public function share_holder_detail()
     {
-        
+        $this->get_share_holder_type = [];
         if(!isset($this->all_share_holder)){
             $this->errorMessage  = 'Share holder type required';
             return;
@@ -345,7 +345,7 @@ class ApplyLoan extends Component
                     "share_holder_percentage_shareholder.$getsholder->id" => 'required',
                     "share_holder_company_structure_type_id.$getsholder->id" => 'required',
                     "share_holder_number_of_employees.$getsholder->id" => 'required',
-                    "share_holder_website.$getsholder->id" => 'url',
+                    "share_holder_website.$getsholder->id" => 'nullable',
                 ]);
                 
             }
@@ -390,6 +390,7 @@ class ApplyLoan extends Component
             }
             
         }
+        
         
     }
 }

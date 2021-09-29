@@ -33,16 +33,19 @@
                             <a  wire:click="$set('tab', '5')" style="padding: .1rem 1rem;" class="nav-link {{ $tab == '5' ? 'active' : '' }}"
                                 href="#">COMPANY DOCUMENTS</a>
                         </li>
-
+                        @if($apply_loan && $apply_loan->parentCompany->number_of_share_holder > 0)
                         <li class="nav-item">
-                            <a wire:click="$set('tab', '6')" style="padding: .1rem 1rem;" class="nav-link {{ $tab == '6' ? 'active' : '' }}"
+                            <a  style="padding: .1rem 1rem;" class="nav-link {{ $tab == '6' ? 'active' : '' }}"
                                 href="#">SHARE HOLDER TYPE</a>
                         </li>
-
+                        @endif
+                        @if(sizeof($get_share_holder_type) > 0)
                         <li class="nav-item">
-                            <a   style="padding: .1rem 1rem;" class="nav-link {{ $tab == '7' ? 'active' : '' }}"
-                               >SHARE HOLDER</a>
+                            <a wire:click="$set('tab', '7')" style="padding: .1rem 1rem;" class="nav-link {{ $tab == '7' ? 'active' : '' }}"
+                                href="#">SHARE HOLDER</a>
                         </li>
+                        @endif
+                       
                         @endif
 
 
@@ -1022,7 +1025,7 @@
                             </div>
                         @elseif($subtab == 2)
                         <div class="row">
-                            <div class="col-md-12" style="margin-top: 30px;">
+                            <div class="col-md-12" style="margin-top: 60px;">
                                 <b>6 months latest bank statement</b>
                                 <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You Would Need To
                                     Submit
