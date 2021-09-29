@@ -35,7 +35,6 @@
     function showNotificationModal(message,colorName,placementFrom,placementAlign){
         // if (text === null || text === '') { text = 'Turning standard Bootstrap alerts'; }
         var allowDismiss = true;
-
         $.notify({
                 message: message
             },
@@ -65,6 +64,7 @@
             });
     }
 </script>
+
 <script>
     function showImage(input) {
         if (input.files && input.files[0]) {

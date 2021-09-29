@@ -17,5 +17,16 @@
 @include('cms.pages.footer-js')
 
 @livewireScripts
+<script>
+window.livewire.on('alert', param => {
+       Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: param['message'],
+        showConfirmButton: false,
+        timer: 1500
+        })
+});
+</script>
 </body>
 </html>

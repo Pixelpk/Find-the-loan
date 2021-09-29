@@ -13,19 +13,20 @@
                                 TYPE</a>
                         </li>
                         {{-- @if($loan_type_id) --}}
-                        <li wire:click="goToReasons()" class="nav-item">
-                            <a style="padding: .1rem 1rem;" class="nav-link {{ $tab == '2' ? 'active' : '' }}"
+                        <li  class="nav-item">
+                        
+                            <a  wire:click="goToReasons()"  style="padding: .1rem 1rem;" class="{{ !$loan_type_id ? 'disabled' : '' }} nav-link {{ $tab == '2' ? 'active' : '' }}"
                                 href="#">REASON</a>
                         </li>
 
                         <li class="nav-item">
                             <a wire:click="storeReason()" aria-disabled="true" style="padding: .1rem 1rem;"
-                                class="nav-link {{ $tab == '3' ? 'active' : '' }}" href="#">AMOUNT</a>
+                                class="{{ !$loan_type_id ? 'disabled' : '' }} nav-link {{ $tab == '3' ? 'active' : '' }}" href="#">AMOUNT</a>
                         </li>
 
                         <li class="nav-item">
                             <a wire:click="companyDetail()" style="padding: .1rem 1rem;"
-                                class="nav-link {{ $tab == '4' ? 'active' : '' }}" href="#">COMPANY DETAIL</a>
+                                class="{{ !$loan_type_id ? 'disabled' : '' }} nav-link {{ $tab == '4' ? 'active' : '' }}" href="#">COMPANY DETAIL</a>
                         </li>
 
                         @if($apply_loan)
@@ -36,16 +37,19 @@
                         </li>
                         @endif
                         @if($apply_loan && $apply_loan->parentCompany->number_of_share_holder > 0)
+                        @if(!$this->listed_company_check)
                         <li class="nav-item">
-                            <a style="padding: .1rem 1rem;" class="nav-link {{ $tab == '6' ? 'active' : '' }}"
+                            <a wire:click="$set('tab', '6')" style="padding: .1rem 1rem;" class="nav-link {{ $tab == '6' ? 'active' : '' }}"
                                 href="#">SHARE HOLDER TYPE</a>
                         </li>
                         @endif
+                       
                         @if(sizeof($get_share_holder_type) > 0)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '7')" style="padding: .1rem 1rem;"
                                 class="nav-link {{ $tab == '7' ? 'active' : '' }}" href="#">SHARE HOLDER</a>
                         </li>
+                        @endif
                         @endif
                         @endif
                     </ul>
@@ -60,7 +64,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label for="">Select Profile</label>
-                            <select style="margin-top: 10px;" wire:model="main_type" class="form-select"
+                            <select  style="margin-top: 10px;" wire:model="main_type" class="form-select"
                                 aria-label="Default select example" wire:change="getMainType()">
                                 <option value="" hidden>Select</option>
                                 <option value="1">Business</option>
@@ -143,12 +147,15 @@
                     <div class="row">
                         <div class="col-12">
                             <br>
-                            <button class="btn btn-primary" type="button" wire:target='companyDetail'
-                                wire:click.prevent='companyDetail'>
-                                <span wire:loading wire:target="companyDetail" class="spinner-border spinner-border-sm"
-                                    role="status" aria-hidden="true"></span>
+                            <button wire:loading.attr='disabled' class="btn btn-primary" type="button"
+                                wire:target='companyDetail' wire:click.prevent='companyDetail'>
+                                <div wire:loading wire:target="companyDetail">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                </div>
                                 Submit
                             </button>
+
                         </div>
                     </div>
                     @elseif($tab == 4)
@@ -172,33 +179,30 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
+                        <div class="col-md-3" style="margin-top: 30px;">
                             <label for="company_year" class="form-label">How long has the company</label>
                             <div class="input-group">
-                                <input placeholder="yy" wire:model="company_year" type="number" class="form-control"
+                                <input placeholder="Number of years" wire:model="company_year" type="number" class="form-control"
                                     aria-label="Text input with dropdown button">
-                                <select wire:model="company_month" class="form-select"
-                                    aria-label="Default select example" wire:change="getMainType()">
-                                    <option value="" hidden>Select Month</option>
-                                    <option value="1">01</option>
-                                    <option value="2">02</option>
-                                    <option value="3">03</option>
-                                    <option value="4">04</option>
-                                    <option value="5">05</option>
-                                    <option value="6">06</option>
-                                    <option value="7">07</option>
-                                    <option value="8">08</option>
-                                    <option value="9">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
+                                    &nbsp;&nbsp;<p style="padding-top:10px;">Years</p>
+                            
                             </div>
                             @error('company_year')
                             <div style="color: red;">
                                 {{ $message }}
                             </div>
                             @enderror
+                         
+                        </div>
+                        <div class="col-md-3" style="margin-top: 30px;">
+                           
+                            <div class="input-group" style="margin-top:29px;">
+                              
+                               <input placeholder="Number of month" wire:model="company_month" type="number" class="form-control"
+                                    aria-label="Text input with dropdown button">
+                               &nbsp;&nbsp;<p style="padding-top:10px;">Months</p>
+                            </div>
+                          
                             @error('company_month')
                             <div style="color: red;">
                                 {{ $message }}
@@ -295,7 +299,7 @@
                         </div>
                         @else
                         <div class="col-md-12" style="margin-top: 30px;">
-                            <label for="company_name" class="form-label">please provide either parent company name or
+                            <label for="company_name" class="form-label">Please provide either parent company name or
                                 its ticker number followed by which stock exchange</label>
                             <input wire:model="company_name" type="text" class="form-control" id="company_name">
                             @error('company_name')
@@ -307,7 +311,7 @@
 
                         <div class="col-md-12" style="margin-top:30px;">
                             <div class="form-group">
-                              <label for="company_name" class="form-label">Country</label>
+                                <label for="company_name" class="form-label">Country</label>
                                 <select wire:model="country" class="form-select" aria-label="Default select example">
                                     <option value="" hidden>Select</option>
                                     @foreach($countries as $country)
@@ -328,14 +332,14 @@
                                 x-on:livewire-upload-error="isUploading = false"
                                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                                 <div class="form-group">
-                                    
-                                    <label class="control-label mb-10" >
+
+                                    <label class="control-label mb-10">
                                         Subsidiary’s (borrower)M&AA
                                     </label>
                                     <br>
                                     <br>
                                     <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                                        <input  wire:model="subsidiary" type="file" id="vehicleimage">
+                                        <input wire:model="subsidiary" type="file" id="vehicleimage">
                                     </label>
                                 </div>
                                 @error('subsidiary')
@@ -353,12 +357,15 @@
                     <div class="row">
                         <div class="col-12">
                             <br>
-                            <button class="btn btn-primary" type="button" wire:target='companyDetailStore'
-                                wire:click.prevent='companyDetailStore'>
-                                <span wire:loading wire:target="companyDetailStore"
-                                    class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <button  class="btn btn-primary" type="button"
+                                wire:target='companyDetailStore' wire:click.prevent='companyDetailStore'>
+                                <div wire:loading wire:target="companyDetailStore">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                </div>
                                 Submit
                             </button>
+
                         </div>
                     </div>
                     @elseif($tab == 5)
@@ -658,16 +665,18 @@
                         </div>
                     </div>
                     @endif
-                    @for ($count = 1; $count <= 3; $count++) <div class="col-md-12" style="margin-top:30px;">
+                    @if($apply_loan && $apply_loan->parentCompany->number_of_share_holder > 0)
+                    @for ($count = 1; $count <= $apply_loan->parentCompany->number_of_share_holder; $count++) <div class="col-md-12" style="margin-top:30px;">
                         <label for="">Share holder type</label>
-                        <select wire:model="all_share_holder.{{ $count }}" class="form-select"
+                        <select @if($apply_loan->getNnumberOfShareHolder->count() > 0) disabled @endif wire:model="all_share_holder.{{ $count }}" class="form-select"
                             aria-label="Default select example">
                             <option value="" hidden>Select</option>
                             <option value="1">Person</option>
                             <option value="2">Company</option>
                         </select>
-                </div>
-                @endfor
+                        </div>
+                    @endfor
+                    @endif
                 <div class="col-12">
                     <br>
                     <button class="btn btn-primary" type="button" wire:target='share_holder_detail'
@@ -715,7 +724,8 @@
                                         <div class="form-group">
                                             <br>
                                             <label for="">NRIC Front</label>
-                                            <input wire:model="nric_front.{{ $shreholder }}" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="nric_front.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                             </label>
                                         </div>
                                         @error("nric_front.$shreholder")
@@ -738,7 +748,8 @@
                                         <div class="form-group">
                                             <br>
                                             <label for="">NRIC Back</label>
-                                            <input wire:model="nric_back.{{ $shreholder }}" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="nric_back.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                             </label>
                                         </div>
                                         @error("nric_back.$shreholder")
@@ -761,7 +772,8 @@
                                         <div class="form-group">
                                             <br>
                                             <label for="">Passport</label>
-                                            <input wire:model="passport.{{ $shreholder }}" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="passport.{{ $shreholder }}" type="file" id="vehicleimage"
+                                                name="" id="">
                                             </label>
                                         </div>
                                         @error("passport.$shreholder")
@@ -790,7 +802,8 @@
                                         <div class="form-group">
                                             <br>
                                             <label for="">Latest</label>
-                                            <input wire:model="nao_latest.{{ $shreholder }}" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="nao_latest.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                             </label>
                                         </div>
                                         @error("nao_latest.$shreholder")
@@ -813,7 +826,8 @@
                                         <div class="form-group">
                                             <br>
                                             <label for="">Older</label>
-                                            <input wire:model="nao_older.{{ $shreholder }}" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="nao_older.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                             </label>
                                         </div>
                                         @error("nao_older.$shreholder")
@@ -930,6 +944,7 @@
                                         <input placeholder="yy" wire:model="share_holder_company_year.{{ $shreholder }}"
                                             type="number" class="form-control"
                                             aria-label="Text input with dropdown button">
+                                        
                                         <select wire:model="share_holder_company_month.{{ $shreholder }}"
                                             class="form-select" aria-label="Default select example"
                                             wire:change="getMainType()">
@@ -1098,8 +1113,7 @@
                                                 @if(1 == $x) (Optional) @endif
                                             </label>
                                             <br>
-                                            <label wire:ignore class="label" data-toggle="tooltip"
-                                                title="Select Image">
+                                            <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
                                                 <input
                                                     wire:model="share_holder_photo.{{ $shreholder }}.{{ date('M', strtotime( "-".$x."month")) }}"
                                                     type="file" id="vehicleimage" name="" id="">
@@ -1135,10 +1149,9 @@
                                             <label class="control-label mb-10">
                                             </label>
                                             <br>
-                                            <label wire:ignore class="label" data-toggle="tooltip"
-                                                title="Select Image">
-                                                <input wire:model="share_holder_statement.{{ $shreholder }}" type="file" id="vehicleimage"
-                                                    name="" id="">
+                                            <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
+                                                <input wire:model="share_holder_statement.{{ $shreholder }}" type="file"
+                                                    id="vehicleimage" name="" id="">
                                             </label>
                                         </div>
                                         @error("share_holder_statement.$shreholder")
@@ -1172,8 +1185,8 @@
                                                 <label for="">Latest year</label>
                                             </label>
                                             <br>
-                                            <input wire:model="share_holder_latest_year.{{ $shreholder }}" type="file" id="vehicleimage"
-                                                name="" id="">
+                                            <input wire:model="share_holder_latest_year.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                         </div>
                                         @error("share_holder_latest_year.$shreholder")
                                         <div style="color:red;">
@@ -1199,8 +1212,8 @@
                                                 <label for="">Before year</label>
                                             </label>
                                             <br>
-                                            <input wire:model="share_holder_year_before.{{ $shreholder }}" type="file" id="vehicleimage"
-                                                name="" id="">
+                                            <input wire:model="share_holder_year_before.{{ $shreholder }}" type="file"
+                                                id="vehicleimage" name="" id="">
                                         </div>
                                         @error("share_holder_year_before.$shreholder")
                                         <div style="color:red;">
@@ -1276,7 +1289,8 @@
                                             <label class="control-label mb-10">
                                             </label>
                                             <br>
-                                            <input wire:model="share_holder_current_year" type="file" id="vehicleimage" name="" id="">
+                                            <input wire:model="share_holder_current_year" type="file" id="vehicleimage"
+                                                name="" id="">
                                         </div>
                                         @error("share_holder_current_year.$shreholder")
                                         <div style="color:red;">
