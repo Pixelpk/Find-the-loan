@@ -62,6 +62,7 @@ return array(
     'App\\Mail\\PartnerMail' => $baseDir . '/app/Mail/PartnerMail.php',
     'App\\Mail\\PartnerUserMail' => $baseDir . '/app/Mail/PartnerUserMail.php',
     'App\\Models\\ApplyLoan' => $baseDir . '/app/Models/ApplyLoan.php',
+    'App\\Models\\AssignedApplication' => $baseDir . '/app/Models/AssignedApplication.php',
     'App\\Models\\Blog' => $baseDir . '/app/Models/Blog.php',
     'App\\Models\\CompanyStructure' => $baseDir . '/app/Models/CompanyStructure.php',
     'App\\Models\\Faq' => $baseDir . '/app/Models/Faq.php',

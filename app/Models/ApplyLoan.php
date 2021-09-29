@@ -49,4 +49,12 @@ class ApplyLoan extends Model
         }
         return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->where('partner_id','=',$partner_id)->with('user');
     }
+
+    public function parentCompany(){
+        return $this->belongsTo(LoanCompanyDetail::class,'id', 'apply_loan_id')->where('share_holder', 0);
+    }
+
+    public function getNnumberOfShareHolder(){
+        return $this->hasMany(ShareHolderDetail::class,'apply_loan_id', 'id');
+    }
 }

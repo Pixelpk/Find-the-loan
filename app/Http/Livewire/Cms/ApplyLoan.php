@@ -9,6 +9,7 @@ use App\Models\LoanDocument;
 use App\Models\LoanPersonShareHolder;
 use App\Models\LoanReason;
 use App\Models\LoanStatement;
+use App\Models\LoanType;
 use App\Models\MainType;
 use App\Models\Sector;
 use App\Models\ShareHolderDetail;
@@ -85,6 +86,7 @@ class ApplyLoan extends Component
     public $country;
     public $countries;
     public $subsidiary;
+    
     public $share_holder_optional_revenuee;
     public function mount()
     {
@@ -178,7 +180,10 @@ class ApplyLoan extends Component
     public function goToReasons()
     {
         $this->errorMessage = '';
-        $this->loanReasons = LoanReason::where('loan_type_id', $this->loan_type_id)->where('status', 1)->get();
+       
+        $this->loanReasons = LoanReason::where('main_type', $this->main_type)->where('status', 1)->get();
+       
+        // $this->emit('alert', ['type' => 'success', 'message' => 'Loan Type has been selected.']);
         $this->tab = 2;
     }
 
@@ -385,7 +390,7 @@ class ApplyLoan extends Component
             $this->errorMessage  = 'Share holder type required';
             return;
         }
-        if(sizeof($this->all_share_holder) == 3){
+        if(sizeof($this->all_share_holder) == $this->apply_loan->parentCompany->number_of_share_holder){
             ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->delete();
             foreach($this->all_share_holder as $item)
             {
