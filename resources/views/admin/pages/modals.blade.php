@@ -641,3 +641,39 @@
     <!-- /.modal-dialog -->
 </div>
 @endif
+@if(Route::currentRouteName() == 'loan-applications')
+    <div class="modal fade bs-example-modal-center" id="AssignApplicationsUser" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="loan_type_modal_heading">Assign selected applications to user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @csrf
+                        <span style="color: red;display: none" id="assign_error">Please select any application first</span>
+                        <div class="form-group">
+                            <label for="" class="control-label mb-10">Select User</label>
+                            <select class="form-control" name="user_id" id="assign_user_id">
+                                @foreach($all_users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="bulk_assign" class="btn btn-primary">Assign</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif

@@ -8,20 +8,75 @@
                 <div class="page-title-box">
 
                     <div class="row align-items-center ">
-                        <div class="col-md-8">
+                        <div class="col-md-2">
                             <div class="page-title-box">
                                 <h4 class="page-title">Finance partners</h4>
                             </div>
                         </div>
-
-                        <div class="col-md-4">
+{{--                        <div class="col-md-3 float-right">--}}
+{{--                            <div class="input-group no-border">--}}
+{{--                                <input class="form-control search-user" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >--}}
+{{--                            </div>--}}
+{{--                            <div id="search_list" style="" class="autocomplete-items"></div>--}}
+{{--                        </div>--}}
+                        <div class="col-md-10">
                             <div class="float-right d-none d-md-block ml-2">
-                                <button type="button" title="Assign" class="btn btn-primary bulk_assign">
-                                    <i class="fa fa-thumbs-up"></i></button>
+                                <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style="background-color: #27b34d;margin-top: 10px !important;width: 30%;">
+                                    <div class="form-group">
+                                        <label for="" class="control-label mb-10"> From:</label>
+                                        <input type="text" autocomplete="off" class="form-control date-picker" name="from_date">
+                                        <label for="" class="control-label mb-10"> To:</label>
+                                        <input type="text" autocomplete="off" class="form-control date-picker" name="to_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Loan type</label>
+                                        <select class="form-control" name="loan_type_id">
+                                            <option value="">Select</option>
+                                            @foreach($loan_types as $type)
+                                                <option value="{{$type->id}}" @if(isset($_GET['loan_type_id']) && $_GET['loan_type_id'] == $type->id) {{'selected'}} @endif>{{ $type->sub_type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Company structure Type</label>
+                                        <select class="form-control" name="company_structure_type_id">
+                                            <option value="">Select</option>
+                                            @foreach($company_structure as $type)
+                                                <option value="{{$type->id}}" @if(isset($_GET['company_structure_type_id']) && $_GET['company_structure_type_id'] == $type->id) {{'selected'}} @endif>{{ $type->structure_type }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Assigned User</label>
+                                        <select class="form-control" name="assigned_user_id">
+                                            <option value="">Select</option>
+                                            @foreach($all_users as $user)
+                                                <option value="{{ $user->id }}" @if(isset($_GET['assigned_user_id']) && $_GET['assigned_user_id'] == $user->id) {{'selected'}} @endif>{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                </form>
                             </div>
-                            <div class="float-right d-none d-md-block">
+                            <div class="float-right d-none d-md-block ml-2">
+                                <button type="button" id="" data-toggle="modal" data-target="#AssignApplicationsUser" data-dismiss="modal" title="Assign" class="btn btn-primary">
+                                    Assign
+                                </button>
+                            </div>
+                            <div class="float-right d-none d-md-block ml-2">
                                 <button onclick="resetFormFields()" type="button" id="add_partner_btn" data-toggle="modal" data-target="#FinancePartnerModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
                             </div>
+                            <div class=" col-md-3 float-right d-none d-md-block ml-2">
+                                <div class="input-group no-border">
+                                    <input class="form-control search-user" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >
+                                </div>
+                                <div id="search_list" style="" class="autocomplete-items"></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -37,6 +92,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
+                                                <th>Assigned to</th>
                                                 <th>Download documents</th>
                                                 <th>Applied at</th>
                                                 <th>User</th>
@@ -48,7 +104,7 @@
                                                 <th>Company structure</th>
                                                 <th>Sector</th>
                                                 <th>No. of employees</th>
-                                                <th>Company started</th>
+                                                <th>Incorporated for</th>
                                                 <th>Revenue</th>
                                                 <th>Optional revenue</th>
                                                 <th>Share holders</th>
@@ -59,9 +115,16 @@
                                             </thead>
                                             <tbody>
                                             @foreach($applications as $application)
-                                                <tr>
+                                                <tr style="background-color: @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) #00800038 @else #ed2c2c24 @endif">
                                                     <td>
-                                                        <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                        @if($application->assigned_application == null)
+                                                            <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_application != null)
+                                                            {{ $application->assigned_application->user->name }}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('download-loan-doc',['id'=>$application->id]) }}" class="" data-toggle="tooltip" data-original-title="Download All Documents">
@@ -86,43 +149,43 @@
                                                         @endforeach
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->company_name }}
+                                                        {{ $application->loan_company_detail->company_name ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->website }}
+                                                        {{ $application->loan_company_detail->website ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->loan_company_structure->structure_type }}
+                                                        {{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->loan_company_sector->name }}
+                                                        {{ $application->loan_company_detail->loan_company_sector->name ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->number_of_employees }}
+                                                        {{ $application->loan_company_detail->number_of_employees ?? '' }}
                                                     </td>
                                                     <td>
                                                         @php
-                                                            $start_date = explode('/',$application->loan_company_detail->company_start_date);
+                                                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
                                                         @endphp
-                                                        {{$start_date[0]." years".", ".$start_date[1]." months ago"}}
+                                                        {{$start_date[0] ?? ''." years".", ".$start_date[1] ?? ''." months ago"}}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->revenue }}
+                                                        {{ $application->loan_company_detail->revenue ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->optional_revenuee }}
+                                                        {{ $application->loan_company_detail->optional_revenuee ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->share_holder }}
+                                                        {{ $application->loan_company_detail->share_holder ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->percentage_shareholder }}
+                                                        {{ $application->loan_company_detail->percentage_shareholder ?? '' }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->profitable_latest_year }}
+                                                        {{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_company_detail->profitable_before_year }}
+                                                        {{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}
                                                     </td>
                                                 </tr>
 
@@ -146,5 +209,12 @@
         </div>
         @include('admin.pages.footer')
     </div>
+{{--    <script>--}}
+{{--        $('.bulk_assign').click(function (){--}}
+{{--            console.log('asdfasdf')--}}
+{{--            $('AssignApplicationsUser').toggle();--}}
+{{--            $('AssignApplicationsUser').show();--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection
 
