@@ -9,20 +9,26 @@ use App\Models\FinancePartner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class PartnerUserController extends Controller
 {
     public function users(Request $request){
         $user = $request->user();
-        $data['users'] = FinancePartner::where('parent_id','=',$user->id)
-            ->paginate(30);
+        $partner_id = Session::get('partner_id');
+//        echo Session::get('partner_id');exit();
+        $query = FinancePartner::Query()->where('partner_id','=',$partner_id);
+        if ($user->parent_id != 0){
+            $query->where('parent_id','=',$user->id);
+        }
+        $data['users'] = $query->paginate(30);
         return view('admin.partner_users.users',$data);
     }
 
     public function addUser(Request $request){
         $data = $request->all();
-        $parent = $request->user();
-        $parent_id = '';
+        $logged_in_user = $request->user();
+        $partner_id = Session::get('partner_id');
         $request->validate([
             'name' => 'required',
             'designation' => 'required',
@@ -35,20 +41,17 @@ class PartnerUserController extends Controller
         if ($if_user){
             return redirect(route('finance-partners'))->with('error',  "User already exists against this email!")->withInput();
         }
-        if ($parent->parent_id == 0){
-            $parent_id = $parent->id;
-        }else{
-            $parent_id = $parent->parent_id;
-        }
+
         $newUser = new FinancePartner();
         $newUser->name = $data['name'];
-        $newUser->parent_id = $parent_id;
+        $newUser->partner_id = $partner_id;
+        $newUser->parent_id = $logged_in_user->id;
         $newUser->designation = $data['designation'];
         $newUser->email = $data['email'];
         $newUser->phone = $data['phone'];
         $newUser->password = Hash::make($data['password']);
         $newUser->save();
-        $finance_partner = FinancePartner::select('id','name')->where('id','=',$parent_id)->first();
+        $finance_partner = FinancePartner::select('id','name')->where('id','=',$partner_id)->first();
         $info = array(
             'partner_name' => $finance_partner->name,
             'name' => $data['name'],
@@ -68,6 +71,7 @@ class PartnerUserController extends Controller
     public function updateUser(Request $request){
         $data = $request->all();
 //        return $data;
+        $partner_id = Session::get('partner_id');
         $request->validate([
             'id' => 'required',
             'designation' => 'required',
@@ -91,7 +95,7 @@ class PartnerUserController extends Controller
         $partner_user->designation = $data['designation'];
         $partner_user->phone = $data['phone'];
         $partner_user->save();
-        $finance_partner = FinancePartner::select('id','name')->where('id','=',$partner_user->parent_id)->first();
+        $finance_partner = FinancePartner::select('id','name')->where('id','=',$partner_id)->first();
         if (isset($request->password)){
             $info = array(
                 'partner_name' => $finance_partner->name,
@@ -129,14 +133,10 @@ class PartnerUserController extends Controller
 
     public function termsConditions(Request $request){
         $user = $request->user();
-        $user_id = '';
-        if ($user->parent_id == 0){
-            $user_id = $user->id;
-        }else{
-            $user_id = $user->parent_id;
-        }
+        $partner_id = Session::get('partner_id');
+
         $data['detail'] = FinancePartner::select('id','terms_condition','requested_terms_condition','terms_request_user_id','terms_request_status')
-            ->where('id','=',$user_id)->first();
+            ->where('id','=',$partner_id)->first();
 //        return $data;
         $data['user_detail'] = FinancePartner::select('id','name','designation')->where('id','=',$data['detail']->terms_request_user_id)->first();
 //        return $data;
@@ -148,12 +148,8 @@ class PartnerUserController extends Controller
 //        return $user;
         $id = $user->id;
         $message= '';
-        $partner_id = '';
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
-        }
+        $partner_id = Session::get('partner_id');
+
         $partner = FinancePartner::select('id','terms_condition')->where('id','=',$partner_id)->first();
         if ($partner->id == $id){
             $partner->terms_request_status = '1'; //request by admin of financial partner
@@ -177,35 +173,34 @@ class PartnerUserController extends Controller
             if (!isset($data['user_id']) || !isset($data['status'])){
                 return redirect()->back()->with('error',"Oops. something went wrong");
             }
-            $parent = $request->user();
-            $parent_id = '';
-            if ($parent->parent_id == 0){
-                $parent_id = $parent->id;
-            }else{
-                $parent_id = $parent->parent_id;
-            }
+            $logged_in_user = $request->user();
+            $partner_id = Session::get('partner_id');
+
 
             $user_id = $data['user_id'];
             $status = (int)$data['status'];
             if ($status != 0 && $status != 1 && $status != 2){
                 return redirect()->back()->with('error',"Oops. something went wrong");
             }
-            $user = FinancePartner::query()
+            $query = FinancePartner::query()
                 ->where("id", "=", $user_id)
-                ->where('parent_id','=',$parent_id)
-                ->where('status','!=','2')
-                ->first();
-            if (!$user) {
+                ->where('partner_id','=',$partner_id)
+                ->where('status','!=','2');
+            if ($logged_in_user->parent_id != 0){
+                $query->where('parent_id','=',$logged_in_user->id);
+            }
+            $partner_user = $query->first();
+            if (!$partner_user) {
                 return redirect(route('partner-users'))->with("error", "User does not exists");
             }
-            $user->status = $status;
-            if ($user->save()) {
+            $partner_user->status = $status;
+            if ($partner_user->save()) {
                 if ($status == 1) {
                     return redirect()->back()->with("success", "User is activated successfully.");
                 } else if ($status == 2) {
-                    return redirect()->back()->with("success", "user is deleted successfully.");
+                    return redirect()->back()->with("success", "User is deleted successfully.");
                 } else if ($status == 0) {
-                    return redirect()->back()->with("success", "user is deactivated successfully.");
+                    return redirect()->back()->with("success", "User is deactivated successfully.");
                 }
             }
         } catch (\Exception $exception) {

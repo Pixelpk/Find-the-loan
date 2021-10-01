@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-2">
                             <div class="page-title-box">
-                                <h4 class="page-title">Finance partners</h4>
+                                <h4 class="page-title">Loan applications</h4>
                             </div>
                         </div>
 {{--                        <div class="col-md-3 float-right">--}}
@@ -25,6 +25,7 @@
                                     <i class="fas fa-filter"></i>
                                 </button>
                                 <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style="background-color: #27b34d;margin-top: 10px !important;width: 30%;">
+                                    <input type="hidden" id="application_profile_tab" name="profile" value="{{$profile}}">
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10"> From:</label>
                                         <input type="text" autocomplete="off" class="form-control date-picker" name="from_date">
@@ -88,10 +89,11 @@
                             <div class="card-body">
                                 <div class="table-rep-plugin">
                                     <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        <table id="tech-companies-1" class="table  table-striped">
+                                        <table id="loan_application_table" class="table  table-striped">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
+                                                <th>Quote</th>
                                                 <th>Assigned to</th>
                                                 <th>Download documents</th>
                                                 <th>Applied at</th>
@@ -115,15 +117,20 @@
                                             </thead>
                                             <tbody>
                                             @foreach($applications as $application)
-                                                <tr style="background-color: @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) #00800038 @else #ed2c2c24 @endif">
+                                                <tr style="background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
                                                     <td>
-                                                        @if($application->assigned_application == null)
+                                                        @if($application->assigned_by_application == null)
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if($application->assigned_application != null)
-                                                            {{ $application->assigned_application->user->name }}
+{{--                                                        <a href="{{ route('put-quotation') }}" class="" data-toggle="tooltip" data-original-title="Put quotation">--}}
+{{--                                                            <i class="fa fa-quote-left" aria-hidden="true"></i>--}}
+{{--                                                        </a>--}}
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_by_application != null)
+                                                            {{ $application->assigned_by_application->user->name }}
                                                         @endif
                                                     </td>
                                                     <td>

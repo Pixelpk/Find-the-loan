@@ -12,6 +12,9 @@
 <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('assets/ckeditor/adapters/jquery.js') }}"></script>
 
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+{{--<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>--}}
+
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
@@ -53,6 +56,19 @@
     $(document).ready(function() {
         $( '.ckeditor.editor' ).ckeditor();
 
+        $('#loan_application_table').DataTable({
+            paging: false,
+            searching: false,
+            "info": false,
+            order: [[4, 'desc'],[5,'desc']],
+            columnDefs: [
+                {
+                    "orderable": false,
+                    "targets": [0,1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+                },
+            ]
+        });
+
         $('.datetime-picker').datetimepicker({
             minuteStep:5,
             weekStart: 0,
@@ -65,13 +81,15 @@
 
         $('.search-user').keyup(function (event) {
             let search = $(this).val();
+            let profile = $('#application_profile_tab').val();
             console.log(search)
             $.ajax({
                 method: 'POST',
                 url: "{{route('application-search')}}",
                 data: {
                     '_token': '{{ csrf_token()}}',
-                    'search': search
+                    'search': search,
+                    'profile': profile,
                 }
             }).done(function (data) {
                 console.log(data)
@@ -112,6 +130,17 @@
         // });
         $(document).on('click', '#application_filter_form', function (e) {
             e.stopPropagation();
+        });
+
+        $('#loan_profile').change(function (){
+           var main_type = $(this).val();
+           console.log(main_type)
+            if (main_type == 1){
+                $('#loanType').hide();
+            }else {
+                $('#loanType').show();
+                getLoanType(main_type);
+            }
         });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {

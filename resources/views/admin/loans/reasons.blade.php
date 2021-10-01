@@ -39,9 +39,9 @@
                                             @foreach($items as $item)
                                                 <tr>
                                                     <td>
-                                                        @if($item->main_type==1)
+                                                        @if($item->profile==1)
                                                         Business
-                                                        @elseif($item->main_type==2)
+                                                        @elseif($item->profile==2)
                                                         Consumer
                                                         @endif
                                                     </td>
@@ -49,7 +49,7 @@
                                                     <td>{{$item->reason}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a href="#" onclick="getLoanReasonDetail({{$item->id}}); getLoanType({{ $item->main_type }},{{ $item->id }})" class=" edit_loan_reason_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="#" onclick="getLoanReasonDetail({{$item->id}})" class=" edit_loan_reason_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
@@ -91,6 +91,7 @@
             $('#loan_reason_modal_heading').html('Add Loan reason');
             $('#loan_reason_modal_btn').html("Add");
             $('#update_loan_reason_id').val('');
+            $('#loanType').hide();
         }
         function getLoanReasonDetail(id) {
             $('#loan_reason_modal_heading').html('Update Loan reason');
@@ -109,7 +110,14 @@
                 if (data.success === 1) {
                     $('#update_loan_reason_id').val(detail.id);
                     $("#loan_reason").val(detail.reason);
-                    $("#loan_main_type").val(detail.main_type);
+                    if(detail.profile == 1){
+                        $("#loanType").hide();
+                    }else{
+                        $("#loanType").show();
+                        getLoanType(detail.profile);
+                        $("#loan_main_type").val(detail.loan_type_id);
+                    }
+                    $("#loan_profile").val(detail.profile);
 
                     $('#LoanReasonModal').modal('toggle');
                     $('#LoanReasonModal').modal('show');
@@ -118,21 +126,17 @@
                 }
             });
         }
-        function getLoanType(main_type, id) {
-            if(main_type){
-                var loan_type_id = main_type
-                var loan_reason_id = id;
-            }else{
-                loan_reason_id =0;
-                var loan_type_id = document.getElementById("loan_main_type").value;
-            }
+        function getLoanType(profile) {
             $.ajax({
-                method: "GET",
-                url: "{{ route('get-loan-types', '') }}"+"/"+loan_type_id + '?loan_reason_id='+loan_reason_id,
-                success : function(data){
-                $('#loanType').html(data); 
+                method: "get",
+                url: "{{ route('get-loan-types') }}",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    profile: profile,
                 }
-            })
+            }).done(function (data) {
+                $('#loanType').html(data);
+            });
         }
     </script>
 @endsection

@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ApplyLoan extends Model
 {
     use HasFactory;
-  
+
 
     public function loan_user(){
         return $this->belongsTo(User::class,'user_id','id');
@@ -40,14 +41,19 @@ class ApplyLoan extends Model
     }
 
     public function assigned_application(){
-        $user = Auth::user();
-        $partner_id = "";
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
-        }
-        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->where('partner_id','=',$partner_id)->with('user');
+        $loggedin_user = Auth::user();
+        $partner_id = Session::get('partner_id');
+
+        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')
+            ->where('partner_id','=',$partner_id)
+//            ->where('user_id','=',$loggedin_user->id)
+            ->with(['user']);
+    }
+
+    public function assigned_by_application(){
+        $loggedin_user = Auth::user();
+        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')
+            ->where('assigned_by','=',$loggedin_user->id)->with('user');
     }
 
     public function parentCompany(){

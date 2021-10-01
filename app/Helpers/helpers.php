@@ -44,16 +44,6 @@ function getRole($role): string
     return $all[$role] ?? '';
 }
 
-function partnerUserRoles(): array
-{
-    return ['', 'Admin', 'Manager','Normal user'];
-}
-
-function getPartnerUserRole($role): string
-{
-    $all = partnerUserRoles();
-    return $all[$role] ?? '';
-}
 
 function loanProfile(): array
 {

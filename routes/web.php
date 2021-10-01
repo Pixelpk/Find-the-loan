@@ -153,12 +153,14 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('partner-user-detail',[PartnerUserController::class,'userDetail'])->name('partner-user-detail');
         Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
         Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
+        Route::get('enquiry-color',[FinancePartnerController::class,'enquiryColor'])->name('enquiry-color');
+        Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
+        Route::get('put-quotation',[LoanApplications::class,'putQuotation'])->name('put-quotation');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
-        Route::post('enquiry-color',[LoanApplications::class,'enquiryColor'])->name('enquiry-color');
 
     });
 
@@ -206,7 +208,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
 
     Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
-    Route::get('/get-loan-types/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
+    Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
     Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
     Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
     Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
