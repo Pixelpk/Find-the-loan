@@ -17,6 +17,9 @@
 <script src="{{ asset('assets/cms/js/jquery-validate.bootstrap-tooltip.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/custom.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+
+<script src="{{ asset('toastr.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!--Google map-->

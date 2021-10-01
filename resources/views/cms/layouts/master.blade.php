@@ -19,13 +19,7 @@
 @livewireScripts
 <script>
 window.livewire.on('alert', param => {
-       Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: param['message'],
-        showConfirmButton: false,
-        timer: 1500
-        })
+    toastr.success(param['message'])
 });
 </script>
 </body>
