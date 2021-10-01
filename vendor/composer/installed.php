@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '70d9babe945b91e84d0224054ad9409813073ce2',
+        'reference' => 'c51496a40892a82537cca40d3d12f409ab2ccd59',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -481,7 +481,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '70d9babe945b91e84d0224054ad9409813073ce2',
+            'reference' => 'c51496a40892a82537cca40d3d12f409ab2ccd59',
             'dev_requirement' => false,
         ),
         'laravel/passport' => array(
@@ -503,12 +503,12 @@
             'dev_requirement' => true,
         ),
         'laravel/serializable-closure' => array(
-            'pretty_version' => 'v1.0.0',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'v1.0.2',
+            'version' => '1.0.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/serializable-closure',
             'aliases' => array(),
-            'reference' => '2f4d826e04f2f54df30716b6d3a5dbe761b14a4e',
+            'reference' => '679e24d36ff8b9be0e36f5222244ec8602e18867',
             'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
