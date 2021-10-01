@@ -447,19 +447,19 @@
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="update_loan_reason_id">
-                    <div class="form-group">
+                    <div class="form-group" id="reason_profile">
                         <label for="" class="control-label mb-10">Select Profile</label>
-                        <select  required onclick="getLoanType()" class="form-control" name="main_type" id="loan_main_type">
-                            <option value="" hidden>Select</option>
+                        <select  required class="form-control" name="profile" id="loan_profile">
+                            <option value="">Select</option>
                             @php
                             $main_types = loanProfile();
                             @endphp
-                            @for($i=1;$i<count($main_types);$i++) <option value="{{$i}}">{{ getProfile($i) }}
-                                </option>
+                            @for($i=1;$i<count($main_types);$i++)
+                                <option value="{{$i}}">{{ getProfile($i) }}</option>
                                 @endfor
                         </select>
                     </div>
-                    <div class="form-group" id="loanType">
+                    <div class="form-group" id="loanType" style="display: none">
                         <label for="" class="control-label mb-10">Type Name</label>
                         <select  class="form-control" name="loan_type_id" id="loan_main_type">
                             <option value="">Select</option>

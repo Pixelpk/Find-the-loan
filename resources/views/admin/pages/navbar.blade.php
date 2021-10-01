@@ -19,15 +19,27 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('loan-applications') }}" class="waves-effect">
-                            <i class="fa fa-list"></i><span> Loan Applications </span>
-                        </a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan Applications <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{{ route('loan-applications',['profile'=>'1']) }}" class="@if(Route::CurrentRouteName() == 'loan-applications') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Business </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('loan-applications',['profile'=>'2']) }}" class="@if(Route::CurrentRouteName() == 'loan-applications') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Consumer </span>
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{{ route('enquiry-color') }}" class="waves-effect">
-                            <i class="fa fa-list"></i><span> Edit enquiry color </span>
-                        </a>
-                    </li>
+
+{{--                    <li>--}}
+{{--                        <a href="{{ route('enquiry-color') }}" class="waves-effect">--}}
+{{--                            <i class="fa fa-list"></i><span> Edit enquiry color </span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li>
                         <a href="{{ route('partner-terms-conditions') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span class="@if(bankUserTermsRequest() == 1) blinking @endif"> Terms & Conditions </span>

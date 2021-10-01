@@ -18,6 +18,11 @@ class LoanApplications extends Controller
 {
     public function loanApplications(Request $request){
         $data = $request->all();
+        $request->validate(['profile'=>'required']);
+        $data['profile'] = $_GET['profile'];
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
 
         $enquiry_id = $data['enquiry_id'] ?? null;
         $loan_type_id = $data['loan_type_id'] ?? null;
@@ -35,8 +40,18 @@ class LoanApplications extends Controller
                 'to_date'=> 'date|date_format:Y-m-d',
             ]);
         }
+
         $query = ApplyLoan::select('*')
-            ->with(['loan_type','loan_company_detail','user_loan_reasons','assigned_application']);
+            ->where('profile','=',$data['profile'])
+            ->with(['loan_type','loan_company_detail','user_loan_reasons','assigned_application','assigned_by_application']);
+
+        //checking if finance partner admin is not loggedIn then only get assigned applications of user
+        $is_parent = $loggedin_user->parent_id;
+        if ($is_parent !=0 ){
+            $query->whereHas('assigned_application', function ($query) use ($logged_user_id) {
+                $query->where('user_id','=',$logged_user_id);
+            });
+        }
         if ($loan_type_id != null){
             $query->where('loan_type_id','=',$loan_type_id);
         }
@@ -64,16 +79,12 @@ class LoanApplications extends Controller
 
         $data['applications'] = $query->paginate('20');
 //        return $data;
-        $user = $request->user();
-        $partner_id = "";
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
+
+        $user_query = FinancePartner::where('partner_id','=',$partner_id);
+        if ($loggedin_user->parent_id != 0){
+            $user_query->where('parent_id','=',$loggedin_user->id);
         }
-        $data['all_users'] = FinancePartner::where('parent_id','=',$partner_id)
-            ->where('status','=','1')
-            ->get();
+        $data['all_users'] = $user_query->get();
         $data['loan_types'] = LoanType::where('status','=','1')
             ->get();
         $data['company_structure'] = CompanyStructure::where('status','=','1')
@@ -97,25 +108,42 @@ class LoanApplications extends Controller
         if ($to_date != null){
             $data['applications']->appends(['to_date' => $to_date]);
         }
-
 //        return $data;
         return view('admin.loan_applications.loan_applications',$data);
     }
 
+    public function putQuotation(Request $request){
+        return view('admin.loan_applications.put_quotation');
+    }
+
 
     public function applicationSearch(Request $request){
+        $loggedin_user = $request->user();
+        $parent_id = $loggedin_user->parent_id;
+        $logged_user_id = $loggedin_user->id;
         $search = isset($request->search) ? $request->search : '';
+        $profile = $request->profile;
+        $partner_id = Session::get('partner_id');
+
         $html = '';
         if ($search != '') {
-            $getResults = ApplyLoan::select('*')
-                ->where('enquiry_id','like','%'.$search."%")
+            $query = ApplyLoan::query()
+                ->where('profile','=',$profile)
+                ->select('*');
+
+            if ($parent_id != 0 ){
+                $query->whereHas('assigned_application', function ($query) use ($logged_user_id) {
+                    $query->where('user_id','=',$logged_user_id);
+                });
+            }
+            $getResults = $query->where('enquiry_id','like','%'.$search."%")
                 ->offset(0)->limit(5)->get();
             // print_r($getResults);
             if(isset($getResults[0])){
                 foreach ($getResults as $key => $item) {
-                    $full_name = str_replace($search, "<strong>" . $search . "</strong>", $item->product_name);
+                    $text = str_replace($search, "<span style='font-weight: bolder;color: #27b34d'>" . $search . "</span>", $item->enquiry_id);
                     $link = route("loan-applications", ['enquiry_id' => $item->enquiry_id]);
-                    $html .= "<a class='search-link' href='" . $link . "'>" . $item->enquiry_id . "</a>";
+                    $html .= "<a class='search-link' href='" . $link . "'>" . $text . "</a>";
                 }
             }
         }
@@ -124,17 +152,15 @@ class LoanApplications extends Controller
 
     public function assignApplication(Request $request){
         $data = $request->all();
-        $user = $request->user();
-        $partner_id = "";
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
-        }
+        $logged_in_user = $request->user();
+        $partner_id = Session::get('partner_id');
+
         $assign_user_id = $data['user_id'];
+        $assigned_by = $logged_in_user->id;
         foreach ($data['selected_list'] as $apply_loan_id){
             $application = new AssignedApplication();
             $application->partner_id = $partner_id;
+            $application->assigned_by = $assigned_by;
             $application->user_id = $assign_user_id;
             $application->apply_loan_id = $apply_loan_id;
             $application->save();
@@ -144,8 +170,20 @@ class LoanApplications extends Controller
     }
 
     public function downloadLoanDoc(Request $request){
+        $loggedin_user = $request->user();
+        $parent_id = $loggedin_user->parent_id;
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+
         $id = $request->id  ?? null;
-        $application = ApplyLoan::where('id','=',$id)->with(['loan_documents','loan_person_share_holder','loan_statements'])->first();
+        $query = ApplyLoan::where('id','=',$id)
+            ->with(['loan_documents','loan_person_share_holder','loan_statements']);
+//        if ($parent_id != 0 ){
+//            $query->whereHas('assigned_application', function ($query) use ($logged_user_id) {
+//                $query->where('user_id','=',$logged_user_id);
+//            });
+//        }
+        $application = $query->first();
         if (!$application || $id== null){
             return redirect(route('loan-applications'))->with('error','Oops. Something went wrong');
         }
@@ -197,7 +235,7 @@ class LoanApplications extends Controller
         try {
             return response()->download($zip_file);
         }catch (\Exception $exception){
-            return redirect(route('loan-applications'))->with('error','Sorry. There are no documents to download');
+            return redirect()->back()->with('error','Sorry. There are no documents to download');
         }
 
     }

@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use SimpleXLSX;
@@ -88,6 +89,14 @@ class UserController extends Controller
         }
         $credentials = ['email'=>$request->email, 'password'=>$request->password,'status'=>1];
         if (Auth::guard('partners')->attempt($credentials)){
+            $user = Auth::guard('partners')->user();
+            if ($user->parent_id == 0){
+                $partner_id = $user->id;
+                Session::put('partner_id', $partner_id);
+            }else{
+                $partner_id = $user->partner_id;
+                Session::put('partner_id', $partner_id);
+            }
             return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
         }else{
             return redirect(route('partner-login'))->with('error',"Email/Password is wrong");

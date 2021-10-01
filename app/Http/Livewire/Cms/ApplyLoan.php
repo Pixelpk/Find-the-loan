@@ -86,7 +86,7 @@ class ApplyLoan extends Component
     public $country;
     public $countries;
     public $subsidiary;
-    
+
     public $share_holder_optional_revenuee;
     public function mount()
     {
@@ -96,7 +96,7 @@ class ApplyLoan extends Component
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
         $this->sectors = Sector::where('status', 1)->get();
         $this->countries = CountryListFacade::getList('en');
-       
+
         // $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', 2)->get();
     }
     public function saveCompanyDocuments()
@@ -159,7 +159,7 @@ class ApplyLoan extends Component
 
     public function getMainType()
     {
-        
+
         $this->mainTypes = MainType::where('profile_id', $this->main_type)->get();
     }
 
@@ -180,16 +180,16 @@ class ApplyLoan extends Component
     public function goToReasons()
     {
         $this->errorMessage = '';
-       
-        $this->loanReasons = LoanReason::where('main_type', $this->main_type)->where('status', 1)->get();
-       
+
+        $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
+
         // $this->emit('alert', ['type' => 'success', 'message' => 'Loan Type has been selected.']);
         $this->tab = 2;
     }
 
     public function storeReason()
     {
-       
+
         if($this->apply_loan)
         {
             UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -217,7 +217,7 @@ class ApplyLoan extends Component
                 session()->flash('gernalMessage', 'Please select loan reasons');
                 return;
             }
-           
+
         }
 
     }
@@ -227,7 +227,7 @@ class ApplyLoan extends Component
         if(!$this->amount){
            session()->flash('sessionMessage', 'Please select amnount');
             return;
-            
+
         }
         if($this->apply_loan){
             $this->apply_loan->amount = $this->amount;
@@ -273,7 +273,7 @@ class ApplyLoan extends Component
                 $this->apply_loan->amount = $this->amount;
                 $this->apply_loan->loan_type_id = $this->loan_type_id;
                 $this->apply_loan->update();
-                UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();  
+                UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();
                 foreach($this->reasonValue as $key => $item)
                 {
                     if($item){
@@ -283,7 +283,7 @@ class ApplyLoan extends Component
                             'loan_type_id' => $this->loan_type_id,
                         ]);
                     }
-                }   
+                }
             }else{
                 $applyLoan=ModelsApplyLoan::forceCreate([
                     'amount' => $this->amount,
@@ -300,9 +300,9 @@ class ApplyLoan extends Component
                         ]);
                     }
                 }
-               
+
             }
-            
+
             if($this->apply_loan){
                 $companyDetail = LoanCompanyDetail::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->first();
                 $companyDetail->company_name = $this->company_name;
@@ -323,7 +323,7 @@ class ApplyLoan extends Component
                 ]);
                 $this->apply_loan = $applyLoan;
             }
-           
+
             return;
         }
         $this->validate([
@@ -405,7 +405,7 @@ class ApplyLoan extends Component
             $this->tab = 7;
         }else{
             $this->errorMessage  = 'Share holder type required';
-            return;  
+            return;
         }
     }
 

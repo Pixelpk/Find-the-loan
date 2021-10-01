@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class FinancePartnerController extends Controller
 {
@@ -31,12 +32,7 @@ class FinancePartnerController extends Controller
     public function enquiryColor(Request $request){
         $data = $request->all();
         $user = $request->user();
-        $partner_id = "";
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
-        }
+        $partner_id = Session::get('partner_id');
 
         $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
             ->pluck('value', 'key_name');
@@ -46,12 +42,7 @@ class FinancePartnerController extends Controller
     function submitPartnerMeta(Request $request){
         $data = $request->all();
         $user = $request->user();
-        $partner_id = "";
-        if ($user->parent_id == 0){
-            $partner_id = $user->id;
-        }else{
-            $partner_id = $user->parent_id;
-        }
+        $partner_id = Session::get('partner_id');
 //        dd($request->all());
         foreach ($data as $key=>$value){
             if ($key != '_token'){

@@ -14,7 +14,7 @@ class LoanReasonController extends Controller
     {
         $mainTypes = MainType::where('profile_id', $request->id)->get();
         return view('cms.ajax.main-type')->with('mainTypes', $mainTypes);
-       
+
     }
     public function loanReasons(Request $request){
         $data = $request->all();
@@ -27,7 +27,7 @@ class LoanReasonController extends Controller
 
     function reasonDetail(Request $request)
     {
-       
+
         try {
             $data = $request->all();
             $id = $data['id'] ?? '';
@@ -47,7 +47,7 @@ class LoanReasonController extends Controller
         // return $data;
         $request->validate([
             'reason' => 'required',
-            'main_type' => 'required',
+            'profile' => 'required',
         ]);
         $id = $data['id'] ?? null;
         $reason = new LoanReason();
@@ -64,19 +64,13 @@ class LoanReasonController extends Controller
         return redirect(route('loan-reasons'))->with('success',"Reason added successfully!");
     }
 
-    public function getLoanType(Request $request, $id)
+    public function getLoanType(Request $request)
     {
-        if($request->loan_reason_id == 0)
-        {
-            $loanReason= '';    
-        }
-        else{
-            $loanReason = LoanReason::where('id', $request->loan_reason_id)->first();
-        }
+        $id = $request->profile;
         $loanTypes = LoanType::where('profile', $id)->where('status', 1)->get();
         return view('admin.ajax.get-loan-type')
-        ->with('loanReason', $loanReason)
-        ->with('loanTypes', $loanTypes);
+            ->with('loanTypes', $loanTypes)
+            ->with('profile', $id);
     }
 
     public function changeStatus(Request $request)
