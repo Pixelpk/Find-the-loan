@@ -13,33 +13,39 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--end navbar-toggler-->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active ts-scroll" href="{{ route('home') }}">HOME <span
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                   <li class="nav-item">
+                       <a class="nav-link active ts-scroll" href="{{ route('home') }}">HOME <span
                             class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('our-blogs') }}">Blogs</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('about-us') }}">ABOUT US</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('faqs') }}">FAQ'S</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
+                        </li>
+                        <li class="nav-item">  <a class="nav-link ts-scroll" href="{{ route('our-blogs') }}">BLOGS</a>
+                    </li>
+                  <li class="nav-item">
+                  <a class="nav-link ts-scroll" href="{{ route('about-us') }}">ABOUT US</a>
+                  </li>
+                    <li class="nav-item">
+                    <a class="nav-link ts-scroll" href="{{ route('faqs') }}">FAQ'S</a>
+                    </li>
+                   <li class="nav-item">
+                   <a class="nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
+                   </li>
+</ul>
+                   
                     @if(!Auth::guard('web')->check())
-                    <a href="{{ route('login') }}" class="btnnew1" style="color:#161b5b; font-size:14px !important;"> <i
-                            class="fas fa-user ts-opacity__80 pr-2"></i>LOGIN </a>
-                    <a class="logpad btnnew1" href="{{ route('registration') }}"
-                        style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
+                    <!-- LOGIN BUTTON -->
+                    <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
+                        <!-- REGISTER BUTTON -->
+                    <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
                     @endif
                     @if(Auth::guard('web')->check())
-                    <a href="{{ route('applyLoan') }}" class="btnnew2"
-                        style="color:#1db046; font-size:14px !important;"> <i
-                            class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
+                    <a href="{{ route('applyLoan') }}" class="btnnew2 btn"> 
+                        <i class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
 
                     @endif
-                </div>
 
-
-                <!--end navbar-nav-->
-            </div>
-            @if(Auth::guard('web')->check())
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                    @if(Auth::guard('web')->check())
+            <!-- <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
@@ -52,9 +58,21 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </div> -->
+            <!-- <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ Auth::guard('web')->user()->first_name }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a>
+                </div>
+            </div> -->
+            <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a>
             @endif
             <!--end collapse-->
+                <!--end navbar-nav-->
+            </div>
+           
         </div>
         <!--end container-->
     </nav>
@@ -64,12 +82,12 @@
     <div class="container align-self-center align-items-center text-left ">
         <div class="row">
             <div class="col-md-5 col-xl-5">
-                <h1>Your Digital <br> <strong style="color:#1db046 !important; font-weight: 500!important;">Loan
+                <h1>Your Digital <strong style="color:#1db046 !important; font-weight: 500!important;">Loan
                     </strong>Platform </h1>
                 <p class="hedtext" style="padding-bottom: 20px;">No more paying a broker fee or approaching the banks
                     one by one. </p>
 
-                <a href="{{ route('applyLoan') }}" class="btn btn-primary btn-lg ts-scroll">APPLY NOW</a>
+                <a href="{{ route('applyLoan') }}" class="btn apply-now-btn btn-lg ts-scroll">APPLY NOW</a>
             </div>
             <div class="col-md-5 col-xl-5 text-right align-self-center align-items-center">
                 <img src="{{ asset('assets/cms/img/dollercirle1.png') }}" class="mw-100" alt="">
@@ -99,44 +117,58 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!--end navbar-toggler-->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active ts-scroll" href="{{ route('home') }}">HOME <span
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <ul class="navbar-nav">
+                   <li class="nav-item">
+                       <a class="nav-link ts-scroll active" href="{{ route('home') }}">HOME <span
                             class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('our-blogs') }}">Blogs</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('about-us') }}">ABOUT US</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('faqs') }}">FAQ'S</a>
-                    <a class="nav-item nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
+                        </li>
+                        <li class="nav-item">  <a class="nav-link ts-scroll" href="{{ route('our-blogs') }}">BLOGS</a>
+                    </li>
+                  <li class="nav-item">
+                  <a class="nav-link ts-scroll" href="{{ route('about-us') }}">ABOUT US</a>
+                  </li>
+                    <li class="nav-item">
+                    <a class="nav-link ts-scroll" href="{{ route('faqs') }}">FAQ'S</a>
+                    </li>
+                   <li class="nav-item">
+                   <a class="nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
+                   </li>
+</ul>
+                   
                     @if(!Auth::guard('web')->check())
-                    <a href="{{ route('login') }}" class="btnnew1" style="color:#161b5b; font-size:14px !important;"> <i
-                            class="fas fa-user ts-opacity__80 pr-2"></i>LOGIN </a>
-                    <a class="logpad btnnew1" href="{{ route('registration') }}"
-                        style="color:#161b5b; font-size:14px !important;"> / REGISTER</a>
+                    <!-- LOGIN BUTTON -->
+                    <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
+                        <!-- REGISTER BUTTON -->
+                    <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
                     @endif
-                    
+                    @if(Auth::guard('web')->check())
+                    <a href="{{ route('applyLoan') }}" class="btnnew2 btn"> 
+                        <i class="fas fa-tags ts-opacity__80 pr-2"></i>Apply now </a>
 
-                </div>
-                
-               
+                    @endif
+
+                    @if(Auth::guard('web')->check())
+            <!-- <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::guard('web')->user()->first_name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
+                           
+                        </ul>
+                    </li>
+                </ul>
+            </div> -->
+            <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a>
+            @endif
+            <!--end collapse-->
                 <!--end navbar-nav-->
             </div>
-            @if(Auth::guard('web')->check())
-                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ Auth::guard('web')->user()->first_name }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-                                   
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    @endif
-            <!--end collapse-->
+          
         </div>
         <!--end container-->
     </nav>

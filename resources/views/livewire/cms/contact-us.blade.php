@@ -73,7 +73,7 @@
                             <textarea class="contact-input white-input" id="exampleInputbody" placeholder="Enter Body" wire:model="contact_message"></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save Contact</button>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
 
                 </div>

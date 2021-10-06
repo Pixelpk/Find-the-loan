@@ -109,7 +109,7 @@
     <!--SIMPLY CHOSE THE LOAN ***********************************************************************************-->
     <section id="advanced-features" class="ts-block">
         <div class="container ">
-            <h2 class="text-center" style="padding-bottom: 50px !important;"> How It Works</h2>
+            <h2 class="text-center display-6" style="padding-bottom: 50px !important;"> How It Works</h2>
             <div class="row">
                 <div class="col-md-6 col-xl-6 text-center align-self-center align-items-center" data-animate="ts-fadeInUp" data-delay="0.1s">
                     <div class="px-3">
@@ -118,13 +118,14 @@
                 </div>
                 <!--end col-xl-5-->
                 <div class="col-md-6 col-xl-6 align-self-center align-items-center" data-animate="ts-fadeInUp">
-                    <div class="ts-title" >
+                    <div class="h-title" >
                         <h3>Simply choose the loan type</h3>
+                        <p class="hedtext">
+                        You are looking for. Our Algorithm will device you <br> Who offers that loan.
+                    </p>
                     </div>
                     <!--end ts-title-->
-                    <p class="hedtext">
-                        You are looking for. Our Algorithm will device you<br>Who offers that loan.
-                    </p>
+                    
                 </div>
                 <!--end col-xl-5-->
             </div>
@@ -139,12 +140,12 @@
         <div class="container">
             <div class="row resrow">
                 <div class="col-md-6 col-xl-6 align-self-center align-items-center  uploadpadding" data-animate="ts-fadeInUp">
-                    <div class="ts-title">
+                    <div class="hs-title">
                         <h3>Upload the documents</h3>
                     </div>
                     <!--end ts-title-->
                     <p class="hedtext">
-                        Our Algorithm will device you what documents<br>are required.
+                        Our Algorithm will device you what documents are required.
                     </p>
                 </div>
                 <!--end col-xl-7-->
@@ -171,7 +172,7 @@
                 </div>
                 <!--end col-xl-5-->
                 <div class="col-md-6 col-xl-6 align-self-center align-items-center" data-animate="ts-fadeInUp">
-                    <div class="ts-title">
+                    <div class="hs-title">
                         <h3>Compare and select</h3>
                     </div>
                     <!--end ts-title-->
@@ -211,12 +212,6 @@
     </section>
     <!--END WHAT HAPPEN*****************************************************************************************-->
     <!--SUBSCRIBE *******************************************************************************************-->
-    <section id="subscribe" class="ts-block ts-background ts-separate-bg-element" data-bg-image="{{ asset('assets/cms/img/bg-map.jpg') }}" data-bg-image-opacity=".1" data-bg-color="#dddddd0d" data-bg-parallax="scroll" data-bg-parallax-speed="3" data-mask-top-nw-color="#fff" data-mask-bottom-wn-color="#fff">
-        <div class="container text-center">
-            <h3>Change the way you apply for loans Now!</h3>
-            <a href="#" class="btn btn-primary">Buy Now!</a>
-        </div>
-        <!--end container-->
-    </section>
+    
     <!--END apply now ***************************************************************************************-->
 </main>

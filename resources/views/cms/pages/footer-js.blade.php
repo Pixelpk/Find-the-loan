@@ -4,9 +4,9 @@
     }
 </script>
 <script src="{{ asset('assets/cms/js/jquery-3.3.1.min.js') }}"></script>
-
-<script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="{{ asset('assets/cms/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/imagesloaded.pkgd.min.js') }}"></script>
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58"></script>
 <script src="{{ asset('assets/cms/js/isInViewport.jquery.js') }}"></script>
@@ -83,6 +83,8 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 </script>
+
 
 

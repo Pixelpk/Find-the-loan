@@ -58,13 +58,111 @@
             padding: 10px;
         }
         a.btnnew1 {
-            padding: 15px;
+            /* padding: 15px; */
         }
-        a.btnnew2 {
+        /* a.btnnew2 {
             padding-top: 15px;
             padding-left: 15px;
             padding-right: 15px;
             padding-bottom: 25px;
+        } */
+    }
+
+    /* NAVBAR STYLE */
+    .navbar ul li{
+        padding: 0 0.7rem;
+        font-family: 'Poppins', sans-serif;
+    }
+    .navbar ul li .nav-link:hover{
+        color: #3EBB60 !important;
+    }
+    .navbar ul li .nav-link.active {
+        color: #3EBB60 !important;
+    }
+    .navbar .btn{
+        margin-left: 0.7rem;
+        margin-right: 0.7rem;
+        background: #3EBB60;
+        color:#fff;
+    }
+    .navbar .btnnew2{
+        margin-left: 0;
+    }
+    .btn{
+        background: #3EBB60;
+color: #fff !important;
+    }
+    .btn:hover{
+        opacity: 0.8;
+    }
+    /* FOOTER */
+    .footer-links .social-icons{
+        font-size: 1.5rem;
+        color: #fff !important;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+        display: inline-block;
+    }
+    /* FAQ */
+    .accordion-button{
+               padding: 0 1rem;
+    }
+    .accordion-button:not(.collapsed) {
+    color: #3EBB60 !important;
+    background-color: #f5f5f5 !important;
+}
+/* FOOTER */
+.contact-box__icon{
+    width: 3rem;
+}
+footer .contact-box__info {
+    font-weight: 400;
+}
+.footer-links li a:hover > i {
+    color: #3EBB60;
+}
+@media(min-width: 768px){
+    .contact-box__icon{
+    width: 4rem;
+}
+}
+    @media(max-width: 800px){
+        .btnnew1, .btnnew2{
+            display: block;
+            margin-top: 0.8rem;
+            margin-bottom: 0.8rem;
         }
+        .navbar .log-btn {
+            margin-left: 0;
+        }
+        .navbar .navbar-nav .nav-item .nav-link{
+            border: 1px solid;
+    text-align: center;
+    margin-bottom: 1rem;
+        }
+        .navbar .navbar-nav{
+            padding-top: 1rem;
+          }
+          
+    }
+    @media(max-width: 533px){
+        .container{
+            margin-left: 5px !important;
+        }
+          .navbar .navbar-nav{
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 1rem;
+          }
+          .navbar .btn{
+        margin-left: 1.3rem;
+        margin-right: 1.3rem;
+    }
+    footer .contact-box{
+        padding-left: 1rem;
+    }
+    footer .contact-box__info {
+              padding-left: 0.8rem;
+}
     }
 </style>
