@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+
+use App\Models\LoanGernalInfo;
+
+use Illuminate\Support\Facades\Config;
+
 use Monarobase\CountryList\CountryListFacade;
 use File;
 class ApplyLoan extends Component
@@ -27,8 +32,13 @@ class ApplyLoan extends Component
     public $gernal;
     public $main_type;
     public $mainTypes;
+    public $comDisable;
+    public $documentDisable;
+    public $shareDisable;
     public $loan_type_id;
     public $loanReasons;
+    public $saveCompanyDetail;
+    public $reasonDisable;
     public $values;
     public $reasonValue;
     public $amount;
@@ -83,6 +93,7 @@ class ApplyLoan extends Component
     public $share_holder_statement;
     public $share_holder_latest_year;
     public $share_holder_year_before;
+    public $share_holder_listed_company_check;
     public $share_holder_profitable_latest_year;
     public $share_holder_profitable_before_year;
     public $share_holder_current_year;
@@ -93,19 +104,40 @@ class ApplyLoan extends Component
     public $company_months;
     public $share_holder_optional_revenuee;
     public $getNumberOfCompanyYears;
+    public $reason_id;
     public $checkShareHolder;
-   
+    ////
+    public $gernalinfo;
     public function mount()
     {
-        
         $this->mainTypes = [];
         $this->loanReasons = [];
-        $this->reasonValue = [];
+        // $this->reasonValue = [];
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
         $this->sectors = Sector::where('status', 1)->get();
         $this->countries = CountryListFacade::getList('en');
-
         // $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', 2)->get();
+    }
+    public function pushReason($id)
+    {
+        $this->reasonValue = [];
+        $this->reason_id = $id;
+        $this->reasonValue[$id] = $id;
+        // if($this->reasonValue[$id]){
+        //     $this->reasonValue = [];
+        //     $this->reasonValue[$id] = $id;
+        //     $this->apply_loan->reason_id = $id;
+        //     if($this->reasonValue[$id] == true){
+        //        $this->apply_loan->update();
+        //     //    $this->tab = 4;
+        //        $this->comDisable = true;
+        //     }else{
+        //         return;
+        //     }
+        // }else{
+           
+        // }
+         
     }
     public function getLoanReason($loan_type_id, $key)
     {
@@ -118,11 +150,65 @@ class ApplyLoan extends Component
         }else{
             $this->loan_type_id = null;
         }
-        $this->goToReasons();
-
+       
+        $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
+        // dd($this->values);
+        $this->tab=8;
+        // $this->goToReasons();
     }
+   
     public function getShareholderTypeId($id)
     {
+        // $this->dispatchBrowserEvent('name-updated', ['newName' => 'All shareholder will be deleted if you update']);
+        if($this->checkShareHolder[$id]){
+            $LPSH=LoanPersonShareHolder::where('share_holder_detail_id', $id)->Where('apply_loan_id', $this->apply_loan->id)->first();
+            if($LPSH){
+                if($LPSH && Storage::exists($LPSH->nric_front)) {
+                    Storage::delete($LPSH->nric_front);
+                }
+                if($LPSH && Storage::exists($LPSH->nric_back)) {
+                    Storage::delete($LPSH->nric_back);
+                }
+                if($LPSH && Storage::exists($LPSH->nao_latest)) {
+                    Storage::delete($LPSH->nao_latest);
+                }
+                if($LPSH && Storage::exists($LPSH->nao_older)) {
+                    Storage::delete($LPSH->nao_older);
+                }
+                if($LPSH && Storage::exists($LPSH->passport)) {
+                    Storage::delete($LPSH->passport);
+                }
+                $LPSH->delete();
+            }
+        }
+        if(!$this->checkShareHolder[$id]){
+            $LD = LoanDocument::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->first();
+            $LS = LoanStatement::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->get();
+            if($LS->count() > 0){
+                foreach($LS as $LSDetail){
+                    if(Storage::exists($LSDetail->statement)) {
+                        Storage::delete($LSDetail->statement);
+                    }
+                }
+                LoanStatement::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->delete();
+            }
+            if($LD){
+                if(Storage::exists($LD->statement)) {
+                    Storage::delete($LD->statement);
+                }
+                if(Storage::exists($LD->latest_year)) {
+                    Storage::delete($LD->latest_year);
+                }
+                if(Storage::exists($LD->year_before)) {
+                    Storage::delete($LD->year_before);
+                }
+                if(Storage::exists($LD->current_year)) {
+                    Storage::delete($LD->current_year);
+                }
+              
+                $LD->delete();
+            }
+        }
         if($this->checkShareHolder[$id]){
             $shareholder = ShareHolderDetail::where('id', $id)->first();
             $shareholder->share_holder_type = 2;
@@ -151,7 +237,6 @@ class ApplyLoan extends Component
        if(isset($this->photo)){
            $this->statement = null;
        }
-       
         $this->errorArray = [];
         if(!isset($this->statement)){
             for ($x = 2; $x < 8; $x++) {
@@ -223,8 +308,10 @@ class ApplyLoan extends Component
         }
         
         $this->emit('alert', ['type' => 'success', 'message' => 'Company documents added successfully.']);
-       
-        $this->tab = 7;
+        if($this->apply_loan->parentCompany && (int)$this->apply_loan->parentCompany->number_of_share_holder){
+            $this->tab = 7;
+            $this->shareDisable = true;
+        }
     }
     public function render()
     {
@@ -242,16 +329,12 @@ class ApplyLoan extends Component
     public function goToReasons()
     {
         $this->errorMessage = '';
-       
         $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
-       
-        // $this->emit('alert', ['type' => 'success', 'message' => 'Loan Type has been selected.']);
         $this->tab = 2;
     }
 
     public function storeReason()
     {
-
         if($this->apply_loan)
         {
             UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -310,17 +393,65 @@ class ApplyLoan extends Component
         }
 
     }
-   
-    public function updateCompanyDetal()
+    public function shareholderDelete()
     {
         $SHD = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
-        if($SHD->count() != $this->number_of_share_holder){
-            $this->dispatchBrowserEvent('name-updated', ['newName' => 1]);
-            return;
+        foreach($SHD as $item)
+        {
+            $LPSH = LoanPersonShareHolder::where('share_holder_detail_id', $item->id)->where('apply_loan_id', $this->apply_loan->id)->first();
+            $LD = LoanDocument::where('share_holder', $item->id)->where('apply_loan_id', $this->apply_loan->id)->first();
+            $LS = LoanStatement::where('share_holder', $item->id)->where('apply_loan_id', $this->apply_loan->id)->get();
+            if($LS->count() > 0){
+                foreach($LS as $LSDetail){
+                    if(Storage::exists($LSDetail->statement)) {
+                        Storage::delete($LSDetail->statement);
+                    }
+                }
+                LoanStatement::where('share_holder', $item->id)->where('apply_loan_id', $this->apply_loan->id)->delete();
+            }
+            if($LD){
+                if(Storage::exists($LD->statement)) {
+                    Storage::delete($LD->statement);
+                }
+                if(Storage::exists($LD->latest_year)) {
+                    Storage::delete($LD->latest_year);
+                }
+                if(Storage::exists($LD->year_before)) {
+                    Storage::delete($LD->year_before);
+                }
+                if(Storage::exists($LD->current_year)) {
+                    Storage::delete($LD->current_year);
+                }
+              
+                $LD->delete();
+            }
+            if($LPSH){
+                if(Storage::exists($LPSH->nric_front)) {
+                    Storage::delete($LPSH->nric_front);
+                }
+                if(Storage::exists($LPSH->nric_back)) {
+                    Storage::delete($LPSH->nric_back);
+                }
+                if(Storage::exists($LPSH->nao_latest)) {
+                    Storage::delete($LPSH->nao_latest);
+                }
+                if(Storage::exists($LPSH->nao_older)) {
+                    Storage::delete($LPSH->nao_older);
+                }
+                if(Storage::exists($LPSH->passport)) {
+                    Storage::delete($LPSH->passport);
+                }
+                $LPSH->delete();
+            }
         }
-        if($this->company_year && $this->company_month){
+        ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->delete();
+        $this->get_share_holder_type = [];
+        if($this->company_year && $this->company_month)
+        {
             $company_start_date = $this->company_year.'/'.$this->company_month;
-        }else{
+        }
+        else
+        {
             $then_ts = strtotime("$this->company_years-01-01");
             $then_year = date('Y', $then_ts);
             $diff = date('Y') - $then_year;
@@ -341,8 +472,53 @@ class ApplyLoan extends Component
         $ParentCompany->website = $this->website;
         $ParentCompany->update();
         $this->getNumberOfCompanyYears = current(explode("/",  $ParentCompany->company_start_date));
+        if($ParentCompany->number_of_share_holder > 0){
+            for($count = 1; $count <= $ParentCompany->number_of_share_holder; $count++){
+                $this->get_share_holder_type[] =  ShareHolderDetail::forceCreate([
+                    'apply_loan_id' => $this->apply_loan->id,
+                    'share_holder_type' => 1,
+                ]);
+            }
+        }
         $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been updated.']);
         $this->tab = 5;
+    }
+    public function updateCompanyDetal()
+    {
+      
+        $SHD = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        // dd($this->number_of_share_holder);
+        if($SHD->count() != (int)$this->number_of_share_holder){
+            $this->dispatchBrowserEvent('name-updated', ['newName' => 'All shareholder will be deleted if you update']);
+            return;
+        }else{
+        if($this->company_year && $this->company_month){
+            $company_start_date = $this->company_year.'/'.$this->company_month;
+        }else{
+            $then_ts = strtotime("$this->company_years-01-01");
+            $then_year = date('Y', $then_ts);
+            $diff = date('Y') - $then_year;
+            if(strtotime('+' . $diff . ' years', $then_ts) > time()) $diff--;
+            $company_start_date = $diff.'/'.$this->company_months;
+           
+        }
+            $ParentCompany = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
+            $ParentCompany->company_start_date = $company_start_date;
+            $ParentCompany->revenue = $this->revenue;
+            $ParentCompany->listed_company_check = $this->listed_company_check;
+            $ParentCompany->number_of_share_holder = $this->number_of_share_holder;
+            $ParentCompany->sector_id = $this->sector_id;
+            $ParentCompany->percentage_shareholder = $this->percentage_shareholder;
+            $ParentCompany->company_structure_type_id = $this->company_structure_type_id;
+            $ParentCompany->number_of_employees = $this->number_of_employees;
+            $ParentCompany->company_name = $this->company_name;
+            $ParentCompany->website = $this->website;
+            $ParentCompany->update();
+            $this->getNumberOfCompanyYears = current(explode("/",  $ParentCompany->company_start_date));
+            $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been updated.']);
+            $this->tab = 5;
+            $this->documentDisable = true;
+        }
     }
     public function companyDetailStore()
     {
@@ -352,47 +528,12 @@ class ApplyLoan extends Component
                 'company_name' => 'required',
                 'country' => 'required'
             ]);
-            if($this->apply_loan){
-                $this->apply_loan->amount = $this->amount;
-                $this->apply_loan->loan_type_id = $this->loan_type_id;
-                $this->apply_loan->update();
-                UserLoanReason::where('apply_loan_id', $this->apply_loan->id)->delete();
-                foreach($this->reasonValue as $key => $item)
-                {
-                    if($item){
-                        UserLoanReason::forceCreate([
-                            'apply_loan_id' => $this->apply_loan->id,
-                            'loan_reason_id' => $key,
-                            'loan_type_id' => $this->loan_type_id,
-                        ]);
-                    }
-                }
-            }else{
-                $applyLoan=ModelsApplyLoan::forceCreate([
-                    'amount' => $this->amount,
-                    'profile' => $this->main_type,
-                    'loan_type_id' => $this->loan_type_id,
-                    'user_id' => Auth::guard('web')->user()->id,
-                ]);
-                foreach($this->reasonValue as $key => $item)
-                {
-                    if($item){
-                        UserLoanReason::forceCreate([
-                            'apply_loan_id' => $applyLoan->id,
-                            'loan_reason_id' => $key,
-                            'loan_type_id' => $this->loan_type_id,
-                        ]);
-                    }
-                }
-
-            }
-
-            if($this->apply_loan){
-                $companyDetail = LoanCompanyDetail::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->first();
+            $companyDetail = LoanCompanyDetail::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->first();
+            if($this->apply_loan && $companyDetail){
+                
                 $companyDetail->company_name = $this->company_name;
                 $companyDetail->country = $this->country;
                 $companyDetail->listed_company_check = $this->listed_company_check;
-               
                 if(Storage::exists($companyDetail->subsidiary)) {
                     Storage::delete($companyDetail->subsidiary);
                 }
@@ -403,21 +544,20 @@ class ApplyLoan extends Component
             }
             else{
                 LoanCompanyDetail::forceCreate([
-                    'apply_loan_id' => $applyLoan->id,
+                    'apply_loan_id' => $this->apply_loan->id,
                     'company_name' => $this->company_name,
                     "listed_company_check" => $this->listed_company_check,
                     'country' => $this->country,
                     'subsidiary' => $this->subsidiary->store('documents'),
                 ]);
-                $this->apply_loan = $applyLoan;
+                $this->apply_loan = $this->apply_loan->id;
                 $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been saved.']);
             }
-            
             return;
         }
         $this->validate([
-            'amount' => 'required',
-            'loan_type_id' => 'required',
+            // 'amount' => 'required',
+            // 'loan_type_id' => 'required',
             // 'reasons' => 'required',
             'company_name' => 'required',
             'company_year' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:100',
@@ -433,7 +573,8 @@ class ApplyLoan extends Component
             'website' => 'nullable',
 
         ]);
-        if($this->apply_loan){
+        $LCD=LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
+        if($LCD){
             $this->updateCompanyDetal();
             return;
         }
@@ -447,26 +588,9 @@ class ApplyLoan extends Component
             $company_start_date = $diff.'/'.$this->company_months;
         }
         // $revenue = $this->revenue_amount1.'.'.$this->revenue_amount2;
-        $applyLoan=ModelsApplyLoan::forceCreate([
-            'amount' => $this->amount,
-            'loan_type_id' => $this->loan_type_id,
-            'user_id' => Auth::guard('web')->user()->id,
-
-        ]);
-
-        foreach($this->reasonValue as $key => $item)
-        {
-            if($item){
-                UserLoanReason::forceCreate([
-                    'apply_loan_id' => $applyLoan->id,
-                    'loan_reason_id' => $key,
-                    'loan_type_id' => $this->loan_type_id,
-                ]);
-            }
-        }
         // $company_start_date = $this->company_year.'/'.$this->company_month;
         $data = LoanCompanyDetail::forceCreate([
-            'apply_loan_id' => $applyLoan->id,
+            'apply_loan_id' => $this->apply_loan->id,
             'company_start_date' => $company_start_date,
             'revenue' => $this->revenue,
             'number_of_share_holder' => $this->number_of_share_holder,
@@ -481,15 +605,17 @@ class ApplyLoan extends Component
         if($data->number_of_share_holder > 0){
             for($count = 1; $count <= $data->number_of_share_holder; $count++){
                 $this->get_share_holder_type[] =  ShareHolderDetail::forceCreate([
-                    'apply_loan_id' => $applyLoan->id,
+                    'apply_loan_id' => $this->apply_loan->id,
                     'share_holder_type' => 1,
                 ]);
             }
         }
-        $this->apply_loan = $applyLoan;
         $this->getNumberOfCompanyYears = current(explode("/", $data->company_start_date));
         $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been saved.']);
-        $this->tab = 5;
+        
+            $this->tab = 5;
+            $this->documentDisable = true;
+        
     }
 
     // public function share_holder_detail()
@@ -520,14 +646,14 @@ class ApplyLoan extends Component
 
     public function share_holder_document_store($id)
     {
-        // dd($this->nric_front[$id]);
+       
         // foreach($this->get_share_holder_type as $item){
             // if($item['share_holder_type'] == 1){
                 // dd($id);
                  $getsholder = ShareHolderDetail::where('id', $id)->first();
                 //  dd( $getsholder);
                 if($getsholder->share_holder_type == 1){
-                //    dd($this->not_proof[$getsholder->id]);
+               
                     $this->validate([
                         "nric_front.$id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
                         "nric_back.$id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
@@ -574,18 +700,9 @@ class ApplyLoan extends Component
                 }
                 if($getsholder->share_holder_type == 2)
                 {
-                    // dd($this->share_holder_company_year[$getsholder->id]);
+                    // dd($this->share_holder_listed_company_check[$id]);
                     
-                    if($this->share_holder_company_year[$getsholder->id] && $this->share_holder_company_month[$getsholder->id]){
-                        $company_start_date = $this->share_holder_company_year[$getsholder->id].'/'.$this->share_holder_company_month[$getsholder->id];
-                    }else{
-                        $then_ts = strtotime($this->share_holder_company_years[$getsholder->id]."-01-01");
-                        $then_year = date('Y', $then_ts);
-                        $diff = date('Y') - $then_year;
-                        if(strtotime('+' . $diff . ' years', $then_ts) > time()) $diff--;
-                        $company_start_date = $diff.'/'.$this->share_holder_company_months[$getsholder->id];
-                       
-                    }
+                    // dd('asd');
                     $this->validate([
                         "share_holder_company_name.$getsholder->id" => 'required',
                         "share_holder_company_year.$getsholder->id" => 'required',
@@ -598,6 +715,16 @@ class ApplyLoan extends Component
                         "share_holder_number_of_employees.$getsholder->id" => 'required',
                         "share_holder_website.$getsholder->id" => 'nullable',
                     ]);
+                    if($this->share_holder_company_year[$getsholder->id] && $this->share_holder_company_month[$getsholder->id]){
+                        $company_start_date = $this->share_holder_company_year[$getsholder->id].'/'.$this->share_holder_company_month[$getsholder->id];
+                    }else{
+                        $then_ts = strtotime($this->share_holder_company_years[$getsholder->id]."-01-01");
+                        $then_year = date('Y', $then_ts);
+                        $diff = date('Y') - $then_year;
+                        if(strtotime('+' . $diff . ' years', $then_ts) > time()) $diff--;
+                        $company_start_date = $diff.'/'.$this->share_holder_company_months[$getsholder->id];
+                       
+                    }
                     $LCD = LoanCompanyDetail::where('share_holder',$getsholder->id)->where('apply_loan_id', $this->apply_loan->id)->first();
                     if($LCD){
                         $LCD->delete();
@@ -717,5 +844,103 @@ class ApplyLoan extends Component
            
             
         }
+    }
+    ///////gernalinfo
+    public function store()
+    {
+        
+        foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
+            $this->validate([
+                'gernalinfo.'.$item['key'] =>  $item['required'],
+            ]);
+        }
+        if(!$this->reason_id){
+            $this->errorMessage = 'Select Reason';
+            return;
+        }
+        if($this->apply_loan){
+            $this->updateGernalInfo();
+            return;
+        }
+        $AL=ModelsApplyLoan::forceCreate([
+            'amount' => $this->gernalinfo['amount'],
+            'loan_type_id' => $this->loan_type_id,
+            'reason_id' => $this->reason_id,
+            'user_id' => Auth::guard('web')->user()->id,
+            'profile' => $this->main_type,
+        ]);
+        $AL->enquiry_id = date('Y').date('m').$AL->id;
+        $AL->update();
+        foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
+            $name = $item['key']; 
+            $gernalInfo = new LoanGernalInfo();
+            $gernalInfo->key = $item['key'];
+            $gernalInfo->type = $item['type'];
+            $gernalInfo->apply_loan_id = $AL->id;
+            if($item['type'] == 'file'){
+                $gernalInfo->value = $this->gernalinfo[$name]->store('documents');
+            }
+            if($item['type'] == 'number'){
+                $gernalInfo->value = $this->gernalinfo[$name];
+            }
+            if($item['type'] == 'checkbox'){
+                if(!isset($this->gernalinfo[$name])){
+                    $gernalInfo->value = 0;
+                }else{
+                    $gernalInfo->value = $this->gernalinfo[$name];
+                }
+            }
+            $gernalInfo->save();
+        }
+        $this->apply_loan = $AL;
+        // $this->goToReasons();
+        $this->tab = 4;
+        $this->comDisable = true;
+      
+    }
+
+    public function updateGernalInfo()
+    {
+       
+        $udpateapply_loan  = ModelsApplyLoan::where('id', $this->apply_loan->id)->first();
+        $udpateapply_loan->profile = $this->main_type;
+        $udpateapply_loan->reason_id = $this->reason_id;
+        $udpateapply_loan->loan_type_id = $this->loan_type_id;
+        $udpateapply_loan->amount = $this->gernalinfo['amount'];
+        $udpateapply_loan->update();
+        $LGI=LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();
+        if($LGI->count() > 0){
+            foreach($LGI as $item){
+                if($item['type'] == 'file'){
+                    if($item && Storage::exists($item['value'])) {
+                        Storage::delete($item['value']);
+                    }
+                }
+            }
+            LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
+        }
+        foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
+            $name = $item['key']; 
+            $gernalInfo = new LoanGernalInfo();
+            $gernalInfo->key = $item['key'];
+            $gernalInfo->type = $item['type'];
+            $gernalInfo->apply_loan_id = $this->apply_loan->id;
+            if($item['type'] == 'file'){
+                $gernalInfo->value = $this->gernalinfo[$name]->store('documents');
+            }
+            if($item['type'] == 'number'){
+                $gernalInfo->value = $this->gernalinfo[$name];
+            }
+            if($item['type'] == 'checkbox'){
+                if(!isset($this->gernalinfo[$name])){
+                    $gernalInfo->value = 0;
+                }else{
+                    $gernalInfo->value = $this->gernalinfo[$name];
+                }
+            }
+            $gernalInfo->save();
+        }
+        $this->tab = 4;
+        
     }
 }
