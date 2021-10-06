@@ -1228,9 +1228,9 @@ ul.header_social li a.skype i:hover {
 }
 
 .breadcrumb-wrapper-overlay{
-	background: #00182c;
+	background: #aaa;
 	opacity: 0.80 !important;
-	position: absolute;
+	/* position: absolute; */
 	top: 0;
 	left: 0;
 	right: 0;

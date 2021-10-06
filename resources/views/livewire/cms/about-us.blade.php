@@ -67,8 +67,10 @@
                             <p>"{!! $testimonial->review !!}"</p>
                             <span class="testimonials_arrow"></span>
                         </div>
+                        <div class="d-flex align-items-center">
                         <img src="{{ asset('uploads/testimonialImages/'.$testimonial->reviewer_image) }}" alt="Picture" class="autor_pic">
                         <p class="autor"><span>{{ $testimonial->review_by }}</span></p>
+</div>
                     </div>
             @endforeach
             <!--end testimonials_item -->
