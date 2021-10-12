@@ -8,7 +8,7 @@
 <script src="{{ asset('assets/cms/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/imagesloaded.pkgd.min.js') }}"></script>
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58"></script>
+{{-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58"></script> --}}
 <script src="{{ asset('assets/cms/js/isInViewport.jquery.js') }}"></script>
 <script src="{{ asset('assets/cms/js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/owl.carousel.min.js') }}"></script>
@@ -24,7 +24,7 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <!--Google map-->
 
-<script>
+{{-- <script>
     var latitude = 34.038405;
     var longitude = -117.946944;
     var markerImage = "{{ asset('assets/cms/img/map-marker.png') }}";
@@ -33,7 +33,7 @@
     google.maps.event.addDomListener(window, 'load', simpleMap(latitude, longitude, markerImage, mapStyle, mapElement));
 
 
-</script>
+</script> --}}
 <script>
     function showNotificationModal(message,colorName,placementFrom,placementAlign){
         // if (text === null || text === '') { text = 'Turning standard Bootstrap alerts'; }

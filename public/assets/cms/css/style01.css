@@ -81,14 +81,14 @@ ul.features-list li img{
 	float:left;
 }
 
-p {
+/* p {
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
 	margin-bottom:15px;
 	color: #7c8595;
 	font-family: 'Lato', sans-serif;
-}
+} */
 
 i { display: inline-block;}
 
@@ -897,7 +897,7 @@ ul.hero-list-checked.second-list li i{
 /* ========================================================== */
 
 /* ----- 1. Footer General Styles ----- */
-.footer{
+/* .footer{
 	width:100%;
 	position:relative;
 	background-color: #001527;
@@ -961,7 +961,7 @@ a.top-scroll:hover {
 
 .footer p a:hover {
 	color: #007adf;
-}
+} */
 
 p.contact_info{
 	margin-bottom:8px;

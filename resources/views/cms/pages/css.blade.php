@@ -4,7 +4,17 @@
 {{--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,600,600i,700,700i,800" rel="stylesheet">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps" rel="stylesheet">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Lobster|Oleo+Script+Swash+Caps" rel="stylesheet">--}}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500"
+      rel="stylesheet"
+    />
+
+   
+<script src="{{ url('/map.js') }}"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600">
+
+
 {{--<!-- LOADING FONTS AND ICONS -->--}}
 {{--<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms/css/pe-icon-7-stroke.css') }}">--}}
 {{--<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms/css/font-awesome.min.css') }}">--}}
@@ -178,37 +188,6 @@ footer .contact-box__info {
 
 
 /* HOME CSS */
-.background{
-    /* background-color: #e9bcb7; */
-/* background-image: linear-gradient(315deg, #e9bcb7 0%, #29524a 74%); */
-   background-image: url('/assets/cms/img/Home/home-bg.jpg');
-   background-repeat: no-repeat;
-   background-size: 100% 100%;
-   /* filter: brightness(50%); */
-}
-.nmor-card{
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 12px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-    height: 320px;
-    }
-.icon-circle{
-    height: 6rem;
-    width: 6rem;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid  #3EBB60;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.circle__icon{
-    width: 2.5rem;
-    height: 2.5rem;
-}
-.nmor-card h5{
-    font-size: 1.2rem;
-}
+
+
 </style>

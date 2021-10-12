@@ -256,6 +256,10 @@ Route::group(['middleware'=>['customer']],function (){
 
 });
 Route::get('test', function (){
-    $companyDetail = LoanCompanyDetail::where('apply_loan_id', 175)->where('share_holder', 0)->first();
-    return view('cms.ajax.share-holder')->with('companyDetail', $companyDetail);
+    $date = "10-10-2021";
+    $day = "30";
+    $cout = date('Y-m-d', strtotime($date. ' - 30 day'));
+    // return $cout;
+    $currentDate = date('Y-m-d');
+    
 });

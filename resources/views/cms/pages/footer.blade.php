@@ -1,87 +1,94 @@
-<footer class="site-footer">
-    <div class="container">
-    <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12 d-lg-flex d-flex contact-box">
-            <div class="contact-box__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-phone-call" width="45" height="45" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3EBB60" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
-  <path d="M15 7a2 2 0 0 1 2 2" />
-  <path d="M15 3a6 6 0 0 1 6 6" />
-</svg>
-              </div>
-              <div class="contact-box__info">
-               <h6> <a href="#" class="contact-box__info--title">+(011)33366688</a></h6>
-                <p class="contact-box__info--subtitle">Mon-Fri 12pm-9pm</p>
-              </div>
-            </div>
-
-            <!-- QUICK LINKS -->
-            <div class="col-md-8 col-sm-12 col-xs-12 contact-box">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">         
-            <h6>Site Map</h6>
-                <ul class="footer-links">
-                    <li><a href="{{ route('home') }}">Home </a></li>
-                    <li><a href="{{ route('about-us') }}">About Us</a></li>
-                    <li><a href="{{ route('faqs') }}">Faq's</a></li>
-                    <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
-                </ul>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                    <h6>Quick Links</h6>
-                <ul class="footer-links">
-                    <li><a href="/">In the news </a></li>
-                    <li><a href="/">Why use a digital loan consultant</a></li>
-                    <li><a href="/">Calculators</a></li>
-                    <li><a href="/">Glossary of products</a></li>
-                    <li><a href="{{ route('privacy-policy') }}">Privacy Policy </a></li>
-                    <li><a href="{{ route('terms-conditions') }}">Terms & Conditions</a></li>
-                </ul>
-                    </div>
-                    <div class="col-md-4 col-sm-12 text-sm-left text-md-center social-col">
-                    <h6>Social Media</h6>
-                <ul class="footer-links ">
-                    <li>
-                        <a class="social-icons rounded-circle" href="/">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                </li>
-                <li>
-                <a class="social-icons rounded-circle" href="/">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                </li>
-                <li>
-                        <a class="social-icons rounded-circle" href="/">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                </li>
-                </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
 <hr>
-        <!-- ABOUT -->
-        <div class="row text-lg-center my-3">
-            <div class="col-md-12 col-sm-12">
-                <h6 class="lh-md">Company registrations number: FA4587963527</h6>
-              <p class="lh-md text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur sunt ducimus, laudantium nihil tempore nesciunt velit perspiciatis deserunt. Nesciunt illo excepturi quia inventore doloremque amet ipsam fugiat. Explicabo magnam perferendis, recusandae sunt exercitationem magni provident laborum sapiente dolor itaque fugiat! Natus tenetur nesciunt rerum aperiam quisquam sint illo officia, odit tempora esse accusantium fugit consequuntur quasi atque laborum harum? Quo.</p>
-            </div>
-        </div>
-    </div>
+  <!-- FOOTER -->
+  <footer id="footer" class="footer">
+           <div class="container">
+               <!-- CONTENT -->
+               <div class="row">
+                   <div class="col-sm-12 col-md-12 col-lg-4 text-lg-center mb-3">
+                       <div class="footer__logo">
+                       <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="logo">
+                       </div>
+                    <div class="footer__social mt-3">
+                        <h5>Follow Us</h5>
+                       <div class="social__icons">
+                        <a class="social__icon" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                              </svg>
+                        </a>
 
-    
-        <!-- COPYRIGHTS -->
-        <div class="footer-bottom py-4" style="background: #000000">
-          <div class="container">
-            <div class="row text-white text-center">
-              <div class="col-12">
-                <p class="footer-bottom__copyright">&copy; Copyright 2021 &nbsp; | &nbsp; All Rights Reserved</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /COPYRIGHTS -->
-</footer>
+                        <a class="social__icon" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+                              </svg>
+                        </a>
+
+                        
+                        <a class="social__icon" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-pinterest" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <line x1="8" y1="20" x2="12" y2="11" />
+                                <path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" />
+                                <circle cx="12" cy="12" r="9" />
+                              </svg>
+                        </a>
+
+                        
+                        <a class="social__icon" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-instagram" width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <rect x="4" y="4" width="16" height="16" rx="4" />
+                                <circle cx="12" cy="12" r="3" />
+                                <line x1="16.5" y1="7.5" x2="16.5" y2="7.501" />
+                              </svg>
+                        </a>
+                       </div>
+                    </div>
+                   </div>
+                   <div class="col-sm-12 col-md-12 col-lg-8">
+                       <div class="footer__text">
+                           <p class="lea">
+                               FindTheLoan.com is a loan and finance comparison platform that connect users to various financial institutes and not a lender themseleves information on this platform should not be construed as an advice, offer, solication or recommendation of any product or service. You should always check the suitability, adequacy and appropriateness of the product or service that is of interest to you and it is your sole decision whether to obtain or refrain from obtaining any product or service. If in doubt as the suitability, adequacy and appropriateness of the product or service refferd to on this website, we advice that you seek professional advice.
+                           </p>
+                       </div>
+                   </div>
+               </div>
+               <!-- /CONTENT -->
+
+               <!-- COPYRIGHT -->
+               <div class="footer-bottom mt-4">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-5">
+                      <p class="lea">Copyright &copy; 2021 Find The Loan. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-7">
+                        <ul class="nav footer__links flex-column flex-md-row justify-content-xl-end">
+                            <li class="nav-item">
+                                <a href="{{ route('about-us') }}" class="nav-link">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Financial Inclusion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('faqs') }}" class="nav-link">FAQ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Glossarv</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('terms-conditions') }}" class="nav-link">Terms Of Use</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('privacy-policy') }}" class="nav-link">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+               <!-- /COPYRIGHT -->
+           </div>
+       </footer>
+       <!-- /FOOTER -->
+
