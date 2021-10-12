@@ -79,6 +79,9 @@
     }
 
     /* NAVBAR STYLE */
+    .spinner-grow{
+        background: #fff;
+    }
     .navbar ul li{
         padding: 0 0.7rem;
         font-family: 'Poppins', sans-serif;
@@ -101,6 +104,7 @@
     .btn{
         background: #3EBB60;
 color: #fff !important;
+font-family: 'Poppins', sans-serif;
     }
     .btn:hover{
         opacity: 0.8;
@@ -175,4 +179,46 @@ footer .contact-box__info {
               padding-left: 0.8rem;
 }
     }
+
+
+
+
+
+
+
+
+/* HOME CSS */
+.background{
+    /* background-color: #e9bcb7; */
+/* background-image: linear-gradient(315deg, #e9bcb7 0%, #29524a 74%); */
+   background-image: url('/assets/cms/img/Home/home-bg.jpg');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+   /* filter: brightness(50%); */
+}
+.nmor-card{
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    height: 320px;
+    }
+.icon-circle{
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid  #3EBB60;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.circle__icon{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.nmor-card h5{
+    font-size: 1.2rem;
+}
 </style>

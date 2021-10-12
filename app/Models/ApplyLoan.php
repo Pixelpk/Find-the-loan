@@ -28,6 +28,11 @@ class ApplyLoan extends Model
         return $this->hasMany(UserLoanReason::class,'apply_loan_id','id')->with('loan_reason');
     }
 
+    public function loan_reason(){
+        return $this->belongsTo(LoanReason::class,'reason_id','id');
+    }
+
+
     public function loan_documents(){
         return $this->hasMany(LoanDocument::class,'apply_loan_id','id');
     }
@@ -45,7 +50,7 @@ class ApplyLoan extends Model
         $partner_id = Session::get('partner_id');
 
         return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')
-            ->where('partner_id','=',$partner_id)
+//            ->where('partner_id','=',$partner_id)
 //            ->where('user_id','=',$loggedin_user->id)
             ->with(['user']);
     }
@@ -62,5 +67,9 @@ class ApplyLoan extends Model
 
     public function getNnumberOfShareHolder(){
         return $this->hasMany(ShareHolderDetail::class,'apply_loan_id', 'id');
+    }
+
+    public function application_rejected(){
+        return $this->hasOne(UserLoanReject::class,'apply_loan_id','id');
     }
 }

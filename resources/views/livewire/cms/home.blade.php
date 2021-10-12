@@ -1,4 +1,8 @@
 <main id="ts-content">
+
+<!-- HERO -->
+
+<!-- /HERO -->
     <!--PARTNERS ********************************************************************************************-->
     <section id="partners" class="ts-block0 text-center" data-bg-color="#f6f7f9" data-mask-top-nw-color="#fff"><h3 >
             Some  Of Our Financing Partners

@@ -1,6 +1,4 @@
 @if(Route::currentRouteName() == 'home')
-<header id="ts-hero" class="ts-full-screen ts-separate-bg-element" data-mask-bottom-wn-color="#fff"
-    data-bg-color="#ffffff8f" data-bg-image-opacity=".8" data-bg-parallax="scroll" data-bg-parallax-speed="3">
     <!--NAVIGATION ******************************************************************************************-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top ts-separate-bg-element headshad" data-bg-color="#1d1d1d">
         <div class="container">
@@ -30,7 +28,7 @@
                    <li class="nav-item">
                    <a class="nav-link ts-scroll" href="{{ route('contact-us') }}">CONTACT US</a>
                    </li>
-</ul>
+    </ul>
                    
                     @if(!Auth::guard('web')->check())
                     <!-- LOGIN BUTTON -->
@@ -45,64 +43,17 @@
                     @endif
 
                     @if(Auth::guard('web')->check())
-            <!-- <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::guard('web')->user()->first_name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-                           
-                        </ul>
-                    </li>
-                </ul>
-            </div> -->
-            <!-- <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ Auth::guard('web')->user()->first_name }}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a>
-                </div>
-            </div> -->
             <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a>
             @endif
             <!--end collapse-->
                 <!--end navbar-nav-->
             </div>
            
-        </div>
         <!--end container-->
     </nav>
     <!--end navbar-->
 
     <!--HERO CONTENT ****************************************************************************************-->
-    <div class="container align-self-center align-items-center text-left ">
-        <div class="row">
-            <div class="col-md-5 col-xl-5">
-                <h1>Your Digital <strong style="color:#1db046 !important; font-weight: 500!important;">Loan
-                    </strong>Platform </h1>
-                <p class="hedtext" style="padding-bottom: 20px;">No more paying a broker fee or approaching the banks
-                    one by one. </p>
-
-                <a href="{{ route('applyLoan') }}" class="btn apply-now-btn btn-lg ts-scroll">APPLY NOW</a>
-            </div>
-            <div class="col-md-5 col-xl-5 text-right align-self-center align-items-center">
-                <img src="{{ asset('assets/cms/img/dollercirle1.png') }}" class="mw-100" alt="">
-            </div>
-        </div>
-    </div>
-    <!--end container-->
-    <div class="ts-background" data-bg-color="#fff" data-bg-parallax="scroll" data-bg-parallax-speed="3">
-        <div class="owl-carousel ts-hero-slider ts-parallax-element" data-owl-loop="0" data-owl-fadeout="1">
-            <div class="ts-background-image ts-opacity__70" data-bg-image="{{ asset('assets/cms/img/bg-map.jpg') }}">
-            </div>
-
-        </div>
-    </div>
-</header>
 @else
 <header>
     <!--NAVIGATION ******************************************************************************************-->
@@ -149,20 +100,6 @@
                     @endif
 
                     @if(Auth::guard('web')->check())
-            <!-- <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::guard('web')->user()->first_name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-                           
-                        </ul>
-                    </li>
-                </ul>
-            </div> -->
             <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a>
             @endif
             <!--end collapse-->
