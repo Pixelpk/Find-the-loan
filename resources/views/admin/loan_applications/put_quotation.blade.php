@@ -19,17 +19,22 @@
 
             <!-- FORM NO 1 -->
             <div class="container bg-white shadow py-3" style="border-radius: 0.7rem;">
+                <h6 class="">Quantum section</h6>
                 <!-- SEC 1 -->
-                <form action="">
+                <form action="{{ route('submit-quotation') }}" method="POST">
+                    @csrf
                     <!-- 1ST ROW -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input1" class="col-form-label">Interest (flat)</label>
-                            <input type="text" class="form-control" id="input1">
+                        <div class="form-group col-md-5">
+                            <label for="input1" class="col-form-label">Interest (flat) % P.a</label>
+                            <input type="text" name="interest_flat_pa" class="form-control" id="input1">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input2" class="col-form-label">% P.a &nbsp; or &nbsp; % P.m</label>
-                            <input type="text" class="form-control" id="input2">
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input2" class="col-form-label">Interest (flat)  % P.m</label>
+                            <input type="text" name="interest_flat_pm" class="form-control w-100" id="input2">
                         </div>
                     </div>
                     <!-- /1ST ROW -->
@@ -41,6 +46,19 @@
 
                     <!-- 2ND ROW -->
                     <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input3" class="col-form-label">Interest (Reducing Balance) % P.a</label>
+                            <input type="text" name="interest_reducing_pa" class="form-control" id="input3">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input4" class="col-form-label">Interest (Reducing Balance) % P.m</label>
+                            <input type="text" name="interest_reducing_pm" class="form-control" id="input4">
+                        </div>
+                    </div>
+                    {{-- <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="input3" class="col-form-label">Interest (Reducing Balance)</label>
                             <input type="text" class="form-control" id="input3">
@@ -49,7 +67,7 @@
                             <label for="input4" class="col-form-label">% P.a &nbsp; or &nbsp; % P.m</label>
                             <input type="text" class="form-control" id="input4">
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- /2ND ROW -->
 
                     <!-- SEPRATER -->
@@ -60,13 +78,16 @@
 
                     <!-- 3RD ROW -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input5" class="col-form-label">Interest+board rate of</label>
-                            <input type="text" class="form-control" id="input5">
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Interest % P.a</label>
+                            <input type="text" class="form-control" name="interest_pa" id="input5">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input6" class="col-form-label">% P.a &nbsp; + &nbsp; % P.m</label>
-                            <input type="text" class="form-control" id="input6">
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">+</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Board rate of % P.a</label>
+                            <input type="text" class="form-control" name="board_rate_pa" id="input6">
                         </div>
                     </div>
                     <!-- /3RD ROW -->
@@ -82,24 +103,204 @@
                         <div class="form-group col-md-5">
                             <label for="input7" class="col-form-label">Flat free regardless of tenure $
                             </label>
-                            <input type="text" class="form-control" id="input7">
+                            <input type="text" name="flat_fee_value" class="form-control" id="input7">
                         </div>
                         <div class="form-group col-md-1 d-flex align-items-end justify-content-center">
                             <label for="input8" class="col-form-label">/</label>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="input8" class="col-form-label">%</label>
-                            <input type="text" class="form-control" id="input8">
+                            <input type="text" name="flat_fee_percent" class="form-control" id="input8">
                         </div>
                     </div>
                     <!-- /4TH ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Tenure(optional for overdraft)</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="tenure_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="tenure_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Lock-in if any( please state final length free of any form of penalty)
+                            </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="lock_in_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="lock_in_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <hr style=" background: grey;">
+                <h6 class="">Fee section</h6>
+
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">One-time fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="text" name="one_time_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="one_time_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Monthly Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="text" name="monthly_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="monthly_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Annual Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="text" name="annual_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="annual_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Legal Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="text" name="legal_fee_start_range" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="legal_fee_end_range" class="form-control" placeholder="$" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">If insurance required
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-2">
+                                    <input type="text" name="if_insurance_start_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="if_insurance_end_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="if_insurance_start_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="if_insurance_end_value" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input1" class="col-form-label">EIR % P.a (optional)</label>
+                            <input type="text" class="form-control" id="input1">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input2" class="col-form-label">EIR  % P.m (optional)</label>
+                            <input type="text" class="form-control w-100" id="input2">
+                        </div>
+                    </div>
+                    <hr style=" background: grey;">
+                <h6 class="">Repayment section</h6>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Repayment terms
+                        </label>
+                        <select name="repayment_terms" class="form-control">
+                            <option value="P+I">P+I</option>
+                            <option value="P+I">I only</option>
+                            <option value="P+I">Front end</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Deffered after
+                        </label>
+                        <input type="text" name="deffered_after" class="form-control" placeholder="Months" id="input7">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Balloon on
+                        </label>
+                        <input type="text" name="balloon_on" class="form-control" placeholder="Months" id="input7">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Quote is valid for(Days)
+                        </label>
+                        <input type="date" name="quote_validity" class="form-control" placeholder="quote_validity" id="input7">
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="input1" class="col-form-label">Remarks-Seen by all internal users</label>
+                        <textarea type="text" class="form-control" id="input1"></textarea>
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label for="input1" class="col-form-label">Personal notepad</label>
+                        <textarea type="text" class="form-control" id="input1"></textarea>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+
                 </form>
                 <!-- /SEC 1 -->
 
-                <hr style=" background: grey;">
+                {{-- <hr style=" background: grey;"> --}}
 
                 <!-- SEC 2 -->
-                <form action="">
+                {{-- <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -127,13 +328,13 @@
                         </div>
                     </div>
                     <!-- /2ND ROW -->
-                </form>
+                </form> --}}
                 <!-- /SEC 2 -->
             </div>
             <!-- /FORM NO 1 -->
 
             <!-- FORM 2 -->
-            <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3">
@@ -296,11 +497,11 @@
                     </div>
                     <!-- /4TH ROW -->
                 </form>
-            </div>
+            </div> --}}
             <!-- /FORM 2 -->
 
             <!-- FORM 3 -->
-            <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3 my-3">
@@ -409,7 +610,7 @@
                     </div>
                     <!-- /3RD ROW -->
                 </form>
-            </div>
+            </div> --}}
             <!-- /FORM 3 -->
         </div>
         <!-- container-fluid -->
