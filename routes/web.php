@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -167,6 +168,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('aloan-application-summary');
+
+        Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
+        Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
+        Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
 
     });
 
