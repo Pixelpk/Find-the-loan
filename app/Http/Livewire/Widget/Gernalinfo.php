@@ -30,7 +30,7 @@ class Gernalinfo extends Component
         // dd($this->apply_loan);
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
             $this->validate([
-                'gernalinfo.'.$item['key'] =>  $item['required'],
+                'gernalinfo.'.$item['key'] =>  $item['required'].$item['regax'].$item['image_formart'],
             ]);
         }
         if($this->apply_loan){
@@ -72,7 +72,7 @@ class Gernalinfo extends Component
 
     public function updateGernalInfo()
     {
-        dd('asd');
+        
         $udpateapply_loan  = ModelsApplyLoan::where('id', $this->apply_loan->id)->first();
         $udpateapply_loan->profile = $this->main_type;
         $udpateapply_loan->loan_type_id = $this->loan_type_id;

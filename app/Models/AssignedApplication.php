@@ -14,4 +14,8 @@ class AssignedApplication extends Model
     public function user(){
         return $this->belongsTo(FinancePartner::class,'user_id','id')->select('id','name');
     }
+
+    public function reject_application(){
+        return $this->hasOne(UserLoanRejectReason::class,'partner_id','id');
+    }
 }

@@ -7,17 +7,14 @@ use App\Http\Controllers\Admin\FinancePartnerController;
 use App\Http\Controllers\Admin\LoanApplications;
 use App\Http\Controllers\Admin\LoanReasonController;
 use App\Http\Controllers\Admin\LoanTypeController;
+use App\Http\Controllers\Admin\OCRController;
 use App\Http\Controllers\Admin\PartnerUserController;
 use App\Http\Controllers\Admin\SectorController;
 use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\CommonController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\UserController as ControllersUserController;
-use App\Http\Controllers\UserLoanController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\FaqComponent;
 use App\Http\Livewire\Cms\PrivacyPolicyComponent;
@@ -30,9 +27,6 @@ use App\Http\Livewire\Cms\Home;
 use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
 use App\Models\LoanCompanyDetail;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +40,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
+Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
+Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
+Route::get('staple-bank-stat',[OCRController::class,'bankStatDocType'])->name('staple-bank-stat');
 Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
@@ -148,6 +146,9 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     });
 
     Route::group(['middleware'=>['partner']],function (){
+        Route::get('additional-doc-info', [OCRController::class,'additionDocInfo'])->name('additional-doc-info');
+        Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
+
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
         Route::get('partner-users',[PartnerUserController::class,'users'])->name('partner-users');
@@ -166,9 +167,13 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
-        Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('aloan-application-summary');
+        Route::post('reject-application',[LoanApplications::class,'rejectLoanApplication'])->name('reject-application');
 
-    });
+        Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
+        Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
+        Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
+
+    }); 
 
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 //    Route::get('/profile', [UserController::class,'profile'])->name('profile');
@@ -250,6 +255,10 @@ Route::group(['middleware'=>['customer']],function (){
 
 });
 Route::get('test', function (){
-    $companyDetail = LoanCompanyDetail::where('apply_loan_id', 175)->where('share_holder', 0)->first();
-    return view('cms.ajax.share-holder')->with('companyDetail', $companyDetail);
+    $date = "10-10-2021";
+    $day = "30";
+    $cout = date('Y-m-d', strtotime($date. ' - 30 day'));
+    // return $cout;
+    $currentDate = date('Y-m-d');
+    
 });
