@@ -4,7 +4,17 @@
 {{--<link href="https://fonts.googleapis.com/css?family=Open+Sans:300i,400,400i,600,600i,700,700i,800" rel="stylesheet">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps" rel="stylesheet">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Lobster|Oleo+Script+Swash+Caps" rel="stylesheet">--}}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500"
+      rel="stylesheet"
+    />
+
+   
+<script src="{{ url('/map.js') }}"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600">
+
+
 {{--<!-- LOADING FONTS AND ICONS -->--}}
 {{--<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms/css/pe-icon-7-stroke.css') }}">--}}
 {{--<link rel="stylesheet" type="text/css" href="{{ asset('assets/cms/css/font-awesome.min.css') }}">--}}

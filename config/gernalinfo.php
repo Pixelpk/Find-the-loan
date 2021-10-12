@@ -9,32 +9,37 @@ return [
         "label" => "Tanancy Agreement",
         "key" => "tanancy_agreement",
         "type" => "file",
-        "required" => 'required',
-       
        
        ],
        [
         "label" => "Renovation Quotation",
         "key" => "renovation_quotation",
         "type" => "file",
-        "required" => 'required',
-       
-       
        ],
        [
         "label" => "User Owned",
         "key" => "user_owned",
-        "type" => "checkbox",
-        "required" => 'nullable'
-       
+        "type" => "checkbox",       
        ],
        [
         "label" => "Amount",
         "key" => "amount",
-        "type" => "number",
-        "required" => "required",
-       
-       ]
+       ],
+       [
+        "label" => "Address",
+        "key" => "address",
+        "type" => "text",
+       ],
+       [
+        "label" => "unit",
+        "key" => "unit",
+        "type" => "text",
+       ],
+       [
+        "label" => "building_name",
+        "key" => "building_name",
+        "type" => "text",
+       ],
    ]
 
 ];
