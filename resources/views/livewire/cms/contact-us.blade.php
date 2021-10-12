@@ -60,17 +60,17 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail">Phone</label>
-                            <input type="text" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter name" wire:model="phone">
+                            <input type="text" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter phone" wire:model="phone">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputEmail">Email</label>
-                            <input type="email" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter name" wire:model="email">
+                            <input type="email" class="contact-input white-input" id="exampleInputEmail" placeholder="Enter email" wire:model="email">
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputbody">Body</label>
-                            <textarea class="contact-input white-input" id="exampleInputbody" placeholder="Enter Body" wire:model="contact_message"></textarea>
+                            <label for="exampleInputbody">Message</label>
+                            <textarea class="contact-input white-input" id="exampleInputbody" placeholder="Message" wire:model="contact_message"></textarea>
                         </div>
 
                         <button type="submit" class="btn">Send Message</button>

@@ -166,6 +166,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
+        Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('aloan-application-summary');
 
     });
 

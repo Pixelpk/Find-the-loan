@@ -112,6 +112,10 @@ class LoanApplications extends Controller
         return view('admin.loan_applications.loan_applications',$data);
     }
 
+    public function applicationSummary(Request $request){
+        return view('admin.loan_applications.loan_summary');
+    }
+
     public function putQuotation(Request $request){
         return view('admin.loan_applications.put_quotation');
     }
