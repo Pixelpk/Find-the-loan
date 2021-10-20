@@ -16,8 +16,11 @@
 {{--<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>--}}
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
+    let todayDate = new Date();
+    let quoteEndDate= new Date(new Date().setDate(todayDate.getDate() + 29));
     function showNotificationModal(message,colorName,placementFrom,placementAlign){
         // if (text === null || text === '') { text = 'Turning standard Bootstrap alerts'; }
         var allowDismiss = true;
@@ -53,6 +56,9 @@
 </script>
 @include('admin.pages.flash-message')
 <script>
+    let more_doc_message_array = [];
+    let remove_more_doc_message_array = [];
+    let more_doc_msg_index = 0;
     $(document).ready(function() {
         $( '.ckeditor.editor' ).ckeditor();
 
@@ -69,6 +75,23 @@
             ]
         });
 
+        $('.select2').select2();
+
+        // $('#internal').change(function (){
+        //     if (reason_auto_select_count == 0){
+        //         reason_auto_select_count ++;
+        //         index = $("#internal").prop('selectedIndex');
+        //         $('#shown_to_customer option').eq(index).prop('selected', true);
+        //     }
+        // });
+        $('#shown_to_customer').change(function (){
+            // if (reason_auto_select_count == 0){
+            //     reason_auto_select_count ++;
+                index = $("#shown_to_customer").prop('selectedIndex');
+                $('#internal option').eq(index).prop('selected', true);
+            // }
+        });
+
         $('.datetime-picker').datetimepicker({
             minuteStep:5,
             weekStart: 0,
@@ -77,6 +100,14 @@
             minView: 2,
             format: 'yyyy-mm-dd',
             pickTime:false
+        });
+        
+        $('.date-picker-quote').datetimepicker({
+            minView: 2,
+            format: 'yyyy-mm-dd',
+            pickTime:false,
+            startDate: todayDate,
+            endDate: quoteEndDate
         });
 
         $('.search-user').keyup(function (event) {
@@ -142,6 +173,19 @@
                 getLoanType(main_type);
             }
         });
+        
+        $('#invoice_based_on').change(function(){
+            var value = $(this).val();
+            if(value == 3){
+                $('#joint_account_days').prop({'disabled':false, 'required':true});
+                $('#joint_account_cost_from').prop({'disabled':false, 'required':true});
+                $('#joint_account_cost_to').prop({'disabled':false, 'required':true});
+            }else{
+                $('#joint_account_days').prop('disabled',true);
+                $('#joint_account_cost_from').prop('disabled',true);
+                $('#joint_account_cost_to').prop('disabled',true);
+            }
+        });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {
             $(this).dropdown("toggle");
@@ -168,7 +212,150 @@
             })
         });
 
+
+         //put quotation validations and submit
+        $('.interest_flat').keyup(function(){
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".interest_reducing_balance").prop('disabled', false);
+                $(".interest_board_rate").prop('disabled', false);
+                $(".flat_fee_regardless").prop('disabled', false);
+            }else{
+                $(".interest_reducing_balance").prop('disabled', true);
+                $(".interest_board_rate").prop('disabled', true);
+                $(".flat_fee_regardless").prop('disabled', true);
+            }
+        });
+
+        $('.interest_reducing_balance').keyup(function(){
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".interest_flat").prop('disabled', false);
+                $(".interest_board_rate").prop('disabled', false);
+                $(".flat_fee_regardless").prop('disabled', false);
+            }else{
+                $(".interest_flat").prop('disabled', true);
+                $(".interest_board_rate").prop('disabled', true);
+                $(".flat_fee_regardless").prop('disabled', true);
+            }
+        });
+
+        $('.interest_board_rate').keyup(function(){
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".interest_flat").prop('disabled', false);
+                $(".interest_reducing_balance").prop('disabled', false);
+                $(".flat_fee_regardless").prop('disabled', false);
+            }else{
+                $(".interest_flat").prop('disabled', true);
+                $(".interest_reducing_balance").prop('disabled', true);
+                $(".flat_fee_regardless").prop('disabled', true);
+            }
+        });
+        $('.flat_fee_regardless').keyup(function(){
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".interest_flat").prop('disabled', false);
+                $(".interest_reducing_balance").prop('disabled', false);
+                $(".interest_board_rate").prop('disabled', false);
+            }else{
+                $(".interest_flat").prop('disabled', true);
+                $(".interest_reducing_balance").prop('disabled', true);
+                $(".interest_board_rate").prop('disabled', true);
+            }
+        });
+        // $('#submit_quotation').click(function(event){
+        //     event.preventDefault();
+        //     var inputs = $('#quotationForm :input');
+        //     var values = {};
+        //     inputs.each(function() {
+        //         values[this.name] = $(this).val();
+        //     });
+        //     console.log(values);
+        //     $.ajax({
+        //         method: "POST",
+        //         url: "{{ route('submit-quotation') }}",
+        //         data: values
+        //     }).done(function (result) {
+
+        //         console.log(result)
+        //         return false;
+        //     });
+        // });
+
+        $('#add_more_message_desc').click(function(e){
+            e.preventDefault();
+             new_obj = {};
+             new_obj.if_any = $('#if_any').val();
+             new_obj.from = $('#from').val();
+             new_obj.to = $('#from').val();
+             new_obj.within_days = $('#within_days').val();
+             new_obj.past_months = $('#past_months').val();
+             new_obj.valid_for = $('#valid_for').val();
+             new_obj.latest = $('#latest').val();
+             new_obj.required_company_stamp = $('#required_company_stamp').val();
+             new_obj.need_notarized = $('#need_notarized').val();
+             new_obj.signature_borrower = $('#signature_borrower').val();
+             new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').val();
+             new_obj.more_doc_reasons = $('#more_doc_reasons').val();
+             new_obj.document_of = $('#document_of').val();
+             new_obj.point_to_any_specific_doc = $('#point_to_any_specific_doc').val();
+            more_doc_message_array.push(new_obj);
+            console.log(more_doc_message_array);
+
+            var html = "<tr index="+more_doc_msg_index+">"
+            +"<td><a href='#' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
+            +"<td>"+new_obj.if_any+"</td>"
+            +"<td>"+new_obj.from+"</td>"
+            +"<td>"+new_obj.to+"</td>"
+            +"<td>"+new_obj.within_days+"</td>"
+            +"<td>"+new_obj.past_months+"</td>"
+            +"<td>"+new_obj.valid_for+"</td>"
+            +"<td>"+new_obj.latest+"</td>"
+            +"<td>"+new_obj.required_company_stamp+"</td>"
+            +"<td>"+new_obj.need_notarized+"</td>"
+            +"<td>"+new_obj.signature_borrower+"</td>"
+            +"<td>"+new_obj.signature_borrowers_customer+"</td>"
+            +"<td>"+new_obj.more_doc_reasons+"</td>"
+            +"<td>"+new_obj.document_of+"</td>"
+            +"<td>"+new_obj.point_to_any_specific_doc+"</td>"
+            +"</tr>";
+            $('#more_doc_msg_table').append(html);
+            more_doc_msg_index++;
+            if(more_doc_message_array.length > 0){
+                $('#more_doc_msg_list').show();
+            }
+        });
+        $(document).on("click", '.remove_more_doc_msg', function(event) { 
+            var index = $(this).closest('tr').attr('index');
+            $(this).closest('tr').remove();
+            remove_more_doc_message_array.push(index);
+            // more_doc_message_array.splice(index,1);
+
+            if(more_doc_message_array.length < 1){
+                $('#more_doc_msg_list').hide();
+            }
+            console.log('after remove'+remove_more_doc_message_array);
+        });
+        $('#more_doc_request_btn').click(function(){
+            if(remove_more_doc_message_array.length > 0){
+                $.each(remove_more_doc_message_array, function(index, item) {
+                    more_doc_message_array.splice(index,1);
+                });
+            }
+            console.log("on submit"+more_doc_message_array);
+            return false;
+        });
+
     });
+
+    function rejectApplication(loan_apply_id){
+        reason_auto_select_count = 0;
+        console.log(loan_apply_id)
+        $("#reject_loan_id").val(loan_apply_id)
+        $('#RejectReasonModel').modal('show');
+    }
+
     function showImage(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

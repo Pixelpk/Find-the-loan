@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SiteController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LoanQuotationController;
+use App\Http\Controllers\Admin\MoreDocController;
 use App\Http\Controllers\CommonController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\FaqComponent;
@@ -44,6 +45,9 @@ Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
 Route::get('staple-bank-stat',[OCRController::class,'bankStatDocType'])->name('staple-bank-stat');
+Route::get('migration',function (){
+    \Illuminate\Support\Facades\Artisan::call('migrate');
+ });
 Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
@@ -90,11 +94,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('update-user', [UserController::class,'updateUser'])->name('update-user');
         Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
         Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
-
-        // Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
-
-//        Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
-//        Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
 
         Route::get('/faq', [FaqController::class,'faq'])->name('faq');
         Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
@@ -148,6 +147,8 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::group(['middleware'=>['partner']],function (){
         Route::get('additional-doc-info', [OCRController::class,'additionDocInfo'])->name('additional-doc-info');
         Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
+        
+        Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required'); 
 
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
@@ -163,12 +164,12 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
-        Route::get('put-quotation',[LoanApplications::class,'putQuotation'])->name('put-quotation');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
         Route::post('assign-application',[LoanApplications::class,'assignApplication'])->name('assign-application');
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
         Route::post('reject-application',[LoanApplications::class,'rejectLoanApplication'])->name('reject-application');
-        Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('aloan-application-summary');
+        Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
+        Route::get('put-quotation',[LoanQuotationController::class,'putQuotation'])->name('put-quotation');
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');

@@ -93,7 +93,8 @@
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
-                                                <th>Quote</th>
+                                                <th>Actions</th>
+                                                <th>Status</th>
                                                 <th>Assigned to</th>
                                                 <th>Download documents</th>
                                                 <th>Applied at</th>
@@ -124,9 +125,33 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        {{-- <a href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}" class="" data-toggle="tooltip" data-original-title="Put quotation">
-                                                            <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                                        </a> --}}
+                                                        
+                                                            <div class="btn-group">
+                                                                <i title="Actions" class="fas fa-2x fa-ellipsis-h" style="cursor: pointer;color: #27b34d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                                                <div class="dropdown-menu">
+                                                                    @if(!$application->application_rejected)
+                                                                    <a href="#" onclick="rejectApplication({{$application->id}})" class="dropdown-item" data-toggle="tooltip" data-original-title="Reject">
+                                                                        Reject
+                                                                    </a>
+                                                                    @endif
+                                                                    @if(!$application->application_quote)
+                                                                        <a href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}" class="dropdown-item" >
+                                                                            Put quotation
+                                                                        </a>
+                                                                    @endif
+                                                                    <a href="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" class="dropdown-item" >
+                                                                        Summary
+                                                                    </a>
+                                                                    
+                                                                    <a class="dropdown-item" href="{{ route('more-doc-required',['apply_loan_id'=>$application->id]) }}">More Docs required</a>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        @if($application->application_rejected)
+                                                        <span class="badge badge-info">Rejected</span>
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         @if($application->assigned_by_application != null)
@@ -174,7 +199,7 @@
                                                         @php
                                                             $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
                                                         @endphp
-                                                        {{$start_date[0] ?? ''." years".", ".$start_date[1] ?? ''." months ago"}}
+                                                        {{$start_date[0] ?? '0' }} years , {{$start_date[1] ?? '0'}} months ago
                                                     </td>
                                                     <td>
                                                         {{ $application->loan_company_detail->revenue ?? '' }}
