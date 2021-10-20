@@ -124,9 +124,9 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}" class="" data-toggle="tooltip" data-original-title="Put quotation">
+                                                        {{-- <a href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}" class="" data-toggle="tooltip" data-original-title="Put quotation">
                                                             <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                                        </a>
+                                                        </a> --}}
                                                     </td>
                                                     <td>
                                                         @if($application->assigned_by_application != null)

@@ -17,6 +17,15 @@ class LoanQuotationController extends Controller
         return view('admin.loan_applications.quotations',$data);
     }
 
+    public function submitQuotation(Request $request)
+    {
+        $request->validate([
+            'interest_flat_pa'=>'required_if:interest_flat_pm,""',
+            'interest_flat_pm'=>'required_if:interest_flat_pa,""|required_if:selection,3'
+        ]);
+        return $request->all();
+    }
+
     public function quoteAllOtherLoan(Request $request)
     {
         $data = $request->all();
