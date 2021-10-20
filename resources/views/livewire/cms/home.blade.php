@@ -2,7 +2,7 @@
 
 <!-- HERO -->
 <section id="home" class="home-section">
-            <div class="container bg-transparent">
+            <div class="container">
             <div class="row text-center">
                 <h2 class="fw-bold text-white display-5">Still approching banks one by one when you need a loan?</h2>
             </div>
@@ -74,23 +74,27 @@
    <!-- LOAN TYPE -->
    <section id="loan-type" class="loan-type">
            <div class="container">
-               <div class="loan-type__icon">
-                <div class="card">
-                    <div class="card-body">
-                     <div class="icon-circle mx-auto mb-3">
-                         <svg class="circle__icon" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-tax" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                             <line x1="9" y1="14" x2="15" y2="8" />
-                             <circle cx="9.5" cy="8.5" r=".5" fill="currentColor" />
-                             <circle cx="14.5" cy="13.5" r=".5" fill="currentColor" />
-                             <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
-                           </svg>
-                         </div>
-                         <p>Invoice financing undisclosed</p>
+           <div class="loan-type same-carousel owl-carousel">
+                <!-- ITEM 1 -->
+                <div class="loan-type__icon">
+                    <div class="card">
+                        <div class="card-body">
+                         <div class="icon-circle mx-auto mb-3">
+                             <svg class="circle__icon" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-tax" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                 <line x1="9" y1="14" x2="15" y2="8" />
+                                 <circle cx="9.5" cy="8.5" r=".5" fill="currentColor" />
+                                 <circle cx="14.5" cy="13.5" r=".5" fill="currentColor" />
+                                 <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+                               </svg>
+                             </div>
+                             <p>Invoice financing undisclosed</p>
+                        </div>
                     </div>
                 </div>
-              
-                   <div class="card">
+                <!-- ITEM 2 -->
+              <div class="loan-type__icon">
+                <div class="card">
                     <div class="card-body">
                      <div class="icon-circle mx-auto mb-3">
                         <svg class="circle__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="fill: #3EBB60;"><path d="M19 13V4c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2v9a1 1 0 0 0-1 1v8h2v-5h12v5h2v-8a1 1 0 0 0-1-1zm-2-9v9h-2V4h2zm-4 0v9h-2V4h2zM7 4h2v9H7V4z"></path></svg>
@@ -98,7 +102,9 @@
                          <p>Office Equipment</p>
                     </div>
                 </div>
-
+                </div>
+                <!-- ITEM 3 -->
+              <div class="loan-type__icon">
                 <div class="card">
                     <div class="card-body">
                      <div class="icon-circle mx-auto mb-3">
@@ -114,7 +120,9 @@
                          <p>Industry Vehicle</p>
                     </div>
                 </div>
-
+                </div>
+                <!-- ITEM 4 -->
+              <div class="loan-type__icon">
                 <div class="card">
                     <div class="card-body">
                      <div class="icon-circle mx-auto mb-3">
@@ -128,7 +136,9 @@
                          <p>Property Loan</p>
                     </div>
                 </div>
-
+                </div>
+                <!-- ITEM 5 -->
+              <div class="loan-type__icon">
                 <div class="card">
                     <div class="card-body">
                      <div class="icon-circle mx-auto mb-3">
@@ -147,7 +157,25 @@
                          <p>Construction Loan</p>
                     </div>
                 </div>
-               </div>
+                </div>
+                <!-- ITEM 6  -->
+              <div class="loan-type__icon">
+                <div class="card">
+                    <div class="card-body">
+                     <div class="icon-circle mx-auto mb-3">
+                         <svg class="circle__icon" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-tax" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                             <line x1="9" y1="14" x2="15" y2="8" />
+                             <circle cx="9.5" cy="8.5" r=".5" fill="currentColor" />
+                             <circle cx="14.5" cy="13.5" r=".5" fill="currentColor" />
+                             <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+                           </svg>
+                         </div>
+                         <p>Invoice financing undisclosed</p>
+                    </div>
+                </div>
+                </div>
+              </div>
            </div>
        </section>
        <!-- /LOAN TYPE -->
@@ -281,7 +309,7 @@
                <div class="row text-center">
                    <h2 class="fw-bold">Some of our Financing Partners</h2>
                    </div>
-                   <div class="finance__cards">
+                   <div class="finance__cards same-carousel owl-carousel">
                        <div class="finance__img shadow">
                         <svg class="finance__logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="USBNavigation__Logo" version="1.1" x="0" y="0" viewBox="0 0 228.5 60.1" enable-background="new 0 0 228.5 60.1" perspectiveAspectRatio="xMidyMid slice">
                             <path fill="#D62A43" d="M2.9 2.5v43.3l36.7 12.4 36.6-12.4V2.5z"/>
@@ -370,7 +398,5 @@
                </div>
        </section>
        <!-- /FINANCING PARTNERS -->
-      
-
       
 </main>

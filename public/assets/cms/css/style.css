@@ -88,6 +88,7 @@ A. Basic Styling
 -------------------------------------------*/
 /* IMPORTS */
 @import url('./home.css');
+@import url('./faq.css');
 
 ::selection{
     background-color: #3EBB60;
@@ -1815,7 +1816,7 @@ D. Plugins Styles
   -- Owl Carousel
 -------------------------------------------*/
 
-.owl-carousel .owl-dots {
+/* .owl-carousel .owl-dots {
     text-align: center;
 }
 
@@ -1889,7 +1890,7 @@ D. Plugins Styles
 .owl-carousel .owl-nav .owl-prev:after {
     content: "\f104";
     margin-right: .0625rem;
-}
+} */
 
 /***********************************************************************************************************************
 E. Template Specific Elements
