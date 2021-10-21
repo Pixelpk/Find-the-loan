@@ -9,6 +9,24 @@ function getStatus($status): string
     return $all[$status] ?? '';
 }
 
+function getAdditionDocInfoType($type): string
+{
+    $all = ['', 'Company related', 'ACRA related','Project.Invoice/PO financing related','DCP and Secured overdraft related','Machinery/equipment/vehicle related','Individual related','Property related','Equipment/Vehicle related'];
+    return $all[$type] ?? '';
+}
+
+function moreDocReasons(): array
+{
+    $all = ['', 'Incomplete', 'Incorrect','Unclear','In PDF','Requires supporting document','Due to quantum','Due to risk profile','Due to age','Of main applicant/s','Of all shareholders','For TDSR/DSR purpose','Need Exercised'];
+    return $all;
+}
+
+function moreDocOfList()
+{
+    $all = ['', 'Of company', 'Of Parent Company','Of all companies in the group','Of  all Local director','Of Ultimate Beneficial Owner','Of  guarantor','Of mortgagor','Of all property/asset owner','Of new property','Of property sold','Of current property','Personal/company info not shown/Unable to correctly identify as belonging to'];
+    return $all;
+}
+
 function adminTermsRequests(){
     return FinancePartner::where('status','=','1')
         ->where('parent_id','=',0)

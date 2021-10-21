@@ -72,4 +72,8 @@ class ApplyLoan extends Model
     public function application_rejected(){
         return $this->hasOne(UserLoanReject::class,'apply_loan_id','id');
     }
+
+    public function application_quote(){
+        return $this->hasOne(LoanQuotations::class,'apply_loan_id','id');
+    }
 }
