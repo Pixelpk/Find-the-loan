@@ -1,6 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // jQuery
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$(window).on('load',function(){
+    $('#staticBackdrop').modal('show');
+});
+
 var resizeId;
 var marqueeInitialized = 0;
 
@@ -187,7 +191,7 @@ $(document).ready(function($) {
 
     // Owl Carousel
     $('.same-carousel').owlCarousel({
-        loop:true,
+        loop:false,
         margin:10,
         autoplay:true,
         responsive:{
