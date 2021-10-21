@@ -1,3 +1,31 @@
+/* NAVBAR */
+.mob-nav{
+    display: none;
+}
+/* SEARCHBAR */
+.mob-srch{
+    display: none;
+}
+.srch{
+    position: relative;
+    width: 100%;
+    margin-right: 1rem;
+}
+.srch > input{
+    border-radius: 1.5rem;
+    padding: .375rem 3rem .375rem .75rem;
+}
+.srch > span{
+    position: absolute;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #3EBB60;
+    top: .13125rem;
+    right: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
       /* DROPDOWN */
       .dropdown-menu li a.active {
@@ -11,6 +39,22 @@
     .dropdown-menu li a{
         color: #666;
     }
+
+    /* MODAL COOKIE */
+    .modal-backdrop{
+        z-index: 1028;
+    }
+    .cookie-img img{
+        width: 6.25rem;
+    }
+    .cookie-buttons .btn-cookie{
+        background-color: #666;
+    }
+    .modal-content {
+        backdrop-filter: blur(4px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(255, 255, 255, 0.85);
+    }
       .lea{
             line-height: 1.8;
         }
@@ -22,7 +66,7 @@
    background-size: 100% 100%;
         }
 .nmor-card{
-    backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(4px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 12px;
@@ -205,6 +249,9 @@ background-color: #000 !important;
     color: #3EBB60;
 }
 @media(max-width:800px){
+    .nmor-card{
+        height: auto;
+        }
 #home, #change-way, #dont-compare, #finance-partner, #footer{
     padding-left: 1rem;
     padding-right: 1rem;
@@ -218,12 +265,27 @@ background-color: #000 !important;
 }
 }
 @media(max-width:533px){
+    .srch {
+        display: none;
+    }
+    .mob-srch{
+        display: block;
+    }
+    .mob-nav{
+        display: block;
+    }
+    .desk-menu{
+        display: none;
+    }
 .line{
     display: none;
 }
 #change-way .card{
     width: 100%;
     margin-bottom: 0.5rem;
+}
+.change-way__btn{
+    width: 100%;
 }
 #finance-partner .finance__cards .finance__img .finance__logo{
     width: 50%;

@@ -102,7 +102,7 @@
         margin-right: 0;
     }
     .navbar .btnnew2{
-        margin-left: 0;
+        /* margin-left: 0; */
     }
     .btn{
         background: #3EBB60;
@@ -150,7 +150,7 @@ footer .contact-box__info {
             margin-bottom: 0.8rem;
         }
         .navbar .log-btn {
-            margin-left: 0;
+            /* margin-left: 0; */
         }
         .navbar .navbar-nav .nav-item .nav-link{
             border: 1px solid;
@@ -163,12 +163,10 @@ footer .contact-box__info {
           
     }
     @media(max-width: 533px){
-        .container{
-            margin-left: 5px !important;
-        }
+    
           .navbar .navbar-nav{
-            /* padding-left: 1rem; */
-            /* padding-right: 1rem; */
+            padding-left: 1.5rem;
+            padding-right: 1rem;
             padding-top: 1rem;
           }
           .navbar .btn, .dropdown-menu{

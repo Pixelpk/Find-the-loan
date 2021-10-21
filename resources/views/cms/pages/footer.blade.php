@@ -65,16 +65,3 @@
        </footer>
        <!-- /FOOTER -->
 
-       <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
-    <div class="d-flex">
-    <p class="lea w-75">  We use cookie to offer a better user experience such as 
-allowing your browser to remember who you are and not 
-having to enter your login address each time. </p>
-<img id="cookie-img" src="/assets/cms/img/Home/cookie.png" alt="cookie">
-    </div>
-
-    <a href="#" class="btn">Yes to cookies!</a>
-    <a href="/">No i hate cookies</a>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-
