@@ -187,7 +187,7 @@ $(document).ready(function($) {
 
     // Owl Carousel
     $('.same-carousel').owlCarousel({
-        loop:true,
+        loop:false,
         margin:10,
         autoplay:true,
         responsive:{

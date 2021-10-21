@@ -89,14 +89,12 @@
                             <div class="card-body">
                                 <div class="table-rep-plugin">
                                     <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        <table id="loan_application_table" class="table  table-striped">
+                                        <table id="loan_application_table" class="table table-hover table-striped">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
-                                                <th>Actions</th>
                                                 <th>Status</th>
                                                 <th>Assigned to</th>
-                                                <th>Download documents</th>
                                                 <th>Applied at</th>
                                                 <th>User</th>
                                                 <th>Loan type</th>
@@ -118,13 +116,13 @@
                                             </thead>
                                             <tbody>
                                             @foreach($applications as $application)
-                                                <tr style="background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                                <tr onclick="window.location='{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}';" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
                                                     <td>
                                                         @if($application->assigned_by_application == null)
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         
                                                             <div class="btn-group">
                                                                 <i title="Actions" class="fas fa-2x fa-ellipsis-h" style="cursor: pointer;color: #27b34d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -147,7 +145,7 @@
                                                                 </div>
                                                             </div>
                                                         
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>
@@ -157,11 +155,6 @@
                                                         @if($application->assigned_by_application != null)
                                                             {{ $application->assigned_by_application->user->name }}
                                                         @endif
-                                                    </td>
-                                                    <td>
-                                                        <a href="{{ route('download-loan-doc',['id'=>$application->id]) }}" class="" data-toggle="tooltip" data-original-title="Download All Documents">
-                                                            <i class="m-2 fa fa-download"></i>
-                                                        </a>
                                                     </td>
                                                     <td>
                                                         {{ $application->created_at }}
@@ -176,9 +169,7 @@
                                                         {{ $application->amount }}
                                                     </td>
                                                     <td>
-                                                        @foreach($application->user_loan_reasons as $reason)
-                                                            {{ $reason->loan_reason->reason."," }}
-                                                        @endforeach
+                                                        {{ $application->loan_reason->reason ?? "" }}
                                                     </td>
                                                     <td>
                                                         {{ $application->loan_company_detail->company_name ?? '' }}

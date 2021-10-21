@@ -676,8 +676,10 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+@endif
 
-    <div class="modal fade bs-example-modal-center" id="RejectReasonModel" tabindex="-1" role="dialog"
+@if(Route::currentRouteName() == 'loan-application-summary')
+<div class="modal fade bs-example-modal-center" id="RejectReasonModel" tabindex="-1" role="dialog"
          aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

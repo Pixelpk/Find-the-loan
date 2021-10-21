@@ -149,6 +149,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
         
         Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required'); 
+        Route::post('more-doc-request', [MoreDocController::class,'moreDocRequest'])->name('more-doc-request'); 
 
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
