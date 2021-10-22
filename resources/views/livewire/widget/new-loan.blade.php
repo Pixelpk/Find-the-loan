@@ -7,8 +7,8 @@
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
                     <label class="control-label mb-10">
-                        <b>OTP/Sale & Purchase Agreement if any
-                        </b>
+                        OTP/Sale & Purchase Agreement if any
+                        
                     </label>
                     <br>
                     <br>
@@ -77,8 +77,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="lease_remaining" class="form-label">
-                <b>Lease remaining
-                </b>
+                Lease remaining
+                
             </label>
             <div class="input-group mb-3">
                 <input wire:model="lease_remaining_year" type="text" class="form-control"
@@ -103,8 +103,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fllor_area" class="form-label">
-                <b>Land/Floor Area
-                    if applicable</b>
+                Land/Floor Area
+                    if applicable
             </label>
             <input wire:model="fllor_area" type="text" class="form-control" id="fllor_area">
             @error("fllor_area")
@@ -115,8 +115,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="useable_area" class="form-label">
-                <b>Build-in/Useable Area
-                </b>
+                Build-in/Useable Area
+                
 
             </label>
             <input wire:model="useable_area" type="text" class="form-control" id="useable_area">
@@ -186,34 +186,49 @@
         </div>
 
         <div class="col-md-4">
-            <br>
+            {{-- <br>
             <div class="form-check">
                 <input wire:model="check_offer" value="1" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Check offer for floating rate
 
                 </label>
+            </div> --}}
+            <br>
+            <div class="form-check form-switch">
+                <input wire:model="float_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">  Check offer for floating rate
+                </label>
             </div>
+            @error("float_rate")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="col-md-4">
-            <br>
+            {{-- <br>
             <div class="form-check">
                 <input wire:model="check_offer" value="2" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Check offer for fixed rate
 
                 </label>
-            </div>
-        </div>
-        <div class="col-md-4">
+            </div> --}}
             <br>
-            <div class="form-check">
-                <input wire:model="check_offer" value="3" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                <label class="form-check-label" for="flexRadioDefault3">
-                    You can click both
-
+            <div class="form-check form-switch">
+                <input wire:model="fix_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">  Check offer for fixed rate
                 </label>
             </div>
+            @error("fix_rate")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-4">
+           
         </div>
         @error("check_offer")
         <div class="col-md-12 text-danger">
@@ -222,8 +237,8 @@
         @enderror
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="preferred_tenure_month" class="form-label">
-                <b>Preferred Tenure
-                </b>
+                Preferred Tenure
+                
             </label>
             <div class="input-group mb-3">
                 <input wire:model="preferred_tenure_year" type="text" class="form-control"
@@ -260,8 +275,8 @@
         <div class="col-md-4"></div>
         <div class="col-md-12">
             <div class="col-md-12" style="margin-top: 30px;">
-                <label for="amount" class="form-label"><b>Amount</b></label>
-                <input wire:model="amount" type="text" class="form-control" id="amount">
+                <label for="amount" class="form-label">Amount</label>
+                <input wire:model="amount" type="number" class="form-control" id="amount">
                 @error("amount")
                 <div style="color: red;">
                     {{ $message }}

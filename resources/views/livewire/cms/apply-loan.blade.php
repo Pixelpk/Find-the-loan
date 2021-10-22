@@ -18,15 +18,11 @@
                                 aria-current="page" href="#">LOAN TYPE DETAIL
                             </a>
                         </li>
-
-                         
-
                         <li class="nav-item">
                             <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
                                 class="{{ !$comDisable ? 'disabled' : '' }} nav-link {{ $tab == '4' ? 'active' : '' }}"
                                 href="#">COMPANY DETAIL</a>
                         </li>
-
                         @if(!$this->listed_company_check)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '5')" style="padding: .1rem 1rem;"
@@ -34,18 +30,14 @@
                                 href="#">COMPANY DOCUMENTS</a>
                         </li>
                         @endif
-
-                            
                         @if(sizeof($get_share_holder_type) > 0 && !$this->listed_company_check)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '7')" style="padding: .1rem 1rem;"
                                 class="{{ !$shareDisable ? 'disabled' : '' }} nav-link {{ $tab == '7' ? 'active' : '' }}"
                                 href="#">SHAREHOLDER</a>
                         </li>
-                            {{-- @endif --}}
+                        {{-- @endif --}}
                         @endif
-
-
                         @if(!$lenderflag)
                         <li class="nav-item">
                             <a style="padding: .1rem 1rem;" class="disabled nav-link {{ $tab == '9' ? 'active' : '' }}"
@@ -57,7 +49,6 @@
                                 class=" nav-link {{ $tab == '9' ? 'active' : '' }}" href="#">LENDER</a>
                         </li>
                         @endif
-
                         {{-- @endif --}}
                     </ul>
                     <br>
@@ -68,19 +59,42 @@
                     </div>
                     @endif
                     <div wire:ignore>
-                        <input  type="hidden" class="form-control" id="ship-address" >
+                        <input type="hidden" class="form-control" id="ship-address">
                     </div>
                     @if($tab == 8 && $loan_type_id == 15)
-                        @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type, 'apply_loan' => $apply_loan])
-                   
+                    @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+
                     @elseif($tab == 8 && $loan_type_id == 16)
-                        @livewire('widget.property-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type, 'apply_loan' => $apply_loan])
+                    @livewire('widget.property-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+
                     @elseif($tab == 8 && $loan_type_id == 12)
-                        @livewire('widget.new-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type, 'apply_loan' => $apply_loan])
-                        @elseif($tab == 8 && $loan_type_id == 4)
-                        @livewire('widget.project-finance', ['loan_type_id' => $loan_type_id, "main_type" => $main_type, 'apply_loan' => $apply_loan])
+
+                    @livewire('widget.new-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 4)
+
+                    @livewire('widget.project-finance', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 1)
+
+                    @livewire('widget.over-draft', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+
+                    @elseif($tab == 8 && $loan_type_id == 7)
+
+                    @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
+                    $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 17)
+
+                    @livewire('cms.loan.business.loan-type.over-draft.propertyland', ['loan_type_id' => $loan_type_id,
+                    "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+
                     @endif
-                    
+
                     @if($tab == 1)
                     <div class="row g-3">
                         <div class="col-md-12">
@@ -588,7 +602,13 @@
     </div>
 
     @for ($x = 1; $x < 8; $x++) <div class="col-md-3" style="margin-top: 30px;">
-        <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+        @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
+        {{-- @livewire('widget.upload-component',  ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+        'apply_loan' => $apply_loan, 'getImages' => $images, 'label' => $montName, 'key' => $montName]) --}}
+        <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName" :getImages="$images"
+            :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+            :modell="'\App\Models\LoanStatement'" />
+        {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
             x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
             x-on:livewire-upload-progress="progress = $event.detail.progress">
             <div class="form-group">
@@ -600,21 +620,21 @@
                 <br>
                 <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
                     <input wire:model="photo.{{ date("M", strtotime( date( 'Y-m-01' )." -$x months")) }}"
-                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
-                        id="vehicleimage" name="" id="">
-                </label>
-            </div>
-            @foreach(array_unique($errorArray) as $error)
-            @if($error == date("M", strtotime( date( 'Y-m-01' )." -$x months")))
-            <div class="text-danger">
-                {{ $error. ' month required' }}
-            </div>
-            @endif
-            @endforeach
-            <div x-show="isUploading">
-                <progress max="100" x-bind:value="progress"></progress>
-            </div>
-        </div>
+        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
+        id="vehicleimage" name="" id="">
+        </label>
+</div>
+@foreach(array_unique($errorArray) as $error)
+@if($error == date("M", strtotime( date( 'Y-m-01' )." -$x months")))
+<div class="text-danger">
+    {{ $error. ' month required' }}
+</div>
+@endif
+@endforeach
+<div x-show="isUploading">
+    <progress max="100" x-bind:value="progress"></progress>
+</div>
+</div> --}}
 </div>
 @endfor
 

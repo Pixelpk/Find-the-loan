@@ -16,6 +16,7 @@
         "livewire/livewire": "^2.6",
         "monarobase/country-list": "^3.2",
         "rahulhaque/laravel-filepond": "^1.2",
+        "sebastiansulinski/laravel-currency": "^3.0",
         "sopamo/laravel-filepond": "^0.6.2"
     },
     "require-dev": {

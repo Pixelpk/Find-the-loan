@@ -23,6 +23,7 @@ use Livewire\WithFileUploads;
 use App\Models\LoanGernalInfo;
 use App\Models\LoanLender;
 use App\Models\LoanLenderDetail;
+use App\Models\Media;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Config;
@@ -31,6 +32,7 @@ use File;
 class ApplyLoan extends Component
 {
     use WithFileUploads;
+    public $images=[];
     public $lenderflag;
     public $gernal;
     public $main_type;
@@ -119,6 +121,7 @@ class ApplyLoan extends Component
     public $financial_institute = false;
     public $cbs_member = false;
     public $cbs_member_image;
+   
     ////
     public $gernalinfo;
     protected $listeners = [
@@ -206,6 +209,18 @@ class ApplyLoan extends Component
         if($test){
             $this->loan_type_id = $loan_type_id;
             $this->values = [$loan_type_id => true];
+            if($this->apply_loan){
+               $this->apply_loan->profile = $this->main_type;
+               $this->apply_loan->loan_type_id = $this->loan_type_id;
+               $this->apply_loan->update();
+            }
+            else{
+                $this->apply_loan= ModelsApplyLoan::forceCreate([
+                    'profile' =>  $this->main_type,
+                    'user_id' => Auth::user()->id,
+                    'loan_type_id' =>  $this->loan_type_id,
+                ]);
+            }
         }else{
             $this->loan_type_id = null;
         }
@@ -326,78 +341,86 @@ class ApplyLoan extends Component
     }
     public function saveCompanyDocuments()
     {
-       if(isset($this->photo)){
-           $this->statement = null;
-       }
-        $this->errorArray = [];
-        if(!isset($this->statement)){
-            for ($x = 2; $x < 8; $x++) {
-                $montn = date("M", strtotime( date( 'Y-m-01' )." -$x months"));
-                if(isset($this->photo[$montn])){
-                    if($montn == $this->photo[$montn]){
-                    }
-                }
-                else{
-                    array_push($this->errorArray, $montn);
-                }
-            }
-           
-        }
-        if(sizeof($this->errorArray) > 0){
+       
+        //    if(isset($this->photo)){
+        //        $this->statement = null;
+        //    }
+        //     $this->errorArray = [];
+        //     if(!isset($this->statement)){
+        //         for ($x = 2; $x < 8; $x++) {
+        //             $montn = date("M", strtotime( date( 'Y-m-01' )." -$x months"));
+        //             if(isset($this->photo[$montn])){
+        //                 if($montn == $this->photo[$montn]){
+        //                 }
+        //             }
+        //             else{
+        //                 array_push($this->errorArray, $montn);
+        //             }
+        //         }
+            
+        //     }
+        //     if(sizeof($this->errorArray) > 0){
+        //         return;
+        //     }
+        // Media::where('model')
+        $loanStatement = Media::where('model', '\App\Models\LoanStatement')
+        ->where('share_holder', 0)
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->get()
+        ->groupBy('key');
+        if($loanStatement->count() < 6){
+             $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
             return;
         }
         $this->validate([
-            'statement' =>  isset($this->photo)  > 0 ? '' : 'required|mimes:jpg,jpeg,png,pdf',
-            'latest_year' => 'required|mimes:jpg,jpeg,png,pdf',
-            'year_before' => $this->company_year >= 3 ?  'required|mimes:jpg,jpeg,png,pdf' : '',
             'profitable_latest_year' => 'required',
             'profitable_before_year' => 'required',
-            // 'current_year' => 'image',
         ]);
+      
         $loanComanyDetaol = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0 )->first();
         $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year;
         $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year;
         $loanComanyDetaol->optional_revenuee  = $this->optional_revenuee;
         $loanComanyDetaol->update();
-        $LD = LoanDocument::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
-        if($LD && Storage::exists($LD->statement)) {
-            Storage::delete($LD->statement);
-        }
-        if($LD && Storage::exists($LD->latest_year)) {
-            Storage::delete($LD->latest_year);
-        }
-        if($LD && Storage::exists($LD->year_before)) {
-            Storage::delete($LD->year_before);
-        }
-        if($LD && Storage::exists($LD->current_year)) {
-            Storage::delete($LD->current_year);
-        }
-        if($LD){
-            $LD->delete();
-        }
-        LoanDocument::forceCreate([
-            'apply_loan_id' => $this->apply_loan->id,
-            'statement' => isset($this->statement) ?  $this->statement->store('documents') : '',
-            'latest_year' => $this->latest_year->store('documents'),
-            'year_before' => $this->company_year >= 3 ? $this->year_before->store('documents') : '',
-            'current_year' => isset($this->current_year) ? $this->current_year->store('documents') : '',
-        ]);
-        if(sizeof($this->errorArray) == 0 && !isset($this->statement)){
-            foreach($this->photo as $key =>  $item){
-                $LSI = LoanStatement::where('apply_loan_id', $this->apply_loan->id)->where('month', $key)->where('share_holder', 0)->first();
-                if($LSI && Storage::exists($LSI->statement)) {
-                    Storage::delete($LSI->statement);
-                }
-                if($LSI){
-                    $LSI->delete();
-                }
-                LoanStatement::forceCreate([
-                    'apply_loan_id' => $this->apply_loan->id,
-                    'month' => $key,
-                    'statement' => $item->store('documents'),
-                ]);
-            }
-        }
+        // $LD = LoanDocument::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
+        // if($LD && Storage::exists($LD->statement)) {
+        //     Storage::delete($LD->statement);
+        // }
+        // if($LD && Storage::exists($LD->latest_year)) {
+        //     Storage::delete($LD->latest_year);
+        // }
+        // if($LD && Storage::exists($LD->year_before)) {
+        //     Storage::delete($LD->year_before);
+        // }
+        // if($LD && Storage::exists($LD->current_year)) {
+        //     Storage::delete($LD->current_year);
+        // }
+        // if($LD){
+        //     $LD->delete();
+        // }
+        // LoanDocument::forceCreate([
+        //     'apply_loan_id' => $this->apply_loan->id,
+        //     'statement' => isset($this->statement) ?  $this->statement->store('documents') : '',
+        //     'latest_year' => $this->latest_year->store('documents'),
+        //     'year_before' => $this->company_year >= 3 ? $this->year_before->store('documents') : '',
+        //     'current_year' => isset($this->current_year) ? $this->current_year->store('documents') : '',
+        // ]);
+        // if(sizeof($this->errorArray) == 0 && !isset($this->statement)){
+        //     foreach($this->photo as $key =>  $item){
+        //         $LSI = LoanStatement::where('apply_loan_id', $this->apply_loan->id)->where('month', $key)->where('share_holder', 0)->first();
+        //         if($LSI && Storage::exists($LSI->statement)) {
+        //             Storage::delete($LSI->statement);
+        //         }
+        //         if($LSI){
+        //             $LSI->delete();
+        //         }
+        //         LoanStatement::forceCreate([
+        //             'apply_loan_id' => $this->apply_loan->id,
+        //             'month' => $key,
+        //             'statement' => $item->store('documents'),
+        //         ]);
+        //     }
+        // }
         
         $this->emit('alert', ['type' => 'success', 'message' => 'Company documents added successfully.']);
         if($this->apply_loan->parentCompany && (int)$this->apply_loan->parentCompany->number_of_share_holder){
