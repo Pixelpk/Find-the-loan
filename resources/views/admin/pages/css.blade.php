@@ -11,10 +11,14 @@
 {{--<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />--}}
 
 <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
 
 
 <style>
+    .select2-results__group{
+        font-size: 1.3em !important;
+    }
     .resize-img {
         width: 2.5em;
         height: 2.5em;
@@ -66,4 +70,8 @@
     }
     /*end autocomplete*/
 
+/* SUMMRY NAV */
+.sum-nav li{
+    margin-left: 1rem;
+}
 </style>

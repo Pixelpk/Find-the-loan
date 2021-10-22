@@ -677,3 +677,49 @@
         <!-- /.modal-dialog -->
     </div>
 @endif
+
+@if(Route::currentRouteName() == 'loan-application-summary')
+<div class="modal fade bs-example-modal-center" id="RejectReasonModel" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="loan_type_modal_heading">Select reject reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('reject-application') }}">
+                        @csrf
+                        <input type="hidden" name="apply_loan_id" id="reject_loan_id">
+{{--                        <span style="color: red;display: none" id="assign_error">Please select any application first</span>--}}
+                        <div class="form-group">
+                            <label for="shown_to_customer">Shown to customer</label>
+                            <select class="form-control" name="customer_reject_reason_id" id="shown_to_customer">
+                                @foreach($customer_reject_reasons as $reason)
+                                    <option value="{{ $reason->id }}">{{ $reason->reason }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="internal">Internal</label>
+                            <select class="form-control" name="internal_reject_reason_id" id="internal">
+                                @foreach($internal_reject_reasons as $reason)
+                                    <option value="{{ $reason->id }}">{{ $reason->reason }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" id="" class="btn btn-primary">Reject</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endif

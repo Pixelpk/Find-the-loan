@@ -19,28 +19,67 @@
 
             <!-- INFO CONTAINER -->
             <div class="container py-3 info-container">
-                <div class="top-div text-center mb-4">
-                    <h5 class="fw-bold">Summary</h5>
-                </div>
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container-fluid mb-3" style="padding:0">
+                      <span class="navbar-brand">Summary</span>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                        <ul class="navbar-nav sum-nav me-auto mb-2 mb-lg-0">
+                        @if(!$application->application_rejected)
+                          <li class="nav-item">
+                            <a href="#" onclick="rejectApplication({{$application->id}});" data-toggle="tooltip" data-original-title="Reject" class="btn btn-primary" aria-current="page" >Reject</a>
+                          </li>
+                        @endif
+                        @if(!$application->application_quote)
+                          <li class="nav-item">
+                            <a class="btn btn-primary" aria-current="page" href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}">Put quotation</a>
+                          </li>
+                          @endif
+                          <li class="nav-item">
+                            <a class="btn btn-primary" aria-current="page" href="{{ route('more-doc-required',['apply_loan_id'=>$application->id]) }}">
+                                More doc required
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="btn btn-primary" data-original-title="Download All Documents" aria-current="page" href="{{ route('download-loan-doc',['id'=>$application->id]) }}">
+                                Download documents
+                            </a>
+                          </li>
+
+                        </ul>
+        
+                      </div>
+                    </div>
+                  </nav>
+                <!-- <div class="top-div mb-4">
+                    <h5 class="fw-bold"><u>Summary</u></h5>
+                </div> -->
                 <!-- SEC 1 -->
                 <div class="container">
                     <div class="sumary-list same-gp">
                         <span class="info__text">Incorporated</span>
-                        <span class="info__field">5 years to 6 months</span>
+                        <span class="info__field">
+                            @php
+                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
+                            @endphp
+                            {{$start_date[0] ?? '0'}} years , {{$start_date[1] ?? '0'}} months ago
+                        </span>
                         <span class="info__text">Bussiness Structure</span>
-                        <span class="info__field">Private Limited</span>
+                        <span class="info__field">{{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}</span>
                         <span class="info__text">Local Shareholding</span>
-                        <span class="info__field">100%</span>
+                        <span class="info__field">{{ $application->loan_company_detail->percentage_shareholder ?? '' }}%</span>
                         <span class="info__text">Sector</span>
-                        <span class="info__field">Retail</span>
+                        <span class="info__field">{{ $application->loan_company_detail->loan_company_sector->name ?? '' }}</span>
                         <span class="info__text">Loan type looking for</span>
-                        <span class="info__field">Hire purchase</span>
+                        <span class="info__field">{{ $application->loan_type->sub_type }}</span>
                         <span class="info__text">Amount looking at</span>
-                        <span class="info__field">$100000</span>
+                        <span class="info__field">${{ $application->amount }}</span>
                         <span class="info__text">Reason for loan</span>
-                        <span class="info__field">Purchasing of asset/equipment</span>
+                        <span class="info__field">{{ $application->loan_reason->reason ?? "" }}</span>
                         <span class="info__text">No of shareholder</span>
-                        <span class="info__field">2</span>
+                        <span class="info__field">{{ $application->loan_company_detail->share_holder ?? '' }}</span>
                     </div>
                     <hr style="background:#000000; margin: 2rem 0">
                     <!-- /SYMMARY-LIST -->

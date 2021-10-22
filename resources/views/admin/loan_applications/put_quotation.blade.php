@@ -19,17 +19,62 @@
 
             <!-- FORM NO 1 -->
             <div class="container bg-white shadow py-3" style="border-radius: 0.7rem;">
+                <h5 class="">Quantum section</h5>
                 <!-- SEC 1 -->
-                <form action="">
+                <form method="POST" id="quotationForm" action="{{route('submit-quotation')}}">
+                    @csrf
+                    <input type="hidden" name="apply_loan_id" value="{{$apply_loan_id}}">
                     <!-- 1ST ROW -->
+                    @if ($apply_loan->loan_type_id == 5)
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="input1" class="col-form-label">Interest (flat)</label>
-                            <input type="text" class="form-control" id="input1">
+                            <label for="input1" class="col-form-label">Facility limit($)</label>
+                            <input type="number" min="0"  id="facility_limit" name="facility_limit" required class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="input2" class="col-form-label">% P.a &nbsp; or &nbsp; % P.m</label>
-                            <input type="text" class="form-control" id="input2">
+                            <label for="input1" class="col-form-label">Advance percentage(%)</label>
+                            <input type="number" min="0"  id="advance_percentage" name="advance_percentage" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="input1" class="col-form-label">Invoice based on</label>
+                            <select required name="invoice_based_on" id="invoice_based_on" class="form-control">
+                                <option value="1">Notified</option>
+                                <option value="2">Non notified</option>
+                                <option value="3">Joint account required</option>
+                            </select>                        
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="input1" class="col-form-label">Days needed to set up joint account</label>
+                            <input type="number" min="0" disabled  id="joint_account_days" name="joint_account_days" required class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="input1" class="col-form-label">Cost for joint account if any($)</label>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="number" disabled min="0"  id="joint_account_cost_from" name="joint_account_cost_from" required class="form-control">
+                                </div>
+                                <div class="col-md-2 text-align-center">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="number" disabled min="0"  id="joint_account_cost_to" name="joint_account_cost_to" required class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input1" class="col-form-label">Interest (flat) % P.a</label>
+                            <input type="number" min="0"  required name="interest_flat_pa" class="form-control interest_flat" id="interest_flat_pa">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input2" class="col-form-label">Interest (flat)  % P.m</label>
+                            <input type="number" min="0"  required name="interest_flat_pm" class="form-control interest_flat" id="interest_flat_pm">
                         </div>
                     </div>
                     <!-- /1ST ROW -->
@@ -41,16 +86,18 @@
 
                     <!-- 2ND ROW -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input3" class="col-form-label">Interest (Reducing Balance)</label>
-                            <input type="text" class="form-control" id="input3">
+                        <div class="form-group col-md-5">
+                            <label for="input3" class="col-form-label">Interest (Reducing Balance) % P.a</label>
+                            <input type="number" min="0"  required name="interest_reducing_pa" class="form-control interest_reducing_balance" id="interest_reducing_pa">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input4" class="col-form-label">% P.a &nbsp; or &nbsp; % P.m</label>
-                            <input type="text" class="form-control" id="input4">
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input4" class="col-form-label">Interest (Reducing Balance) % P.m</label>
+                            <input type="number" min="0"  required name="interest_reducing_pm" class="form-control interest_reducing_balance" id="interest_reducing_pm">
                         </div>
                     </div>
-                    <!-- /2ND ROW -->
 
                     <!-- SEPRATER -->
                     <div class="row my-2">
@@ -60,13 +107,16 @@
 
                     <!-- 3RD ROW -->
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input5" class="col-form-label">Interest+board rate of</label>
-                            <input type="text" class="form-control" id="input5">
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Interest % P.a</label>
+                            <input type="number" min="0"  required class="form-control interest_board_rate" name="interest_pa" id="interest_pa">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="input6" class="col-form-label">% P.a &nbsp; + &nbsp; % P.m</label>
-                            <input type="text" class="form-control" id="input6">
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">+</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Board rate of % P.a</label>
+                            <input type="number" min="0"  required class="form-control interest_board_rate" name="board_rate_pa" id="board_rate_pa">
                         </div>
                     </div>
                     <!-- /3RD ROW -->
@@ -82,24 +132,328 @@
                         <div class="form-group col-md-5">
                             <label for="input7" class="col-form-label">Flat free regardless of tenure $
                             </label>
-                            <input type="text" class="form-control" id="input7">
+                            <input type="number" min="0"  required name="flat_fee_value" class="form-control flat_fee_regardless" id="flat_fee_value">
                         </div>
                         <div class="form-group col-md-1 d-flex align-items-end justify-content-center">
                             <label for="input8" class="col-form-label">/</label>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="input8" class="col-form-label">%</label>
-                            <input type="text" class="form-control" id="input8">
+                            <label for="input8" class="col-form-label">Flat free regardless of tenure %</label>
+                            <input type="number" min="0"  required name="flat_fee_percent" class="form-control flat_fee_regardless" id="flat_fee_percent">
                         </div>
                     </div>
                     <!-- /4TH ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Tenure(optional for overdraft)</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  class="form-control" required name="tenure_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  class="form-control" required name="tenure_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Lock-in if any( please state final length free of any form of penalty)
+                            </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  required class="form-control" name="lock_in_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  required class="form-control" name="lock_in_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input1" class="col-form-label">Quantum($)</label>
+                            <input type="number" min="0"  name="quantum" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input1" class="col-form-label">Interest (flat) % P.a</label>
+                            <input type="number" min="0"  required name="interest_flat_pa" class="form-control interest_flat" id="interest_flat_pa">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input2" class="col-form-label">Interest (flat)  % P.m</label>
+                            <input type="number" min="0"  required name="interest_flat_pm" class="form-control interest_flat" id="interest_flat_pm">
+                        </div>
+                    </div>
+                    <!-- /1ST ROW -->
+                    <!-- SEPRATER -->
+                    <div class="row my-2">
+                        <h5 class="m-0 mx-auto">OR</h5>
+                    </div>
+                    <!-- /SEPRATER -->
+
+                    <!-- 2ND ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input3" class="col-form-label">Interest (Reducing Balance) % P.a</label>
+                            <input type="number" min="0"  required name="interest_reducing_pa" class="form-control interest_reducing_balance" id="interest_reducing_pa">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input4" class="col-form-label">Interest (Reducing Balance) % P.m</label>
+                            <input type="number" min="0"  required name="interest_reducing_pm" class="form-control interest_reducing_balance" id="interest_reducing_pm">
+                        </div>
+                    </div>
+                    {{-- <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input3" class="col-form-label">Interest (Reducing Balance)</label>
+                            <input type="text" class="form-control" id="input3">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="input4" class="col-form-label">% P.a &nbsp; or &nbsp; % P.m</label>
+                            <input type="text" class="form-control" id="input4">
+                        </div>
+                    </div> --}}
+                    <!-- /2ND ROW -->
+
+                    <!-- SEPRATER -->
+                    <div class="row my-2">
+                        <h5 class="m-0 mx-auto">OR</h5>
+                    </div>
+                    <!-- /SEPRATER -->
+
+                    <!-- 3RD ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Interest % P.a</label>
+                            <input type="number" min="0"  required class="form-control interest_board_rate" name="interest_pa" id="interest_pa">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">+</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input5" class="col-form-label">Board rate of % P.a</label>
+                            <input type="number" min="0"  required class="form-control interest_board_rate" name="board_rate_pa" id="board_rate_pa">
+                        </div>
+                    </div>
+                    <!-- /3RD ROW -->
+
+                    <!-- SEPRATER -->
+                    <div class="row my-2">
+                        <h5 class="m-0 mx-auto">OR</h5>
+                    </div>
+                    <!-- /SEPRATER -->
+
+                    <!-- 4TH ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input7" class="col-form-label">Flat free regardless of tenure $
+                            </label>
+                            <input type="number" min="0"  required name="flat_fee_value" class="form-control flat_fee_regardless" id="flat_fee_value">
+                        </div>
+                        <div class="form-group col-md-1 d-flex align-items-end justify-content-center">
+                            <label for="input8" class="col-form-label">/</label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="input8" class="col-form-label">Flat free regardless of tenure %</label>
+                            <input type="number" min="0"  required name="flat_fee_percent" class="form-control flat_fee_regardless" id="flat_fee_percent">
+                        </div>
+                    </div>
+                    <!-- /4TH ROW -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Tenure(optional for overdraft)</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  class="form-control" required name="tenure_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  class="form-control" required name="tenure_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="input7" class="col-form-label">Lock-in if any( please state final length free of any form of penalty)
+                            </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  required class="form-control" name="lock_in_years" placeholder="Years" id="input7">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  required class="form-control" name="lock_in_months" placeholder="Months" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
+                <hr style=" background: grey;">
+                <h5 class="">Fee section</h5><span>(Please indicate all fees incurred upfront/draw down only excluding e.g late fees)</span>
+
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">One-time fee if any(processing/faculty/admin)
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="one_time_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="one_time_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Monthly Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="monthly_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="monthly_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Annual Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="annual_fee_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="annual_fee_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">Legal Fee if any
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="legal_fee_start_range" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" min="0"  name="legal_fee_end_range" class="form-control" placeholder="$" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="input7" class="col-form-label">If insurance required
+                            </label>
+                            <div class="row d-flex">
+                                <div class="col-md-2">
+                                    <input type="number" min="0"  name="if_insurance_start_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control" placeholder="$" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>or</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" min="0"  name="if_insurance_start_percent" class="form-control" placeholder="%" id="input7">
+                                </div>
+                                <div class="col-md-1">
+                                    <span>-</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control" placeholder="%" id="input7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="input1" class="col-form-label">EIR % P.a (optional)</label>
+                            <input type="number" min="0"  class="form-control" name="eir_pa" id="input1">
+                        </div>
+                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
+                            <h6 class="">or</h6>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="input2" class="col-form-label">EIR  % P.m (optional)</label>
+                            <input type="number" min="0"  class="form-control w-100" name="eir_pm" id="input2">
+                        </div>
+                    </div>
+                    <hr style=" background: grey;">
+                <h5 class="">Repayment section</h5><span>(Please select whichever that applies)</span>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Repayment terms
+                        </label>
+                        <select required name="repayment_terms" class="form-control">
+                            <option value="P+I">P+I</option>
+                            <option value="P+I">I only</option>
+                            <option value="P+I">Front end</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Deffered after
+                        </label>
+                        <input type="number" step="1" min="0"  required name="deffered_after" class="form-control" placeholder="Months" id="input7">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Balloon on
+                        </label>
+                        <input type="number" min="0"  required name="balloon_on" class="form-control" placeholder="Months" id="input7">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="input7" class="col-form-label">Quote is valid for(Days)
+                        </label>
+                        <input type="text" readonly required name="quote_validity" class="form-control date-picker-quote" placeholder="Quote validity" id="input7">
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="input1" class="col-form-label">Remarks-Seen by all internal users</label>
+                        <textarea type="text" required name="remarks" class="form-control" id="input1"></textarea>
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label for="input1" class="col-form-label">Personal notepad(read only by me)</label>
+                        <textarea type="text" name="personal_notepad" class="form-control" id="input1"></textarea>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="" id="submit_quotation" class="btn btn-primary waves-effect waves-light">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+
                 </form>
                 <!-- /SEC 1 -->
 
-                <hr style=" background: grey;">
+                {{-- <hr style=" background: grey;"> --}}
 
                 <!-- SEC 2 -->
-                <form action="">
+                {{-- <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -127,13 +481,13 @@
                         </div>
                     </div>
                     <!-- /2ND ROW -->
-                </form>
+                </form> --}}
                 <!-- /SEC 2 -->
             </div>
             <!-- /FORM NO 1 -->
 
             <!-- FORM 2 -->
-            <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3">
@@ -296,11 +650,11 @@
                     </div>
                     <!-- /4TH ROW -->
                 </form>
-            </div>
+            </div> --}}
             <!-- /FORM 2 -->
 
             <!-- FORM 3 -->
-            <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3 my-3">
@@ -409,7 +763,7 @@
                     </div>
                     <!-- /3RD ROW -->
                 </form>
-            </div>
+            </div> --}}
             <!-- /FORM 3 -->
         </div>
         <!-- container-fluid -->

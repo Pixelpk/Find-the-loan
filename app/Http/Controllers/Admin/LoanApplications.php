@@ -9,6 +9,8 @@ use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
+use App\Models\RejectReason;
+use App\Models\UserLoanReject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -43,7 +45,15 @@ class LoanApplications extends Controller
 
         $query = ApplyLoan::select('*')
             ->where('profile','=',$data['profile'])
-            ->with(['loan_type','loan_company_detail','user_loan_reasons','assigned_application','assigned_by_application']);
+            ->with(['loan_type','loan_company_detail','loan_reason','assigned_application',
+            'assigned_by_application',
+            'application_rejected'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
+            'application_quote'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
+        ]);
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -78,7 +88,7 @@ class LoanApplications extends Controller
         }
 
         $data['applications'] = $query->paginate('20');
-//        return $data;
+    //    return $data;
 
         $user_query = FinancePartner::where('partner_id','=',$partner_id);
         if ($loggedin_user->parent_id != 0){
@@ -89,6 +99,8 @@ class LoanApplications extends Controller
             ->get();
         $data['company_structure'] = CompanyStructure::where('status','=','1')
             ->get();
+        // $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
+        // $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
             ->pluck('value', 'key_name');
 
@@ -113,11 +125,23 @@ class LoanApplications extends Controller
     }
 
     public function applicationSummary(Request $request){
-        return view('admin.loan_applications.loan_summary');
-    }
-
-    public function putQuotation(Request $request){
-        return view('admin.loan_applications.put_quotation');
+        $id = $request->apply_loan_id ?? null;
+        $partner_id = Session::get('partner_id');
+        $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
+        $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
+        $data['application'] = ApplyLoan::where('id','=',$id)
+        ->with(['loan_type','loan_company_detail','loan_reason','application_rejected'=>function($query) use($partner_id){
+            $query->where('partner_id','=',$partner_id);
+        },
+        'application_quote'=>function($query) use($partner_id){
+            $query->where('partner_id','=',$partner_id);
+        },])
+        ->first();
+        if($id == null || !$data['application']){
+            return redirect()->back()->with('error','Oops. something went wrong.');
+        }
+        // return $data['apply_loan'];
+        return view('admin.loan_applications.loan_summary',$data);
     }
 
 
@@ -242,5 +266,45 @@ class LoanApplications extends Controller
             return redirect()->back()->with('error','Sorry. There are no documents to download');
         }
 
+    }
+
+    public function rejectLoanApplication(Request $request){
+        $user = $request->user();
+        $user_id = $user->id;
+//        return $user;
+        $request->validate([
+            'apply_loan_id'=>'required',
+            'customer_reject_reason_id'=>'required',
+            'internal_reject_reason_id'=>'required',
+        ]);
+        $apply_loan_id = $request->apply_loan_id;
+        $partner_id = Session::get('partner_id');
+        $query = ApplyLoan::query()->where('id','=',$apply_loan_id);
+        //if not bank admin then check if application is assigned to user
+        if ($user->parent_id != 0 ){
+            $query->whereHas('assigned_application',function ($query) use($user_id,$partner_id){
+                $query->where('partner_id','=',$partner_id)
+                    ->where('user_id','=',$user_id);
+            });
+        }
+        $application = $query->first();
+        if (!$application){
+            return redirect()->back()->with('success','Application is not assigned to user');
+        }
+        $already_rejected = UserLoanReject::where('partner_id','=',$partner_id)
+            ->where('apply_loan_id','=',$apply_loan_id)->first();
+        if ($already_rejected){
+            return redirect()->back()->with('success','Application is already rejected by your partner user');
+        }
+
+        $reject = new UserLoanReject();
+        $reject->partner_id = $partner_id;
+        $reject->user_id = $user->id;
+        $reject->apply_loan_id = $apply_loan_id;
+        $reject->internal_reject_reason_id = $request->internal_reject_reason_id;
+        $reject->customer_reject_reason_id = $request->customer_reject_reason_id;
+        $reject->save();
+
+        return redirect()->back()->with('success','Loan application is rejected successfully');
     }
 }

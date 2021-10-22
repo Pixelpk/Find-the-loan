@@ -86,7 +86,14 @@ A. Basic Styling
 /*-------------------------------------------
   -- Styling - Colors, Font Size, Font Family
 -------------------------------------------*/
+/* IMPORTS */
+@import url('./home.css');
+@import url('./faq.css');
 
+::selection{
+    background-color: #3EBB60;
+    color: #fff;
+}
 body {
     color: #191919;
     font-family: 'Poppins', sans-serif;
@@ -107,14 +114,14 @@ h1, .ts-h1 {
     color: #161b5b;
 }
 
-h2, .ts-h2 {
-    /* font-weight: 500 !important; */
-    /* font-size: 1.2rem !important; */
+/* h2, .ts-h2 {
+    font-weight: 500 !important;
+    font-size: 1.2rem !important;
     line-height: 5rem;
     font-family: 'poppins';
     color: #161b5b;
 
-}
+} */
 
 h3, .ts-h3 {
     font-family: 'Poppins', sans-serif;
@@ -721,7 +728,7 @@ a:hover {
     text-decoration: none;
 }
 
-p {
+/* p {
     font-family: 'poppins';
     font-size: 15px;
     font-weight: 200;
@@ -729,7 +736,7 @@ p {
     margin-bottom: 0rem !important;
     margin-top: 0rem !important;
     color: #808080;
-}
+} */
 .footerpara{
     font-family: 'poppins';
     font-size: 15px !important;
@@ -1080,13 +1087,13 @@ blockquote h6 {
     color: #fff !important;
     background-color: #3EBB60 !important;
 }
-.nav-link {
+/* .nav-link {
     display: block;
     padding: .5rem 1rem;
     color: #3EBB60 !important;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
+} */
 .apply-now-btn {
     color: #fff !important;
     background-color: #3EBB60 !important;
@@ -1227,13 +1234,13 @@ blockquote h6 {
   -- Card
 -------------------------------------------*/
 
-.card {
+/* .card {
     backface-visibility: hidden;
     border: none;
     box-shadow: .125rem .1875rem .9375rem rgba(0, 0, 0, .15);
     margin-bottom: 1.875rem;
     overflow: hidden;
-}
+} */
 
 .card-columns .card {
     margin-bottom: 1.25rem;
@@ -1813,7 +1820,7 @@ D. Plugins Styles
   -- Owl Carousel
 -------------------------------------------*/
 
-.owl-carousel .owl-dots {
+/* .owl-carousel .owl-dots {
     text-align: center;
 }
 
@@ -1887,7 +1894,7 @@ D. Plugins Styles
 .owl-carousel .owl-nav .owl-prev:after {
     content: "\f104";
     margin-right: .0625rem;
-}
+} */
 
 /***********************************************************************************************************************
 E. Template Specific Elements
@@ -2537,15 +2544,15 @@ E. Template Specific Elements
     }
 }
 /**----footer----**/
-.site-footer
+/* .site-footer
 {
   background-color:#212121;
   padding:40px 0 0;
   font-size:15px;
   line-height:24px;
   color:#ffffff;
-  /* padding-top: 100px !important; */
-  /* padding-bottom: 50px !important; */
+  padding-top: 100px !important;
+  padding-bottom: 50px !important;
 
 }
 .site-footer hr
@@ -2616,7 +2623,7 @@ E. Template Specific Elements
   margin-top:30px !important;
   text-align: center !important;
 
-}
+} */
 @media (max-width:991px)
 {
   .site-footer [class^=col-]

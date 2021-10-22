@@ -11,7 +11,7 @@
     />
 
    
-<script src="{{ url('/map.js') }}"></script>
+<script src="{{ asset('/map.js') }}"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600">
 
 
@@ -83,7 +83,7 @@
         background: #fff;
     }
     .navbar ul li{
-        padding: 0 0.7rem;
+        /* padding: 0 0.7rem; */
         font-family: 'Poppins', sans-serif;
     }
     .navbar ul li .nav-link:hover{
@@ -98,8 +98,11 @@
         background: #3EBB60;
         color:#fff;
     }
+    .navbar .btn-h{
+        margin-right: 0;
+    }
     .navbar .btnnew2{
-        margin-left: 0;
+        /* margin-left: 0; */
     }
     .btn{
         background: #3EBB60;
@@ -117,10 +120,6 @@ font-family: 'Poppins', sans-serif;
         margin-bottom: 0.6rem;
         display: inline-block;
     }
-    /* FAQ */
-    .accordion-button{
-               padding: 0 1rem;
-    }
     .accordion-button:not(.collapsed) {
     color: #3EBB60 !important;
     background-color: #f5f5f5 !important;
@@ -135,6 +134,10 @@ footer .contact-box__info {
 .footer-links li a:hover > i {
     color: #3EBB60;
 }
+/* ALERT */
+ #cookie-img{
+    width:100px
+}
 @media(min-width: 768px){
     .contact-box__icon{
     width: 4rem;
@@ -147,30 +150,34 @@ footer .contact-box__info {
             margin-bottom: 0.8rem;
         }
         .navbar .log-btn {
-            margin-left: 0;
+            /* margin-left: 0; */
         }
         .navbar .navbar-nav .nav-item .nav-link{
             border: 1px solid;
     text-align: center;
     margin-bottom: 1rem;
         }
-        .navbar .navbar-nav{
+        /* .navbar .navbar-nav{
             padding-top: 1rem;
-          }
+          } */
           
     }
     @media(max-width: 533px){
-        .container{
-            margin-left: 5px !important;
-        }
+    
           .navbar .navbar-nav{
-            padding-left: 1rem;
+            padding-left: 1.5rem;
             padding-right: 1rem;
             padding-top: 1rem;
           }
-          .navbar .btn{
+          .navbar .btn, .dropdown-menu{
         margin-left: 1.3rem;
         margin-right: 1.3rem;
+    }
+    .navbar .btn-h{
+        margin-right: 0;
+    }
+    .dropdown-toggle, .dropdown-menu{
+        width: -webkit-fill-available;
     }
     footer .contact-box{
         padding-left: 1rem;
@@ -178,47 +185,12 @@ footer .contact-box__info {
     footer .contact-box__info {
               padding-left: 0.8rem;
 }
+#cookie-img{
+    width:100px;
+    height: 100px;
+}
     }
-
-
-
-
-
-
-
-
 /* HOME CSS */
-.background{
-    /* background-color: #e9bcb7; */
-/* background-image: linear-gradient(315deg, #e9bcb7 0%, #29524a 74%); */
-   background-image: url('/assets/cms/img/Home/home-bg.jpg');
-   background-repeat: no-repeat;
-   background-size: 100% 100%;
-   /* filter: brightness(50%); */
-}
-.nmor-card{
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 12px;
-    border: 1px solid rgba(209, 213, 219, 0.3);
-    height: 320px;
-    }
-.icon-circle{
-    height: 6rem;
-    width: 6rem;
-    border-radius: 50%;
-    background: #fff;
-    border: 1px solid  #3EBB60;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.circle__icon{
-    width: 2.5rem;
-    height: 2.5rem;
-}
-.nmor-card h5{
-    font-size: 1.2rem;
-}
+
+
 </style>
