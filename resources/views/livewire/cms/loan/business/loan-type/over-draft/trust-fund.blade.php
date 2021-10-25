@@ -92,7 +92,7 @@
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add @if($trustFunds->count() > 0)Another @endif Deposit</button>
+            <button class="btn" wire:click="store">Add @if($trustFunds->count() > 0)Another @endif Unit Trust/Fund</button>
             <button class="btn" wire:click="store">Submit</button>
         </div>
     </div>
