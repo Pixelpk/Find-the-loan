@@ -22,6 +22,10 @@
 <script src="{{ asset('toastr.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs45RA1WjaLHCScHiERJ0v2c3I3R6ddT4&callback=initAutocomplete&libraries=places&v=weekly"
+      async
+    ></script>
 <!--Google map-->
 
 {{-- <script>

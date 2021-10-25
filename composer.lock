@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be3339712dca1102590f47aec52f2d72",
+    "content-hash": "39526592276cc349bc122fbdbbc1df31",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4274,6 +4274,52 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "sebastiansulinski/laravel-currency",
+            "version": "3.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastiansulinski/laravel-currency.git",
+                "reference": "a955aee4de640f9e345a5a7a469fe33d12f072d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastiansulinski/laravel-currency/zipball/a955aee4de640f9e345a5a7a469fe33d12f072d8",
+                "reference": "a955aee4de640f9e345a5a7a469fe33d12f072d8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SSD\\Currency\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Sulinski",
+                    "email": "info@ssdtutorials.com"
+                }
+            ],
+            "description": "Currency component for Laravel 8+",
+            "support": {
+                "issues": "https://github.com/sebastiansulinski/laravel-currency/issues",
+                "source": "https://github.com/sebastiansulinski/laravel-currency/tree/3.0.1"
+            },
+            "time": "2020-12-12T09:08:50+00:00"
         },
         {
             "name": "sopamo/laravel-filepond",
