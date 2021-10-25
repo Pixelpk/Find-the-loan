@@ -102,6 +102,8 @@
            <div class="container">
            <div class="loan-type same-carousel owl-carousel">
                 <!-- ITEM 1 -->
+                @foreach($loan_types as $type)
+
                 <div class="loan-type__icon">
                     <div class="card">
                         <div class="card-body">
@@ -114,10 +116,11 @@
                                  <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
                                </svg>
                              </div>
-                             <p>Invoice financing undisclosed</p>
+                             <p>{{ $type->sub_type }}</p>
                         </div>
                     </div>
                 </div>
+                @endforeach
               </div>
            </div>
        </section>
@@ -253,11 +256,11 @@
                    <h2 class="fw-bold">Some of our Financing Partners</h2>
                    </div>
                    <div class="finance__cards same-carousel owl-carousel">
+                    @foreach($partners as $partner)
                        <div class="finance__img shadow">
-                      <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="">
+                            <img src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
                        </div>
-                      
-                      
+                    @endforeach
                    </div>
                </div>
        </section>

@@ -56,7 +56,7 @@
 </script>
 @include('admin.pages.flash-message')
 <script>
-    let more_doc_array = [];
+    // let more_doc_array = [];
     let more_doc_message_array = [];
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
@@ -131,8 +131,15 @@
             });
         });
 
+        // $('.selected_application').click(function(event){
+        //     event.stopPropagation();
+        //     console.log($(this).attr('redirect'))
+        //     window.location = $(this).attr('redirect');
+        // });
+
         $("#bulk_assign").click(function (event) {
             event.preventDefault();
+            event.stopPropagation();
             var user_id = $('#assign_user_id').val();
             var SelectedList = [];
             $("input:checkbox[name=selected_application]:checked").each(function(){
@@ -175,9 +182,9 @@
             }
         });
         
-        $('#invoice_based_on').change(function(){
+        $('#is_joint_account_required').change(function(){
             var value = $(this).val();
-            if(value == 3){
+            if ( $(this).is(':checked') ){
                 $('#joint_account_days').prop({'disabled':false, 'required':true});
                 $('#joint_account_cost_from').prop({'disabled':false, 'required':true});
                 $('#joint_account_cost_to').prop({'disabled':false, 'required':true});
@@ -186,6 +193,7 @@
                 $('#joint_account_cost_from').prop('disabled',true);
                 $('#joint_account_cost_to').prop('disabled',true);
             }
+            
         });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {
