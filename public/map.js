@@ -26,9 +26,11 @@ function initAutocomplete() {
     // types: ["address"],
   });
   autocomplete1.addListener("place_changed", fillInAddress);
+  
 }
 
 function fillInAddress() {
-
+  // console.log(address1Field1);
+  console.log(autocomplete1);
   Livewire.emit('getAddress', address1Field1.value);
 }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top ts-separate-bg-element headshad py-2">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="">
+            <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="logo">
         </a>
         <!--end navbar-brand-->
 

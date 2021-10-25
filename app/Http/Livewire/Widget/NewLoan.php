@@ -55,50 +55,49 @@ class NewLoan extends Component
     {
         if($this->apply_loan){
          
-            $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first();
-            $this->free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'free_hold')->first();
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first();
-            $this->lot_number = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lot_number')->first();
-            $this->address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'address')->first();
-            $this->building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'building_name')->first();
-            $this->lease_remaining_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lease_remaining_year')->first();
-            $this->fllor_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fllor_area')->first();
-            $this->useable_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'useable_area')->first();
-            $this->square_feet = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_feet')->first();
-            $this->square_meter = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_meter')->first();
-            $this->preferred_tenure_month = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_month')->first();
-            $this->preferred_tenure_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_year')->first();
-            $this->as_long_as_possiable = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'as_long_as_possiable')->first();
-            $this->completed = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'completed')->first();
-           
-            $this->construction_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year')->first();
-            $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first();
-            $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first();
-            $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first();
+            $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first()->value ?? '';
+            $this->free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'free_hold')->first()->value ?? '';
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
+            $this->lot_number = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lot_number')->first()->value ?? '';
+            $this->address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'address')->first()->value ?? '';
+            $this->building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'building_name')->first()->value ?? '';
+            $this->lease_remaining_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lease_remaining_year')->first()->value ?? '';
+            $this->fllor_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fllor_area')->first()->value ?? '';
+            $this->useable_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'useable_area')->first()->value ?? '';
+            $this->square_feet = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_feet')->first()->value ?? '';
+            $this->square_meter = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_meter')->first()->value ?? '';
+            $this->preferred_tenure_month = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_month')->first()->value ?? '';
+            $this->preferred_tenure_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_year')->first()->value ?? '';
+            $this->as_long_as_possiable = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'as_long_as_possiable')->first()->value ?? '';
+            $this->completed = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'completed')->first()->value ?? '';
+            $this->construction_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year')->first()->value ?? '';
+            $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first()->value ?? '';
+            $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first()->value ?? '';
+            $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first()->value ?? '';
             ///
            
-            $this->unit = $this->unit->value;
-            $this->amount = $this->amount->value;
-            $this->free_hold = $this->free_hold->value;
-            $this->address = $this->address->value;
-            $this->lot_number = $this->lot_number->value;
-            $this->building_name = $this->building_name->value;
-            $this->lease_remaining_year = $this->lease_remaining_year->value;
-            $this->fllor_area = $this->fllor_area->value;
-            $this->useable_area = $this->useable_area->value;
-            $this->square_feet = $this->square_feet->value;
-            $this->square_meter = $this->square_meter->value;
-            $this->preferred_tenure_month = $this->preferred_tenure_month->value;
-            $this->preferred_tenure_year = $this->preferred_tenure_year->value;
-            $this->completed = $this->completed->value;
-            $this->construction_year = $this->construction_year->value;
-            $this->construction_year_time = $this->construction_year_time->value;
-            $this->float_rate = $this->float_rate->value;
-            $this->fix_rate = $this->fix_rate->value;
+            // $this->unit = $this->unit->value;
+            // $this->amount = $this->amount->value;
+            // $this->free_hold = $this->free_hold->value;
+            // $this->address = $this->address->value;
+            // $this->lot_number = $this->lot_number->value;
+            // $this->building_name = $this->building_name->value;
+            // $this->lease_remaining_year = $this->lease_remaining_year->value;
+            // $this->fllor_area = $this->fllor_area->value;
+            // $this->useable_area = $this->useable_area->value;
+            // $this->square_feet = $this->square_feet->value;
+            // $this->square_meter = $this->square_meter->value;
+            // $this->preferred_tenure_month = $this->preferred_tenure_month->value;
+            // $this->preferred_tenure_year = $this->preferred_tenure_year->value;
+            // $this->completed = $this->completed->value;
+            // $this->construction_year = $this->construction_year->value;
+            // $this->construction_year_time = $this->construction_year_time->value;
+            // $this->float_rate = $this->float_rate->value;
+            // $this->fix_rate = $this->fix_rate->value;
             
-            if(isset($this->as_long_as_possiable->value)){
-                $this->as_long_as_possiable = $this->as_long_as_possiable->value;
-            }  
+            // if(isset($this->as_long_as_possiable->value)){
+            //     $this->as_long_as_possiable = $this->as_long_as_possiable->value;
+            // }  
                     
         }
     }
