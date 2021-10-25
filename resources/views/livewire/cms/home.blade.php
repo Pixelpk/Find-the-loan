@@ -9,7 +9,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="cookie-img text-center">
-              <img src="/assets/cms/img/Home/cookie.png" alt="cookie img">
+              <img src="{{ asset ('assets/cms/img/Home/cookie.png')}}" alt="cookie img">
           </div>
           <div class="cookie-content text-center my-2">
               <p class="lea">
