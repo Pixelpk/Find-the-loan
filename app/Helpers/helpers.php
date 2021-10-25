@@ -15,6 +15,23 @@ function getAdditionDocInfoType($type): string
     return $all[$type] ?? '';
 }
 
+function getCmsRoute($route_name): string
+{
+    $all = [
+        'home'=>"Home",
+        'about-us'=>"About",
+        'our-blogs'=>"Blogs",
+        'blog'=>"Blogs",
+        'faqs'=>"Faqs",
+        'terms-conditions'=>"Terms of uses",
+        'privacy-policy'=>"Privacy policy",
+        'contact-us'=>"Contact",
+        'financial-inclusion'=>"Financial Inclusion",
+        'glossary'=>"Glossary",
+    ];
+    return $all[$route_name] ?? '';
+}
+
 function moreDocReasons(): array
 {
     $all = ['', 'Incomplete', 'Incorrect','Unclear','In PDF','Requires supporting document','Due to quantum','Due to risk profile','Due to age','Of main applicant/s','Of all shareholders','For TDSR/DSR purpose','Need Exercised'];
@@ -53,7 +70,7 @@ function getYesNo($status): string
 
 function allRoles(): array
 {
-    return ['', 'Super Admin', 'User','Chaperone support','Latina support','Revert support','Ask an Expert'];
+    return ['', 'Super Admin', 'User'];
 }
 
 function getRole($role): string

@@ -19,7 +19,6 @@ class NewLoan extends Component
     public $main_type;
     public $loan_type_id;
     public $agreement;
-  
     public $lot_number;
     public $address;
     public $unit;
@@ -37,7 +36,9 @@ class NewLoan extends Component
     public $completed;
     public $construction_year;
     public $construction_year_time;
-    public $check_offer;
+    public $float_rate;
+    public $fix_rate;
+    
     //
     public $amount;
     public $apply_loan;
@@ -72,7 +73,8 @@ class NewLoan extends Component
            
             $this->construction_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year')->first();
             $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first();
-            $this->check_offer = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'check_offer')->first();
+            $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first();
+            $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first();
             ///
            
             $this->unit = $this->unit->value;
@@ -91,7 +93,8 @@ class NewLoan extends Component
             $this->completed = $this->completed->value;
             $this->construction_year = $this->construction_year->value;
             $this->construction_year_time = $this->construction_year_time->value;
-            $this->check_offer = $this->check_offer->value;
+            $this->float_rate = $this->float_rate->value;
+            $this->fix_rate = $this->fix_rate->value;
             
             if(isset($this->as_long_as_possiable->value)){
                 $this->as_long_as_possiable = $this->as_long_as_possiable->value;
@@ -115,7 +118,8 @@ class NewLoan extends Component
            'useable_area' => 'required|integer|min:1',
            'preferred_tenure_year' => 'required|integer|min:1',
            'preferred_tenure_month' => 'required|integer|min:1',
-           'check_offer' => 'required',
+           'float_rate' => $this->fix_rate ? '' :  'required',
+           'fix_rate' => $this->float_rate ? '' :  'required',
        ]);
        $data = [
              ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
@@ -136,7 +140,8 @@ class NewLoan extends Component
              ['type' => 'checkbox', 'value' => $this->completed, 'key' => 'completed'], 
              ['type' => 'option', 'value' => $this->construction_year, 'key' => 'construction_year'], 
              ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'], 
-             ['type' => 'radio', 'value' => $this->check_offer, 'key' => 'check_offer'], 
+             ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'], 
+             ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'], 
        ];
       
        if($this->apply_loan){

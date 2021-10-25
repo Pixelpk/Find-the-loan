@@ -16,9 +16,9 @@
 
 
 <style>
-    /* .select2-results__group{
+    .select2-results__group{
         font-size: 1.3em !important;
-    } */
+    }
     .resize-img {
         width: 2.5em;
         height: 2.5em;
@@ -69,5 +69,10 @@
         color: #ffffff;
     }
     /*end autocomplete*/
+
+/* SUMMRY NAV */
+.sum-nav li{
+    margin-left: 1rem;
+}
 
 </style>

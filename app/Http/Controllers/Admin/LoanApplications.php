@@ -99,8 +99,8 @@ class LoanApplications extends Controller
             ->get();
         $data['company_structure'] = CompanyStructure::where('status','=','1')
             ->get();
-        $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
-        $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
+        // $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
+        // $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
             ->pluck('value', 'key_name');
 
@@ -126,8 +126,16 @@ class LoanApplications extends Controller
 
     public function applicationSummary(Request $request){
         $id = $request->apply_loan_id ?? null;
+        $partner_id = Session::get('partner_id');
+        $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
+        $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['application'] = ApplyLoan::where('id','=',$id)
-        ->with(['loan_type','loan_company_detail','loan_reason'])
+        ->with(['loan_type','loan_company_detail','loan_reason','application_rejected'=>function($query) use($partner_id){
+            $query->where('partner_id','=',$partner_id);
+        },
+        'application_quote'=>function($query) use($partner_id){
+            $query->where('partner_id','=',$partner_id);
+        },])
         ->first();
         if($id == null || !$data['application']){
             return redirect()->back()->with('error','Oops. something went wrong.');

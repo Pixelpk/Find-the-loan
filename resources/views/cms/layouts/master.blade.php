@@ -16,10 +16,7 @@
 </div>
 <!--end page-->
 @include('cms.pages.footer-js')
-<script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAs45RA1WjaLHCScHiERJ0v2c3I3R6ddT4&callback=initAutocomplete&libraries=places&v=weekly"
-      async
-    ></script>
+
 @livewireScripts
 <script>
 window.livewire.on('alert', param => {

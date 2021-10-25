@@ -8,8 +8,8 @@
 }
 .srch{
     position: relative;
-    width: 100%;
-    margin-right: 1rem;
+    width: 50%;
+    /* margin-right: 1rem; */
 }
 .srch > input{
     border-radius: 1.5rem;
@@ -99,7 +99,7 @@
 }
 .loan-type__icon .card{
     border-radius: .75rem;
-    height: 11.875rem;
+    height: 14rem;
     border: none;
     text-align: center;
     margin-bottom: .2rem;

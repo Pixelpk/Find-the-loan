@@ -56,6 +56,7 @@
 </script>
 @include('admin.pages.flash-message')
 <script>
+    // let more_doc_array = [];
     let more_doc_message_array = [];
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
@@ -130,8 +131,15 @@
             });
         });
 
+        // $('.selected_application').click(function(event){
+        //     event.stopPropagation();
+        //     console.log($(this).attr('redirect'))
+        //     window.location = $(this).attr('redirect');
+        // });
+
         $("#bulk_assign").click(function (event) {
             event.preventDefault();
+            event.stopPropagation();
             var user_id = $('#assign_user_id').val();
             var SelectedList = [];
             $("input:checkbox[name=selected_application]:checked").each(function(){
@@ -174,9 +182,9 @@
             }
         });
         
-        $('#invoice_based_on').change(function(){
+        $('#is_joint_account_required').change(function(){
             var value = $(this).val();
-            if(value == 3){
+            if ( $(this).is(':checked') ){
                 $('#joint_account_days').prop({'disabled':false, 'required':true});
                 $('#joint_account_cost_from').prop({'disabled':false, 'required':true});
                 $('#joint_account_cost_to').prop({'disabled':false, 'required':true});
@@ -185,6 +193,7 @@
                 $('#joint_account_cost_from').prop('disabled',true);
                 $('#joint_account_cost_to').prop('disabled',true);
             }
+            
         });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {
@@ -285,40 +294,55 @@
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
+            var document_of = $('#document_of').val();
+            var more_doc_reasons = $('#more_doc_reasons').val();
+            var quote_additional_doc_id = $('#quote_additional_doc_id').val();
+            if(document_of == ""){
+                $("#document_of_error").html("Document of field is required");
+            }
+            if(more_doc_reasons == ""){
+                $("#more_doc_reasons_error").html("Reason is required");
+            }
+            if(quote_additional_doc_id == ""){
+                $("#add_doc_id_error").html("Document field is required");
+            }
+            $( '#more_doc_form' ).each(function(){
+                this.reset();
+            });
              new_obj = {};
-             new_obj.if_any = $('#if_any').val();
+             new_obj.if_any = $('#if_any').prop('checked');
              new_obj.from = $('#from').val();
-             new_obj.to = $('#from').val();
+             new_obj.to = $('#to').val();
              new_obj.within_days = $('#within_days').val();
              new_obj.past_months = $('#past_months').val();
              new_obj.valid_for = $('#valid_for').val();
-             new_obj.latest = $('#latest').val();
-             new_obj.required_company_stamp = $('#required_company_stamp').val();
-             new_obj.need_notarized = $('#need_notarized').val();
-             new_obj.signature_borrower = $('#signature_borrower').val();
-             new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').val();
+             new_obj.latest = $('#latest').prop('checked');
+             new_obj.required_company_stamp = $('#required_company_stamp').prop('checked');
+             new_obj.need_notarized = $('#need_notarized').prop('checked');
+             new_obj.signature_borrower = $('#signature_borrower').prop('checked');
+             new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
              new_obj.more_doc_reasons = $('#more_doc_reasons').val();
              new_obj.document_of = $('#document_of').val();
-             new_obj.point_to_any_specific_doc = $('#point_to_any_specific_doc').val();
+             new_obj.quote_additional_doc_id = $('#quote_additional_doc_id').val();
             more_doc_message_array.push(new_obj);
             console.log(more_doc_message_array);
 
             var html = "<tr index="+more_doc_msg_index+">"
-            +"<td><a href='#' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
-            +"<td>"+new_obj.if_any+"</td>"
-            +"<td>"+new_obj.from+"</td>"
-            +"<td>"+new_obj.to+"</td>"
+            +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
+            +"<td>"+$('#quote_additional_doc_id option:selected').text()+"</td>"
+            +"<td>"+$('#document_of option:selected').text()+"</td>"
+            +"<td>"+$('#more_doc_reasons option:selected').text()+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
+            +"<td>"+new_obj.from+"</td>"
+            +"<td>"+new_obj.to+"</td>"
+            +"<td>"+new_obj.if_any+"</td>"
             +"<td>"+new_obj.latest+"</td>"
             +"<td>"+new_obj.required_company_stamp+"</td>"
             +"<td>"+new_obj.need_notarized+"</td>"
             +"<td>"+new_obj.signature_borrower+"</td>"
             +"<td>"+new_obj.signature_borrowers_customer+"</td>"
-            +"<td>"+new_obj.more_doc_reasons+"</td>"
-            +"<td>"+new_obj.document_of+"</td>"
-            +"<td>"+new_obj.point_to_any_specific_doc+"</td>"
             +"</tr>";
             $('#more_doc_msg_table').append(html);
             more_doc_msg_index++;
@@ -326,25 +350,70 @@
                 $('#more_doc_msg_list').show();
             }
         });
+
         $(document).on("click", '.remove_more_doc_msg', function(event) { 
             var index = $(this).closest('tr').attr('index');
             $(this).closest('tr').remove();
             remove_more_doc_message_array.push(index);
-            // more_doc_message_array.splice(index,1);
-
             if(more_doc_message_array.length < 1){
                 $('#more_doc_msg_list').hide();
             }
             console.log('after remove'+remove_more_doc_message_array);
         });
-        $('#more_doc_request_btn').click(function(){
+        // $('#quote_additional_doc_idz').change(function(e){
+        //     e.preventDefault();
+        //     $('#point_to_any_specific_doc').html();
+        //     var append_html = "";
+        //     $("#quote_additional_doc_idz option:selected").each(function() {
+        //         append_html+="<option value='"+this.value+"'>"+this.text+"</option>";
+        //         console.log(this.value+"="+this.text)        //
+        //     });
+        //     console.log(append_html)
+        //     $('#point_to_any_specific_doc').html(append_html);
+        //     // alert($('#quote_additional_doc_idz option:selected').text());
+        // });
+
+        $('#more_doc_request_btn').click(function(e){
+            e.preventDefault();
+            $("#add_doc_id_error").html("");
+            $("#more_doc_error").html("");
+
             if(remove_more_doc_message_array.length > 0){
                 $.each(remove_more_doc_message_array, function(index, item) {
                     more_doc_message_array.splice(index,1);
                 });
             }
+
+            // var quote_additional_doc_id = $('#quote_additional_doc_id').val();
+            
+            // if(quote_additional_doc_idz == ""){
+            //     $("#add_doc_id_error").html("This field is required");
+            //     return false;
+            // }
+            if(more_doc_message_array.length <=0){
+                $('#more_doc_error').html('Please select any doc with reason and add.');
+                return false;
+            }
+            var apply_loan_id = $('#apply_loan_id').val();
+
+            $.ajax({
+                method: "POST",
+                url: "{{ route('more-doc-request') }}",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'apply_loan_id':apply_loan_id,
+                    // 'quote_additional_doc_idz':quote_additional_doc_idz,
+                    'msg_desc_section':more_doc_message_array
+                }
+            }).done(function (data) {
+                console.log(data)
+                if(data.success == 1){
+                    window.location.href = data.redirect;
+                }
+            });
+
             console.log("on submit"+more_doc_message_array);
-            return false;
+            
         });
 
     });

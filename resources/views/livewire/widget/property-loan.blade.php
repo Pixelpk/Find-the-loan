@@ -7,7 +7,7 @@
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
                     <label class="control-label mb-10">
-                        <b> OTP or Sale/Purchase Agreement of property/land being sold</b>
+                         OTP or Sale/Purchase Agreement of property/land being sold
                     </label>
                     <br>
                     <br>
@@ -32,11 +32,11 @@
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
                     <label class="control-label mb-10">
-                        <b>
+                       
                             loan statement showing past 12 months repayment history if any(please ensure address is
                             visible,
                             if not kindly include the main page where address is visible)
-                        </b>
+                        
                     </label>
                     <br>
                     <br>
@@ -61,10 +61,10 @@
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
                     <label class="control-label mb-10">
-                        <b>
+                   
                             Loan statement reflecting current Outstanding loan amount if it is not reflected in your
                             repayment history statement
-                        </b>
+                       
                     </label>
                     <br>
                     <br>
@@ -132,8 +132,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="lease_remaining" class="form-label">
-                <b>Lease remaining
-                </b>
+                Lease remaining
+              
             </label>
             <div class="input-group mb-3">
                 <input wire:model="lease_remaining_year" type="text" class="form-control" aria-label="Recipient's username"
@@ -158,8 +158,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fllor_area" class="form-label">
-                <b>Land/Floor Area
-                    if applicable</b>
+                Land/Floor Area
+                    if applicable
             </label>
             <input wire:model="fllor_area" type="text" class="form-control" id="fllor_area">
             @error("fllor_area")
@@ -170,8 +170,8 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="useable_area" class="form-label">
-                <b>Build-in/Useable Area
-                </b>
+                Build-in/Useable Area
+               
 
             </label>
             <input wire:model="useable_area" type="text" class="form-control" id="useable_area">
@@ -205,8 +205,8 @@
 
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="preferred_tenure_month" class="form-label">
-                <b>Preferred Tenure
-                </b>
+                Preferred Tenure
+                
             </label>
             <div class="input-group mb-3">
                 <input wire:model="preferred_tenure_year" type="text" class="form-control" aria-label="Recipient's username"
@@ -242,8 +242,8 @@
         <div class="col-md-4"></div>
         <div class="col-md-12">
             <div class="col-md-12" style="margin-top: 30px;">
-                <label for="amount" class="form-label"><b>Amount</b></label>
-                <input wire:model="amount" type="text" class="form-control" id="amount">
+                <label for="amount" class="form-label">Amount</label>
+                <input wire:model="amount" type="number" class="form-control" id="amount">
                 @error("amount")
                 <div style="color: red;">
                     {{ $message }}
