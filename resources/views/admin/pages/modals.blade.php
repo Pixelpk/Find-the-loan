@@ -81,8 +81,8 @@
                         <select required class="form-control" name="type" id="partner_type">
                             <option value="1">Bank</option>
                             <option value="2">Excluded moneylender</option>
-                            <option value="3">Fintech</option>
-                            <option value="4">Moneylender</option>
+                            {{-- <option value="3">Fintech</option> --}}
+                            <option value="3">Moneylender</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -95,10 +95,25 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
-                        <select required multiple class="form-control" name="loan_type_id[]" id="partner_loan_type">
+                        <select required style="width: 100%;" multiple class="form-control select2" name="loan_type_id[]" id="partner_loan_type">
                             @foreach($loan_types as $type)
                                 <option value="{{$type->id}}">{{ $type->sub_type }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10 select2">Type of properties:</label>
+                        <select multiple style="width: 100%;" class="form-control select2" name="property_types[]" id="property_types">
+                                <option value="1">Commercial Vehicle – Cars, lorries, trucks etc</option>
+                                <option value="2">Industry Vehicle – Cranes, forklift, Tractors etc</option>
+                                <option value="3">Other Commercial & Industrial Equipment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10 select2">Type of equipments:</label>
+                        <select multiple style="width: 100%;" class="form-control select2" name="equipment_types[]" id="equipment_types">
+                            <option value="1">Office Equipment</option>
+                            <option value="2">Other Commercial & Industrial Equipment</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -114,7 +129,7 @@
                         <input required type="number" min="0" class="form-control" name="subsidiaries" id="subsidiaries">
                     </div>
                     <div class="custom-control custom-switch">
-                        <input required type="checkbox" class="custom-control-input" name="cbs_member" id="cbs_member">
+                        <input type="checkbox" class="custom-control-input" name="cbs_member" id="cbs_member">
                         <label class="custom-control-label" for="cbs_member">CBS member</label>
                     </div>
 
@@ -189,8 +204,8 @@
                         <select required class="form-control" name="type" id="edit_partner_type">
                             <option value="1">Bank</option>
                             <option value="2">Excluded moneylender</option>
-                            <option value="3">Fintech</option>
-                            <option value="4">Moneylender</option>
+                            {{-- <option value="3">Fintech</option> --}}
+                            <option value="3">Moneylender</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -203,10 +218,26 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
-                        <select multiple class="form-control" name="loan_type_id[]" id="edit_partner_loan_type">
+                        <select multiple style="width: 100%;" class="form-control select2" name="loan_type_id[]" id="edit_partner_loan_type">
                             @foreach($loan_types as $type)
                                 <option value="{{$type->id}}">{{ $type->sub_type }}</option>
                             @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type of properties:</label>
+                        <select required style="width: 100%;" multiple class="form-control mb-10 select2" name="property_types[]" id="edit_property_types">
+                                <option value="1">Commercial Vehicle – Cars, lorries, trucks etc</option>
+                                <option value="2">Industry Vehicle – Cranes, forklift, Tractors etc</option>
+                                <option value="3">Other Commercial & Industrial Equipment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10 ">Type of equipments:</label>
+                        <select required style="width: 100%;" multiple class="form-control select2" name="equipment_types[]" id="edit_equipment_types">
+                            <option value="1">Office Equipment</option>
+                            <option value="2">Other Commercial & Industrial Equipment</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -226,10 +257,10 @@
                         <textarea name="terms_condition" class="form-control ckeditor" id="edit_partner_terms_condition"
                                   required></textarea>
                     </div>
-{{--                    <div class="custom-control custom-switch">--}}
-{{--                        <input type="checkbox" class="custom-control-input" name="cbs_member" id="edit_cbs_member">--}}
-{{--                        <label class="custom-control-label" for="edit_cbs_member">CBS member</label>--}}
-{{--                    </div>--}}
+                   <div class="custom-control custom-switch">
+                       <input type="checkbox" class="custom-control-input" name="cbs_member" id="edit_cbs_member">
+                       <label class="custom-control-label" for="edit_cbs_member">CBS member</label>
+                   </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Partner image:</label>
                         <br>

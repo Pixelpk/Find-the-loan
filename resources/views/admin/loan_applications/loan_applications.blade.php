@@ -99,7 +99,6 @@
                                                 <th>User</th>
                                                 <th>Loan type</th>
                                                 <th>Amount</th>
-                                                <th>Loan reasons</th>
                                                 <th>Company name</th>
                                                 <th>Company website</th>
                                                 <th>Company structure</th>
@@ -119,7 +118,7 @@
                                                 <tr onclick="window.location='{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}';" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
                                                     <td>
                                                         @if($application->assigned_by_application == null)
-                                                            <input style="height: 16px;width: 16px" name="selected_application" class="form-control select-product" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                            <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
                                                     {{-- <td>

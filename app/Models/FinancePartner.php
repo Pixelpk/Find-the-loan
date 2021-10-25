@@ -16,6 +16,6 @@ class FinancePartner extends Authenticatable
 
     protected $table = 'finance_partners';
     protected $fillable = ['partner_id','parent_id','role_id','terms_condition','requested_terms_condition','designation','type','name','email','password','phone','description',
-        'min_quantum','max_quantum','company_structure_id','loan_type_id','length_of_incorporation',
+        'min_quantum','max_quantum','company_structure_id','loan_type_id','length_of_incorporation','equipment_types','property_types',
         'local_shareholding','subsidiaries','cbs_member','image','status'];
 }

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-light fixed-top ts-separate-bg-element headshad py-2">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="">
+            <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="logo">
         </a>
         <!--end navbar-brand-->
 
@@ -71,19 +71,28 @@
                 <li><a href="{{ route('contact-us') }}" class="nav-link">Contact</a></li>
             </ul>
             <div class="btn-group desk-menu">
-                <a href="{{ route('home') }}" class="btn btn-h">Home</a>
+                    @php
+                        $current_route = Route::currentRouteName();
+                        if ($current_route == 'blog') {
+                            $route = route('our-blogs');
+                        }else {
+                            $route = route($current_route);
+                        }
+                    @endphp
+                <a href="{{$route}}" class="btn btn-h">{{ getCmsRoute($current_route)}}</a>
                 <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
                     <span class="visually-hidden">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    
                     <li><a href="{{ route('about-us') }}" class="dropdown-item">About</a></li>
                     <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
                     <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
-                    <li><a href="{{ route('faqs') }}" class="dropdown-item">Financial Inclusion</a></li>
-                    <li><a href="{{ route('faqs') }}" class="dropdown-item">Glossary</a></li>
-                    <li><a href="{{ route('faqs') }}" class="dropdown-item">Terms of uses</a></li>
-                    <li><a href="{{ route('faqs') }}" class="dropdown-item">Privacy policy</a></li>
+                    <li><a href="#" class="dropdown-item">Financial Inclusion</a></li>
+                    <li><a href="#" class="dropdown-item">Glossary</a></li>
+                    <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of uses</a></li>
+                    <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
                     <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact</a></li>
                 </ul>
             </div>

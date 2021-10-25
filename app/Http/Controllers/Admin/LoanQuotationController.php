@@ -39,7 +39,8 @@ class LoanQuotationController extends Controller
         $data = $request->all();
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
         ->first();
-        if($apply_loan->loan_type_id == 5){
+        //for invoice financing and purchase order financing
+        if($apply_loan->loan_type_id == 5 || $apply_loan->loan_type_id == 6){
             $fill = $this->quotedInvoiceFinancingData($request->all());
         }else{
             $fill = $this->quotedAllLoanData($request->all());
@@ -92,38 +93,15 @@ class LoanQuotationController extends Controller
     public function quotedInvoiceFinancingData($data)
     {
         $quantum_interest = [
-            'quantum'=> $data['quantum'] ?? "",
             'facility_limit'=> $data['facility_limit'],
             'advance_percentage'=> $data['advance_percentage'],
-            'invoice_based_on'=> [
-                'invoice_based_on'=>$data['invoice_based_on'],
+            'is_notified'=> $data['is_notified'] ?? 0,
+            'interest_calculated_by'=> $data['interest_calculated_by'] ?? null, //1=per year, 2=per month, 3=per week, 4=per day
+            'is_joint_account_required'=> $data['is_joint_account_required'] ?? 0, //0-not required, 1=joint account required
+            'joint_account'=> [
                 'joint_account_days'=>$data['joint_account_days'] ?? "",
                 'joint_account_cost_from'=>$data['joint_account_cost_from'] ?? "",
                 'joint_account_cost_to'=>$data['joint_account_cost_to'] ?? "",
-            ],
-            'interest_flat'=> [
-                'pa'=>$data['interest_flat_pa'] ?? "",
-                'pm'=>$data['interest_flat_pm'] ?? "",
-            ],
-            'interest_reducing_balance'=> [
-                'pa'=>$data['interest_reducing_pa'] ?? "",
-                'pm'=>$data['interest_reducing_pm'] ?? "",
-            ],
-            'interest_and_board_rate'=> [
-                'interest_pa'=>$data['interest_pa'] ?? "",
-                'board_rate_pa'=>$data['board_rate_pa'] ?? "",
-            ],
-            'flat_fee_regardless_tenure'=> [
-                'falt_value'=>$data['flat_fee_value'] ?? "",
-                'percentage'=>$data['flat_fee_percent'] ?? "",
-            ],
-            'tenure'=> [
-                'years'=>$data['tenure_years'] ?? "",
-                'months'=>$data['tenure_months'] ?? "",
-            ],
-            'lock_in'=> [
-                'years'=>$data['lock_in_years'] ?? "",
-                'months'=>$data['lock_in_months'] ?? "",
             ],
         ];
 

@@ -91,10 +91,12 @@ class FinancePartnerController extends Controller
             'max_quantum' => 'required|min:0',
             'company_structure_id' => 'required',
             'loan_type_id' => 'required',
+            'property_types' => 'required',
+            'equipment_types' => 'required',
             'length_of_incorporation' => 'required|min:0',
             'local_shareholding' => 'required|min:0',
             'subsidiaries' => 'required|min:0',
-            'cbs_member' => 'required',
+            // 'cbs_member' => 'required',
             'terms_condition' => 'required',
             'image' => 'required|image',
         ]);
@@ -109,6 +111,8 @@ class FinancePartnerController extends Controller
         $data['loan_type_id'] = implode(',',$data['loan_type_id']);
         $data['cbs_member'] = $data['cbs_member'] ? 1 : 0;
         $data['password'] = Hash::make($data['password']);
+        $data['property_types'] = implode(',',$data['property_types']);
+        $data['equipment_types'] = implode(',',$data['equipment_types']);
 
 //        $partner->parent_id = 0;
 //        $partner->name = $data['name'];
@@ -156,6 +160,8 @@ class FinancePartnerController extends Controller
             'max_quantum' => 'required|min:0',
             'company_structure_id' => 'required',
             'loan_type_id' => 'required',
+            'property_types' => 'required',
+            'equipment_types' => 'required',
             'length_of_incorporation' => 'required|min:0',
             'local_shareholding' => 'required|min:0',
             'subsidiaries' => 'required|min:0',
@@ -175,7 +181,9 @@ class FinancePartnerController extends Controller
             $data['password'] = $partner->password;
         }
         $data['loan_type_id'] = implode(',',$data['loan_type_id']);
-
+        $data['property_types'] = implode(',',$data['property_types']);
+        $data['equipment_types'] = implode(',',$data['equipment_types']);
+        $data['cbs_member'] = $data['cbs_member'] ? 1 : 0;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'partner' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();
