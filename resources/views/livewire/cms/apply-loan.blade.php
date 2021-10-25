@@ -88,8 +88,7 @@
                     $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
                     @elseif($tab == 8 && $loan_type_id == 17)
-
-                    @livewire('cms.loan.business.loan-type.over-draft.propertyland', ['loan_type_id' => $loan_type_id,
+                    @livewire('cms.loan.business.loan-type.property-bridging', ['loan_type_id' => $loan_type_id,
                     "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
 

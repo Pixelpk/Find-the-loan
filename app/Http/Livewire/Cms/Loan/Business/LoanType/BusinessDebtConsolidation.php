@@ -21,14 +21,14 @@ class BusinessDebtConsolidation extends Component
     public function mount()
     {
         if($this->apply_loan){
-            $this->settlement_notice = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'settlement_notice')->first();
-            $this->document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first();
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first();
+            $this->settlement_notice = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'settlement_notice')->first()->value ?? '';
+            $this->document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first()->value ?? '';
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
             ///
            
-            $this->settlement_notice = $this->settlement_notice ? $this->settlement_notice->value : '';
-            $this->document = $this->document ?  $this->document->value : '';
-            $this->amount = $this->amount ?  $this->amount->value : '';    
+            // $this->settlement_notice = $this->settlement_notice ? $this->settlement_notice->value : '';
+            // $this->document = $this->document ?  $this->document->value : '';
+            // $this->amount = $this->amount ?  $this->amount->value : '';    
         }
     }
     public function render()

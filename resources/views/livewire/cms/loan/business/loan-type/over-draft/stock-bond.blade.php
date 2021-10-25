@@ -20,25 +20,16 @@
             @enderror
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
-            <label for="indicative_nav" class="form-label">indicative NAV
+            <label for="indicative_bid_price" class="form-label">Current Indicative Bid Price
             </label>
-            <input wire:model="indicative_nav" type="text" class="form-control" id="indicative_nav">
-            @error("indicative_nav")
+            <input wire:model="indicative_bid_price" type="number" class="form-control" id="indicative_bid_price">
+            @error("indicative_bid_price")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
-            <label for="deposit_ac_number" class="form-label">Deposit A/c Number
-            </label>
-            <input wire:model="deposit_ac_number" type="number" class="form-control" id="deposit_ac_number">
-            @error("deposit_ac_number")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
+     
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="company_purchased" class="form-label">Company purchased from
 
@@ -57,42 +48,31 @@
         </div>
         
         <div class="col-md-6" style="margin-top: 30px;">
-            <label for="fund_name" class="form-label">
-                Please specify fund name
+            <label for="name" class="form-label">
+                Please Specify  @if($tab == 4)Bond Name @else Stock Name Or Code @endif  
             </label>
             <div class="input-form mb-3">
-                <input wire:model="fund_name" type="text" class="form-control" aria-label="fund_name"
+                <input wire:model="name" type="text" class="form-control" aria-label="name"
                     aria-describedby="basic-addon2">
-                    <span> e.g. SG equity fund
-                    </span>
-            </div>
-            @error("fund_name")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <label for="fd_sd" class="form-label">
-                For FD and SD please state Maturity Date
+                    @if($tab == 4)
+                    <span>e..g TESLA 2021 CV
 
-            </label>
-            <div class="input-form mb-3">
-                <input wire:model="fd_sd_date" type="date" class="form-control" aria-label="fd_sd_date"
-                    aria-describedby="basic-addon2">
+                    </span>
+                    @endif
             </div>
-            @error("fd_sd_date")
+            @error("name")
             <div style="color: red;">
-                {{ $message }}
+                Field Is Required
             </div>
             @enderror
         </div>
+      
     </div>
     <div class="row">
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add @if($trustFunds->count() > 0)Another @endif Deposit</button>
+            <button class="btn" wire:click="store">Add @if($stockBonds->count() > 0)Another @endif Deposit</button>
             <button class="btn" wire:click="store">Submit</button>
         </div>
     </div>
@@ -106,27 +86,26 @@
                         <th scope="col">#</th>
                         <th scope="col">Currency</th>
                         <th scope="col">Total Indicative Value</th>
-                        <th scope="col">indicative NAV</th>
-                        <th scope="col">Deposit A/c Number</th>
-                        
+                        <th scope="col">Indicative Bid Price</th>
                         <th scope="col">Company </th>
-                        <th scope="col">Fund Name </th>
-                        <th scope="col">For FD and SD</th>
+                        @if($tab == 3 )
+                        <th scope="col">Stock Name Or Code </th>
+                        @elseif($tab == 4)
+                        <th scope="col">Bond Name  </th>
+                        @endif
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($trustFunds as $item)
+                    @foreach($stockBonds as $item)
                     <tr>
                         <th scope="row">1</th>
                         <td>{{ $item->currency }}</td>
                         <td>{{ $item->total_indicative_value }}</td>
-                        <td>{{ $item->indicative_nav }}</td>
-                        
-                        <td>{{ $item->deposit_ac_number }}</td>
+                        <td>{{ $item->indicative_bid_price }}</td>
                         <td>{{ $item->company_purchased }}</td>
-                        <td>{{ $item->fund_name }}</td>
-                        <td>{{ $item->fd_sd_date }}</td>
+                        <td>{{ $item->name }}</td>
+                       
                         <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;"
                                 class="btn">Delete</button></td>
                     </tr>

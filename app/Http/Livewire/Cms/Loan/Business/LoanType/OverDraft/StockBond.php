@@ -5,11 +5,12 @@ use App\Models\FinancePartner;
 use App\Models\LoanGernalInfo;
 use App\Models\OverDraftDeposit;
 use App\Models\OverDraftPropertyLand;
+use App\Models\OverDraftStockBond;
 use App\Models\OverDraftTrustFund;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-class TrustFund extends Component
+class StockBond extends Component
 {
     
     use WithFileUploads;
@@ -19,15 +20,13 @@ class TrustFund extends Component
     public $apply_loan;
    ///sold///
     public $total_indicative_value;
-    public $fund_name;
+    public $name;
     public $currency;
     public $company_purchased;
-    public $deposit_ac_number;
-    public $indicative_nav;
-    public $fd_sd_date;
+    public $indicative_bid_price;
     public $tab;
     // list
-    public $trustFunds;
+    public $stockBonds;
     //
     protected $listeners = [
         'getCurrency'
@@ -40,9 +39,9 @@ class TrustFund extends Component
 
     public function render()
     {
-        $this->getTrustFund();
+        $this->getStockBond();
         $this->getFinancePartner();
-        return view('livewire.cms.loan.business.loan-type.over-draft.trust-fund');
+        return view('livewire.cms.loan.business.loan-type.over-draft.stock-bond');
     }
     public function getFinancePartner()
     {
@@ -55,28 +54,25 @@ class TrustFund extends Component
        $this->validate([
            'currency' => 'required',
            'total_indicative_value' => 'required',
-           'indicative_nav' => 'required',
-           'deposit_ac_number' => 'required',
-           'company_purchased' => 'required',
-           'fund_name' => 'required',
-           'fd_sd_date' => 'required',
+           'name' => 'required',
          
-           
+           'company_purchased' => 'required',
+           'indicative_bid_price' => 'required',  
        ]);
        
-       OverDraftTrustFund::forceCreate([
+       OverDraftStockBond::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'total_indicative_value' => $this->total_indicative_value,
            'currency' => $this->currency,
-           'indicative_nav' => $this->indicative_nav,
-           'deposit_ac_number' => $this->deposit_ac_number,
+           'indicative_bid_price' => $this->indicative_bid_price,
+           
            'company_purchased' => $this->company_purchased,
-           'fund_name' => $this->fund_name,
-           'fd_sd_date' => $this->fd_sd_date,
+           'name' => $this->name,
+           'type' => $this->tab,
           
        ]);
       
-       $this->getTrustFund();
+       $this->getStockBond();
        $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
        $this->resetInput();
     }
@@ -84,11 +80,11 @@ class TrustFund extends Component
     {
         $this->currency = '';
         $this->total_indicative_value = '';
-        $this->deposit_ac_number = '';
-        $this->indicative_nav = '';
+       
+        $this->indicative_bid_price = '';
         $this->fd_sd_date = '';
         $this->company_purchased = '';
-        $this->fund_name = '';
+        $this->name = '';
     }
 
     public function changeAreaType()
@@ -101,15 +97,16 @@ class TrustFund extends Component
     }
     
 
-    public function getTrustFund()
+    public function getStockBond()
     {
-        $this->trustFunds = OverDraftTrustFund::where('apply_loan_id', $this->apply_loan->id)
+        $this->stockBonds = OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)
+        ->where('type', $this->tab)
         ->get();
     }
-    public function deleteRecord(OverDraftTrustFund $trustFund)
+    public function deleteRecord(OverDraftStockBond $stockBond)
     {
        
-        $trustFund->delete();
-        $this->getTrustFund();
+        $stockBond->delete();
+        $this->getStockBond();
     }
 }

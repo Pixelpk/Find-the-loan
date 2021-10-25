@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOverDraftTrustFundsTable extends Migration
+class CreateOverDraftStockBondsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateOverDraftTrustFundsTable extends Migration
      */
     public function up()
     {
-        Schema::create('over_draft_trust_funds', function (Blueprint $table) {
+        Schema::create('over_draft_stock_bonds', function (Blueprint $table) {
             $table->id();
             $table->integer('apply_loan_id');
             $table->string('currency');
+            $table->integer('type')->nullable();
             $table->integer('company_purchased')->nullable();
             $table->string('total_indicative_value');
-            $table->string('indicative_nav');
-           
-            $table->string('deposit_ac_number')->nullable();
-            $table->string('fund_name')->nullable();
-            $table->string('fd_sd_date')->nullable();
+            $table->string('indicative_bid_price');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateOverDraftTrustFundsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('over_draft_trust_funds');
+        Schema::dropIfExists('over_draft_stock_bonds');
     }
 }
