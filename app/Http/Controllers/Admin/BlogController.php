@@ -14,7 +14,8 @@ class BlogController extends Controller
         $data['items'] = Blog::query()
             ->orderBy('id','desc')
             ->where('status','!=',2)
-            ->paginate(50);
+            ->paginate(50); 
+            //---
         return view('admin.blogs.blogs',$data);
     }
 
