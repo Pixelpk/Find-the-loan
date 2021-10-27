@@ -9,7 +9,7 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="cookie-img text-center">
-              <img src="/assets/cms/img/Home/cookie.png" alt="cookie img">
+              <img src="{{ asset ('assets/cms/img/Home/cookie.png')}}" alt="cookie img">
           </div>
           <div class="cookie-content text-center my-2">
               <p class="lea">
@@ -19,7 +19,7 @@
               </p>
           </div>
           <div class="cookie-buttons text-center">
-            <button type="button" class="btn">Yes to cookies!</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
             <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
           </div>
         </div>

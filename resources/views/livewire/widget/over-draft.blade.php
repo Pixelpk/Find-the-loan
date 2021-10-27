@@ -223,6 +223,32 @@
            >
         </div>
     </div>
+    @elseif($tab == 3)
+    <div class="row">
+        <div class="col-md-12">
+           <livewire:cms.loan.business.loan-type.over-draft.stock-bond 
+           :loan_type_id="$loan_type_id"
+           :main_type="$main_type"
+           :apply_loan="$apply_loan"
+           :amount="$amount"
+           :loan_type_id="$loan_type_id"
+           :tab="$tab"
+           >
+        </div>
+    </div>
+    @elseif($tab == 4)
+    <div class="row">
+        <div class="col-md-12">
+           <livewire:cms.loan.business.loan-type.over-draft.stock-bond 
+           :loan_type_id="$loan_type_id"
+           :main_type="$main_type"
+           :apply_loan="$apply_loan"
+           :amount="$amount"
+           :loan_type_id="$loan_type_id"
+           :tab="$tab"
+           >
+        </div>
+    </div>
     @endif
     
     @endif

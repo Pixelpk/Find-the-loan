@@ -35,20 +35,20 @@ class Renovation extends Component
     {
         if($this->apply_loan){
             
-            $this->tanancy_agreement = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'tanancy_agreement')->first();
-            $this->user_owned = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'user_owned')->first();
-            $this->renovation_quotation = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'renovation_quotation')->first();
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first();
-            $this->address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'address')->first();
-            $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first();
-            $this->building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'building_name')->first();
-            $this->user_owned = $this->user_owned->value;
-            $this->renovation_quotation = $this->renovation_quotation->value;
-            $this->amount = $this->amount->value;
-            $this->address = $this->address->value;
-            $this->unit = $this->unit->value;
-            $this->building_name = $this->building_name->value;
-            $this->tanancy_agreement = $this->tanancy_agreement->value;
+            $this->tanancy_agreement = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'tanancy_agreement')->first()->value ?? '';
+            $this->user_owned = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'user_owned')->first()->value ?? '';
+            $this->renovation_quotation = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'renovation_quotation')->first()->value ?? '';
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
+            $this->address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'address')->first()->value ?? '';
+            $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first()->value ?? '';
+            $this->building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'building_name')->first()->value ?? '';
+            // $this->user_owned = $this->user_owned->value;
+            // $this->renovation_quotation = $this->renovation_quotation->value;
+            // $this->amount = $this->amount->value;
+            // $this->address = $this->address->value;
+            // $this->unit = $this->unit->value;
+            // $this->building_name = $this->building_name->value;
+            // $this->tanancy_agreement = $this->tanancy_agreement->value;
                     
         }
     }

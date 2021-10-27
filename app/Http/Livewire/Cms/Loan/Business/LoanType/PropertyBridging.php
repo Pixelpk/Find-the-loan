@@ -25,6 +25,7 @@ class PropertyBridging extends Component
     public $sold_fllor_area;
     public $sold_useable_area;
     public $sold_square_feet;
+    public $sold_free_hold;
     public $sold_square_meter;
     /// new
     public $new_lot_number;
@@ -32,15 +33,21 @@ class PropertyBridging extends Component
     public $new_unit;
     public $new_building_name;
     public $new_lease_remaining_year;
+    public $new_free_hold;
     public $new_useable_area;
     public $new_square_feet;
     public $new_square_meter;
     public $completed;
     public $construction_year;
     public $construction_year_time;
+    public $letter_of_loan_new_agreement;
+    public $new_sale_purchase_agreement;
+    // public $preferred_tenure_year;
+    // public $preferred_tenure_month;
+    public $as_long_as_possiable;
+    public $new_floor_area;
     public $preferred_tenure_year;
     public $preferred_tenure_month;
-    public $as_long_as_possiable;
     //
     public $amount;
     public $apply_loan;
@@ -56,50 +63,34 @@ class PropertyBridging extends Component
     public function mount()
     {
         if($this->apply_loan){
-         
-            $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first();
-            $this->free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'free_hold')->first();
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first();
-            $this->lot_number = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lot_number')->first();
-            $this->address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'address')->first();
-            $this->building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'building_name')->first();
-            $this->lease_remaining_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'lease_remaining_year')->first();
-            $this->fllor_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fllor_area')->first();
-            $this->useable_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'useable_area')->first();
-            $this->square_feet = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_feet')->first();
-            $this->square_meter = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'square_meter')->first();
-            $this->preferred_tenure_month = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_month')->first();
-            $this->preferred_tenure_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_year')->first();
-            $this->as_long_as_possiable = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'as_long_as_possiable')->first();
-            $this->completed = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'completed')->first();
-            $this->construction_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year')->first();
-            $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first();
-            $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first();
-            $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first();
-            ///
-            $this->unit = $this->unit->value;
-            $this->amount = $this->amount->value;
-            $this->free_hold = $this->free_hold->value;
-            $this->address = $this->address->value;
-            $this->lot_number = $this->lot_number->value;
-            $this->building_name = $this->building_name->value;
-            $this->lease_remaining_year = $this->lease_remaining_year->value;
-            $this->fllor_area = $this->fllor_area->value;
-            $this->useable_area = $this->useable_area->value;
-            $this->square_feet = $this->square_feet->value;
-            $this->square_meter = $this->square_meter->value;
-            $this->preferred_tenure_month = $this->preferred_tenure_month->value;
-            $this->preferred_tenure_year = $this->preferred_tenure_year->value;
-            $this->completed = $this->completed->value;
-            $this->construction_year = $this->construction_year->value;
-            $this->construction_year_time = $this->construction_year_time->value;
-            $this->float_rate = $this->float_rate->value;
-            $this->fix_rate = $this->fix_rate->value;
-            
-            if(isset($this->as_long_as_possiable->value)){
-                $this->as_long_as_possiable = $this->as_long_as_possiable->value;
-            }  
-                    
+            // sold property information 
+            $this->sold_lot_number = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_lot_number')->first()->value ?? '';
+            $this->sold_address =  LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_address')->first()->value ?? '';
+            $this->sold_unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_unit')->first()->value ?? '';
+            $this->sold_building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_building_name')->first()->value ?? '';
+            $this->sold_lease_remaining_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_lease_remaining_year')->first()->value ?? '';
+            $this->sold_free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_free_hold')->first()->value ?? '';
+            $this->sold_fllor_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_fllor_area')->first()->value ?? '';
+            $this->sold_useable_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_useable_area')->first()->value ?? '';
+            $this->sold_square_feet = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'sold_square_feet')->first()->value ?? '';      
+            $this->new_lot_number = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_lot_number')->first()->value ?? '';      
+            $this->new_address = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_address')->first()->value ?? '';      
+            $this->new_unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_unit')->first()->value ?? '';      
+            $this->new_building_name = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_building_name')->first()->value ?? '';      
+            $this->new_lease_remaining_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_lease_remaining_year')->first()->value ?? '';      
+            $this->new_free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_free_hold')->first()->value ?? '';      
+            $this->new_square_feet = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_square_feet')->first()->value ?? '';      
+            $this->new_square_meter = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_square_meter')->first()->value ?? '';      
+            $this->completed = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'completed')->first()->value ?? '';      
+            $this->construction_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year')->first()->value ?? '';      
+            $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first()->value ?? '';      
+            $this->preferred_tenure_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_year')->first()->value ?? '';      
+            $this->preferred_tenure_month = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_month')->first()->value ?? '';      
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';      
+            $this->new_floor_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_floor_area')->first()->value ?? '';      
+            $this->new_useable_area = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'new_useable_area')->first()->value ?? '';      
+            $this->as_long_as_possiable = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'as_long_as_possiable')->first()->value ?? '';      
+                 
         }
     }
     public function render()
@@ -109,6 +100,7 @@ class PropertyBridging extends Component
 
     public function store()
     {
+       
        $this->validate([
            'amount' => 'required|integer|min:1',
            'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
@@ -118,29 +110,47 @@ class PropertyBridging extends Component
            'sold_address' => $this->sold_lot_number ?  '' : 'required',
            'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
            'sold_free_hold' => $this->sold_lease_remaining_year ? '' : 'required',
-           'sold_useable_area' => 'required|integer'
+           'sold_useable_area' => 'required|integer',
+           'sold_square_meter' => $this->sold_square_feet ? '' : 'required',
+           'sold_square_feet' => $this->sold_square_meter ? '' : 'required',
        ]);
        $data = [
-             ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
-          
-             ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'], 
-             ['type' => 'text', 'value' => $this->address, 'key' => 'address'], 
-             ['type' => 'text', 'value' => $this->unit, 'key' => 'unit'], 
-             ['type' => 'text', 'value' => $this->building_name, 'key' => 'building_name'], 
-             ['type' => 'number', 'value' => $this->lease_remaining_year, 'key' => 'lease_remaining_year'], 
-             ['type' => 'checkbox', 'value' => $this->free_hold, 'key' => 'free_hold'], 
-             ['type' => 'text', 'value' => $this->fllor_area, 'key' => 'fllor_area'], 
-             ['type' => 'text', 'value' => $this->useable_area, 'key' => 'useable_area'], 
-             ['type' => 'checkbox', 'value' => $this->square_feet, 'key' => 'square_feet'], 
-             ['type' => 'checkbox', 'value' => $this->square_meter, 'key' => 'square_meter'], 
+
+             ['type' => 'file', 'value' => $this->sold_agreement, 'key' => 'sold_agreement'],           
+             ['type' => 'file', 'value' => $this->sold_tmonth_statement, 'key' => 'sold_tmonth_statement'],           
+             ['type' => 'file', 'value' => $this->sold_statement, 'key' => 'sold_statement'],   
+             ['type' => 'number', 'value' => $this->sold_lot_number, 'key' => 'sold_lot_number'],         
+             ['type' => 'text', 'value' => $this->sold_address, 'key' => 'sold_address'],         
+             ['type' => 'text', 'value' => $this->sold_unit, 'key' => 'sold_unit'],         
+             ['type' => 'text', 'value' => $this->sold_building_name, 'key' => 'sold_building_name'],         
+             ['type' => 'text', 'value' => $this->sold_lease_remaining_year, 'key' => 'sold_lease_remaining_year'],         
+             ['type' => 'text', 'value' => $this->sold_free_hold, 'key' => 'sold_free_hold'],         
+             ['type' => 'text', 'value' => $this->sold_fllor_area, 'key' => 'sold_fllor_area'],         
+             ['type' => 'text', 'value' => $this->sold_square_feet, 'key' => 'sold_square_feet'],         
+             ['type' => 'text', 'value' => $this->sold_square_meter, 'key' => 'sold_square_meter'],         
+             ['type' => 'text', 'value' => $this->sold_useable_area, 'key' => 'sold_useable_area'],  
+            //  new property information        
+             ['type' => 'file', 'value' => $this->letter_of_loan_new_agreement, 'key' => 'letter_of_loan_new_agreement'],           
+             ['type' => 'file', 'value' => $this->new_sale_purchase_agreement, 'key' => 'new_sale_purchase_agreement'],           
+             ['type' => 'number', 'value' => $this->new_lot_number, 'key' => 'new_lot_number'], 
+             ['type' => 'text', 'value' => $this->new_address, 'key' => 'new_address'], 
+             ['type' => 'text', 'value' => $this->new_unit, 'key' => 'new_unit'], 
+             ['type' => 'text', 'value' => $this->new_building_name, 'key' => 'new_building_name'], 
+             ['type' => 'number', 'value' => $this->new_lease_remaining_year, 'key' => 'new_lease_remaining_year'], 
+             ['type' => 'checkbox', 'value' => $this->new_free_hold, 'key' => 'new_free_hold'], 
+             ['type' => 'text', 'value' => $this->new_floor_area, 'key' => 'new_floor_area'], 
+             ['type' => 'text', 'value' => $this->new_useable_area, 'key' => 'new_useable_area'], 
+             ['type' => 'checkbox', 'value' => $this->new_square_feet, 'key' => 'new_square_feet'], 
+             ['type' => 'checkbox', 'value' => $this->new_square_meter, 'key' => 'new_square_meter'], 
+             ['type' => 'checkbox', 'value' => $this->completed, 'key' => 'completed'], 
+             ['type' => 'option', 'value' => $this->construction_year, 'key' => 'construction_year'], 
+             ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'],
              ['type' => 'number', 'value' => $this->preferred_tenure_year, 'key' => 'preferred_tenure_year'], 
              ['type' => 'number', 'value' => $this->preferred_tenure_month, 'key' => 'preferred_tenure_month'], 
              ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
-             ['type' => 'checkbox', 'value' => $this->completed, 'key' => 'completed'], 
-             ['type' => 'option', 'value' => $this->construction_year, 'key' => 'construction_year'], 
-             ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'], 
-             ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'], 
-             ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'], 
+             
+            //  ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'], 
+            //  ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'], 
        ];
       
        if($this->apply_loan){

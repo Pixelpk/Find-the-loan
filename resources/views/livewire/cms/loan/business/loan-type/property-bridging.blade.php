@@ -345,12 +345,12 @@
             </div>
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
-            <label for="new_fllor_area" class="form-label">
+            <label for="new_floor_area" class="form-label">
                 Land/Floor Area
                 if applicable
             </label>
-            <input wire:model="new_fllor_area" type="text" class="form-control" id="new_fllor_area">
-            @error("new_fllor_area")
+            <input wire:model="new_floor_area" type="text" class="form-control" id="new_floor_area">
+            @error("new_floor_area")
             <div style="color: red;">
                 {{ $message }}
             </div>

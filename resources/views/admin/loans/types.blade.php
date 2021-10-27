@@ -14,11 +14,11 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
                                 <button onclick="resetFormFields()" type="button" id="add_loan_type_btn" data-toggle="modal" data-target="#LoanTypeModal" data-dismiss="modal" aria-label="Close" class="btn admin-btn"><i class="fa fa-plus-circle"></i></button>
                             </div>
-                        </div>
+                        </div>  -->
                     </div>
                 </div>
                 <!-- end page-title -->
@@ -47,13 +47,13 @@
                                                     <td>{{$item->sub_type}}</td>
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a class="icons-td" href="{{ route('loan-subtypes',['id'=>$item->id]) }}" data-original-title="Sub types">
+                                                        <!-- <a class="icons-td" href="{{ route('loan-subtypes',['id'=>$item->id]) }}" data-original-title="Sub types">
                                                             <i class="m-2 fa fa-eye" aria-hidden="true"></i>
-                                                        </a>
+                                                        </a> -->
                                                         <a href="#" onclick="getLoanTypeDetail({{$item->id}}); getLoanMainType({{ $item->profile }},{{ $item->id }})" class=" edit_loan_type_btn icons-td" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
-                                                        @if($item->status == 0)
+                                                        <!-- @if($item->status == 0)
                                                             <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this loanType?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Activate">
                                                                 <i class="m-2 fa fa-thumbs-up"></i>
                                                             </a>
@@ -61,10 +61,10 @@
                                                             <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this loanType?" class="  change_status icons-td" data-toggle="tooltip" data-original-title="Deactivate">
                                                                 <i class="m-2 fa fa-thumbs-down"></i>
                                                             </a>
-                                                        @endif
-                                                        <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this loanType?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Delete">
+                                                        @endif -->
+                                                        <!-- <a href="{{ route('loan-type-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this loanType?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Delete">
                                                             <i class="m-2 fa fa-trash"></i>
-                                                        </a>
+                                                        </a> -->
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -28,15 +28,20 @@ class ProjectFinance extends Component
     {
         if($this->apply_loan){
 
-            $document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first();
-            $media = Media::whereIn('id', json_decode($document->value))->get()->toArray();
-         
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first();
-            $this->tenure = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'tenure')->first();
-            $this->images = $media;
+            // $document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first();
+            // if( $document)
+            // {
+            //     $media = Media::whereIn('id', json_decode($document->value))->get()->toArray();
+            //     if(isset($media)){
+            //         $this->images = $media;
+            //     }
+            // }
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
+            $this->tenure = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'tenure')->first()->value ?? '';
+           
             // dd($this->images);
-            $this->amount = $this->amount->value;
-            $this->tenure = $this->tenure->value;
+            // $this->amount = $this->amount->value;
+            // $this->tenure = $this->tenure->value;
 
         }
     }
@@ -87,7 +92,7 @@ class ProjectFinance extends Component
             'type' => 'file',
             'apply_loan_id' => $this->apply_loan->id,
             'key' => 'document',
-            'value' => json_encode($mediaIds),
+            'value' => isset($mediaIds) ? json_encode($mediaIds) : '',
         ]);
        foreach($data as $key => $item)
        {
