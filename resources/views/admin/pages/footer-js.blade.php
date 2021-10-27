@@ -211,7 +211,7 @@
                 type: type,
                 showCancelButton: true,
                 cancelButtonText: "No",
-                confirmButtonColor: '#feb800',
+                confirmButtonColor: 'rgb(221, 51, 51)',
                 cancelButtonColor: '#d33',
                 confirmButtonText: "Yes"
             }).then((result) => {

@@ -30,10 +30,10 @@
                                 <div class="col-lg-12">
                                     <h5>Requested Terms & Conditions</h5>
                                     <div>
-                                        <a href="{{ route('approve-request-by-bank',['status'=>'1']) }}" msg="Are you sure to forward this request to super admin?" class=" change_status" data-toggle="tooltip" data-original-title="Approve">
+                                        <a href="{{ route('approve-request-by-bank',['status'=>'1']) }}" msg="Are you sure to forward this request to super admin?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Approve">
                                             <i class="m-2 fa fa-thumbs-up">Approve & Forward</i>
                                         </a>
-                                        <a href="{{ route('approve-request-by-bank',['status'=>'0']) }}" msg="Are you sure to reject this request?" class="  change_status" data-toggle="tooltip" data-original-title="Reject">
+                                        <a href="{{ route('approve-request-by-bank',['status'=>'0']) }}" msg="Are you sure to reject this request?" class="  change_status icons-td" data-toggle="tooltip" data-original-title="Reject">
                                             <i class="m-2 fa fa-thumbs-down">Reject</i>
                                         </a>
                                     </div>
@@ -53,7 +53,7 @@
 
                                     <div class="form-group mb-0">
                                         <div>
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                            <button type="submit" class="btn admin-btn waves-effect waves-light">
                                                 Request Update
                                             </button>
                                         </div>

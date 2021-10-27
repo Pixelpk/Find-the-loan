@@ -47,6 +47,7 @@ TABLES OF CSS
 /* ==============
   General
 ===================*/
+@import url('./admin.css');
 body {
   background-repeat: repeat;
   background: #e8ebee;

@@ -973,21 +973,24 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end, body.swal2-no-backdrop .sw
 .swal2-styled.swal2-confirm {
     border: 0;
     border-radius: .25em;
-    background: #fff !important;
+    /* background: #fff !important; */
     font-size: 1em;
-    border: 2px solid #feb800 !important;
-    color: #000000;
+    /* border: 2px solid #feb800 !important; */
+    color: #fff !important;
 }
 
 .swal2-styled.swal2-cancel {
     border: 0;
     border-radius: .25em;
-    background: initial;
-    background-color: #aaa;
-    color: #fff;
+    background: transparent !important;
+    border: 1px solid  #27B34D !important;
+    color: #27B34D !important;
     font-size: 1em;
 }
-
+.swal2-styled.swal2-cancel:hover {
+    background-color: #27B34D !important;
+    color: #fff !important;
+}
 .swal2-styled:focus {
     outline: 0;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(50, 100, 150, .4);
