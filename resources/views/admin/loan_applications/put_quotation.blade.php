@@ -71,14 +71,6 @@
                     </div>
                     
                     <div class="form-row">
-                        {{-- <div class="form-group col-md-4">
-                            <label for="input1" class="col-form-label">Invoice based on</label>
-                            <select required name="invoice_based_on" id="invoice_based_on" class="form-control">
-                                <option value="1">Notified</option>
-                                <option value="2">Non notified</option>
-                                <option value="3">Joint account required</option>
-                            </select>                        
-                        </div> --}}
                         <div class="form-group col-md-4">
                             <label for="input1" class="col-form-label">Days needed to set up joint account</label>
                             <input type="number" min="0" disabled  id="joint_account_days" name="joint_account_days" required class="form-control">
@@ -112,29 +104,27 @@
                             <label for="input1" class="col-form-label">Quantum($)</label>
                             <input type="number" min="0"  name="quantum" required class="form-control">
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="input1" class="col-form-label">Interest (flat) % P.a</label>
-                            <input type="number" min="0"  required name="interest_flat_pa" class="form-control interest_flat" id="interest_flat_pa">
-                        </div>
-                        <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
-                            <h6 class="">or</h6>
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="input2" class="col-form-label">Interest (flat)  % P.m</label>
-                            <input type="number" min="0"  required name="interest_flat_pm" class="form-control interest_flat" id="interest_flat_pm">
+                        <div class="form-group col-md-6">
+                            <label for="input1" class="col-form-label">Fixed or floating</label>
+                            <select required id="fixed_or_floating" name="fixed_or_floating" class="form-control">
+                                <option value="1">Fixed</option>
+                                <option value="2">Floating</option>
+                            </select>
                         </div>
                     </div>
+                    <div id="fixed_floating_div">
+
+                    </div>
+                    
                     <!-- /1ST ROW -->
                     <!-- SEPRATER -->
-                    <div class="row my-2">
+                    {{-- <div class="row my-2">
                         <h5 class="m-0 mx-auto">OR</h5>
-                    </div>
+                    </div> --}}
                     <!-- /SEPRATER -->
 
                     <!-- 2ND ROW -->
-                    <div class="form-row">
+                    {{-- <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="input3" class="col-form-label">Interest (Reducing Balance) % P.a</label>
                             <input type="number" min="0"  required name="interest_reducing_pa" class="form-control interest_reducing_balance" id="interest_reducing_pa">
@@ -146,7 +136,7 @@
                             <label for="input4" class="col-form-label">Interest (Reducing Balance) % P.m</label>
                             <input type="number" min="0"  required name="interest_reducing_pm" class="form-control interest_reducing_balance" id="interest_reducing_pm">
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="input3" class="col-form-label">Interest (Reducing Balance)</label>
@@ -158,7 +148,7 @@
                         </div>
                     </div> --}}
                     <!-- /2ND ROW -->
-
+{{-- 
                     <!-- SEPRATER -->
                     <div class="row my-2">
                         <h5 class="m-0 mx-auto">OR</h5>
@@ -201,33 +191,9 @@
                             <label for="input8" class="col-form-label">Flat free regardless of tenure %</label>
                             <input type="number" min="0"  required name="flat_fee_percent" class="form-control flat_fee_regardless" id="flat_fee_percent">
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- /4TH ROW -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="input7" class="col-form-label">Tenure(optional for overdraft)</label>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="number" min="0"  class="form-control" required name="tenure_years" placeholder="Years" id="input7">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" min="0"  class="form-control" required name="tenure_months" placeholder="Months" id="input7">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="input7" class="col-form-label">Lock-in if any( please state final length free of any form of penalty)
-                            </label>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <input type="number" min="0"  required class="form-control" name="lock_in_years" placeholder="Years" id="input7">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="number" min="0"  required class="form-control" name="lock_in_months" placeholder="Months" id="input7">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                     @endif
                     
                 <hr style=" background: grey;">

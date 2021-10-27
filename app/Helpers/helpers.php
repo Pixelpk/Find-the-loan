@@ -9,6 +9,26 @@ function getStatus($status): string
     return $all[$status] ?? '';
 }
 
+function allReferenceRates(){
+    return $all = [
+        'SORA',
+        'SIBOR',
+        'SOFR',
+        'LIBOR',
+        'CORRA',
+        'TONA',
+        'SARON',
+        'HIDB',
+        'SOR',
+        'BOARD',
+        'AONIA',
+        'THOR',
+        'HONIA',
+        'SONIA',
+    ];
+    
+}
+
 function getAdditionDocInfoType($type): string
 {
     $all = ['', 'Company related', 'ACRA related','Project.Invoice/PO financing related','DCP and Secured overdraft related','Machinery/equipment/vehicle related','Individual related','Property related','Equipment/Vehicle related'];

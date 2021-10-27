@@ -175,6 +175,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
         Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation'); 
+        Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating'); 
 
     }); 
 
@@ -216,7 +217,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
     Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
     Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
-    Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
+    // Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
 
     Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
     Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');

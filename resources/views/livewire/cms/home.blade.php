@@ -19,7 +19,7 @@
               </p>
           </div>
           <div class="cookie-buttons text-center">
-            <button type="button" class="btn">Yes to cookies!</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
             <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
           </div>
         </div>

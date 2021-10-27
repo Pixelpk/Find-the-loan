@@ -6,14 +6,14 @@
 <script src="{{ asset('assets/js/waves.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
-{{--<script src="{{ asset('assets/pages/dashboard.init.js') }}"></script>--}}
+{{-- <script src="{{ asset('assets/pages/dashboard.init.js') }}"></script> --}}
 <script src="{{ asset('assets/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-notify.js') }}"></script>
 <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('assets/ckeditor/adapters/jquery.js') }}"></script>
 
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-{{--<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>--}}
+<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
@@ -61,8 +61,21 @@
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
     $(document).ready(function() {
+        
         $( '.ckeditor.editor' ).ckeditor();
+        fixedOrFloating(1);
 
+        $('#loan_application_table .loan_application_row').click(function () {
+            let href = $(this).attr("url");
+            console.log(href)
+            if(href) window.location = href;
+        });
+
+        $('#loan_application_table input:checkbox').click(function (e) {
+            // button's stuff
+            e.stopImmediatePropagation();
+        });
+        
         $('#loan_application_table').DataTable({
             paging: false,
             searching: false,
@@ -71,7 +84,7 @@
             columnDefs: [
                 {
                     "orderable": false,
-                    "targets": [0,1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+                    "targets": [0,1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18],
                 },
             ]
         });
@@ -85,6 +98,13 @@
         //         $('#shown_to_customer option').eq(index).prop('selected', true);
         //     }
         // });
+
+        $('#fixed_or_floating').change(function (event) {
+            let fixed_or_floating = $(this).val();
+            console.log(fixed_or_floating)
+            fixedOrFloating(fixed_or_floating);
+        });
+
         $('#shown_to_customer').change(function (){
             // if (reason_auto_select_count == 0){
             //     reason_auto_select_count ++;
@@ -131,14 +151,15 @@
             });
         });
 
-        // $('.selected_application').click(function(event){
-        //     event.stopPropagation();
-        //     console.log($(this).attr('redirect'))
-        //     window.location = $(this).attr('redirect');
+        // $('.selected_application').click(function(e){
+        //     e.preventDefault();
+        //     e.stopPropagation();
+        //     return false;
         // });
+        
 
         $("#bulk_assign").click(function (event) {
-            event.preventDefault();
+            // event.preventDefault();
             event.stopPropagation();
             var user_id = $('#assign_user_id').val();
             var SelectedList = [];
@@ -291,6 +312,53 @@
         //         return false;
         //     });
         // });
+        $(document).on("click", '#months_add_row', function(event) { 
+            event.preventDefault();
+            
+            var append_html = '<div class="row " >'+
+            '    <div class="form-group col-md-2">'+
+            '        <label class="col-form-label">'+
+            '            From month'+
+            '        </label>'+
+            '        <input type="number" min="1" name="" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-2">'+
+            '        <label class="col-form-label">'+
+            '            To month'+
+            '        </label>'+
+            '        <input type="number" min="1" name="" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-1">'+
+            '        <label class="col-form-label">'+
+            '            %p.a'+
+            '        </label>'+
+            '        <input type="number" min="1" name="" class="form-control" >'+
+            '    </div>'+
+            '    <span class="mt-5">OR</span>'+
+            '    <div class="form-group col-md-3">'+
+            '        <label class="col-form-label">'+
+            '            yyy xxx + (spread) %'+
+            '        </label>'+
+            '        <input type="number" min="1" placeholder="Spread (%)" name="" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-2">'+
+            '        <label class="col-form-label">'+
+            '            = %p.a'+
+            '        </label>'+
+            '        <input type="number" min="1" readonly name="" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-1">'+
+            '        <label class="col-form-label">'+
+            '            '+
+            '        </label>'+
+            '   <a href="javascript:void(0)"  data-original-title="Delete"><i class="mt-5 remove_month_vise_pa_or_spread fa fa-trash"></i></a>'
+            '    </div>'+
+            '</div>';
+	
+
+            console.log('afdfadsf')
+            $('.month_vise_pa_or_spread').append(append_html);   
+        });
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
@@ -360,6 +428,10 @@
             }
             console.log('after remove'+remove_more_doc_message_array);
         });
+
+        $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
+            $(this).closest('div .row').remove();
+        });
         // $('#quote_additional_doc_idz').change(function(e){
         //     e.preventDefault();
         //     $('#point_to_any_specific_doc').html();
@@ -423,6 +495,21 @@
         console.log(loan_apply_id)
         $("#reject_loan_id").val(loan_apply_id)
         $('#RejectReasonModel').modal('show');
+    }
+
+    function fixedOrFloating(fixed_or_floating){
+        $.ajax({
+                method: 'POST',
+                url: "{{route('fixed-or-floating')}}",
+                data: {
+                    '_token': '{{ csrf_token()}}',
+                    'fixed_or_floating': fixed_or_floating,
+                }
+            }).done(function (data) {
+                // console.log(data)
+                $('#fixed_floating_div').html('');
+                $('#fixed_floating_div').html(data);
+            });
     }
 
     function showImage(input) {
