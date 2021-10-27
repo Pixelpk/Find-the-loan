@@ -72,7 +72,10 @@
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add @if($stockBonds->count() > 0)Another @endif Deposit</button>
+            <button class="btn" wire:click="store">
+                @if($tab==4)Add @if($stockBonds->count() > 0)Another @endif Bond @endif
+                @if($tab==3)Add @if($stockBonds->count() > 0)Another @endif Stock @endif
+            </button>
             <button class="btn" wire:click="store">Submit</button>
         </div>
     </div>
