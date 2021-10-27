@@ -16,7 +16,7 @@
 
                         <div class="col-md-4">
                             <div class="float-right d-none d-md-block">
-                                <button onclick="resetFormFields()" type="button" id="add_testimonial_btn" data-toggle="modal" data-target="#TestimonialModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
+                                <button onclick="resetFormFields()" type="button" id="add_testimonial_btn" data-toggle="modal" data-target="#TestimonialModal" data-dismiss="modal" aria-label="Close" class="btn admin-btn "><i class="fa fa-plus-circle"></i></button>
                             </div>
                         </div>
                     </div>
@@ -52,23 +52,23 @@
                                                         @endif
                                                     </td>
                                                     <td>{{$item->review_by}}</td>
-                                                    <td>{!! $item->review !!}</td>
+                                                    <td style="width:50%">{!! $item->review !!}</td>
                                                     {{--                                                    <td>{!! $item->description !!}</td>--}}
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
-                                                        <a href="#" onclick="getTestimonialDetail({{$item->id}})" class="edit_testimonial_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="#" onclick="getTestimonialDetail({{$item->id}})" class="edit_testimonial_btn icons-td" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($item->status == 0)
-                                                            <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this testimonial?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
+                                                            <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to activate this testimonial?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Activate">
                                                                 <i class="m-2 fa fa-thumbs-up"></i>
                                                             </a>
                                                         @elseif($item->status == 1)
-                                                            <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this testimonial?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
+                                                            <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to deactivate this testimonial?" class="icons-td  change_status" data-toggle="tooltip" data-original-title="Deactivate">
                                                                 <i class="m-2 fa fa-thumbs-down"></i>
                                                             </a>
                                                         @endif
-                                                        <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this testimonial?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
+                                                        <a href="{{ route('change-testimonial-status',['id'=>$item->id,'status'=>'2']) }}" msg="Are you sure to delete this testimonial?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Delete">
                                                             <i class="m-2 fa fa-trash"></i>
                                                         </a>
                                                     </td>

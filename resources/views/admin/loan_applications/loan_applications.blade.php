@@ -24,7 +24,7 @@
                                 <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-filter"></i>
                                 </button>
-                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style="background-color: #27b34d;margin-top: 10px !important;width: 30%;">
+                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style=";margin-top: 10px !important;width: 30%;">
                                     <input type="hidden" id="application_profile_tab" name="profile" value="{{$profile}}">
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10"> From:</label>
@@ -88,8 +88,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-rep-plugin">
-                                    <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        <table id="loan_application_table" class="table table-hover table-striped">
+                                    <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
+                                        <table id="loan_application_table" class="table table-hover table-striped text-center  w-100">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>

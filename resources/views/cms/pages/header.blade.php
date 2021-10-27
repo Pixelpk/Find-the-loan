@@ -61,6 +61,7 @@
         <!--end navbar-toggler-->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav mob-nav">
+                <li><a href="{{ route('home') }}" class="nav-link">Home</a></li>
                 <li><a href="{{ route('about-us') }}" class="nav-link">About</a></li>
                 <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
