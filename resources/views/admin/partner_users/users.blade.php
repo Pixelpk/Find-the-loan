@@ -46,7 +46,7 @@
                                                     <td>{{ $user->phone }}</td>
                                                     <td>{{ getStatus($user->status) }}</td>
                                                     <td class="actions">
-                                                        <a href="#" onclick="getPartnerUserDetail({{$user->id}})" class="edit_testimonial_btn" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a class="icons-td" href="#" onclick="getPartnerUserDetail({{$user->id}})" class="edit_testimonial_btn" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="m-2 fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                         @if($user->status == 0)

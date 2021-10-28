@@ -4,7 +4,7 @@
     <!-- LOGO -->
     <div class="topbar-left bg-white">
         <a href="{{ route('admin-dashboard') }}" class="logo">
-            <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" style="height: 3.4em">
+            <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" style="height: 3rem">
             <img src="{{ asset('assets/images/icon59.png') }}" class="logo-sm" alt="Find the loan" style="height: 2em">
         </a>
     </div>

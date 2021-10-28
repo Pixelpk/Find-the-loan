@@ -37,10 +37,10 @@
                                                     <td>{{$item->name}}</td>
                                                     <td>{!! $item->requested_terms_condition !!}</td>
                                                     <td>
-                                                        <a href="{{ route('approve-request',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to approve this request?" class=" change_status" data-toggle="tooltip" data-original-title="Approve">
+                                                        <a href="{{ route('approve-request',['id'=>$item->id,'status'=>'1']) }}" msg="Are you sure to approve this request?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Approve">
                                                             <i class="m-2 fa fa-thumbs-up"></i>
                                                         </a>
-                                                        <a href="{{ route('approve-request',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to reject this request?" class="  change_status" data-toggle="tooltip" data-original-title="Reject">
+                                                        <a href="{{ route('approve-request',['id'=>$item->id,'status'=>'0']) }}" msg="Are you sure to reject this request?" class="  change_status icons-td" data-toggle="tooltip" data-original-title="Reject">
                                                             <i class="m-2 fa fa-thumbs-down"></i>
                                                         </a>
                                                     </td>

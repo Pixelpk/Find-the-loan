@@ -51,15 +51,15 @@
 {{--                                                            <i class="m-2 fa fa-edit" aria-hidden="true"></i>--}}
 {{--                                                        </a>--}}
                                                         @if($user->status == 0)
-                                                            <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'1']) }}" msg="Are you sure to activate this user?" class=" change_status" data-toggle="tooltip" data-original-title="Activate">
+                                                            <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'1']) }}" msg="Are you sure to activate this user?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Activate">
                                                                 <i class="m-2 fa fa-thumbs-up"></i>
                                                             </a>
                                                         @elseif($user->status == 1)
-                                                            <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'0']) }}" msg="Are you sure to deactivate this user?" class="  change_status" data-toggle="tooltip" data-original-title="Deactivate">
+                                                            <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'0']) }}" msg="Are you sure to deactivate this user?" class="icons-td  change_status" data-toggle="tooltip" data-original-title="Deactivate">
                                                                 <i class="m-2 fa fa-thumbs-down"></i>
                                                             </a>
                                                         @endif
-                                                        <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'2']) }}" msg="Are you sure to delete this user?" class=" change_status" data-toggle="tooltip" data-original-title="Delete">
+                                                        <a href="{{ route('change-user-status',['user_id'=>$user->id,'status'=>'2']) }}" msg="Are you sure to delete this user?" class=" change_status icons-td" data-toggle="tooltip" data-original-title="Delete">
                                                             <i class="m-2 fa fa-trash"></i>
                                                         </a>
                                                     </td>

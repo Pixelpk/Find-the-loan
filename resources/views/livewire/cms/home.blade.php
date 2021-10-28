@@ -19,7 +19,7 @@
               </p>
           </div>
           <div class="cookie-buttons text-center">
-            <button type="button" class="btn">Yes to cookies!</button>
+            <button type="button" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
             <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
           </div>
         </div>
@@ -257,9 +257,15 @@
                    </div>
                    <div class="finance__cards same-carousel owl-carousel">
                     @foreach($partners as $partner)
-                       <div class="finance__img shadow">
-                            <img src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
-                       </div>
+                       
+                       <div class="finance__card">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <img class="img-fluid" src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
+                                
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                    </div>
                </div>

@@ -14,6 +14,11 @@ use function GuzzleHttp\Promise\all;
 
 class LoanQuotationController extends Controller
 {
+    public function fixedOrFloating(Request $request)
+    {
+        $data['fixed_or_floating'] = $request->fixed_or_floating;
+        return view('admin.loan_applications.fixed_or_floating',$data);
+    }
     
     public function putQuotation(Request $request){
         $data['apply_loan_id'] = $request->apply_loan_id ?? '';
@@ -51,7 +56,8 @@ class LoanQuotationController extends Controller
         $fill['quoted_by'] = Auth::user()->id; // id of loggedin finance partner user
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
-        return $fill;
+        return redirect(route('quoted-customer'))->with('success','Quotation is submitted.');
+        // return $fill;
     }
 
     // public function quoteAllOtherLoan(Request $request)

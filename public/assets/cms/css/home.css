@@ -97,13 +97,14 @@
     padding: 3rem;
     background-color: #eee;
 }
-.loan-type__icon .card{
+.loan-type__icon,.finance__card .card{
     border-radius: .75rem;
     height: 14rem;
     border: none;
     text-align: center;
     margin-bottom: .2rem;
 }
+
 .loan-type__icon .card p{
     font-weight: 600;
 }
@@ -200,13 +201,18 @@ background-color: #000 !important;
 #finance-partner{
     padding: 3rem;
 }
+
 .finance__cards{
    margin-top: 2rem;
 }
-#finance-partner .finance__cards .finance__img .finance__logo{
-    width: 60%;;
-    height: 100%;
+.finance__card .card{
+    height: 5rem;
+    border: none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
+
 /* sec 6 */
 #footer{
     padding: 3rem;
@@ -286,9 +292,6 @@ background-color: #000 !important;
 }
 .change-way__btn{
     width: 100%;
-}
-#finance-partner .finance__cards .finance__img .finance__logo{
-    width: 50%;
 }
 #footer .footer-bottom .footer__links li:not(:last-child)::after{
     content: '';

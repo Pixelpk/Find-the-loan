@@ -50,8 +50,8 @@
                                     </div>
 
                                     <div class="form-group mb-0">
-                                        <div>
-                                            <button type="submit" class="btn btn-primary waves-effect waves-light">
+                                        <div class="text-right">
+                                            <button type="submit" class="btn admin-btn waves-effect waves-light">
                                                 Submit
                                             </button>
 

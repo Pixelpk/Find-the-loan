@@ -22,8 +22,8 @@
                         <textarea required id="faq_answer" name="answer" class="form-control"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="faq_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="faq_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -151,8 +151,8 @@
                         </label>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="partner_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="partner_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -273,8 +273,8 @@
                         </label>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="partner_modal_btn" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="partner_modal_btn" class="btn admin-btn">Update</button>
                     </div>
                 </form>
             </div>
@@ -319,8 +319,8 @@
                         </label>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="blog_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="blog_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -367,8 +367,8 @@
                         </label>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="testimonial_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="testimonial_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -418,8 +418,8 @@
                         <input type="text" required id="sub_type" name="sub_type" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="loan_type_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="loan_type_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -451,8 +451,8 @@
                         <input type="text" required id="loan_subtype_name" name="type_name" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="loan_subtype_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="loan_subtype_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -501,8 +501,8 @@
                         <input type="text" required id="loan_reason" name="reason" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="loan_reason_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="loan_reason_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -533,8 +533,8 @@
                         <input type="text" required id="structure_type" name="structure_type" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="company_structure_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="company_structure_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -564,8 +564,8 @@
                         <input type="text" required id="sector_name" name="name" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="sector_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="sector_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -613,8 +613,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="partner_user_modal_btn" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="partner_user_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
             </div>
@@ -697,8 +697,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" id="bulk_assign" class="btn btn-primary">Assign</button>
+                            <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                            <button type="button" id="bulk_assign" class="btn admin-btn">Assign</button>
                         </div>
                     </form>
                 </div>
@@ -743,8 +743,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" id="" class="btn btn-primary">Reject</button>
+                            <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                            <button type="submit" id="" class="btn admin-btn">Reject</button>
                         </div>
                     </form>
                 </div>
