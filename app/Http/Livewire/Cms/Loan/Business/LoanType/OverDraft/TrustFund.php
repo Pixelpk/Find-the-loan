@@ -17,6 +17,7 @@ class TrustFund extends Component
     public $main_type;
     public $loan_type_id;
     public $apply_loan;
+    public $security_type;
    ///sold///
     public $total_indicative_value;
     public $fund_name;
@@ -51,7 +52,7 @@ class TrustFund extends Component
 
     public function store()
     {
-     
+        
        $this->validate([
            'currency' => 'required',
            'total_indicative_value' => 'required',
@@ -60,10 +61,7 @@ class TrustFund extends Component
            'company_purchased' => 'required',
            'fund_name' => 'required',
            'fd_sd_date' => 'required',
-         
-           
-       ]);
-       
+       ]);  
        OverDraftTrustFund::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'total_indicative_value' => $this->total_indicative_value,
@@ -73,11 +71,12 @@ class TrustFund extends Component
            'company_purchased' => $this->company_purchased,
            'fund_name' => $this->fund_name,
            'fd_sd_date' => $this->fd_sd_date,
-          
+           'type' => $this->tab,
        ]);
-      
        $this->getTrustFund();
-       $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
+       $this->emit('enableButton', true);
+        
+       $this->emit('alert', ['type' => 'success', 'message' => 'Trust/Fund added successfully.']);
        $this->resetInput();
     }
     public function resetInput()
@@ -110,6 +109,7 @@ class TrustFund extends Component
     {
        
         $trustFund->delete();
+        $this->emit('enableButton', true);
         $this->getTrustFund();
     }
 }

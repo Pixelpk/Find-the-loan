@@ -6,6 +6,8 @@ use App\Http\Livewire\Cms\ApplyLoan;
 use App\Models\ApplyLoan as ModelsApplyLoan;
 use App\Models\BusinessOverDraft;
 use App\Models\LoanGernalInfo;
+use App\Models\OverDraftStockBond;
+use App\Models\OverDraftTrustFund;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
@@ -22,14 +24,85 @@ class OverDraft extends Component
     public $tab='9';
     public $securityShow;
     public $amount;
+    public $enableButtons  = true;
     
     
-    
+    protected $listeners = [
+        'enableButton'
+    ];
+    public function mount()
+    {
+        $this->getData();
+        // dd($this->apply_loan);
+      
+    }
+    public function enableButton($value)
+    {
+        $sizeof = sizeof($this->overdraft['security_type']);
+        $sum = 0;
+        $this->enableButtons= true;
+        foreach($this->overdraft['security_type'] as $key => $item){
+            if($key == 2){
+               
+                $trustFund=OverDraftTrustFund::where('apply_loan_id', $this->apply_loan->id)->where('type', 2)->count();
+                if($trustFund > 0){
+                    $sum++;
+                }
+            }
+            if($key == 3){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+            if($key == 1){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+            if($key == 4){
+                $bond=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 4)->count();
+                if($bond > 0){
+                    $sum++;
+                }
+            }
+            if($key == 5){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+            if($key == 8){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+            if($key == 6){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+            if($key == 7){
+                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                if($stock > 0){
+                    $sum++;
+                }
+            }
+        }
+        if($sizeof  ==  $sum){
+            $this->enableButtons  = false;
+        }
+        
+    }
     public function render()
     {
-       $this->getData();
+      
         return view('livewire.widget.over-draft');
     }
+    
     public function getData()
     {
        
@@ -40,25 +113,39 @@ class OverDraft extends Component
                 $this->overdraft['unsecured'] = true;
             }else{
                 $this->overdraft['secure'] = true;
+                $this->overdraft['security_type'] =  $overDraft->security_type;
+                $this->enableButtons  = false;
             }
         }
         if($amount){
             $this->amount = $amount;
         }
     }
+
+    public function tabChange(){
+       
+        $this->emit('changeTab',$this->apply_loan->id, 4);
+    }
     
     public function store()
     {
         // dd($this->overdraft);
-        $this->tab = 2;
+        $min=min(array_keys($this->overdraft['security_type']));   
+        $this->tab = $min;
     }
     public function removeIndexInSecurityType($value)
     {
-        
+        BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->delete();
+        $overDraftType = new BusinessOverDraft();
+        $overDraftType->type = 2; 
+        $overDraftType->type_value = $this->overdraft['secure']; 
+        $overDraftType->apply_loan_id = $this->apply_loan->id; 
+        $overDraftType->security_type = $this->overdraft['security_type'];
+        $overDraftType->save(); 
         if(!$this->overdraft['security_type'][$value]){
-            
             unset($this->overdraft['security_type'][$value]);
         }
+        $this->emit('enableButton', true);
     }
     public function ChnageTab($key)
     {
@@ -98,6 +185,7 @@ class OverDraft extends Component
                
                 $overDraftType->type = 1; 
                 $overDraftType->apply_loan_id = $this->apply_loan->id; 
+                $overDraftType->security_type = $this->overdraft['sc']; 
 
                 $overDraftType->type_value = $this->overdraft['unsecured']; 
             }
