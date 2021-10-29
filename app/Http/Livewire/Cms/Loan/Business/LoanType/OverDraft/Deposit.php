@@ -83,6 +83,7 @@ class Deposit extends Component
        ]);
       
        $this->getDeposit();
+       $this->emit('enableButton', true);
        $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
        $this->resetInput();
     }

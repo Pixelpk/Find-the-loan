@@ -37,6 +37,21 @@ class CreateBusinessHirePurchasesTable extends Migration
             $table->string('lender_name')->nullable();
             $table->string('amount')->nullable();
             $table->string('gearup_or_refinancing')->nullable();
+            $table->string('purchase_price')->nullable();
+            $table->string('deposit_paid')->nullable();
+            $table->string('chassis_number')->nullable();
+            $table->string('engine_number')->nullable();
+            $table->string('plate_number')->nullable();
+            $table->string('item_name_1')->nullable();
+            $table->string('item_value1')->nullable();
+            $table->string('item_name_2')->nullable();
+            $table->string('item_value2')->nullable();
+            $table->string('item_name_3')->nullable();
+            $table->string('item_value3')->nullable();
+            $table->string('lta_vehicle_information')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('sale_mane')->nullable();
+          
             $table->timestamps();
         });
     }

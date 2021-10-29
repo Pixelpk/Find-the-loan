@@ -49,13 +49,20 @@
                 Name of policyowner
             </label>
             <input wire:model="name_of_policy_owner" type="text" class="form-control" id="name_of_policy_owner">
+            <span>
+                <div class="form-check form-switch">
+                    <input wire:model="above" wire:change="getSameName()" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Same as above
+                    </label>
+                </div>
+            </span>
             @error("name_of_policy_owner")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
             <label for="insurer" class="form-label">
                 Insurer
             </label>
@@ -67,19 +74,12 @@
             @enderror
         </div>
         
-        <div class="col-md-2" style="margin-top: 40px;">
-            <br>
-            <div class="form-check form-switch">
-                <input wire:model="above" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Same as above
-                </label>
-            </div>
-        </div>
-        <div class="col-md-4" style="margin-top: 30px;">
+        
+        <div class="col-md-6">
             <label for="surrender_value" class="form-label">
                 Surrender Value $
             </label>
-            <input wire:model="surrender_value" type="text" class="form-control" id="surrender_value">
+            <input wire:model="surrender_value" type="number" class="form-control" id="surrender_value">
             @error("surrender_value")
             <div style="color: red;">
                 {{ $message }}
@@ -88,36 +88,27 @@
         </div>
         <div class="col-md-6" style="margin-top: 30px;">
             <livewire:widget.currency/>
-        </div>
-        <div class="col-md-12">
-            <br>
-            <br>
-            <div class="form-check form-switch">
-                <input wire:model="float_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault"> Check offer for floating rate
-                </label>
-            </div>
-            @error("float_rate")
+            @error("currency")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
         </div>
+       
     </div>
     <div class="row">
         <div class="col-md-12">
             <br>
             <br>
-            <livewire:widget.upload-component :label="'Tenancy Agreement If it’s rented out'" :apply_loan="$apply_loan"
+            <livewire:widget.upload-component :label="'Or upload your Benefit illustration'" :apply_loan="$apply_loan"
                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                 :modell="'\App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_tanancy_agreement'" />
         </div>
         <div class="col-md-12">
             <br>
             <br>
-            If it is under financing, the Financing Partners may require you to refinance with them(not to worry they
-            will
-            provide you with the refinancing rate for consideration.)
+            Download from your insurer’s website or check with your advisor for a updated copy. The latest surrender value can be found on the it
+
         </div>
         <div class="col-md-12">
             <hr>
@@ -127,7 +118,7 @@
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add Property</button>
+            <button class="btn" wire:click="store">Add Another Insurance</button>
         </div>
     </div>
     <div class="row">
@@ -138,31 +129,39 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Lease remaining</th>
-                        <th scope="col">FreeHold</th>
-                        <th scope="col">Build-in/Useable Area</th>
-                        <th scope="col">Meter</th>
-                        <th scope="col">Document</th>
+                        <th scope="col">Insured Name</th>
+                        <th scope="col">Type of policy</th>
+                        <th scope="col">Policy start date</th>
+                        <th scope="col">Name of Policy Owner</th>
+                        <th scope="col">Insurer</th>
+                        <th scope="col">Surrender Value</th>
+                        <th scope="col">Currency</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($propertyLands as $item)
+                    @foreach($insurances as $item)
                     <tr>
                         <th scope="row">1</th>
-                        <td>{{ $item->address }}</td>
-                        <td>{{ $item->lease_remaining_year }}</td>
-                        <td>{{ $item->free_hold }}</td>
-                        <td>{{ $item->useable_area }}</td>
+                        <td>{{ $item->insurance }}</td>
                         <td>
-                            @if($item->square_feet)
-                            {{ $item->square_feet }}
-                            @else
-                            {{ $item->useable_area }}
+                            @if($item->type_of_policy == 1)
+                            Whole life
+                            @elseif($item->type_of_policy == 2)
+                            Endowment/Savings
+                            @elseif($item->type_of_policy == 3)
+                            Universal Life
                             @endif
                         </td>
-                        <td><button class="btn">View Docuemts</button></td>
+                        <td>{{ $item->policy_start_date }}</td>
+                        <td>{{ $item->name_of_policy_owner }}</td>
+                        <td>
+                           {{ $item->insurer }}
+                        </td>
+                        <td>{{ $item->surrender_value }}</td>
+                       
+                        <td>{{ $item->currency }}</td>
+                      
                         <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;"
                                 class="btn">Delete</button></td>
                     </tr>

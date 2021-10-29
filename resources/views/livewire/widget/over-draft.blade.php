@@ -170,7 +170,7 @@
     <div class="row">
         <div class="col-md-12">
             <livewire:cms.loan.business.loan-type.over-draft.insurance :loan_type_id="$loan_type_id"
-                :main_type="$main_type" :apply_loan="$apply_loan" :amount="$amount" :loan_type_id="$loan_type_id">
+                :main_type="$main_type"  :tab="$tab" :apply_loan="$apply_loan" :amount="$amount" :loan_type_id="$loan_type_id">
         </div>
 
     </div>
@@ -231,7 +231,10 @@
             <br>
             @if($enableButtons == false)
             <button   wire:click="tabChange()" class="btn">Save & Continue</button>
+            @else
+            <button  disabled class="btn">Save & Continue</button>
             @endif
+            
         </div>
     </div>
 </section>

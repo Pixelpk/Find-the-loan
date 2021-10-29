@@ -108,7 +108,7 @@
             <br>
             <br>
             <button class="btn" wire:click="store">Add @if($Deposits->count() > 0)Another @endif Deposit</button>
-            <button class="btn" wire:click="store">Submit</button>
+            {{-- <button class="btn" wire:click="store">Submit</button> --}}
         </div>
     </div>
     <div class="row">

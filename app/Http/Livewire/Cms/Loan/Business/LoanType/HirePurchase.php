@@ -24,7 +24,7 @@ class HirePurchase extends Component
     ];
     protected $rules = [
         'hirePurchase.amount' => 'required|integer|min:1',
-        'hirePurchase.address' =>  'required',
+        'hirePurchase.address' =>   "required_if:hirePurchase.hire_purchase_type,1,2,3",
         'hirePurchase.type' =>  'required',
         'hirePurchase.distributer' =>  'nullable',
         'hirePurchase.hire_purchase_type' =>  'nullable',
@@ -41,14 +41,33 @@ class HirePurchase extends Component
         'hirePurchase.as_long_as_possiable' =>  'nullable',
         'hirePurchase.unit' =>  'nullable',
         'hirePurchase.building_name' =>  'nullable',
-        'hirePurchase.property_type' =>  'required',
+        'hirePurchase.property_type' =>   "required_if:hirePurchase.hire_purchase_type,1,2,3",
         'hirePurchase.lender_name' =>  "required_if:hirePurchase.property_type,Rented",
         'hirePurchase.gearup_or_refinancing' =>  "required_if:loan_type_id,10,11",
+        'hirePurchase.purchase_price' =>  'nullable',
+        'hirePurchase.deposit_paid' =>  'nullable',
+        'hirePurchase.chassis_number' =>  'nullable',
+        'hirePurchase.engine_number' =>  'nullable',
+        'hirePurchase.plate_number' =>  'nullable',
+        'hirePurchase.item_name_1' =>  'nullable',
+        'hirePurchase.item_value1' =>  'nullable',
+        'hirePurchase.item_name_2' =>  'nullable',
+        'hirePurchase.item_value2' =>  'nullable',
+        'hirePurchase.item_name_3' =>  'nullable',
+        'hirePurchase.item_value3' =>  'nullable',
+        'hirePurchase.lta_vehicle_information' =>  'nullable',
+        'hirePurchase.company_name' =>  'nullable',
+        'hirePurchase.sale_mane' =>  'nullable',
     ];
     public function mount()
-    {
+    { 
         $this->hirePurchase = new BusinessHirePurchase();
         $this->hirePurchase['amount'] = $this->apply_loan->amount ?? '';
+        $busines  = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->orderByDesc('id')->first();
+        if($busines){
+            $this->hirePurchase['hire_purchase_type'] = (string) $busines->hire_purchase_type;
+            $this->getHirePurchase();
+        }
     }
     public function getAddress($value)
     {
@@ -63,6 +82,11 @@ class HirePurchase extends Component
 
     public function store()
     {
+       
+        $businessHirePurchase = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->where('hire_purchase_type', '!=', $this->hirePurchase['hire_purchase_type'])->get();
+        if($businessHirePurchase){
+            BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->delete();
+        }
         $this->validate();
         $this->hirePurchase['apply_loan_id'] = $this->apply_loan->id;
         $this->hirePurchase->save();
@@ -78,6 +102,6 @@ class HirePurchase extends Component
 
     public function getHirePurchase()
     {
-        $this->hirePurchaseGet = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->get();
+        $this->hirePurchaseGet = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->where('hire_purchase_type',  $this->hirePurchase['hire_purchase_type'])->get();
     }
 }
