@@ -30,7 +30,7 @@
 
             <div class="container">
             <div class="row text-center">
-                <h2 class="fw-bold text-white display-5">Still approching banks one by one when you need a loan?</h2>
+                <h2 class="fw-bold text-white display-6">Still approaching banks one by one <br> when you need a loan?</h2>
             </div>
         
             <!-- CARDS -->
@@ -69,7 +69,7 @@
                             </div>
                             <h5 class="fw-bold">Tailord</h5>
                             <hr>
-                            <p>For bussiness to home loans, get actual qoutes directly from our lenders based on your credit profile, not some advertised rates, no broker involved.</p>
+                            <p>For business to home loans, get actual qoutes directly from our lenders based on your credit profile, not some advertised rates, no broker involved.</p>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                             </div>
                             <h5 class="fw-bold">Speed</h5>
                             <hr>
-                            <p>Beign able to reach so many lenders directly with just a single submission helps you in finding a competative loan fast.</p>
+                            <p>Being able to reach so many lenders directly with just a single submission helps you in finding a competative loan fast.</p>
                         </div>
                     </div>
                 </div>

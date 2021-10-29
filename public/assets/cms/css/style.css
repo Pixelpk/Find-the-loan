@@ -90,10 +90,6 @@ A. Basic Styling
 @import url('./home.css');
 @import url('./faq.css');
 
-::selection{
-    background-color: #3EBB60;
-    color: #fff;
-}
 body {
     color: #191919;
     font-family: 'Poppins', sans-serif;

@@ -3,7 +3,7 @@
     <div class="breadcrumb-wrapper-overlay"></div>
 
     <!--begin container -->
-    <div class="container">
+    <div class="container sec-container">
 
         <!--begin row -->
         <div class="row">
@@ -61,7 +61,7 @@
             {{--                    <p class="medium-paragraph margin-bottom-40">Nemo enim ipsam voluptatem quia voluptas sit aspernatur netsum loris fugit, sed quia magni dolores eos qui ratione sequi nesciunt. Neque ets poris ratione fugit, sed quia magni dolores eos qui ratione sequi nesciunt. Neque etus quis sequi enim ipsam voluptatem quias net volupti etsim et netus tempor.</p>--}}
 
             <!--begin testimonials_item -->
-                @foreach($testimonials as $testimonial)
+                <!-- @foreach($testimonials as $testimonial)
                     <div class="testimonials_item4 pb-5" style="border-bottom: #69696926 1px solid !important;">
                         <div class="testimonials_box4 mt-0">
                             <p>"{!! $testimonial->review !!}"</p>
@@ -72,7 +72,7 @@
                         <p class="autor"><span>{{ $testimonial->review_by }}</span></p>
 </div>
                     </div>
-            @endforeach
+            @endforeach -->
             <!--end testimonials_item -->
 
             </div>
@@ -87,7 +87,7 @@
 </section>
 <!--end section-white-->
 <!--begin section-grey-->
-<div class="section-grey sponsors-padding">
+<!-- <div class="section-grey sponsors-padding"> -->
 
     <!--begin container-->
     <div class="container">
@@ -96,13 +96,13 @@
         <div class="row text-center">
 
             <!--begin col-sm-12-->
-            <div data-owl-auto-height="20" data-owl-items="6" data-owl-auto-width="19" class="col-sm-12 sponsors d-block d-md-flex justify-content-between align-items-center text-center ts-partners owl-carousel">
+            <!-- <div data-owl-auto-height="20" data-owl-items="6" data-owl-auto-width="19" class="col-sm-12 sponsors d-block d-md-flex justify-content-between align-items-center text-center ts-partners owl-carousel">
                 @foreach($partners as $partner)
                     <div href="#" class="ml-5" style="width: 120px;height: 120px;">
                         <img src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
                     </div>
                 @endforeach
-            </div>
+            </div> -->
             <!--end col-sm-12-->
 
         </div>
@@ -111,5 +111,5 @@
     </div>
     <!--end container-->
 
-</div>
+<!-- </div> -->
 <!--end section-grey-->
