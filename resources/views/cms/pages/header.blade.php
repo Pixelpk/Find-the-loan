@@ -61,8 +61,8 @@
         <!--end navbar-toggler-->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav mob-nav">
-                <li><a href="{{ route('home') }}" class="nav-link">Home</a></li>
-                <li><a href="{{ route('about-us') }}" class="nav-link">About</a></li>
+              
+                <li><a href="{{ route('about-us') }}" class="nav-link">About Us</a></li>
                 <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Financial Inclusion</a></li>
@@ -86,8 +86,8 @@
                     <span class="visually-hidden">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                    
-                    <li><a href="{{ route('about-us') }}" class="dropdown-item">About</a></li>
+                <li><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+                    <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
                     <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
                     <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
                     <li><a href="#" class="dropdown-item">Financial Inclusion</a></li>

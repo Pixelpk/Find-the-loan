@@ -5,6 +5,14 @@
 </script>
 <script src="{{ asset('assets/cms/js/jquery-3.3.1.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script>
+     
+     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+      </script>
+
 <script src="{{ asset('assets/cms/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/cms/js/imagesloaded.pkgd.min.js') }}"></script>
@@ -71,6 +79,8 @@
             });
     }
 </script>
+<!-- TOOLTIP -->
+
 
 <script>
     function showImage(input) {
