@@ -168,9 +168,6 @@
                                                         {{ $application->amount }}
                                                     </td>
                                                     <td>
-                                                        {{ $application->loan_reason->reason ?? "" }}
-                                                    </td>
-                                                    <td>
                                                         {{ $application->loan_company_detail->company_name ?? '' }}
                                                     </td>
                                                     <td>

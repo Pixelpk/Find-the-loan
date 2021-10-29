@@ -17,6 +17,7 @@
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('assets/js/selectize.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
     let todayDate = new Date();
@@ -76,20 +77,6 @@
             e.stopImmediatePropagation();
         });
         
-        $('#loan_application_table').DataTable({
-            paging: false,
-            searching: false,
-            "info": false,
-            order: [[4, 'desc'],[5,'desc']],
-            columnDefs: [
-                {
-                    "orderable": false,
-                    "targets": [0,1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18],
-                },
-            ]
-        });
-
-        $('.select2').select2();
 
         // $('#internal').change(function (){
         //     if (reason_auto_select_count == 0){
@@ -159,7 +146,8 @@
         
 
         $("#bulk_assign").click(function (event) {
-            // event.preventDefault();
+            console.log('asdfasdf')
+            event.preventDefault();
             event.stopPropagation();
             var user_id = $('#assign_user_id').val();
             var SelectedList = [];
@@ -487,6 +475,43 @@
             console.log("on submit"+more_doc_message_array);
             
         });
+
+        $('#loan_application_table').DataTable({
+            paging: false,
+            searching: false,
+            "info": false,
+            order: [[4, 'desc'],[5,'desc']],
+            columnDefs: [
+                {
+                    "orderable": false,
+                    "targets": [0,1,2,3,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                },
+            ]
+        });
+
+        $('.select2').select2();
+        // @if(Route::currentRouteName() == 'more-doc-required')
+        // let options = [];
+        // let optgroups =  [];
+        // @foreach($additional_docs as $key=>$items)
+        //     @foreach($items as $item) 
+        //         option = {id:"{{$item}}",'info_type':"{{getAdditionDocInfoType($item->info_type)}}","info":"{{$item->info}}"};
+        //     @endforeach
+        //         optgroups = [{id:"{{$item}}",'info_type':"{{getAdditionDocInfoType($item->info_type)}}"}]
+        // @endforeach
+        //     $("#quote_additional_doc_id").selectize({
+        //         options:options,
+        //         optgroups:optgroups,
+        //         labelField: "model",
+        //         valueField: "id",
+        //         optgroupField: "info_type",
+        //         optgroupLabelField: "info",
+        //         optgroupValueField: "id",
+        //         searchField: ["info"],
+        //         plugins: ["optgroup_columns"],
+
+        //     });
+        // @endif
 
     });
 
