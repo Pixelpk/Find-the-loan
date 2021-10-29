@@ -20,12 +20,11 @@ class CreateOverDraftTrustFundsTable extends Migration
             $table->integer('company_purchased')->nullable();
             $table->string('total_indicative_value');
             $table->string('indicative_nav');
-           
             $table->string('deposit_ac_number')->nullable();
             $table->string('fund_name')->nullable();
             $table->string('fd_sd_date')->nullable();
             $table->timestamps();
-        });
+    });
     }
 
     /**

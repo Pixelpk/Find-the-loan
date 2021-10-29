@@ -76,7 +76,7 @@
                 @if($tab==4)Add @if($stockBonds->count() > 0)Another @endif Bond @endif
                 @if($tab==3)Add @if($stockBonds->count() > 0)Another @endif Stock @endif
             </button>
-            <button class="btn" wire:click="store">Submit</button>
+          
         </div>
     </div>
     <div class="row">

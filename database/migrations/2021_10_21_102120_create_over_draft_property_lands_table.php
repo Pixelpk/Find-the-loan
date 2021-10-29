@@ -28,7 +28,6 @@ class CreateOverDraftPropertyLandsTable extends Migration
             $table->string('completed')->nullable()->default(0);
             $table->string('construction_year')->nullable();
             $table->string('construction_year_time')->nullable();
-          
             $table->string('fix_rate')->nullable()->default(0);;
             $table->string('float_rate')->nullable()->default(0);;
             $table->timestamps();
