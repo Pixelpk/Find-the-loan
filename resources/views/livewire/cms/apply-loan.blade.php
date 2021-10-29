@@ -91,16 +91,20 @@
                     @livewire('cms.loan.business.loan-type.property-bridging', ['loan_type_id' => $loan_type_id,
                     "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+                     @elseif($tab == 8 && $loan_type_id == 9 || $loan_type_id == 10 || $loan_type_id == 11)
+                     @livewire('cms.loan.business.loan-type.hire-purchase', ['loan_type_id' => $loan_type_id,
+                     "main_type" => $main_type,
+                     'apply_loan' => $apply_loan])
 
                     @endif
 
                     @if($tab == 1)
                     <div class="row g-3">
                         <div class="col-md-12">
-                            <label for="">Select Profile</label>
+                            <label for="">Select Borrower Profile</label>
                             <select style="margin-top: 10px;" wire:model="main_type" class="form-select"
                                 aria-label="Default select example" wire:change="getMainType()">
-                                <option value="" hidden>Select</option>
+                                <option value="">Select Borrower Profile</option>
                                 <option value="1">Business</option>
                                 <option value="2">Consumer</option>
                             </select>

@@ -28,7 +28,9 @@ class AddColumnsToFinancePartnersTable extends Migration
     public function down()
     {
         Schema::table('finance_partners', function (Blueprint $table) {
-            //
+            $table->dropColumn('property_types');
+            $table->dropColumn('equipment_types');
+         
         });
     }
 }

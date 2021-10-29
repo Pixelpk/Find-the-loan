@@ -121,7 +121,7 @@
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
-                                                    {{-- <td>
+                                                     <!-- <td>
                                                         
                                                             <div class="btn-group">
                                                                 <i title="Actions" class="fas fa-2x fa-ellipsis-h" style="cursor: pointer;color: #27b34d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -144,7 +144,7 @@
                                                                 </div>
                                                             </div>
                                                         
-                                                    </td> --}}
+                                                    </td>  -->
                                                     <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>

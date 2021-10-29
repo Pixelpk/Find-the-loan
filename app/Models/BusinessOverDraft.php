@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessOverDraft extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'security_type' => 'array',
+    ];
 }

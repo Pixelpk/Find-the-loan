@@ -1117,7 +1117,7 @@ ul.footer-list li a:hover{
 }
 
 /* ----- Nav ----- */
-.navbar-brand > img{ max-height: 45px;}
+.navbar-brand > img{ max-height: 90%;}
 
 .navbar-collapse{
 	margin-right: -15px!important;

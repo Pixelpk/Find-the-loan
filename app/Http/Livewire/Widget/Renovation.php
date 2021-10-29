@@ -61,7 +61,7 @@ class Renovation extends Component
     {
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'tanancy_agreement' => $this->user_owned ||  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+           'tanancy_agreement' => $this->user_owned  ? '' : 'required|mimes:jpg,jpeg,png,pdf',
            'user_owned' => $this->user_owned ? 'required' : '',
            'renovation_quotation' => $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
            'address' => $this->user_owned ? 'required' : '',

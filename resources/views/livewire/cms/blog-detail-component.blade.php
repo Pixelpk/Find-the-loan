@@ -3,7 +3,7 @@
     <div class="breadcrumb-wrapper-overlay"></div>
 
     <!--begin container -->
-    <div class="container">
+    <div class="container sec-container">
 
         <!--begin row -->
         <div class="row">

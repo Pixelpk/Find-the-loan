@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Cms\Loan\Business\LoanType\OverDraft;
 use App\Models\ApplyLoan;
 use App\Models\LoanGernalInfo;
+use App\Models\OverDraftInsurance;
 use App\Models\OverDraftPropertyLand;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,34 +15,40 @@ class Insurance extends Component
     public $main_type;
     public $loan_type_id;
     public $apply_loan;
-   
+    public $insurance;
+    public $type_of_policy;
+    public $policy_start_date;
+    public $name_of_policy_owner;
+    public $insurer;
+    public $surrender_value;
+    public $currency;
+    public $images;
+    public $above;
+    public $tab;
    ///sold///
-    public $address;
-    public $unit;
-    public $building_name;
-    public $lease_remaining_year;
-    public $free_hold;
-    public $floor_area;
-    public $useable_area;
-    public $square_feet;
-    public $square_meter;
-    public $completed;
-    public $construction_year;
-    public $construction_year_time;
-    public $float_rate;
-    public $fix_rate;
     public $amount;
     //
+   
+    public $insurances;
     protected $listeners = [
-        'getAddress'
+        'getCurrency'
     ];
-    public $propertyLands;
-    public function getAddress($value)
+    public function getCurrency($value)
     {
     if(!is_null($value))
-        $this->address = $value;
+        $this->currency = $value;
     }
-    
+  
+    public function getSameName()
+    {
+        
+        if($this->above){
+            $this->name_of_policy_owner = $this->insurance;
+        }else{
+            $this->name_of_policy_owner = '';
+        }
+       
+    }
     public function render()
     {
         $this->getInsurance();
@@ -53,42 +60,35 @@ class Insurance extends Component
        
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'address' => 'required',
-           'lease_remaining_year' => $this->free_hold ? '' : 'required',
-           'free_hold' => $this->lease_remaining_year ? '' : 'required',
-           'useable_area' => 'required',
-           'square_feet' => $this->square_meter ? '' : 'required',
-           'square_meter' => $this->square_feet ? '' : 'required',
+           'insurance' => 'required',
+           'type_of_policy' => 'required',
+           'policy_start_date' => 'required',
+           'name_of_policy_owner' => 'required',
+           'insurer' => 'required',
+           'surrender_value' => 'required',
+           'currency' => 'required',
        ]);
      
-       OverDraftPropertyLand::forceCreate([
+       OverDraftInsurance::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
-           'address' => $this->address,
-           'unit' => $this->unit,
-           'useable_area' => $this->useable_area,
-           'building_name' => $this->building_name,
-           'lease_remaining_year' => $this->lease_remaining_year,
-           'free_hold' => $this->free_hold,
-           'floor_area' => $this->floor_area,
-        //    'user_able_area' => $this->user_able_area,
-           'square_feet' => $this->square_feet,
-           'square_meter' => $this->square_meter,
-           'completed' => $this->completed,
-           'construction_year' => $this->construction_year,
-           'construction_year_time' => $this->construction_year_time,
-         
-           'float_rate' => $this->float_rate,
-           'fix_rate' => $this->fix_rate,
+           'insurance' => $this->insurance,
+           'type_of_policy' => $this->type_of_policy,
+           'policy_start_date' => $this->policy_start_date,
+           'name_of_policy_owner' => $this->name_of_policy_owner,
+           'above' => $this->above,
+           'insurer' => $this->insurer,
+           'surrender_value' => $this->surrender_value,
+           'currency' => $this->currency,
+           'type' => $this->tab,
        ]);
-      
        $apply_loan = ApplyLoan::find($this->apply_loan->id);
        $apply_loan->amount = $this->amount;
        $apply_loan->update();
+       $this->emit('enableButton', true);
        $this->getInsurance();
-       $this->emit('alert', ['type' => 'success', 'message' => 'Property Land added successfully.']);
+    //    $this->emit('alert', ['type' => 'success', 'message' => 'Property Land added successfully.']);
        $this->resetInput();
     }
-
     public function changeAreaType()
     {
         $this->square_feet = '';
@@ -99,30 +99,22 @@ class Insurance extends Component
     }
     public function resetInput()
     {
-        $this->address = '';
-        $this->unit = '';
-        $this->building_name = '';
-        $this->lease_remaining = '';
-        $this->free_hold = '';
-        $this->floor_area = '';
-        $this->user_able_area = '';
-        $this->square_feet = '';
-        $this->square_meter = '';
-        $this->completed = '';
-        $this->construction_year = '';
-        $this->construction_year_time = '';
-        $this->fix_rate = '';
-        $this->float_rate = '';
+        $this->insurance = '';
+        $this->type_of_policy = '';
+        $this->policy_start_date= '';
+        $this->name_of_policy_owner= '';
+        $this->above= '';
+        $this->insurer= '';
+        $this->surrender_value= '';
+        $this->currency= '';
     }
-
     public function getInsurance()
     {
-        $this->propertyLands = OverDraftPropertyLand::where('apply_loan_id', $this->apply_loan->id)->get();
+        $this->insurances = OverDraftInsurance::where('apply_loan_id', $this->apply_loan->id)->get();
     }
-    public function deleteRecord(OverDraftPropertyLand $overDraftPropertyLand)
+    public function deleteRecord(OverDraftInsurance $OverDraftInsurance)
     {
-       
-        $overDraftPropertyLand->delete();
+        $OverDraftInsurance->delete();
         $this->getInsurance();
     }
 }

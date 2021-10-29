@@ -1,4 +1,4 @@
-.admin-btn, .btn-primary{
+.admin-btn, .btn-primary, .page-item.active .page-link{
     background-color: #27B34D !important;
     border: 1px solid #27B34D !important;
     color: #fff !important;
@@ -19,4 +19,7 @@
 }
 .loan_application_table-w{
     width: 300%;
+}
+ .page-link{
+       color: #27B34D !important;
 }

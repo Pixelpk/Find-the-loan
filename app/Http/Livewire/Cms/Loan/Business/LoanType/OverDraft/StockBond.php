@@ -73,6 +73,7 @@ class StockBond extends Component
        ]);
       
        $this->getStockBond();
+       $this->emit('enableButton', true);
        $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
        $this->resetInput();
     }
@@ -107,6 +108,7 @@ class StockBond extends Component
     {
        
         $stockBond->delete();
+        $this->emit('enableButton', true);
         $this->getStockBond();
     }
 }
