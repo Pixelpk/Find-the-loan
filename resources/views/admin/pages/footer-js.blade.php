@@ -17,7 +17,6 @@
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
-<script src="{{ asset('assets/js/selectize.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script>
     let todayDate = new Date();
@@ -64,7 +63,9 @@
     $(document).ready(function() {
         
         $( '.ckeditor.editor' ).ckeditor();
+        @if(Route::currentRouteName() == 'put-quotation')
         fixedOrFloating(1);
+        @endif
 
         $('#loan_application_table .loan_application_row').click(function () {
             let href = $(this).attr("url");
@@ -78,13 +79,14 @@
         });
         
 
-        // $('#internal').change(function (){
-        //     if (reason_auto_select_count == 0){
-        //         reason_auto_select_count ++;
-        //         index = $("#internal").prop('selectedIndex');
-        //         $('#shown_to_customer option').eq(index).prop('selected', true);
-        //     }
-        // });
+        $('#internal').change(function (){
+            console.log($(this).val())
+            if ($(this).val() == 35){
+                $('#reject_other_reasons').prop('disabled',false);
+            }else{
+                $('#reject_other_reasons').prop('disabled',true);
+            }
+        });
 
         $('#fixed_or_floating').change(function (event) {
             let fixed_or_floating = $(this).val();
@@ -231,57 +233,155 @@
         });
 
 
-         //put quotation validations and submit
-        $('.interest_flat').keyup(function(){
+        //put quotation fee section validations starting
+        $(document).on("input", '#one_time_fee_value', function(event) { 
             console.log($(this).val().length)
             if($(this).val().length < 1){
-                $(".interest_reducing_balance").prop('disabled', false);
-                $(".interest_board_rate").prop('disabled', false);
-                $(".flat_fee_regardless").prop('disabled', false);
+                $("#one_time_fee_percent").prop('disabled', false);
             }else{
-                $(".interest_reducing_balance").prop('disabled', true);
-                $(".interest_board_rate").prop('disabled', true);
-                $(".flat_fee_regardless").prop('disabled', true);
+                $("#one_time_fee_percent").prop('disabled', true);
             }
         });
 
-        $('.interest_reducing_balance').keyup(function(){
+        $(document).on("input", '#one_time_fee_percent', function(event) { 
             console.log($(this).val().length)
             if($(this).val().length < 1){
-                $(".interest_flat").prop('disabled', false);
-                $(".interest_board_rate").prop('disabled', false);
-                $(".flat_fee_regardless").prop('disabled', false);
+                $("#one_time_fee_value").prop('disabled', false);
             }else{
-                $(".interest_flat").prop('disabled', true);
-                $(".interest_board_rate").prop('disabled', true);
-                $(".flat_fee_regardless").prop('disabled', true);
+                $("#one_time_fee_value").prop('disabled', true);
+            }
+        });
+        
+        $(document).on("input", '#monthly_fee_value', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#monthly_fee_percent").prop('disabled', false);
+            }else{
+                $("#monthly_fee_percent").prop('disabled', true);
             }
         });
 
-        $('.interest_board_rate').keyup(function(){
+        $(document).on("input", '#monthly_fee_percent', function(event) { 
             console.log($(this).val().length)
             if($(this).val().length < 1){
-                $(".interest_flat").prop('disabled', false);
-                $(".interest_reducing_balance").prop('disabled', false);
-                $(".flat_fee_regardless").prop('disabled', false);
+                $("#monthly_fee_value").prop('disabled', false);
             }else{
-                $(".interest_flat").prop('disabled', true);
-                $(".interest_reducing_balance").prop('disabled', true);
-                $(".flat_fee_regardless").prop('disabled', true);
+                $("#monthly_fee_value").prop('disabled', true);
             }
         });
-        $('.flat_fee_regardless').keyup(function(){
+
+        $(document).on("input", '#annual_fee_value', function(event) { 
             console.log($(this).val().length)
             if($(this).val().length < 1){
-                $(".interest_flat").prop('disabled', false);
-                $(".interest_reducing_balance").prop('disabled', false);
-                $(".interest_board_rate").prop('disabled', false);
+                $("#annual_fee_percent").prop('disabled', false);
             }else{
-                $(".interest_flat").prop('disabled', true);
-                $(".interest_reducing_balance").prop('disabled', true);
-                $(".interest_board_rate").prop('disabled', true);
+                $("#annual_fee_percent").prop('disabled', true);
             }
         });
+
+        $(document).on("input", '#annual_fee_percent', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#annual_fee_value").prop('disabled', false);
+            }else{
+                $("#annual_fee_value").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '.if_insurance_required_value', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".if_insurance_required_percent").prop('disabled', false);
+            }else{
+                $(".if_insurance_required_percent").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '.if_insurance_required_percent', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $(".if_insurance_required_value").prop('disabled', false);
+            }else{
+                $(".if_insurance_required_value").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '#eir_pa', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#eir_pm").prop('disabled', false);
+            }else{
+                $("#eir_pm").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '#eir_pm', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#eir_pa").prop('disabled', false);
+            }else{
+                $("#eir_pa").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '#interest_pa', function(event) { 
+        // $('#interest_pa').keyup(function(){
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#interest_pm").prop('disabled', false);
+            }else{
+                $("#interest_pm").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '#interest_pm', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#interest_pa").prop('disabled', false);
+            }else{
+                $("#interest_pa").prop('disabled', true);
+            }
+        });
+
+        //put quotation fee section validations ending
+
+        // $('.interest_reducing_balance').keyup(function(){
+        //     console.log($(this).val().length)
+        //     if($(this).val().length < 1){
+        //         $(".interest_flat").prop('disabled', false);
+        //         $(".interest_board_rate").prop('disabled', false);
+        //         $(".flat_fee_regardless").prop('disabled', false);
+        //     }else{
+        //         $(".interest_flat").prop('disabled', true);
+        //         $(".interest_board_rate").prop('disabled', true);
+        //         $(".flat_fee_regardless").prop('disabled', true);
+        //     }
+        // });
+
+        // $('.interest_board_rate').keyup(function(){
+        //     console.log($(this).val().length)
+        //     if($(this).val().length < 1){
+        //         $(".interest_flat").prop('disabled', false);
+        //         $(".interest_reducing_balance").prop('disabled', false);
+        //         $(".flat_fee_regardless").prop('disabled', false);
+        //     }else{
+        //         $(".interest_flat").prop('disabled', true);
+        //         $(".interest_reducing_balance").prop('disabled', true);
+        //         $(".flat_fee_regardless").prop('disabled', true);
+        //     }
+        // });
+        // $('.flat_fee_regardless').keyup(function(){
+        //     console.log($(this).val().length)
+        //     if($(this).val().length < 1){
+        //         $(".interest_flat").prop('disabled', false);
+        //         $(".interest_reducing_balance").prop('disabled', false);
+        //         $(".interest_board_rate").prop('disabled', false);
+        //     }else{
+        //         $(".interest_flat").prop('disabled', true);
+        //         $(".interest_reducing_balance").prop('disabled', true);
+        //         $(".interest_board_rate").prop('disabled', true);
+        //     }
+        // });
         // $('#submit_quotation').click(function(event){
         //     event.preventDefault();
         //     var inputs = $('#quotationForm :input');
@@ -350,21 +450,30 @@
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
-            var document_of = $('#document_of').val();
-            var more_doc_reasons = $('#more_doc_reasons').val();
-            var quote_additional_doc_id = $('#quote_additional_doc_id').val();
+            var document_of = $("input[name='document_of']:checked").val();
+            // var more_doc_reasons = $('#more_doc_reasons').val();
+            var more_doc_reasons = [];
+            var more_doc_reasons_text = [];
+            $('input[name=more_doc_reasons]:checked').map(function() {
+                more_doc_reasons.push($(this).val());
+                more_doc_reasons_text.push($(this).next('label').text());
+            });
+            var quote_additional_doc_id = $("input[name='quote_additional_doc_id']:checked").val();
+            // var quote_additional_doc_id = $('#quote_additional_doc_id:checked').val();
+
             if(document_of == ""){
                 $("#document_of_error").html("Document of field is required");
+                return false;
             }
             if(more_doc_reasons == ""){
                 $("#more_doc_reasons_error").html("Reason is required");
+                return false;
             }
             if(quote_additional_doc_id == ""){
                 $("#add_doc_id_error").html("Document field is required");
+                return false;
             }
-            $( '#more_doc_form' ).each(function(){
-                this.reset();
-            });
+            
              new_obj = {};
              new_obj.if_any = $('#if_any').prop('checked');
              new_obj.from = $('#from').val();
@@ -372,43 +481,47 @@
              new_obj.within_days = $('#within_days').val();
              new_obj.past_months = $('#past_months').val();
              new_obj.valid_for = $('#valid_for').val();
-             new_obj.latest = $('#latest').prop('checked');
-             new_obj.required_company_stamp = $('#required_company_stamp').prop('checked');
-             new_obj.need_notarized = $('#need_notarized').prop('checked');
-             new_obj.signature_borrower = $('#signature_borrower').prop('checked');
-             new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
-             new_obj.more_doc_reasons = $('#more_doc_reasons').val();
-             new_obj.document_of = $('#document_of').val();
-             new_obj.quote_additional_doc_id = $('#quote_additional_doc_id').val();
+            //  new_obj.latest = $('#latest').prop('checked');
+            //  new_obj.required_company_stamp = $('#required_company_stamp').prop('checked');
+            //  new_obj.need_notarized = $('#need_notarized').prop('checked');
+            //  new_obj.signature_borrower = $('#signature_borrower').prop('checked');
+            //  new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
+             new_obj.more_doc_reasons = more_doc_reasons;
+             new_obj.document_of = document_of;
+             new_obj.quote_additional_doc_id = quote_additional_doc_id;
             more_doc_message_array.push(new_obj);
             console.log(more_doc_message_array);
 
             var html = "<tr index="+more_doc_msg_index+">"
             +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
-            +"<td>"+$('#quote_additional_doc_id option:selected').text()+"</td>"
-            +"<td>"+$('#document_of option:selected').text()+"</td>"
-            +"<td>"+$('#more_doc_reasons option:selected').text()+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
+            +"<td>"+$("input[name='quote_additional_doc_id']:checked").next('label').text()+"</td>"
+            +"<td>"+$("input[name='document_of']:checked").next('label').text()+"</td>"
+            +"<td>"+more_doc_reasons_text+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
             +"<td>"+new_obj.from+"</td>"
             +"<td>"+new_obj.to+"</td>"
             +"<td>"+new_obj.if_any+"</td>"
-            +"<td>"+new_obj.latest+"</td>"
-            +"<td>"+new_obj.required_company_stamp+"</td>"
-            +"<td>"+new_obj.need_notarized+"</td>"
-            +"<td>"+new_obj.signature_borrower+"</td>"
-            +"<td>"+new_obj.signature_borrowers_customer+"</td>"
+            // +"<td>"+new_obj.latest+"</td>"
+            // +"<td>"+new_obj.required_company_stamp+"</td>"
+            // +"<td>"+new_obj.need_notarized+"</td>"
+            // +"<td>"+new_obj.signature_borrower+"</td>"
+            // +"<td>"+new_obj.signature_borrowers_customer+"</td>"
             +"</tr>";
             $('#more_doc_msg_table').append(html);
             more_doc_msg_index++;
             if(more_doc_message_array.length > 0){
                 $('#more_doc_msg_list').show();
             }
+            $( '#more_doc_form' ).each(function(){
+                this.reset();
+            });
         });
 
         $(document).on("click", '.remove_more_doc_msg', function(event) { 
             var index = $(this).closest('tr').attr('index');
+            console.log("index of"+index)
             $(this).closest('tr').remove();
             remove_more_doc_message_array.push(index);
             if(more_doc_message_array.length < 1){
@@ -437,23 +550,27 @@
             e.preventDefault();
             $("#add_doc_id_error").html("");
             $("#more_doc_error").html("");
-
+            console.log("remove array"+remove_more_doc_message_array)
+            console.log("add array"+more_doc_message_array)
             if(remove_more_doc_message_array.length > 0){
                 $.each(remove_more_doc_message_array, function(index, item) {
                     more_doc_message_array.splice(index,1);
+                    console.log("item is"+item)
+                    index_of_remove_array = remove_more_doc_message_array.indexOf(item)
+                    remove_more_doc_message_array.splice(index_of_remove_array,1);
+
                 });
+                console.log('after removing'+remove_more_doc_message_array)
             }
 
-            // var quote_additional_doc_id = $('#quote_additional_doc_id').val();
-            
-            // if(quote_additional_doc_idz == ""){
-            //     $("#add_doc_id_error").html("This field is required");
-            //     return false;
-            // }
             if(more_doc_message_array.length <=0){
+                console.log("submit array")
+                console.log(more_doc_message_array)
                 $('#more_doc_error').html('Please select any doc with reason and add.');
                 return false;
             }
+            
+            // return false; //remove this line after debug
             var apply_loan_id = $('#apply_loan_id').val();
 
             $.ajax({
@@ -490,28 +607,6 @@
         });
 
         $('.select2').select2();
-        // @if(Route::currentRouteName() == 'more-doc-required')
-        // let options = [];
-        // let optgroups =  [];
-        // @foreach($additional_docs as $key=>$items)
-        //     @foreach($items as $item) 
-        //         option = {id:"{{$item}}",'info_type':"{{getAdditionDocInfoType($item->info_type)}}","info":"{{$item->info}}"};
-        //     @endforeach
-        //         optgroups = [{id:"{{$item}}",'info_type':"{{getAdditionDocInfoType($item->info_type)}}"}]
-        // @endforeach
-        //     $("#quote_additional_doc_id").selectize({
-        //         options:options,
-        //         optgroups:optgroups,
-        //         labelField: "model",
-        //         valueField: "id",
-        //         optgroupField: "info_type",
-        //         optgroupLabelField: "info",
-        //         optgroupValueField: "id",
-        //         searchField: ["info"],
-        //         plugins: ["optgroup_columns"],
-
-        //     });
-        // @endif
 
     });
 
@@ -523,12 +618,15 @@
     }
 
     function fixedOrFloating(fixed_or_floating){
+        let apply_loan_id = $('#apply_loan_id').val();
+
         $.ajax({
                 method: 'POST',
                 url: "{{route('fixed-or-floating')}}",
                 data: {
                     '_token': '{{ csrf_token()}}',
                     'fixed_or_floating': fixed_or_floating,
+                    'apply_loan_id': apply_loan_id,
                 }
             }).done(function (data) {
                 // console.log(data)

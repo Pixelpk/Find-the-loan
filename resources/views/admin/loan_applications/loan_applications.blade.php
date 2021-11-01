@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-2">
                             <div class="page-title-box">
-                                <h4 class="page-title">Loan applications</h4>
+                                <h4 class="page-title">Loan enquires</h4>
                             </div>
                         </div>
 {{--                        <div class="col-md-3 float-right">--}}

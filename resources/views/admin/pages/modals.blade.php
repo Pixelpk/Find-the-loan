@@ -678,7 +678,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mt-0" id="loan_type_modal_heading">Assign selected applications to user</h5>
+                    <h5 class="modal-title mt-0" id="loan_type_modal_heading">Assign selected enquires to user</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -686,7 +686,7 @@
                 <div class="modal-body">
                     <form>
                         @csrf
-                        <span style="color: red;display: none" id="assign_error">Please select any application first</span>
+                        <span style="color: red;display: none" id="assign_error">Please select any enquiry first</span>
                         <div class="form-group">
                             <label for="" class="control-label mb-10">Select User</label>
                             <select class="form-control" name="user_id" id="assign_user_id">
@@ -740,6 +740,11 @@
                                     <option value="{{ $reason->id }}">{{ $reason->reason }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="internal">Please eleborate</label>
+                            <input class="form-control" name="other_reasons" required disabled  id="reject_other_reasons" value="">
+                                
                         </div>
 
                         <div class="modal-footer">

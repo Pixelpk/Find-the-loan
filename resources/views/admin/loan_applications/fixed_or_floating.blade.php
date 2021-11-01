@@ -17,10 +17,10 @@
         <label for="input7" class="col-form-label">Tenure(optional for overdraft)</label>
         <div class="row">
             <div class="col-md-3">
-                <input type="number" min="0"  class="form-control" required name="tenure_years" placeholder="Years" id="input7">
+                <input type="number" min="0"  class="form-control" @if($loan_type != 1) required @endif name="tenure_years" placeholder="Years" id="tenure_years">
             </div>
             <div class="col-md-3">
-                <input type="number" min="0"  class="form-control" required name="tenure_months" placeholder="Months" id="input7">
+                <input type="number" min="0"  class="form-control" @if($loan_type != 1) required @endif name="tenure_months" placeholder="Months" id="tenure_months">
             </div>
         </div>
     </div>
@@ -29,10 +29,10 @@
         </label>
         <div class="row">
             <div class="col-md-3">
-                <input type="number" min="0"  required class="form-control" name="lock_in_years" placeholder="Years" id="input7">
+                <input type="number" min="0"  required class="form-control" name="lock_in_years" placeholder="Years" id="lock_in_years">
             </div>
             <div class="col-md-3">
-                <input type="number" min="0"  required class="form-control" name="lock_in_months" placeholder="Months" id="input7">
+                <input type="number" min="0"  required class="form-control" name="lock_in_months" placeholder="Months" id="lock_in_months">
             </div>
         </div>
     </div>
