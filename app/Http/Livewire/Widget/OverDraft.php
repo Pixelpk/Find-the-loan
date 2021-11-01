@@ -6,6 +6,9 @@ use App\Http\Livewire\Cms\ApplyLoan;
 use App\Models\ApplyLoan as ModelsApplyLoan;
 use App\Models\BusinessOverDraft;
 use App\Models\LoanGernalInfo;
+use App\Models\OverDraftDeposit;
+use App\Models\OverDraftInsurance;
+use App\Models\OverDraftPropertyLand;
 use App\Models\OverDraftStockBond;
 use App\Models\OverDraftTrustFund;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +59,7 @@ class OverDraft extends Component
                 }
             }
             if($key == 1){
-                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                $stock=OverDraftInsurance::where('apply_loan_id', $this->apply_loan->id)->where('type', 1)->count();
                 if($stock > 0){
                     $sum++;
                 }
@@ -68,25 +71,25 @@ class OverDraft extends Component
                 }
             }
             if($key == 5){
-                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                $stock=OverDraftDeposit::where('apply_loan_id', $this->apply_loan->id)->where('deposit_type', 5)->count();
                 if($stock > 0){
                     $sum++;
                 }
             }
             if($key == 8){
-                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                $stock=OverDraftDeposit::where('apply_loan_id', $this->apply_loan->id)->where('deposit_type', 8)->count();
                 if($stock > 0){
                     $sum++;
                 }
             }
             if($key == 6){
-                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                $stock=OverDraftDeposit::where('apply_loan_id', $this->apply_loan->id)->where('deposit_type', 6)->count();
                 if($stock > 0){
                     $sum++;
                 }
             }
             if($key == 7){
-                $stock=OverDraftStockBond::where('apply_loan_id', $this->apply_loan->id)->where('type', 3)->count();
+                $stock=OverDraftPropertyLand::where('apply_loan_id', $this->apply_loan->id)->where('type', 7)->count();
                 if($stock > 0){
                     $sum++;
                 }

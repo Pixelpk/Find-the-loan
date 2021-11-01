@@ -29,8 +29,7 @@
             <br>
         </div>
     </div>
-    @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
-    $hirePurchase['hire_purchase_type'] == 3 ?? '')
+    @if($hirePurchase['hire_purchase_type'] ?? '')
     <div class="row">
 
         <div class="col-md-6 text-left">
@@ -90,8 +89,14 @@
             <hr>
         </div>
         <div class="col-md-12">
-            Please provide any details not found in quotation form/purchase order/sales agreement
+            <b> Please provide any details not found in quotation form/purchase order/sales agreement</b>
         </div>
+        <div class="col-md-12">
+            <br>
+            <b> Vehicle details</b>
+        </div>
+        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+        $hirePurchase['hire_purchase_type'] == 3 ?? '')
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="hirePurchase.distributer" class="form-label">Distributer</label>
             <input wire:model="hirePurchase.distributer" type="text" class="form-control">
@@ -101,6 +106,7 @@
             </div>
             @enderror
         </div>
+        @endif
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="hirePurchase.manufacturer" class="form-label">Manufacturer (brand)
             </label>
@@ -121,6 +127,8 @@
             </div>
             @enderror
         </div>
+        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+        $hirePurchase['hire_purchase_type'] == 3 ?? '')
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="hirePurchase.number_of_units" class="form-label">Number of units
             </label>
@@ -152,10 +160,161 @@
             </div>
             @enderror
         </div>
+        @endif
+        @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.purchase_price" class="form-label">Purchase price $
+            </label>
+            <input wire:model="hirePurchase.purchase_price" type="number" class="form-control">
+            @error("hirePurchase.purchase_price")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.deposit_paid" class="form-label">Deposit Paid if any
+
+            </label>
+            <input wire:model="hirePurchase.deposit_paid" type="text" class="form-control">
+            @error("hirePurchase.deposit_paid")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.chassis_number" class="form-label">Vehicle/chassis number if applicable
+
+            </label>
+            <input wire:model="hirePurchase.chassis_number" type="text" class="form-control">
+            @error("hirePurchase.chassis_number")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.engine_number" class="form-label">Engine number if applicable
+
+
+            </label>
+            <input wire:model="hirePurchase.engine_number" type="text" class="form-control">
+            @error("hirePurchase.engine_number")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.plate_number" class="form-label">Registration/Car plate number if applicable
+            </label>
+            <input wire:model="hirePurchase.plate_number" type="text" class="form-control">
+            @error("hirePurchase.plate_number")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        @endif
         <div class="col-md-12">
             <br>
             <hr>
         </div>
+        @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+        <div class="col-md-12">
+            Any discounts/rebates/benefits have the effect of reducing the actual price of the Vehicle below the
+            purchase price stated in the Vehicle Sales Agreement
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_name_1" class="form-label">Item Name
+            </label>
+            <input wire:model="hirePurchase.item_name_1" type="text" class="form-control">
+            @error("hirePurchase.item_name_1")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_value1" class="form-label">Value $
+            </label>
+            <input wire:model="hirePurchase.item_value1" type="text" class="form-control">
+            @error("hirePurchase.item_value1")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_name_2" class="form-label">Item Name
+            </label>
+            <input wire:model="hirePurchase.item_name_2" type="text" class="form-control">
+            @error("hirePurchase.item_name_2")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_value2" class="form-label">Value $
+            </label>
+            <input wire:model="hirePurchase.item_value2" type="text" class="form-control">
+            @error("hirePurchase.item_value2")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_name_3" class="form-label">Item Name
+            </label>
+            <input wire:model="hirePurchase.item_name_3" type="text" class="form-control">
+            @error("hirePurchase.item_name_3")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.item_value3" class="form-label">Value $
+            </label>
+            <input wire:model="hirePurchase.item_value3" type="text" class="form-control">
+            @error("hirePurchase.item_value3")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+            <br>
+        </div>
+        <div class="col-md-12 text-left">
+            <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+                x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress">
+                <div class="form-group">
+                    <label class="control-label mb-10">
+                        For used car, copy of LTA Vehicle Information
+                    </label>
+                    <br>
+                    <br>
+                    <label class="label" data-toggle="tooltip" title="Select Image">
+                        <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                            wire:model="hirePurchase.lta_vehicle_information" type="file" id="vehicleimage">
+                    </label>
+                </div>
+                @error('hirePurchase.lta_vehicle_information')
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+                <div x-show="isUploading">
+                    <progress max="100" x-bind:value="progress"></progress>
+                </div>
+            </div>
+        </div>
+        @endif
+        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+        $hirePurchase['hire_purchase_type'] == 3 ?? '')
         <div class="col-md-12">
             Additional Remarks/Description or URL of equipment/machinery if any may assist the Financing Partner to make
             a faster evaluation
@@ -196,6 +355,8 @@
                 </div>
             </div>
         </div>
+        @endif
+        @if($loan_type_id == 10 || $loan_type_id == 11)
         <div class="col-md-12 text-left">
             <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
@@ -222,6 +383,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="hirePurchase.preferred_tenure_month" class="form-label">
                 Preferred Tenure
@@ -267,6 +429,36 @@
             <br>
             <hr>
         </div>
+    </div>
+    <div class="row">
+        @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+        <div class="col-md-12">
+            <b>Details of Seller</b>
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.company_name" class="form-label">Company Name
+            </label>
+            <input wire:model="hirePurchase.company_name" type="text" class="form-control"
+                id="hirePurchase.company_name">
+            @error("hirePurchase.company_name")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-6" style="margin-top: 30px;">
+            <label for="hirePurchase.sale_mane" class="form-label">Salesman name
+
+
+            </label>
+            <input wire:model="hirePurchase.sale_mane" type="text" class="form-control" id="hirePurchase.sale_mane">
+            @error("hirePurchase.sale_mane")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        @endif
         <div wire:ignore.self class="col-md-12" style="margin-top: 30px;">
             <label for="hirePurchase.address" class="form-label">Address</label>
             <input onkeyup="dddd()" wire:model.defer="hirePurchase.address" type="text" class="form-control"
@@ -299,6 +491,8 @@
             </div>
             @enderror
         </div>
+        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+        $hirePurchase['hire_purchase_type'] == 3 ?? '')
         <div class="col-md-3">
             <br>
             <br>
@@ -311,6 +505,11 @@
                     Owned
                 </label>
             </div>
+            @error("hirePurchase.property_type")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
 
         </div>
         <div class="col-md-3">
@@ -339,22 +538,17 @@
             @enderror
         </div>
         @endif
-
-
-
-        
-
-
+        @endif
         <div class="col-12 text-end">
             <br>
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-                Save &amp; Continue
+                Add Another
             </button>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-12">
             <br>
@@ -364,9 +558,13 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Type</th>
+                        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+                        $hirePurchase['hire_purchase_type'] == 3 ?? '')
                         <th scope="col">Address</th>
+                       
                         <th scope="col">Property Type</th>
-                      
+                        @endif
+
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -375,10 +573,13 @@
                     <tr>
                         <th scope="row">1</th>
                         <td>{{ $item->type }}</td>
+                        @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
+                        $hirePurchase['hire_purchase_type'] == 3 ?? '')
                         <td>{{ $item->address }}</td>
                         <td>{{ $item->property_type }}</td>
-                     
-                       
+                        @endif
+
+
                         <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;"
                                 class="btn">Delete</button></td>
                     </tr>

@@ -19,6 +19,7 @@ use App\Http\Controllers\CommonController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\FaqComponent;
 use App\Http\Livewire\Cms\PrivacyPolicyComponent;
+use App\Http\Livewire\Cms\FinancialInclusionComponent;
 use App\Http\Livewire\Cms\TermsConditionsComponent;
 use App\Http\Livewire\Cms\ApplyLoan;
 use App\Http\Livewire\Cms\BlogComponent;
@@ -60,6 +61,7 @@ Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail'
 Route::get('faqs',FaqComponent::class)->name('faqs');
 Route::get('privacy-policy',PrivacyPolicyComponent::class)->name('privacy-policy');
 Route::get('terms-conditions',TermsConditionsComponent::class)->name('terms-conditions');
+Route::get('financial-inclusion',FinancialInclusionComponent::class)->name('financial-inclusion');
 // Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
 Route::get('blog',BlogDetailComponent::class)->name('blog');
 Route::get('about-us',AboutUs::class)->name('about-us');

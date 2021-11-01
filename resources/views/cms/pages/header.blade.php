@@ -65,7 +65,7 @@
                 <li><a href="{{ route('about-us') }}" class="nav-link">About Us</a></li>
                 <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
-                <li><a href="{{ route('faqs') }}" class="nav-link">Financial Inclusion</a></li>
+                <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Glossary</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Terms of uses</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Privacy policy</a></li>
@@ -74,9 +74,14 @@
             <div class="btn-group desk-menu">
                     @php
                         $current_route = Route::currentRouteName();
+                        
                         if ($current_route == 'blog') {
                             $route = route('our-blogs');
-                        }else {
+                        }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
+                            $route = route('home');
+                            $current_route = 'home';
+                        }
+                        else {
                             $route = route($current_route);
                         }
                     @endphp
@@ -90,7 +95,7 @@
                     <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
                     <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
                     <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
-                    <li><a href="#" class="dropdown-item">Financial Inclusion</a></li>
+                    <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li>
                     <li><a href="#" class="dropdown-item">Glossary</a></li>
                     <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of uses</a></li>
                     <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>

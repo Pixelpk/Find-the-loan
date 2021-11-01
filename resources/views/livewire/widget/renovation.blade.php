@@ -10,7 +10,7 @@
                         x-on:livewire-upload-progress="progress = $event.detail.progress">
                         <div class="form-group">
                             <label class="control-label mb-10">
-                                Tanancy Agreement
+                                Tenancy Agreement
                             </label>
                             <br>
                             <br>

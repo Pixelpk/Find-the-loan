@@ -43,6 +43,8 @@ class BusinessDebtConsolidation extends Component
            'amount' => 'required|integer|min:1',
            'document' =>  $this->settlement_notice || $this->apply_loan  ? '' : 'required|mimes:jpg,jpeg,png,pdf',
            'settlement_notice' =>  $this->document || $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+       ],[
+           'amount.integer'=>'Amount must be number'
        ]);
        $data = [
              ['type' => 'file', 'value' => $this->document, 'key' => 'document'], 
