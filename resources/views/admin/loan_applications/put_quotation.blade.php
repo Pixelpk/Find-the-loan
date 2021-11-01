@@ -10,15 +10,23 @@
                 <div class="row align-items-center ">
                     <div class="col-md-12">
                         <div class="page-title-box">
-                            <h4 class="page-title">Put quotation</h4>
+                            <h4 class="page-title">Qutation & Summary</h4>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- end page-title -->
 
+ <!-- SUMMARY -->
+ <section id="summary" class="summary">
+                <div class="container info-container bg-white">
+                    <h1 class="display-1">Summary Section</h1>
+                </div>
+            </section>
+            <!-- /SUMMARY -->
+
             <!-- FORM NO 1 -->
-            <div class="container bg-white shadow py-3" style="border-radius: 0.7rem;">
+            <div class="container bg-white shadow py-3" style="border-radius: .7rem;">
                 <h5 class="">Quantum section</h5>
                 <!-- SEC 1 -->
                 <form method="POST" id="quotationForm" action="{{route('submit-quotation')}}">
@@ -391,7 +399,7 @@
             <!-- /FORM NO 1 -->
 
             <!-- FORM 2 -->
-            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: .7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3">
@@ -558,7 +566,7 @@
             <!-- /FORM 2 -->
 
             <!-- FORM 3 -->
-            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: 0.7rem;">
+            {{-- <div class="container bg-white shadow py-3 mt-5" style="border-radius: .7rem;">
                 <form action="">
                     <!-- 1ST ROW -->
                     <div class="form-row pl-3 pr-3 my-3">
@@ -669,6 +677,9 @@
                 </form>
             </div> --}}
             <!-- /FORM 3 -->
+
+
+
         </div>
         <!-- container-fluid -->
     </div>
@@ -678,3 +689,5 @@
 
 </div>
 @endsection
+
+
