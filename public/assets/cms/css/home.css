@@ -8,7 +8,7 @@
 }
 .srch{
     position: relative;
-    width: 50%;
+    width: 46%;
     /* margin-right: 1rem; */
 }
 .srch > input{
@@ -114,12 +114,14 @@
 }
 .loan-type__icon, .finance__card .card{
     border-radius: .75rem;
-    height: 100%;
     border: none;
     text-align: center;
     margin-bottom: .2rem;
     /* transition: all 0.3s ease-out; */
     cursor: pointer;
+}
+.loan-type__icon .card{
+    height: 13rem;
 }
 .loan-type__icon .card:hover{
     border: 2px solid #3EBB60;

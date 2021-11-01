@@ -80,13 +80,16 @@
                 Surrender Value $
             </label>
             <input wire:model="surrender_value" type="number" class="form-control" id="surrender_value">
+            <span>
+                Download from your insurer’s website or check with your advisor for a updated copy. The latest surrender value can be found on it.
+            </span>
             @error("surrender_value")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
             <livewire:widget.currency/>
             @error("currency")
             <div style="color: red;">
@@ -100,16 +103,17 @@
         <div class="col-md-12">
             <br>
             <br>
-            <livewire:widget.upload-component :label="'Or upload your Benefit illustration'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_tanancy_agreement'" />
+            <livewire:widget.upload-component 
+                :label="'Or upload your Benefit illustration'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\OverDraftInsurance'" 
+                :keyvalue="'over_draft_benifit_illustration'" 
+            />
         </div>
-        <div class="col-md-12">
-            <br>
-            <br>
-            Download from your insurer’s website or check with your advisor for a updated copy. The latest surrender value can be found on the it
-
-        </div>
+        
         <div class="col-md-12">
             <hr>
         </div>
@@ -118,7 +122,7 @@
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add Another Insurance</button>
+            <button class="btn" wire:click="store">Add Another Policy</button>
         </div>
     </div>
     <div class="row">

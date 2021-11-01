@@ -183,7 +183,6 @@
             </div>
             <!-- /SUMMARY LIST 3 -->
             <!-- /SEC 1 -->
-        </div>
         <!-- /INFO CONTAINER -->
     </div>
     <!-- container-fluid -->

@@ -59,6 +59,11 @@
 
                     </span>
                     @endif
+                    @if($tab == 3)
+                    <span>e..g Tesla Inc, NASDAQ: TSLA
+
+                    </span>
+                    @endif
             </div>
             @error("name")
             <div style="color: red;">

@@ -1,8 +1,8 @@
 <!--NAVIGATION ******************************************************************************************-->
-<nav class="navbar navbar-expand-md navbar-light fixed-top ts-separate-bg-element headshad py-2">
+<nav class="navbar navbar-expand-md navbar-light fixed-top ts-separate-bg-element headshad pt-2">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('assets/cms/img/logo-w2.png') }}" alt="logo">
+            <img class="img-fluid" style="height:75px" src="{{ asset('assets/cms/img/FindTheLoan Logo-02.png') }}" alt="logo">
         </a>
         <!--end navbar-brand-->
 
