@@ -1,9 +1,19 @@
 <div>
     <div class="row">
         <div class="col-md-12 text-left">
-            @livewire('widget.upload-component', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
-            'apply_loan' => $apply_loan, 'getImages' => $images, 'label' => " Documents such as letter of interest, confirmed work order, contract/tender etc",
-            'modell' => "\App\Models\LoanGernalInfo", 'keyvalue' => 'document', 'share_holder' => 0, 'model' => 'LoanGernalInfo'])
+             <livewire:widget.upload-component 
+             :label="'Documents such as letter of interest, confirmed work order, contract/tender etc'" 
+             :apply_loan="$apply_loan"
+             :main_type="$main_type" 
+             :loan_type_id="$loan_type_id" 
+             :share_holder="0"
+             :modell="'\App\Models\LoanGernalInfo'" 
+             :keyvalue="'project_finance_document'"/>
+         @error("document")
+         <div style="color: red;">
+             {{ $message }}
+         </div>
+         @enderror
         </div>
         <div class="col-md-6">
             <br>

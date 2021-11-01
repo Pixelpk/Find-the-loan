@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Cms\Loan\Business\LoanType;
 
 use App\Models\ApplyLoan;
 use App\Models\LoanGernalInfo;
+use App\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,22 +14,37 @@ class BusinessDebtConsolidation extends Component
     public $apply_loan;
     public $main_type;
     public $loan_type_id;
+    public $documents;
     public $document;
     public $settlement_notice;
     public $amount;
   
-   
+    protected $listeners = [
+        'documentReq'
+    ];
+
+    public function documentReq($value)
+    {
+       
+        $this->documents = $value;
+        $this->settlement_notice = $value;
+    }
     public function mount()
     {
-        if($this->apply_loan){
-            $this->settlement_notice = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'settlement_notice')->first()->value ?? '';
-            $this->document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first()->value ?? '';
-            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
-            ///
+     
+        $media  = Media::where('model', '\App\Models\OverDraftInsurance')->whereIn('key', ['debt_consolidation_settlement_noticea', 'debt_consolidation_documents'])->where('apply_loan_id', $this->apply_loan->id)
+        ->where('model_id', 0)->where('share_holder', 0)->get();
+        
+        if($media->count() > 0){
+          
+            $this->documents = 'pass';
            
-            // $this->settlement_notice = $this->settlement_notice ? $this->settlement_notice->value : '';
-            // $this->document = $this->document ?  $this->document->value : '';
-            // $this->amount = $this->amount ?  $this->amount->value : '';    
+            $this->document = 'pass';
+            $this->settlement_notice = 'pass';
+        }
+        if($this->apply_loan){
+
+            $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? ''; 
         }
     }
     public function render()
@@ -38,17 +54,19 @@ class BusinessDebtConsolidation extends Component
 
     public function store()
     {
-       
+      
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'document' =>  $this->settlement_notice || $this->apply_loan  ? '' : 'required|mimes:jpg,jpeg,png,pdf',
-           'settlement_notice' =>  $this->document || $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+           'documents' =>  $this->settlement_notice   ? '' : 'required',
+           'settlement_notice' =>  $this->documents  ? '' : 'required',
        ],[
-           'amount.integer'=>'Amount must be number'
+           'amount.integer'=>'Amount must be number',
+           'documents.required'=>'The documents is required.',
+           'settlement_notice.required'=>'The settlement notice  is required.',
        ]);
        $data = [
-             ['type' => 'file', 'value' => $this->document, 'key' => 'document'], 
-             ['type' => 'file', 'value' => $this->settlement_notice, 'key' => 'settlement_notice'], 
+            //  ['type' => 'file', 'value' => $this->document, 'key' => 'document'], 
+            //  ['type' => 'file', 'value' => $this->settlement_notice, 'key' => 'settlement_notice'], 
              ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
        ];
       
@@ -76,11 +94,12 @@ class BusinessDebtConsolidation extends Component
             $LGI->apply_loan_id = $this->apply_loan->id;
             $LGI->type = $item['type'];
             $LGI->key = $item['key'];
-            if($item['type'] == 'file'){
-                $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : $item['value'];
-            }else{
+            // if($item['type'] == 'file'){
+            //     $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : $item['value'];
+            // }
+            // else{
                 $LGI->value = isset($item['value']) ? $item['value'] : '';
-            }
+            // }
             $LGI->save();
        }
        $this->gernalInfo = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();

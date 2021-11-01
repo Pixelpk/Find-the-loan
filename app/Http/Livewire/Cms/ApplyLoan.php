@@ -42,11 +42,11 @@ class ApplyLoan extends Component
     public $documentDisable;
     public $shareDisable;
     public $loan_type_id;
-    public $loanReasons;
+    public $loanReasons = [];
     public $saveCompanyDetail;
     public $reasonDisable;
     public $values;
-    public $reasonValue;
+    public $reasonValue = [];
     public $amount;
     public $tab = '1';
     public $all_share_holder;
@@ -209,26 +209,42 @@ class ApplyLoan extends Component
         if($test){
             $this->loan_type_id = $loan_type_id;
             $this->values = [$loan_type_id => true];
-            if($this->apply_loan){
-               $this->apply_loan->profile = $this->main_type;
-               $this->apply_loan->loan_type_id = $this->loan_type_id;
-               $this->apply_loan->update();
-            }
-            else{
-                $this->apply_loan= ModelsApplyLoan::forceCreate([
-                    'profile' =>  $this->main_type,
-                    'user_id' => Auth::user()->id,
-                    'loan_type_id' =>  $this->loan_type_id,
-                ]);
-            }
+            
         }else{
             $this->loan_type_id = null;
         }
        
         $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
         // dd($this->values);
-        $this->tab=8;
+       
         // $this->goToReasons();
+    }
+
+    public function storeReasonLoanType()
+    {
+        if(sizeof($this->reasonValue) == 0){
+            $this->emit('danger', ['type' => 'success', 'message' => 'Loan reason required.']);
+            return;
+        }
+        foreach($this->reasonValue as $item){
+            $reason = $item;
+        }
+      
+        if($this->apply_loan){
+            $this->apply_loan->profile = $this->main_type;
+            $this->apply_loan->loan_type_id = $this->loan_type_id;
+            $this->apply_loan->reason_id = $reason;
+            $this->apply_loan->update();
+         }
+         else{
+             $this->apply_loan= ModelsApplyLoan::forceCreate([
+                 'profile' =>  $this->main_type,
+                 'user_id' => Auth::user()->id,
+                 'loan_type_id' =>  $this->loan_type_id,
+                 'reason_id' =>  $reason,
+             ]);
+         }
+         $this->tab = 8;
     }
    
     public function getShareholderTypeId($id)
@@ -725,7 +741,7 @@ class ApplyLoan extends Component
             'company_month' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:11|integer|gt:0',
             'company_years' =>  $this->company_months  ? 'required|integer|gt:0' : '',
             'company_months' =>  $this->company_years  ? 'required|integer|gt:0' : '',
-            'number_of_share_holder' => 'required|numeric|max:10|integer|gt:-1',
+            'number_of_share_holder' => 'numeric|max:10|integer|gt:-1',
             'sector_id' => 'required',
             'revenue' => 'required|integer|gt:0',
             'percentage_shareholder' => 'required|integer|gt:0',

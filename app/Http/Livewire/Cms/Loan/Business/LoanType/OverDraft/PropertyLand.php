@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Cms\Loan\Business\LoanType\OverDraft;
 use App\Models\ApplyLoan;
 use App\Models\LoanGernalInfo;
+use App\Models\Media;
 use App\Models\OverDraftPropertyLand;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,6 +15,7 @@ class PropertyLand extends Component
     public $main_type;
     public $loan_type_id;
     public $apply_loan;
+    public $tab;
    
    ///sold///
     public $address;
@@ -31,6 +33,7 @@ class PropertyLand extends Component
     public $float_rate;
     public $fix_rate;
     public $amount;
+    public $media = [];
     //
     protected $listeners = [
         'getAddress'
@@ -108,8 +111,7 @@ class PropertyLand extends Component
            'square_feet' => $this->square_meter ? '' : 'required',
            'square_meter' => $this->square_feet ? '' : 'required',
        ]);
-     
-       OverDraftPropertyLand::forceCreate([
+       $overDraft = OverDraftPropertyLand::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'address' => $this->address,
            'unit' => $this->unit,
@@ -118,16 +120,24 @@ class PropertyLand extends Component
            'lease_remaining_year' => $this->lease_remaining_year,
            'free_hold' => $this->free_hold,
            'floor_area' => $this->floor_area,
-        //    'user_able_area' => $this->user_able_area,
            'square_feet' => $this->square_feet,
            'square_meter' => $this->square_meter,
            'completed' => $this->completed,
            'construction_year' => $this->construction_year,
            'construction_year_time' => $this->construction_year_time,
-         
            'float_rate' => $this->float_rate,
            'fix_rate' => $this->fix_rate,
+           'type' => $this->tab,
        ]);
+
+       Media::where('model', 'App\Models\OverDraftPropertyLand')
+       ->where('apply_loan_id', $this->apply_loan->id)
+       ->where('share_holder', 0)
+       ->where('model_id', 0)
+       ->update([
+           'model_id' => $overDraft->id,
+       ]);
+       $this->emit('getImage'); 
       
        $apply_loan = ApplyLoan::find($this->apply_loan->id);
        $apply_loan->amount = $this->amount;
@@ -135,6 +145,7 @@ class PropertyLand extends Component
        $this->getProperLand();
        $this->emit('alert', ['type' => 'success', 'message' => 'Property Land added successfully.']);
        $this->resetInput();
+
     }
 
     public function changeAreaType()
@@ -167,10 +178,16 @@ class PropertyLand extends Component
     {
         $this->propertyLands = OverDraftPropertyLand::where('apply_loan_id', $this->apply_loan->id)->get();
     }
+
     public function deleteRecord(OverDraftPropertyLand $overDraftPropertyLand)
     {
        
         $overDraftPropertyLand->delete();
         $this->getProperLand();
+    }
+
+    public function showDocuments($id)
+    {
+        $this->media = Media::where('model_id', $id)->get();
     }
 }

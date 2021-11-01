@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Cms\Loan\Business\LoanType\OverDraft;
 use App\Models\ApplyLoan;
 use App\Models\LoanGernalInfo;
+use App\Models\Media;
 use App\Models\OverDraftInsurance;
 use App\Models\OverDraftPropertyLand;
 use Illuminate\Support\Facades\Auth;
@@ -69,7 +70,7 @@ class Insurance extends Component
            'currency' => 'required',
        ]);
      
-       OverDraftInsurance::forceCreate([
+       $overDraft = OverDraftInsurance::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'insurance' => $this->insurance,
            'type_of_policy' => $this->type_of_policy,
@@ -81,6 +82,13 @@ class Insurance extends Component
            'currency' => $this->currency,
            'type' => $this->tab,
        ]);
+       Media::where('model', '\App\Models\OverDraftInsurance')->where('key', 'over_draft_benifit_illustration')
+       ->where('share_holder', 0)
+       ->where('model_id', 0)
+       ->update([
+           'model_id' => $overDraft->id,
+       ]);
+       $this->emit('getImage');       
        $apply_loan = ApplyLoan::find($this->apply_loan->id);
        $apply_loan->amount = $this->amount;
        $apply_loan->update();
@@ -115,6 +123,7 @@ class Insurance extends Component
     public function deleteRecord(OverDraftInsurance $OverDraftInsurance)
     {
         $OverDraftInsurance->delete();
+        $this->emit('enableButton', true);
         $this->getInsurance();
     }
 }

@@ -1,0 +1,30 @@
+﻿[27/09/21 18:20:51] info: Program: Starting Squirrel Updater: --checkForUpdate https://dl.pstmn.io/update/WIN64/8.12.2/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[27/09/21 18:20:51] info: Program: Fetching update information, downloading from https://dl.pstmn.io/update/WIN64/8.12.2/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[27/09/21 18:20:51] info: CheckForUpdateImpl: Generated new staging user ID: 4893b2bf-a259-59fa-8301-d30d0a653f60
+[27/09/21 18:20:51] info: CheckForUpdateImpl: Downloading RELEASES file from https://dl.pstmn.io/update/WIN64/8.12.2/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[27/09/21 18:20:52] info: FileDownloader: Downloading url: https://dl.pstmn.io/update/WIN64/8.12.2/stable/RELEASES?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0&id=Postman&localVersion=8.12.2&arch=amd64
+[27/09/21 18:20:55] warn: UpdateInfo: Couldn't get release notes for:Postman-win64-9.0.3-delta.nupkg: System.IO.FileNotFoundException: Could not find file 'C:\Users\pixelpk\AppData\Local\Postman\packages\Postman-win64-9.0.3-delta.nupkg'.
+File name: 'C:\Users\pixelpk\AppData\Local\Postman\packages\Postman-win64-9.0.3-delta.nupkg'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at NuGet.ZipPackage.<>c__DisplayClass9_0.<.ctor>b__0()
+   at NuGet.ZipPackage.EnsureManifest()
+   at Squirrel.ReleaseEntry.GetReleaseNotes(String packageDirectory)
+   at Squirrel.UpdateInfo.<FetchReleaseNotes>b__19_0(ReleaseEntry x)
+[27/09/21 18:20:55] info: Program: Finished Squirrel Updater
+[30/09/21 17:56:09] info: Program: Starting Squirrel Updater: --checkForUpdate https://dl.pstmn.io/update/WIN64/9.0.3/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[30/09/21 17:56:09] info: Program: Fetching update information, downloading from https://dl.pstmn.io/update/WIN64/9.0.3/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[30/09/21 17:56:09] info: CheckForUpdateImpl: Using existing staging user ID: 4893b2bf-a259-59fa-8301-d30d0a653f60
+[30/09/21 17:56:09] info: CheckForUpdateImpl: Downloading RELEASES file from https://dl.pstmn.io/update/WIN64/9.0.3/stable?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0
+[30/09/21 17:56:09] info: FileDownloader: Downloading url: https://dl.pstmn.io/update/WIN64/9.0.3/stable/RELEASES?installationId=09220bd0-aa04-4dd2-afcd-b54d9e67f8b6&userId=0&syncEnabled=false&teamPlan=&teamId=0&id=Postman-win64&localVersion=9.0.3&arch=amd64
+[30/09/21 17:56:11] warn: UpdateInfo: Couldn't get release notes for:Postman-win64-9.0.4-delta.nupkg: System.IO.FileNotFoundException: Could not find file 'C:\Users\pixelpk\AppData\Local\Postman\packages\Postman-win64-9.0.4-delta.nupkg'.
+File name: 'C:\Users\pixelpk\AppData\Local\Postman\packages\Postman-win64-9.0.4-delta.nupkg'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at NuGet.ZipPackage.<>c__DisplayClass9_0.<.ctor>b__0()
+   at NuGet.ZipPackage.EnsureManifest()
+   at Squirrel.ReleaseEntry.GetReleaseNotes(String packageDirectory)
+   at Squirrel.UpdateInfo.<FetchReleaseNotes>b__19_0(ReleaseEntry x)
+[30/09/21 17:56:11] info: Program: Finished Squirrel Updater

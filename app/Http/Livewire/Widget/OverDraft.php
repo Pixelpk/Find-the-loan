@@ -114,6 +114,7 @@ class OverDraft extends Component
         if($overDraft){
             if($overDraft->type == 1){
                 $this->overdraft['unsecured'] = true;
+                $this->enableButtons  = false;
             }else{
                 $this->overdraft['secure'] = true;
                 $this->overdraft['security_type'] =  $overDraft->security_type;
@@ -159,18 +160,58 @@ class OverDraft extends Component
     public function changeType()
     {
         // && $this->overdraft['unsecured']
+        
         $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
         if($overDraftType)
         {
+            $this->enableButtons = false;
+            if(isset($this->overdraft['unsecured']) && $this->overdraft['unsecured'])
+            {
+                $this->overdraft['secure'] = '';
+                $overDraftType->type = 1; 
+                $overDraftType->type_value = $this->overdraft['unsecured']; 
+            }
+           
+            $loan = ModelsApplyLoan::where('id', $this->apply_loan->id)->first();
+            $loan->amount = $this->amount;
+            $loan->update();
+            $overDraftType->update();
+           
+        }else{
+            
+            $overDraftType = new BusinessOverDraft();
+           
             if(isset($this->overdraft['unsecured']) && $this->overdraft['unsecured'])
             {
                
                 $overDraftType->type = 1; 
+                $overDraftType->apply_loan_id = $this->apply_loan->id; 
+                $overDraftType->security_type = $this->overdraft['unsecured']; 
+
                 $overDraftType->type_value = $this->overdraft['unsecured']; 
             }
+            
+            $loan = ModelsApplyLoan::where('id', $this->apply_loan->id)->first();
+            $loan->amount = $this->amount;
+            $loan->update();
+            $this->enableButtons = false;
+            $overDraftType->save();
+            
+        }
+    }
+
+    public function changeType2()
+    {
+        // && $this->overdraft['unsecured']
+        $this->enableButtons  = true;
+        $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
+        if($overDraftType)
+        {
+           
+           
             if(isset($this->overdraft['secure']) && $this->overdraft['secure'])
             {
-            
+                $this->overdraft['unsecured'] = '';
                 $overDraftType->type = 2; 
                 $overDraftType->type_value = $this->overdraft['secure']; 
             }
@@ -182,16 +223,7 @@ class OverDraft extends Component
         }else{
             
             $overDraftType = new BusinessOverDraft();
-            // dd();
-            if(isset($this->overdraft['unsecured']) && $this->overdraft['unsecured'])
-            {
-               
-                $overDraftType->type = 1; 
-                $overDraftType->apply_loan_id = $this->apply_loan->id; 
-                $overDraftType->security_type = $this->overdraft['sc']; 
-
-                $overDraftType->type_value = $this->overdraft['unsecured']; 
-            }
+           
             if(isset($this->overdraft['secure']) && $this->overdraft['secure'])
             {
             

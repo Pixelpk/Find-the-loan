@@ -91,10 +91,10 @@
                     @livewire('cms.loan.business.loan-type.property-bridging', ['loan_type_id' => $loan_type_id,
                     "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
-                     @elseif($tab == 8 && $loan_type_id == 9 || $loan_type_id == 10 || $loan_type_id == 11)
-                     @livewire('cms.loan.business.loan-type.hire-purchase', ['loan_type_id' => $loan_type_id,
-                     "main_type" => $main_type,
-                     'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 9 || $loan_type_id == 10 || $loan_type_id == 11)
+                    @livewire('cms.loan.business.loan-type.hire-purchase', ['loan_type_id' => $loan_type_id,
+                    "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
 
                     @endif
 
@@ -112,6 +112,7 @@
                     </div>
                     @if(sizeof($mainTypes) > 0)
                     <div class="row">
+                        
                         @foreach($mainTypes as $item)
                         @if($item->subTypes->count() > 0)
                         <div class="col-md-3" style="padding-top:30px;">
@@ -135,6 +136,30 @@
                         @endif
                         @endforeach
                     </div>
+                    @if(sizeof($loanReasons) > 0)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br>
+                            <br>
+                            <h4>Loan Reasons</h4></div>
+                        @foreach($loanReasons as $key => $item)
+                        <div class="col-md-4" style="margin-top: 30px;">
+                            <div class="form-check form-switch">
+                                <input wire:click="pushReason({{ $item->id }})" wire:model="reasonValue.{{ $item->id }}"
+                                    class="form-check-input reasonCheck" type="checkbox" id="{{ $item->id }}" />
+                                <label class="form-check-label" for="{{ $item->id }}">{{ $item->reason }}</label>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <div>
+                            <br>
+                            <br>
+                            <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                        </div>
+                    </div>
+                    @endif
                     {{-- <div class="row">
                         <div class="col-12">
                             <br>
@@ -365,7 +390,7 @@
                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
                     @endfor
             </select>
-            &nbsp;&nbsp;<p style="padding-top:10px;">Years</p>
+            &nbsp;&nbsp;<p style="padding-top:10px;">Year</p>
 
         </div>
         @error('company_years')
@@ -383,7 +408,7 @@
                 @for ($x = 01; $x <= 11; $x++) <option value="{{ $x }}">{{ $x }}</option>
                     @endfor
             </select>
-            &nbsp;&nbsp;<p style="padding-top:10px;">Months</p>
+            &nbsp;&nbsp;<p style="padding-top:10px;">Month</p>
             @error('company_months')
             <div style="color: red;">
                 {{ $message }}
