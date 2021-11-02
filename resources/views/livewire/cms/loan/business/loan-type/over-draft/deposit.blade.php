@@ -71,6 +71,7 @@
             @enderror
         </div>
         @endif
+        @if($tab == 6)
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="tranche" class="form-label">
                 For Structured Deposit, please specify name & tranche:
@@ -88,6 +89,8 @@
             </div>
             @enderror
         </div>
+        @endif
+        @if($tab == 8)
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fd_sd" class="form-label">
                 For FD and SD please state Maturity date
@@ -102,6 +105,7 @@
             </div>
             @enderror
         </div>
+        @endif
     </div>
     <div class="row">
         <div class="col-md-12">

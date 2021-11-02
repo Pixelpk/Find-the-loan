@@ -169,7 +169,7 @@
         </div>
         <div class="col-md-2">
             <label for="useable_area" class="form-label">Year</label>
-            <select wire:model="construction_year" class="form-control">
+            <select wire:model="construction_year" class="form-select">
                 <option value="">Select</option>
                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
                     @endfor
@@ -177,7 +177,7 @@
         </div>
         <div class="col-md-2">
             <label for="useable_area" class="form-label">Quater</label>
-            <select wire:model="construction_year_time" class="form-control">
+            <select wire:model="construction_year_time" class="form-select">
                 <option value="">Select</option>
                 <option value="1">Q1</option>
                 <option value="2">Q2</option>

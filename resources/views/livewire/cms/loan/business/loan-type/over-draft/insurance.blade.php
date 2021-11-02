@@ -122,7 +122,7 @@
         <div class="col-md-12">
             <br>
             <br>
-            <button class="btn" wire:click="store">Add Another Policy</button>
+            <button class="btn" wire:click="store">Add @if(sizeof($insurances) > 0) Another @endif Policy</button>
         </div>
     </div>
     <div class="row">

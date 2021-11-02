@@ -3059,6 +3059,7 @@ p.contact_success_box{
 	padding: 195px 0;
 	position: relative;
 	margin-bottom: 40px;
+	opacity: 0.8;
 }
 
 .video-icon {
@@ -3827,13 +3828,13 @@ h5.chart-title {
 /* 					    12. MOBILE DEVICES                    */
 /* ========================================================== */
 
-@media (min-width: 992px) and (max-width: 1199px){
+/* @media (min-width: 992px) and (max-width: 1199px){
 	.yamm .dropdown.yamm-fw .dropdown-menu {
 	  left: 50%;
 	}
-}
+} */
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
   
 	.dropdown:hover > .dropdown-menu {
 		display: block;
@@ -3843,11 +3844,11 @@ h5.chart-title {
 		-o-transition: all 0.15s ease-in;
 		transition: all 0.15s ease-in;
 	}
-}
+} */
 
 @media (max-width: 991px) {
 
-  .dropdown-menu {
+  /* .dropdown-menu {
 	  position: relative;
 	  top: 100%;
 	  left: 0;
@@ -3859,7 +3860,6 @@ h5.chart-title {
 	  font-size: 14px;
 	  text-align: left;
 	  list-style: none;
-	  /* background-color: transparent; */
 	  -webkit-background-clip: padding-box;
 	          background-clip: padding-box;
 	  border-radius: 4px;
@@ -3869,7 +3869,7 @@ h5.chart-title {
 
 	.dropdown-menu .divider {
 		display: none;
-	}
+	} */
 
 	.yamm .yamm-content {
 	  padding: 0 25px;
@@ -3891,9 +3891,9 @@ h5.chart-title {
     	padding-bottom: 8px;
 	}
 
-	.navbar-nav > li > .dropdown-menu{
+	/* .navbar-nav > li > .dropdown-menu{
 		margin-bottom: 12px;
-	}
+	} */
 
   	.yamm .nav,
 	.yamm .collapse,
@@ -3902,21 +3902,21 @@ h5.chart-title {
 		position: relative;
 	}
 
-	.dropdown-menu,
+	/* .dropdown-menu,
 	.dropdown-menu > li,
 	.dropdown-menu > li > a{
 		width: 100%;
 		clear: both;
-	}
+	} */
 
-	.dropdown-menu > li > a {
+	/* .dropdown-menu > li > a {
 	    padding: 6px 20px;
-	}
+	} */
 
-	.yamm .dropdown.yamm-fw .dropdown-menu {
+	/* .yamm .dropdown.yamm-fw .dropdown-menu {
 	  background: none;
 	  left: 0;
-	}
+	} */
 
 	.pricing-bottom {
 		padding: 0 20px 40px 20px;
@@ -4058,13 +4058,13 @@ h5.chart-title {
 		display: block!important;
 	}
 
-	.navbar-nav > li.hidden-nav-item > .dropdown-menu {
+	/* .navbar-nav > li.hidden-nav-item > .dropdown-menu {
 	    display: block!important;
 	}
 
 	.hidden-nav-item > .dropdown-menu > li > a {
 		display: block!important;
-	}
+	} */
 
 	.service-wrapper {
 	margin-top: 60px;

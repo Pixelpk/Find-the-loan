@@ -3,6 +3,7 @@ namespace App\Http\Livewire\Cms\Loan\Business\LoanType;
 use App\Models\ApplyLoan;
 use App\Models\BusinessHirePurchase;
 use App\Models\LoanGernalInfo;
+use App\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -43,7 +44,8 @@ class HirePurchase extends Component
         'hirePurchase.building_name' =>  'nullable',
         'hirePurchase.property_type' =>   "required_if:hirePurchase.hire_purchase_type,1,2,3",
         'hirePurchase.lender_name' =>  "required_if:hirePurchase.property_type,Rented",
-        'hirePurchase.gearup_or_refinancing' =>  "required_if:loan_type_id,10,11",
+        // 'hirePurchase.gearup_or_refinancing' =>  "required_if:loan_type_id,10,11",
+        'hirePurchase.gearup_or_refinancing' =>  "nullable",
         'hirePurchase.purchase_price' =>  'nullable',
         'hirePurchase.deposit_paid' =>  'nullable',
         'hirePurchase.chassis_number' =>  'nullable',
@@ -63,10 +65,12 @@ class HirePurchase extends Component
     { 
         $this->hirePurchase = new BusinessHirePurchase();
         $this->hirePurchase['amount'] = $this->apply_loan->amount ?? '';
-        $busines  = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->orderByDesc('id')->first();
-        if($busines){
-            $this->hirePurchase['hire_purchase_type'] = (string) $busines->hire_purchase_type;
-            $this->getHirePurchase();
+        if($this->apply_loan){
+            $busines  = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->orderByDesc('id')->first();
+            if($busines){
+                $this->hirePurchase['hire_purchase_type'] = (string) $busines->hire_purchase_type;
+                $this->getHirePurchase();
+            }
         }
     }
     public function getAddress($value)
@@ -87,10 +91,25 @@ class HirePurchase extends Component
         if($businessHirePurchase){
             BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->delete();
         }
-        $this->validate();
+        
+        $this->validate($this->rules, [
+            'hirePurchase.address.required_if' => 'The address is required',
+            'hirePurchase.property_type.required_if' => 'The property type is required',
+        ]);
+       
         $this->hirePurchase['apply_loan_id'] = $this->apply_loan->id;
-        $this->hirePurchase->save();
         $oldValue = $this->hirePurchase['hire_purchase_type'];
+        $this->hirePurchase->save();
+        // dd( $this->hirePurchase);
+        Media::where('model', '\App\Models\BusinessHirePurchase')
+       ->where('apply_loan_id', $this->apply_loan->id)
+       ->where('share_holder', 0)
+       
+       ->where('model_id', 0)
+       ->update([
+           'model_id' => $this->hirePurchase->id,
+        ]);
+        $this->emit('getImage'); 
         $applyloan= ApplyLoan::where('id', $this->apply_loan->id)->first();
         $applyloan->amount = $this->hirePurchase['amount'];
         $applyloan->update();
@@ -103,5 +122,18 @@ class HirePurchase extends Component
     public function getHirePurchase()
     {
         $this->hirePurchaseGet = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->where('hire_purchase_type',  $this->hirePurchase['hire_purchase_type'])->get();
+    }
+
+
+    public function tabChange(){
+       
+        $this->emit('changeTab',$this->apply_loan->id, 4);
+    }
+
+    public function deleteRecord(BusinessHirePurchase $BusinessHirePurchase)
+    {
+        $BusinessHirePurchase->delete();
+        
+        $this->getHirePurchase();
     }
 }
