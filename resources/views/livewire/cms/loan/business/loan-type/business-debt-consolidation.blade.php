@@ -10,56 +10,40 @@
         </ul>
     </div>
     <div class="col-md-4">
-        <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-            x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-            x-on:livewire-upload-progress="progress = $event.detail.progress">
-            <div class="form-group">
-
-                <br>
-                <br>
-                <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                    <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" wire:model="document"
-                        type="file" id="vehicleimage">
-                </label>
-            </div>
-            @error('document')
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
-            <div x-show="isUploading">
-                <progress max="100" x-bind:value="progress"></progress>
-            </div>
+        <livewire:widget.upload-component 
+        :label="'Or upload your Benefit illustration'" 
+        :apply_loan="$apply_loan"
+        :main_type="$main_type" 
+        :loan_type_id="$loan_type_id" 
+        :share_holder="0"
+        :modell="'\App\Models\OverDraftInsurance'" 
+        :keyvalue="'debt_consolidation_documents'" 
+        />
+        @error("documents")
+        <div style="color: red;">
+            {{ $message }}
         </div>
+        @enderror
     </div>
     <div class="col-md-12">
         <b>OR</b><br><br><br>
         <b>DCP refinancing </b><br><br>
     </div>
     <div class="col-md-6">
-        <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-            x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-            x-on:livewire-upload-progress="progress = $event.detail.progress">
-            <div class="form-group">
-                <label>
-                    Settlement Notice From The Original Bank
-                </label>
-                <br>
-                <br>
-                <label class="label" data-toggle="tooltip" title="Select Image">
-                    <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                        wire:model="settlement_notice" type="file" id="vehicleimage">
-                </label>
-            </div>
-            @error('settlement_notice')
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
-            <div x-show="isUploading">
-                <progress max="100" x-bind:value="progress"></progress>
-            </div>
+        <livewire:widget.upload-component 
+        :label="'Or upload your Benefit illustration'" 
+        :apply_loan="$apply_loan"
+        :main_type="$main_type" 
+        :loan_type_id="$loan_type_id" 
+        :share_holder="0"
+        :modell="'\App\Models\OverDraftInsurance'" 
+        :keyvalue="'debt_consolidation_settlement_notice'" 
+        />
+        @error("settlement_notice")
+        <div style="color: red;">
+            {{ $message }}
         </div>
+        @enderror
         <div class="col-md-6">
            
         </div>

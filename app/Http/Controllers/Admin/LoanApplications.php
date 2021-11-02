@@ -303,6 +303,7 @@ class LoanApplications extends Controller
         $reject->apply_loan_id = $apply_loan_id;
         $reject->internal_reject_reason_id = $request->internal_reject_reason_id;
         $reject->customer_reject_reason_id = $request->customer_reject_reason_id;
+        $reject->other_reasons = $request->other_reasons ?? null;
         $reject->save();
 
         return redirect()->back()->with('success','Loan application is rejected successfully');

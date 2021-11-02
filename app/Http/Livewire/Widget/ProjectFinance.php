@@ -24,25 +24,21 @@ class ProjectFinance extends Component
     public $gernalInfo;
     public $images = [];
    
+
+    protected $listeners = [
+        'documentReq'
+    ];
+
+    public function documentReq($value)
+    {
+        $this->document = $value;
+    }
+
     public function mount()
     {
         if($this->apply_loan){
-
-            // $document = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'document')->first();
-            // if( $document)
-            // {
-            //     $media = Media::whereIn('id', json_decode($document->value))->get()->toArray();
-            //     if(isset($media)){
-            //         $this->images = $media;
-            //     }
-            // }
             $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
             $this->tenure = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'tenure')->first()->value ?? '';
-           
-            // dd($this->images);
-            // $this->amount = $this->amount->value;
-            // $this->tenure = $this->tenure->value;
-
         }
     }
     public function render()
@@ -57,15 +53,16 @@ class ProjectFinance extends Component
        $this->validate([
            'amount' => 'required|integer|min:1',
            'tenure' => 'required|integer|min:1',
-        //    'document' => $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+           'document' => 'required',
+       ],[
+           'document.required' => "The document is required.",
        ]);
-       $data = [
 
+       $data = [
              ['type' => 'number', 'value' => $this->tenure, 'key' => 'tenure'], 
              ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
        ];
        if($this->apply_loan){
-        
             LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
             $this->apply_loan->profile = $this->main_type;
             $this->apply_loan->loan_type_id = $this->loan_type_id;

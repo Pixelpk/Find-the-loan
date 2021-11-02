@@ -16,6 +16,10 @@ class LoanQuotationController extends Controller
 {
     public function fixedOrFloating(Request $request)
     {
+        
+        $data['loan_type'] = ApplyLoan::where('id',$request->apply_loan_id)
+        ->first()->loan_type_id;
+
         $data['fixed_or_floating'] = $request->fixed_or_floating;
         return view('admin.loan_applications.fixed_or_floating',$data);
     }
@@ -44,6 +48,7 @@ class LoanQuotationController extends Controller
         $data = $request->all();
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
         ->first();
+        // return $apply_loan;
         //for invoice financing and purchase order financing
         if($apply_loan->loan_type_id == 5 || $apply_loan->loan_type_id == 6){
             $fill = $this->quotedInvoiceFinancingData($request->all());
@@ -98,6 +103,7 @@ class LoanQuotationController extends Controller
 
     public function quotedInvoiceFinancingData($data)
     {
+        // dd(($data));
         $quantum_interest = [
             'facility_limit'=> $data['facility_limit'],
             'advance_percentage'=> $data['advance_percentage'],
@@ -271,37 +277,27 @@ class LoanQuotationController extends Controller
     protected function quotedAllLoanData($data){
         $quantum_interest = [
             'quantum'=> $data['quantum'] ?? "",
-            'interest_flat'=> [
-                'pa'=>$data['interest_flat_pa'] ?? "",
-                'pm'=>$data['interest_flat_pm'] ?? "",
-            ],
-            'interest_reducing_balance'=> [
-                'pa'=>$data['interest_reducing_pa'] ?? "",
-                'pm'=>$data['interest_reducing_pm'] ?? "",
-            ],
-            'interest_and_board_rate'=> [
-                'interest_pa'=>$data['interest_pa'] ?? "",
-                'board_rate_pa'=>$data['board_rate_pa'] ?? "",
-            ],
-            'flat_fee_regardless_tenure'=> [
-                'falt_value'=>$data['flat_fee_value'] ?? "",
-                'percentage'=>$data['flat_fee_percent'] ?? "",
-            ],
-            'tenure'=> [
-                'years'=>$data['tenure_years'] ?? "",
-                'months'=>$data['tenure_months'] ?? "",
-            ],
-            'lock_in'=> [
-                'years'=>$data['lock_in_years'] ?? "",
-                'months'=>$data['lock_in_months'] ?? "",
-            ],
+            'fixed_or_floating'=> $data['fixed_or_floating'],
+            'fixed'=>[
+                'interest'=>[
+                    'interest_pa'=> $data['interest_pa'] ?? "",
+                    'interest_pm'=> $data['interest_pm'] ?? "",
+                ],
+                'tenure'=> [
+                    'years'=>$data['tenure_years'] ?? "",
+                    'months'=>$data['tenure_months'] ?? "",
+                ],
+                'lock_in'=> [
+                    'years'=>$data['lock_in_years'] ?? "",
+                    'months'=>$data['lock_in_months'] ?? "",
+                ],
+            ]
         ];
 
         $one_time_fee = [
             'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
             'flat_value'=> $data['one_time_fee_value'] ?? "",
             'percentage'=> $data['one_time_fee_percent'] ?? "",
-            'which_higher'=>1
         ];
         $monthly_fee = [
             'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both

@@ -4,86 +4,27 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12 text-left">
-                    <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                        x-on:livewire-upload-finish="isUploading = false"
-                        x-on:livewire-upload-error="isUploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress">
-                        <div class="form-group">
-                            <label class="control-label mb-10">
-                                Tenancy Agreement
-                            </label>
-                            <br>
-                            <br>
-                            {{-- @if($apply_loan)
-                           @php 
-                           if(isset($gernalInfo)){
-                            $tanancy_agreement = $gernalInfo->where('key','tanancy_agreement')->where('apply_loan_id', $this->apply_loan->id)->first(); 
-                            $tanancy_agreement = $tanancy_agreement->value;
-                            }
-                           @endphp
-                           @if(isset($gernalInfo))
-                           <a target="blank" href="{{ Storage::url($tanancy_agreement) }}">
-                            <i class="fa fa-file"></i>
-                            </a>
-                            @endif
-                            @endif --}}
-                            <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                                <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                    wire:model="tanancy_agreement" type="file" id="vehicleimage">
-
-                            </label>
-                        </div>
-                        @error('tanancy_agreement')
-                        <div style="color: red;">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        <div x-show="isUploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
-                    </div>
+                <livewire:widget.upload-component 
+                :label="'Tenancy Agreement'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" 
+                :keyvalue="'property_renovation_tenancy_agreement'" 
+                />
                 </div>
-
-
                 <div class="col-md-12 text-left">
-                    <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                        x-on:livewire-upload-finish="isUploading = false"
-                        x-on:livewire-upload-error="isUploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress">
-                        <div class="form-group">
-                            <label class=""><br>
-                                Renovation Quotation
-                            </label>
-                            <br>
-                            <br>
-                            {{-- @php 
-                        if(isset($gernalInfo)){
-                            $renovation_quotation = $gernalInfo->where('key','renovation_quotation')->where('apply_loan_id', $this->apply_loan->id)->first(); 
-                            $renovation_quotation = $renovation_quotation->value;
-                        }
-                        @endphp
-                        @if(isset($gernalInfo) || isset($renovation_quotation))
-                        <a target="blank" href="{{ Storage::url($renovation_quotation) }}">
-                            <i class="fa fa-file"></i>
-                            @endif
-                            </a> --}}
-                            <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                                <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                    wire:model="renovation_quotation" type="file" id="vehicleimage">
-
-                            </label>
-                        </div>
-                        @error('renovation_quotation')
-                        <div style="color: red;">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        <div x-show="isUploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
-                    </div>
+                    <livewire:widget.upload-component 
+                :label="'Renovation Quotation'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" 
+                :keyvalue="'property_renovation_quotation'" 
+                />
                 </div>
-
                 <div class="col-md-9" style="margin-top: 30px;">
                     <label for="amount" class="form-label">Amount</label>
                     <input wire:model="amount" type="number" class="form-control" id="amount">
@@ -94,12 +35,8 @@
                     @enderror
                 </div>
             </div>
-
-
         </div>
-
         <div class="col-md-6">
-
             <div class="col-md-12">
 
                 <b>OR</b>

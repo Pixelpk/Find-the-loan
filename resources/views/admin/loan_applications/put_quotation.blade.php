@@ -31,7 +31,7 @@
                 <!-- SEC 1 -->
                 <form method="POST" id="quotationForm" action="{{route('submit-quotation')}}">
                     @csrf
-                    <input type="hidden" name="apply_loan_id" value="{{$apply_loan_id}}">
+                    <input type="hidden" name="apply_loan_id" id="apply_loan_id" value="{{$apply_loan_id}}">
                     <!-- 1ST ROW -->
                     @if ($apply_loan->loan_type_id == 5 || $apply_loan->loan_type_id == 6)
                     <div class="form-row">
@@ -214,13 +214,13 @@
                             </label>
                             <div class="row d-flex">
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="one_time_fee_value" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="one_time_fee_value" class="form-control" placeholder="$" id="one_time_fee_value">
                                 </div>
                                 <div class="col-md-1">
                                     <span>or</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="one_time_fee_percent" class="form-control" placeholder="%" id="input7">
+                                    <input type="number" min="0"  name="one_time_fee_percent" class="form-control" placeholder="%" id="one_time_fee_percent">
                                 </div>
                             </div>
                         </div>
@@ -229,13 +229,13 @@
                             </label>
                             <div class="row d-flex">
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="monthly_fee_value" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="monthly_fee_value" class="form-control" placeholder="$" id="monthly_fee_value">
                                 </div>
                                 <div class="col-md-1">
                                     <span>or</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="monthly_fee_percent" class="form-control" placeholder="%" id="input7">
+                                    <input type="number" min="0"  name="monthly_fee_percent" class="form-control" placeholder="%" id="monthly_fee_percent">
                                 </div>
                             </div>
                         </div>
@@ -244,13 +244,13 @@
                             </label>
                             <div class="row d-flex">
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="annual_fee_value" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="annual_fee_value" class="form-control" placeholder="$" id="annual_fee_value">
                                 </div>
                                 <div class="col-md-1">
                                     <span>or</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="annual_fee_percent" class="form-control" placeholder="%" id="input7">
+                                    <input type="number" min="0"  name="annual_fee_percent" class="form-control" placeholder="%" id="annual_fee_percent">
                                 </div>
                             </div>
                         </div>
@@ -259,13 +259,13 @@
                             </label>
                             <div class="row d-flex">
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="legal_fee_start_range" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="legal_fee_start_range" class="form-control" placeholder="$" id="legal_fee_start_range">
                                 </div>
                                 <div class="col-md-1">
                                     <span>-</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="number" min="0"  name="legal_fee_end_range" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="legal_fee_end_range" class="form-control" placeholder="$" id="legal_fee_end_range">
                                 </div>
                             </div>
                         </div>
@@ -274,25 +274,25 @@
                             </label>
                             <div class="row d-flex">
                                 <div class="col-md-2">
-                                    <input type="number" min="0"  name="if_insurance_start_value" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="if_insurance_start_value" class="form-control if_insurance_required_value" placeholder="$" id="if_insurance_start_value">
                                 </div>
                                 <div class="col-md-1">
                                     <span>-</span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control" placeholder="$" id="input7">
+                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control if_insurance_required_value" placeholder="$" id="if_insurance_end_value">
                                 </div>
                                 <div class="col-md-1">
                                     <span>or</span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" min="0"  name="if_insurance_start_percent" class="form-control" placeholder="%" id="input7">
+                                    <input type="number" min="0"  name="if_insurance_start_percent" class="form-control if_insurance_required_percent" placeholder="%" id="input7">
                                 </div>
                                 <div class="col-md-1">
                                     <span>-</span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control" placeholder="%" id="input7">
+                                    <input type="number" min="0"  name="if_insurance_end_value" class="form-control if_insurance_required_percent" placeholder="%" id="input7">
                                 </div>
                             </div>
                         </div>
@@ -300,14 +300,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="input1" class="col-form-label">EIR % P.a (optional)</label>
-                            <input type="number" min="0"  class="form-control" name="eir_pa" id="input1">
+                            <input type="number" min="0"  class="form-control" name="eir_pa" id="eir_pa">
                         </div>
                         <div class="form-group col-md-2 d-flex pt-4 justify-content-center align-items-center">
                             <h6 class="">or</h6>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="input2" class="col-form-label">EIR  % P.m (optional)</label>
-                            <input type="number" min="0"  class="form-control w-100" name="eir_pm" id="input2">
+                            <input type="number" min="0"  class="form-control w-100" name="eir_pm" id="eir_pm">
                         </div>
                     </div>
                     <hr style=" background: grey;">

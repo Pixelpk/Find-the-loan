@@ -27,11 +27,29 @@
                                     <span style="color: red" id="more_doc_error"></span>
 
                                     <input class="form-control" type="hidden" name="apply_loan_id" value="{{$apply_loan_id}}" id="apply_loan_id">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6">
+                                    <h6>Point to any specific document/applicant?</h6>
+
+                                        @foreach($additional_docs as $key=>$items)
+                                        <h6>{{ getAdditionDocInfoType($key) }}</h6>
+                                        <div class="row">
+                                            
+                                            @foreach($items as $item_key=>$item)
+                                            
+                                            <div class="col-md-3">
+                                                <div class="form-group custom-switch"> 
+                                                    <input type="radio" @if ($key==1 && $item_key==0) checked  @endif 
+                                                    class="custom-control-input quote_additional_doc_id" value="{{$item->id}}" name="quote_additional_doc_id" id="quote_additional_doc_id{{$item->id}}">
+                                                    <label class="custom-control-label" for="quote_additional_doc_id{{$item->id}}">{{ $item->info }}</label>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        @endforeach
+                                        
+                                        {{-- <div class="col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label>Point to any specific document/applicant?</label>
-                                                <select required class="form-control select2" name="quote_additional_doc_id" id="quote_additional_doc_id">
+                                                <select required class="form-control" name="quote_additional_doc_id" id="quote_additional_doc_id">
                                                     @foreach($additional_docs as $key=>$items)
                                                     <optgroup label="{{ getAdditionDocInfoType($key) }}">
                                                         @foreach($items as $item)
@@ -42,8 +60,8 @@
                                                 </select>
                                                 <span style="color: red" id="add_doc_id_error"></span>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> --}}
+                                    
                                     <hr>
                                     <section id="more_doc_section">
                                     {{-- <h5 class="">Message description</h5> --}}
@@ -63,13 +81,13 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>From</label>
-                                                        <input class="form-control date-picker" id="from" name="from" type="text">
+                                                        <input class="form-control date-picker" autocomplete="off" id="from" name="from" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>To</label>
-                                                        <input class="form-control date-picker" id="to" name="to" type="text">
+                                                        <input class="form-control date-picker" autocomplete="off" id="to" name="to" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,26 +97,26 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Within(Days)</label>
-                                                        <input class="form-control" id="within_days" name="within_days" min="0" type="number">
+                                                        <input class="form-control" autocomplete="off" id="within_days" name="within_days" min="0" type="number">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Past(Months)</label>
-                                                        <input class="form-control" id="past_months" name="past_months" min="0" type="number">
+                                                        <input class="form-control" autocomplete="off" id="past_months" name="past_months" min="0" type="number">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Valid For(Months)</label>
-                                                        <input class="form-control" id="valid_for" name="valid_for" min="0" type="number">
+                                                        <input class="form-control" autocomplete="off" id="valid_for" name="valid_for" min="0" type="number">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group custom-switch">
                                                 <input type="checkbox" class="custom-control-input" name="latest" id="latest">
@@ -129,10 +147,24 @@
                                                 <label class="custom-control-label" for="signature_borrowers_customer">Require Signature of borrower's Customer</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <hr>
+                                    <h6>Reasons</h6>
+                                    <span style="color: red" id="more_doc_reasons_error"></span>
+                                    @php
+                                        $list = moreDocReasons();
+                                    @endphp
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        @for($i=1;$i<count($list);$i++)
+                                        <div class="col-md-3">
+                                            <div class="form-group custom-switch"> 
+                                                <input type="checkbox"
+                                                class="custom-control-input more_doc_reasons" value="{{ $i }}" name="more_doc_reasons" id="more_doc_reasons{{ $i }}">
+                                                <label class="custom-control-label" for="more_doc_reasons{{ $i }}">{{$list[$i]}}</label>
+                                            </div>
+                                        </div>
+                                        @endfor
+                                        {{-- <div class="col-md-4">
                                             <label>Reasons</label>
                                             <select class="form-control select2" name="more_doc_reasons" id="more_doc_reasons">
                                                 @php 
@@ -143,21 +175,24 @@
                                                 @endfor
                                             </select>
                                             <span style="color: red" id="more_doc_reasons_error"></span>
+                                        </div> --}}
+                                    </div>
+                                    <hr>
+                                    <h5>Document of</h5>
+                                    <div class="row">
+                                        @php
+                                            $list = moreDocOfList();
+                                        @endphp
+                                        @for($i=1;$i<count($list);$i++)
+                                        <div class="col-md-3">
+                                            <div class="form-group custom-switch"> 
+                                                <input type="radio" @if ($i==1) checked  @endif 
+                                                class="custom-control-input document_of" value="{{$i}}" name="document_of" id="document_of{{$i}}">
+                                                <label class="custom-control-label" for="document_of{{$i}}">{{$list[$i]}}</label>
+                                            </div>
                                         </div>
+                                        @endfor
                                         {{-- <div class="col-md-4">
-                                            <label>Point to any specific document/applicant?</label>
-                                            <select class="form-control select2" name="point_to_any_specific_doc" id="point_to_any_specific_doc">
-                                                @foreach($additional_docs as $key=>$items)
-                                                <optgroup label="{{ getAdditionDocInfoType($key) }}">
-                                                    <option value=""></option>
-                                                    @foreach($items as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->info }}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                                @endforeach 
-                                            </select>
-                                        </div>  --}}
-                                        <div class="col-md-4">
                                             <label>Document of</label>
                                             <select class="form-control select2" name="document_of" id="document_of">
                                                 @php 
@@ -168,7 +203,7 @@
                                                 @endfor
                                             </select>
                                             <span style="color: red" id="document_of_error"></span>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <hr>
                                     </section>
@@ -201,11 +236,7 @@
                                                                         <th>From</th>
                                                                         <th>To</th>
                                                                         <th>If any</th>
-                                                                        <th>Latest</th>
-                                                                        <th>Required Company stamp</th>
-                                                                        <th>Need notarized</th>
-                                                                        <th>Require Signature of borrower</th>
-                                                                        <th>Require Signature of borrower's Customer</th>
+                                                                        
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody id="more_doc_msg_table">

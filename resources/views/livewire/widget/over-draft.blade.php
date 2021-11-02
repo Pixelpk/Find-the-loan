@@ -25,7 +25,7 @@
         <div class="col-md-3">
             <br>
             <div class="form-check form-switch">
-                <input @if($amount <=0) disabled @endif wire:change="changeType()" wire:model="overdraft.secure"
+                <input @if($amount <=0) disabled @endif wire:change="changeType2()" wire:model="overdraft.secure"
                     class="form-check-input" type="checkbox" id="flexSwitchCheckDef3">
                 <label class="form-check-label" for="flexSwitchCheckDef3">Secured
                 </label>
@@ -154,7 +154,7 @@
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-                Next
+                    Enter Collateral Details
             </button>
         </div>
     </div>
@@ -162,7 +162,10 @@
     <div class="row">
         <div class="col-md-12">
             <livewire:cms.loan.business.loan-type.over-draft.property-land :loan_type_id="$loan_type_id"
-                :main_type="$main_type" :apply_loan="$apply_loan" :amount="$amount" :loan_type_id="$loan_type_id">
+                :main_type="$main_type" :apply_loan="$apply_loan" :amount="$amount" 
+                :loan_type_id="$loan_type_id"
+                :tab="$tab"
+            >
         </div>
 
     </div>
@@ -230,9 +233,11 @@
         <div class="col-md-12 text-end">
             <br>
             @if($enableButtons == false)
-            <button   wire:click="tabChange()" class="btn">Save & Continue</button>
+                <div>
+                    <button wire:click="tabChange()" class="btn">Save & Continue</button>
+                </div>
             @else
-            <button  disabled class="btn">Save & Continue</button>
+                <button disabled class="btn">Save & Continue</button>
             @endif
             
         </div>

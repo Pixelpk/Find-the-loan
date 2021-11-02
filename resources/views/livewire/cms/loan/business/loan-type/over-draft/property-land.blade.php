@@ -1,37 +1,36 @@
 <section>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <br>
             <br>
-            <livewire:widget.attachment-component 
-            :label="'loan statement showing past 12 months prompt repayment history if any(please ensure address is visible, if not kindly include the main page where address is visible)'" 
-            :apply_loan="$apply_loan" 
-            :main_type="$main_type"
-            :loan_type_id="$loan_type_id" 
-            :attachable_id="'1'"
-            :attachable_type="'App\Models\OverDraftPropertyLand'"
-             />
+            <livewire:widget.upload-component
+                :label="'loan statement showing past 12 months prompt repayment history if any(please ensure address is visible, if not kindly include the main page where address is visible)'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
+                :modell="'App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_past_twelve_month_statement'"
+                :share_holder="0" />
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <br>
             <br>
-            <livewire:widget.upload-component :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your repayment history statement
-            '" :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\OverDraftPropertyLand'" :keyvalue="'overdraftpropertylandreflectingloanstatement'" />
+            <livewire:widget.upload-component
+                :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your repayment history statement'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
+                :modell="'App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_current_loan_statement'"
+                :share_holder="0" />
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <br>
             <br>
-            <livewire:widget.upload-component :label="'CPF property withdrawal/utilization statement If CPF was used
-            '" :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :keyvalue="'over_draft_property_land_cpf_property'" :modell="'\App\Models\OverDraftPropertyLand'" />
+            <livewire:widget.upload-component :label="'CPF property withdrawal/utilization statement If CPF was used'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
+                :modell="'App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_cpf_statement'" :share_holder="0" />
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
             <br>
             <br>
             <livewire:widget.upload-component :label="'Tenancy Agreement If it’s rented out'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\OverDraftPropertyLand'" :keyvalue="'over_draft_tanancy_agreement'" />
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :modell="'App\Models\OverDraftPropertyLand'"
+                :keyvalue="'over_draft_tenancy_agreement'" :share_holder="0" />
         </div>
         <div class="col-md-12">
             <hr>
@@ -39,8 +38,8 @@
     </div>
     <div class="row">
         <div wire:ignore.self class="col-md-12" style="margin-top: 30px;">
-    
-    
+
+
             <label for="address" class="form-label">Address</label>
             <input onkeyup="dddd()" wire:model.defer="address" type="text" class="form-control" id="ship-address1">
             @error("address")
@@ -49,7 +48,7 @@
             </div>
             @enderror
         </div>
-    
+
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="unit" class="form-label">Unit if any
             </label>
@@ -73,11 +72,11 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="lease_remaining" class="form-label">
                 Lease remaining
-    
+
             </label>
             <div class="input-group mb-3">
-                <input wire:model="lease_remaining_year" type="text" class="form-control" aria-label="Recipient's username"
-                    aria-describedby="basic-addon2">
+                <input wire:model="lease_remaining_year" type="text" class="form-control"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">Years</span>
                 </div>
@@ -111,8 +110,8 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="useable_area" class="form-label">
                 Build-in/Useable Area
-    
-    
+
+
             </label>
             <input wire:model="useable_area" type="text" class="form-control" id="useable_area">
             @error("useable_area")
@@ -127,7 +126,7 @@
                 <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox"
                     id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Feet
-    
+
                 </label>
             </div>
             @error("square_feet")
@@ -155,7 +154,7 @@
             <br>
             <b>If applicable
             </b>
-    
+
         </div>
         <div class="col-md-2">
             <br>
@@ -170,15 +169,15 @@
         </div>
         <div class="col-md-2">
             <label for="useable_area" class="form-label">Year</label>
-            <select wire:model="construction_year" class="form-control">
+            <select wire:model="construction_year" class="form-select">
                 <option value="">Select</option>
                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
                     @endfor
             </select>
         </div>
         <div class="col-md-2">
-            <label  for="useable_area" class="form-label">Quater</label>
-            <select wire:model="construction_year_time" class="form-control">
+            <label for="useable_area" class="form-label">Quater</label>
+            <select wire:model="construction_year_time" class="form-select">
                 <option value="">Select</option>
                 <option value="1">Q1</option>
                 <option value="2">Q2</option>
@@ -189,11 +188,12 @@
         <div class="col-md-12">
             <hr>
         </div>
-        
+
         <div class="col-md-12">
             <br>
             <br>
-            If it is under financing, the Financing Partners may require you to refinance with them(not to worry they will
+            If it is under financing, the Financing Partners may require you to refinance with them(not to worry they
+            will
             provide you with the refinancing rate for consideration.)
         </div>
         <div class="col-md-6">
@@ -236,40 +236,44 @@
             <br>
             <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Lease remaining</th>
-                    <th scope="col">FreeHold</th>
-                    <th scope="col">Build-in/Useable Area</th>
-                    <th scope="col">Meter</th>
-                    <th scope="col">Document</th>
-                    <th scope="col">Action</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Lease remaining</th>
+                        <th scope="col">FreeHold</th>
+                        <th scope="col">Build-in/Useable Area</th>
+                        <th scope="col">Meter</th>
+                        {{-- <th scope="col">Document</th> --}}
+                        <th scope="col">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($propertyLands as $item)
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>{{ $item->address }}</td>
-                    <td>{{ $item->lease_remaining_year }}</td>
-                    <td>{{ $item->free_hold }}</td>
-                    <td>{{ $item->useable_area }}</td>
-                    <td>
-                        @if($item->square_feet)
-                        {{ $item->square_feet }}
-                        @else
-                        {{ $item->useable_area }}
-                        @endif
-                    </td>
-                    <td><button class="btn">View Docuemts</button></td>
-                    <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;" class="btn">Delete</button></td>
-                  </tr>
-                @endforeach
-                 
+                    @foreach($propertyLands as $item)
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>{{ $item->address }}</td>
+                        <td>{{ $item->lease_remaining_year }}</td>
+                        <td>{{ $item->free_hold }}</td>
+                        <td>{{ $item->useable_area }}</td>
+                        <td>
+                            @if($item->square_feet)
+                            {{ $item->square_feet }}
+                            @else
+                            {{ $item->useable_area }}
+                            @endif
+                        </td>
+                        {{-- <td>
+                            <button  class="btn">View Docuemts</button>
+                               
+                        </td> --}}
+                        <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;"
+                                class="btn">Delete</button></td>
+                    </tr>
+                    @endforeach
+
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
-    
+
 </section>
