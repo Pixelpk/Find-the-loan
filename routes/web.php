@@ -172,7 +172,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
         Route::post('reject-application',[LoanApplications::class,'rejectLoanApplication'])->name('reject-application');
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
-        Route::get('put-quotation',[LoanQuotationController::class,'putQuotation'])->name('put-quotation');
+        // Route::get('put-quotation',[LoanQuotationController::class,'putQuotation'])->name('put-quotation');
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');

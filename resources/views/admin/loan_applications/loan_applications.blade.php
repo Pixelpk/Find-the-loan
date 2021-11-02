@@ -68,12 +68,12 @@
                                     Assign
                                 </button>
                             </div>
-                            <div class="float-right d-none d-md-block ml-2">
+                            {{-- <div class="float-right d-none d-md-block ml-2">
                                 <button onclick="resetFormFields()" type="button" id="add_partner_btn" data-toggle="modal" data-target="#FinancePartnerModal" data-dismiss="modal" aria-label="Close" class="btn btn-primary "><i class="fa fa-plus-circle"></i></button>
-                            </div>
+                            </div> --}}
                             <div class=" col-md-3 float-right d-none d-md-block ml-2">
                                 <div class="input-group no-border">
-                                    <input class="form-control search-user" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >
+                                    <input class="form-control search-enquiries" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >
                                 </div>
                                 <div id="search_list" style="" class="autocomplete-items"></div>
                             </div>
@@ -121,30 +121,6 @@
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
-                                                     <!-- <td>
-                                                        
-                                                            <div class="btn-group">
-                                                                <i title="Actions" class="fas fa-2x fa-ellipsis-h" style="cursor: pointer;color: #27b34d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                                                                <div class="dropdown-menu">
-                                                                    @if(!$application->application_rejected)
-                                                                    <a href="#" onclick="rejectApplication({{$application->id}})" class="dropdown-item" data-toggle="tooltip" data-original-title="Reject">
-                                                                        Reject
-                                                                    </a>
-                                                                    @endif
-                                                                    @if(!$application->application_quote)
-                                                                        <a href="{{ route('put-quotation',['apply_loan_id'=>$application->id]) }}" class="dropdown-item" >
-                                                                            Put quotation
-                                                                        </a>
-                                                                    @endif
-                                                                    <a href="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" class="dropdown-item" >
-                                                                        Summary
-                                                                    </a>
-                                                                    
-                                                                    <a class="dropdown-item" href="{{ route('more-doc-required',['apply_loan_id'=>$application->id]) }}">More Docs required</a>
-                                                                </div>
-                                                            </div>
-                                                        
-                                                    </td>  -->
                                                     <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>

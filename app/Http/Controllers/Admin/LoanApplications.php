@@ -170,7 +170,7 @@ class LoanApplications extends Controller
             if(isset($getResults[0])){
                 foreach ($getResults as $key => $item) {
                     $text = str_replace($search, "<span style='font-weight: bolder;color: #27b34d'>" . $search . "</span>", $item->enquiry_id);
-                    $link = route("loan-applications", ['enquiry_id' => $item->enquiry_id]);
+                    $link = route("loan-applications", ['enquiry_id' => $item->enquiry_id,'profile'=>$profile]);
                     $html .= "<a class='search-link' href='" . $link . "'>" . $text . "</a>";
                 }
             }

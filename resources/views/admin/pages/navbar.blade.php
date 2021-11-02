@@ -31,6 +31,11 @@
                                     <i class="fa fa-money-bill-alt"></i><span> Consumer </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('quoted-customer') }}" class="@if(Route::CurrentRouteName() == 'quoted-customer') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Quoted customer </span>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>

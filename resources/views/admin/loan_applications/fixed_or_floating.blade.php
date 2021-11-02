@@ -38,9 +38,9 @@
     </div>
 </div>
 @else
-@php
-$reference_rates =allReferenceRates();
-@endphp
+    @php
+    $reference_rates =allReferenceRates();
+    @endphp
 <h6>Please select from the following reference rate</h6>    
 <div class="row">
     @foreach($reference_rates as $key => $rate)
@@ -240,7 +240,8 @@ $reference_rates =allReferenceRates();
         <label class="col-form-label">
             Current value (indicative)
         </label>
-        <input type="number" name="current_value_indicative" class="form-control" >
+        <input type="number" id="current_value_indicative" name="current_value_indicative" class="form-control" >
+        <span style="color: red" id="current_value_indicative_error"></span>
     </div>
 </div>
 <hr>
@@ -250,19 +251,19 @@ $reference_rates =allReferenceRates();
             <label class="col-form-label">
                 From month
             </label>
-            <input type="number" min="1" name="" class="form-control" >
+            <input type="number" min="1" required name="pa[0][from_month]" row_index="0" class="form-control pa_months" >
         </div>
         <div class="form-group col-md-2">
             <label class="col-form-label">
                 To month
             </label>
-            <input type="number" min="1" name="" class="form-control" >
+            <input type="number" min="1" required name="pa[0][to_month]" row_index="0" class="form-control pa_months" >
         </div>
-        <div class="form-group col-md-1">
+        <div class="form-group col-md-2">
             <label class="col-form-label">
                 %p.a
             </label>
-            <input type="number" min="1" name="" class="form-control" >
+            <input type="number" min="1" required name="pa[0][month_vise_pa]" row_index="0" class="form-control pa_months" >
         </div>
         {{-- <div class="form-group mt-auto col-md-1"> --}}
             <span class="mt-5">OR</span>
@@ -271,13 +272,14 @@ $reference_rates =allReferenceRates();
             <label class="col-form-label">
                 yyy xxx + (spread) %
             </label>
-            <input type="number" min="1" placeholder="Spread (%)" name="" class="form-control" >
+            <input type="number" min="1" required placeholder="Spread (%)" row_index="0" name="pa[0][spread]" class="form-control pa_spread" >
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-1">
             <label class="col-form-label">
                 = %p.a
             </label>
-            <input type="number" min="1" readonly name="" class="form-control" >
+            <span class="calculated_spread_pa_span" row_index="0"></span>
+            <input type="number" min="1" hidden name="pa[0][calculated_spread_pa]" row_index="0" class="form-control calculated_spread_pa" >
         </div>
         {{-- <div class="form-group col-md-1">
             <label class="col-form-label">
@@ -301,7 +303,7 @@ $reference_rates =allReferenceRates();
         <label class="col-form-label">
             %p.a(Thereafter if any)
         </label>
-        <input type="number" min="1" name="" class="form-control" >
+        <input type="number" min="1" required name="thereafter_pa" id="thereafter_pa" class="form-control" >
     </div>
     {{-- <div class="form-group mt-auto col-md-1"> --}}
         <span class="mt-5">OR</span>
@@ -310,13 +312,13 @@ $reference_rates =allReferenceRates();
         <label class="col-form-label">
             yyy xxx + (spread) %
         </label>
-        <input type="number" min="1" placeholder="Spread (%)" name="" class="form-control" >
+        <input type="number" min="1" required placeholder="Spread (%)" id="thereafter_spread" name="thereafter_spread" class="form-control" >
     </div>
     <div class="form-group col-md-2">
         <label class="col-form-label">
             = %p.a
         </label>
-        <input type="number" min="1" readonly name="" class="form-control" >
+        <input type="number" min="1" readonly name="thereafter_spread_pa" id="thereafter_spread_pa" class="form-control" >
     </div>
 </div>
 {{-- </div> --}}

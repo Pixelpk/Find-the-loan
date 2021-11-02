@@ -335,7 +335,7 @@
                     <div class="col-md-3">
                         <label for="input7" class="col-form-label">Quote is valid for(Days)
                         </label>
-                        <input type="text" required name="quote_validity" class="form-control date-picker-quote" placeholder="Quote validity" id="input7">
+                        <input type="text" required name="quote_validity" autocomplete="off" class="form-control date-picker-quote" placeholder="Quote validity" id="input7">
                     </div>
 
                 </div>

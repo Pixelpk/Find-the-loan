@@ -178,7 +178,7 @@
                                         </div> --}}
                                     </div>
                                     <hr>
-                                    <h5>Document of</h5>
+                                    <h6>Document of</h6>
                                     <div class="row">
                                         @php
                                             $list = moreDocOfList();

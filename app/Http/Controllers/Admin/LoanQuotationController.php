@@ -46,6 +46,7 @@ class LoanQuotationController extends Controller
     public function submitQuotation(Request $request)
     {
         $data = $request->all();
+        // return $data;
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
         ->first();
         // return $apply_loan;
@@ -278,7 +279,10 @@ class LoanQuotationController extends Controller
         $quantum_interest = [
             'quantum'=> $data['quantum'] ?? "",
             'fixed_or_floating'=> $data['fixed_or_floating'],
-            'fixed'=>[
+        ];
+        //if interest is fixed
+        if($data['fixed_or_floating'] == 1){
+            $quantum_interest['fixed'] = [
                 'interest'=>[
                     'interest_pa'=> $data['interest_pa'] ?? "",
                     'interest_pm'=> $data['interest_pm'] ?? "",
@@ -291,8 +295,21 @@ class LoanQuotationController extends Controller
                     'years'=>$data['lock_in_years'] ?? "",
                     'months'=>$data['lock_in_months'] ?? "",
                 ],
-            ]
-        ];
+            ];
+        }else{
+            $quantum_interest['floating'] = [
+                "reference_rate"=> $data['reference_rate'] ?? "",
+                "other_financial_rates"=> $data['other_financial_rates'] ?? "",
+                "months_if_any"=> $data['months_if_any'] ?? "",
+                "currency"=> $data['currency'] ?? "",
+                "current_value_indicative"=> $data['current_value_indicative'] ?? "",
+                "current_value_indicative"=> $data['current_value_indicative'] ?? "",
+                'pa'=>array_values($data['pa']) ?? "",
+                "thereafter_pa"=>$data['thereafter_pa'] ?? "",
+                "thereafter_spread"=>$data['thereafter_spread'] ?? "",
+                "thereafter_spread_pa"=>$data['thereafter_spread_pa'] ?? "",
+            ];
+        }
 
         $one_time_fee = [
             'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both

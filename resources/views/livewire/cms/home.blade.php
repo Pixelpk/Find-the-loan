@@ -257,15 +257,17 @@
                    </div>
                    <div class="finance__cards same-carousel owl-carousel">
                     @foreach($partners as $partner)
-                       
-                       <div class="finance__card">
-                        <div class="card shadow">
-                            <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
-                                
+                       @if ($partner->image != '')
+                        <div class="finance__card">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <img class="img-fluid" src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
+                                    
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </div> 
+                       @endif
+                       
                     @endforeach
                    </div>
                </div>

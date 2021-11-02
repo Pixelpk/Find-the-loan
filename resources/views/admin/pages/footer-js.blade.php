@@ -60,10 +60,11 @@
     let more_doc_message_array = [];
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
+    let floating_count = 0;
     $(document).ready(function() {
         
         $( '.ckeditor.editor' ).ckeditor();
-        @if(Route::currentRouteName() == 'put-quotation')
+        @if(Route::currentRouteName() == 'loan-application-summary')
         fixedOrFloating(1);
         @endif
 
@@ -120,7 +121,7 @@
             endDate: quoteEndDate
         });
 
-        $('.search-user').keyup(function (event) {
+        $('.search-enquiries').keyup(function (event) {
             let search = $(this).val();
             let profile = $('#application_profile_tab').val();
             console.log(search)
@@ -325,7 +326,6 @@
         });
 
         $(document).on("input", '#interest_pa', function(event) { 
-        // $('#interest_pa').keyup(function(){
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#interest_pm").prop('disabled', false);
@@ -342,7 +342,74 @@
                 $("#interest_pa").prop('disabled', true);
             }
         });
+        //---------------
+        //put quotation floating pa months and spread input validation
+        $(document).on("input", '.pa_months', function(event) { 
+            let row_index = $(this).attr('row_index');
+            if($(this).val().length < 1){
+                $(".pa_spread[row_index='"+row_index+"']").prop('disabled', false);
+            }else{
+                $(".pa_spread[row_index='"+row_index+"']").prop('disabled', true);
+            }
+        });
 
+        $(document).on("input",'#current_value_indicative',function(event){
+            let current_value_indivative = $(this).val();
+            let sum = 0;
+            $('.calculated_spread_pa').each(function(){           
+                let row_index = $(this).attr('row_index');
+                let current_value = $(".pa_spread[row_index='"+row_index+"']").val();
+
+                let sum = parseInt(current_value) + parseInt(current_value_indivative);
+                $(".calculated_spread_pa[row_index='"+row_index+"']").val(sum);
+                let checking_value = $(".calculated_spread_pa[row_index='"+row_index+"']").val();
+                console.log("checking_value"+checking_value)
+                $(".calculated_spread_pa_span[row_index='"+row_index+"']").html(sum);
+
+
+            });
+        });
+
+        $(document).on("input", '.pa_spread', function(event) { 
+            $('#current_value_indicative_error').html('');
+            let current_value_indicative = $('#current_value_indicative').val();
+            let row_index = $(this).attr('row_index');
+            let pa_spread_value = $(this).val();
+            if(current_value_indicative.length == ""){
+                $('#current_value_indicative_error').html('First add current value');
+                return false;
+            }
+            
+            let calculated_spread_pa = parseInt(pa_spread_value) + parseInt(current_value_indicative);
+            console.log("calculated_spread_pa"+calculated_spread_pa)
+
+            if($(this).val().length < 1){
+                $(".pa_months[row_index='"+row_index+"']").prop('disabled', false);
+
+            }else{
+                $(".pa_months[row_index='"+row_index+"']").prop('disabled', true);
+                $(".calculated_spread_pa_span[row_index='"+row_index+"']").html(calculated_spread_pa);
+                $(".calculated_spread_pa[row_index='"+row_index+"']").val(calculated_spread_pa);
+            }
+        });
+
+        $(document).on("input", '#thereafter_pa', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#thereafter_spread").prop('disabled', false);
+            }else{
+                $("#thereafter_spread").prop('disabled', true);
+            }
+        });
+
+        $(document).on("input", '#thereafter_spread', function(event) { 
+            console.log($(this).val().length)
+            if($(this).val().length < 1){
+                $("#thereafter_pa").prop('disabled', false);
+            }else{
+                $("#thereafter_pa").prop('disabled', true);
+            }
+        });
         //put quotation fee section validations ending
 
         // $('.interest_reducing_balance').keyup(function(){
@@ -401,6 +468,7 @@
         //     });
         // });
         $(document).on("click", '#months_add_row', function(event) { 
+            floating_count ++;
             event.preventDefault();
             
             var append_html = '<div class="row " >'+
@@ -408,32 +476,33 @@
             '        <label class="col-form-label">'+
             '            From month'+
             '        </label>'+
-            '        <input type="number" min="1" name="" class="form-control" >'+
+            '        <input type="number" min="1" row_index="'+floating_count+'" name="pa['+floating_count+']['+'from_month'+']" class="form-control pa_months" >'+
             '    </div>'+
             '    <div class="form-group col-md-2">'+
             '        <label class="col-form-label">'+
             '            To month'+
             '        </label>'+
-            '        <input type="number" min="1" name="" class="form-control" >'+
+            '        <input type="number" min="1" row_index="'+floating_count+'" name="pa['+floating_count+']['+'to_month'+']" class="form-control pa_months" >'+
             '    </div>'+
-            '    <div class="form-group col-md-1">'+
+            '    <div class="form-group col-md-2">'+
             '        <label class="col-form-label">'+
             '            %p.a'+
             '        </label>'+
-            '        <input type="number" min="1" name="" class="form-control" >'+
+            '        <input type="number" min="1" row_index="'+floating_count+'" name="pa['+floating_count+']['+'month_vise_pa'+']" class="form-control pa_months" >'+
             '    </div>'+
             '    <span class="mt-5">OR</span>'+
             '    <div class="form-group col-md-3">'+
             '        <label class="col-form-label">'+
             '            yyy xxx + (spread) %'+
             '        </label>'+
-            '        <input type="number" min="1" placeholder="Spread (%)" name="" class="form-control" >'+
+            '        <input type="number" min="1" row_index="'+floating_count+'" placeholder="Spread (%)" name="pa['+floating_count+']['+'spread'+']" class="form-control pa_spread" >'+
             '    </div>'+
-            '    <div class="form-group col-md-2">'+
+            '    <div class="form-group col-md-1">'+
             '        <label class="col-form-label">'+
             '            = %p.a'+
             '        </label>'+
-            '        <input type="number" min="1" readonly name="" class="form-control" >'+
+            '   <span class="calculated_spread_pa_span" row_index="'+floating_count+'"></span>'+
+            '        <input type="number" min="1" row_index="'+floating_count+'" hidden name="pa['+floating_count+']['+'calculated_spread_pa'+']" class="form-control calculated_spread_pa" >'+
             '    </div>'+
             '    <div class="form-group col-md-1">'+
             '        <label class="col-form-label">'+
