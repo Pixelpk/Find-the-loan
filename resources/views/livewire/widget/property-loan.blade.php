@@ -1,8 +1,8 @@
 <div>
     <div class="row">
 
-        <div class="col-md-12 text-left">
-            <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+        <div class="col-md-6 text-left">
+            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
@@ -24,10 +24,30 @@
                 <div x-show="isUploading">
                     <progress max="100" x-bind:value="progress"></progress>
                 </div>
-            </div>
+            </div> --}}
+            <livewire:widget.upload-component 
+                :label="' OTP or Sale/Purchase Agreement of property/land being sold'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" 
+                :keyvalue="'property_advance_loan_sale_purchase_agreement'" 
+            />
         </div>
-        <div class="col-md-12 text-left">
-            <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+        <div class="col-md-6 text-left">
+            <livewire:widget.upload-component 
+                :label="' loan statement showing past 12 months repayment history if any(please ensure address is
+                visible,
+                if not kindly include the main page where address is visible)'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" 
+                :keyvalue="'property_advance_loan_statement'" 
+            />
+            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
@@ -53,10 +73,21 @@
                 <div x-show="isUploading">
                     <progress max="100" x-bind:value="progress"></progress>
                 </div>
-            </div>
+            </div> --}}
         </div>
-        <div class="col-md-12 text-left">
-            <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+        <div class="col-md-6 text-left">
+            <br>
+            <livewire:widget.upload-component 
+                :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your
+                repayment history statement'" 
+                :apply_loan="$apply_loan"
+                :main_type="$main_type" 
+                :loan_type_id="$loan_type_id" 
+                :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" 
+                :keyvalue="'property_advance_loan_current_statement'" 
+            />
+            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                 x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="form-group">
@@ -81,7 +112,7 @@
                 <div x-show="isUploading">
                     <progress max="100" x-bind:value="progress"></progress>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="col-md-12">
             <hr>

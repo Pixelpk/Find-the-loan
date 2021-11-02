@@ -5,7 +5,7 @@ class Currency extends Component
 {
 
     public $main_type;
-    public $currency;
+    public $currency = 'SGD';
     
     public function render()
     {

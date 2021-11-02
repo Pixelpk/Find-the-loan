@@ -103,9 +103,9 @@ class PropertyBridging extends Component
        
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
-           'sold_tmonth_statement' =>  $this->sold_tmonth_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
-           'sold_statement' =>  $this->sold_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
+        //    'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
+        //    'sold_tmonth_statement' =>  $this->sold_tmonth_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
+        //    'sold_statement' =>  $this->sold_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
            'sold_lot_number' => $this->sold_address ?  '' : 'required',
            'sold_address' => $this->sold_lot_number ?  '' : 'required',
            'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
@@ -116,9 +116,9 @@ class PropertyBridging extends Component
        ]);
        $data = [
 
-             ['type' => 'file', 'value' => $this->sold_agreement, 'key' => 'sold_agreement'],           
-             ['type' => 'file', 'value' => $this->sold_tmonth_statement, 'key' => 'sold_tmonth_statement'],           
-             ['type' => 'file', 'value' => $this->sold_statement, 'key' => 'sold_statement'],   
+            //  ['type' => 'file', 'value' => $this->sold_agreement, 'key' => 'sold_agreement'],           
+            //  ['type' => 'file', 'value' => $this->sold_tmonth_statement, 'key' => 'sold_tmonth_statement'],           
+            //  ['type' => 'file', 'value' => $this->sold_statement, 'key' => 'sold_statement'],   
              ['type' => 'number', 'value' => $this->sold_lot_number, 'key' => 'sold_lot_number'],         
              ['type' => 'text', 'value' => $this->sold_address, 'key' => 'sold_address'],         
              ['type' => 'text', 'value' => $this->sold_unit, 'key' => 'sold_unit'],         
@@ -130,8 +130,8 @@ class PropertyBridging extends Component
              ['type' => 'text', 'value' => $this->sold_square_meter, 'key' => 'sold_square_meter'],         
              ['type' => 'text', 'value' => $this->sold_useable_area, 'key' => 'sold_useable_area'],  
             //  new property information        
-             ['type' => 'file', 'value' => $this->letter_of_loan_new_agreement, 'key' => 'letter_of_loan_new_agreement'],           
-             ['type' => 'file', 'value' => $this->new_sale_purchase_agreement, 'key' => 'new_sale_purchase_agreement'],           
+            //  ['type' => 'file', 'value' => $this->letter_of_loan_new_agreement, 'key' => 'letter_of_loan_new_agreement'],           
+            //  ['type' => 'file', 'value' => $this->new_sale_purchase_agreement, 'key' => 'new_sale_purchase_agreement'],           
              ['type' => 'number', 'value' => $this->new_lot_number, 'key' => 'new_lot_number'], 
              ['type' => 'text', 'value' => $this->new_address, 'key' => 'new_address'], 
              ['type' => 'text', 'value' => $this->new_unit, 'key' => 'new_unit'], 

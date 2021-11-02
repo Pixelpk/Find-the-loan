@@ -222,6 +222,7 @@ class ApplyLoan extends Component
 
     public function storeReasonLoanType()
     {
+       
         if(sizeof($this->reasonValue) == 0){
             $this->emit('danger', ['type' => 'success', 'message' => 'Loan reason required.']);
             return;
@@ -384,7 +385,8 @@ class ApplyLoan extends Component
         ->where('apply_loan_id', $this->apply_loan->id)
         ->get()
         ->groupBy('key');
-        if($loanStatement->count() < 6){
+        if($loanStatement->count() < 6 && $loanStatement->count() > 1){
+           
              $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
             return;
         }

@@ -32,13 +32,15 @@ class BusinessDebtConsolidation extends Component
     public function mount()
     {
      
-        $media  = Media::where('model', '\App\Models\OverDraftInsurance')->whereIn('key', ['debt_consolidation_settlement_noticea', 'debt_consolidation_documents'])->where('apply_loan_id', $this->apply_loan->id)
-        ->where('model_id', 0)->where('share_holder', 0)->get();
-        
+        $media  = Media::where('model', '\App\Models\OverDraftInsurance')
+        ->whereIn('key', ['debt_consolidation_settlement_notice', 'debt_consolidation_documents'])
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->where('model_id', 0)
+        ->where('share_holder', 0)
+        ->get();
         if($media->count() > 0){
-          
+            // dd($media);
             $this->documents = 'pass';
-           
             $this->document = 'pass';
             $this->settlement_notice = 'pass';
         }
