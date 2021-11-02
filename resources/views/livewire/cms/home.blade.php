@@ -261,7 +261,8 @@
                        <div class="finance__card">
                         <div class="card shadow">
                             <div class="card-body">
-                                <img class="img-fluid" src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
+                                <img class="img-fluid"
+             src="{{ asset('uploads/financePartnerImages/'.$partner->image) }}" alt="">
                                 
                             </div>
                         </div>

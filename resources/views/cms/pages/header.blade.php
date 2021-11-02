@@ -1,6 +1,6 @@
 <!--NAVIGATION ******************************************************************************************-->
-<nav class="navbar navbar-expand-md navbar-light fixed-top ts-separate-bg-element headshad pt-2">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top ts-separate-bg-element headshad pt-2">
+    <div class="container ">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img class="img-fluid" style="height:75px" src="{{ asset('assets/cms/img/FindTheLoan Logo-02.png') }}" alt="logo">
         </a>
@@ -38,7 +38,8 @@
         </div>
         <!-- /MOB SERCH -->
 
-        <div class="srch">
+        <!-- DESK SEARCH -->
+        <!-- <div class="srch">
             <input type="search" class="form-control" id="exampleInput1">
             <span>
                 <a href="#">
@@ -53,73 +54,107 @@
                     </svg>
                 </a>
             </span>
-        </div>
+        </div> -->
+        <!-- DESK SEARCH -->
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!--end navbar-toggler-->
+
+        <!-- MOBILE MENU -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav mob-nav">
-              
                 <li><a href="{{ route('about-us') }}" class="nav-link">About Us</a></li>
                 <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
                 <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li>
-                <li><a href="{{ route('faqs') }}" class="nav-link">Glossary</a></li>
+                <li><a href="{{ route('glossary') }}" class="nav-link">Glossary</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Terms of uses</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Privacy policy</a></li>
                 <li><a href="{{ route('contact-us') }}" class="nav-link">Contact</a></li>
             </ul>
-            <div class="btn-group desk-menu">
-                    @php
-                        $current_route = Route::currentRouteName();
-                        
-                        if ($current_route == 'blog') {
-                            $route = route('our-blogs');
-                        }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
-                            $route = route('home');
-                            $current_route = 'home';
-                        }
-                        else {
-                            $route = route($current_route);
-                        }
-                    @endphp
-                <a href="{{$route}}" class="btn btn-h">{{ getCmsRoute($current_route)}}</a>
-                <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
-                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                    <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                <li><a href="{{ route('home') }}" class="nav-link">Home</a></li>
-                    <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
-                    <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
-                    <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
-                    <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li>
-                    <li><a href="#" class="dropdown-item">Glossary</a></li>
-                    <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of uses</a></li>
-                    <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
-                    <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact</a></li>
-                </ul>
-            </div>
-            @if(!Auth::guard('web')->check())
-            <!-- LOGIN BUTTON -->
-            <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
-            <!-- REGISTER BUTTON -->
-            <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
-            @endif
-            @if(Auth::guard('web')->check())
-            <a href="{{ route('applyLoan') }}" class="btnnew2 btn">
-               Apply </a>
+            <!-- MOBILE MENU -->
+            <ul class="navbar-nav desk-nav justify-content-end">
+                <li>
+                    <a href="">
+                        <div class="btn-group desk-menu">
+                            @php
+                                $current_route = Route::currentRouteName();
+                                
+                                if ($current_route == 'blog') {
+                                    $route = route('our-blogs');
+                                }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
+                                    $route = route('home');
+                                    $current_route = 'home';
+                                }
+                                else {
+                                    $route = route($current_route);
+                                }
+                            @endphp
+                        <a href="{{$route}}" class="btn btn-h">{{ getCmsRoute($current_route)}}</a>
+                        <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                        <li><a href="{{ route('home') }}" class="dropdown-item">Home</a></li>
+                            <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
+                            <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
+                            <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
+                            <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li>
+                            <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
+                            <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of uses</a></li>
+                            <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
+                            <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact</a></li>
+                        </ul>
+                    </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link">
+                        @if(!Auth::guard('web')->check())
+                        <!-- LOGIN BUTTON -->
+                        <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
+                        <!-- REGISTER BUTTON -->
+                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
+                        @endif
+                    </a>
+                </li>
 
-            @endif
+                <li>
+                    <a href="#" class="nav-link">
+                        @if(Auth::guard('web')->check())
+                        <a href="{{ route('applyLoan') }}" class="btnnew2 btn">Apply </a>
+                        @endif
+                    </a>
+                </li>
 
-            @if(Auth::guard('web')->check())
-            <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a>
-            @endif
-            <!--end collapse-->
-            <!--end navbar-nav-->
+                <li>
+                    <a href="#" class="nav-link">
+                        @if(Auth::guard('web')->check())
+        <div class="dropdown user-dropdown ms-md-3 me-0 d-none d-lg-inline-block">
+<a href="" class="" id="dropdownMenuOffset"
+ data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+ <span class="">Hi, Sahahb</span>
+<img height="40" src="{{('assets/cms/img/Home/user.svg') }}" alt="user">
+</a>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+  <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
+</ul>
+</div>
+        <!-- <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a> -->
+        @endif
+                    </a>
+                </li>
+            </ul>
+            <!-- DESKTOP MENU -->
+
+            <!-- /DESKTOP MENU -->
         </div>
+
+
 
         <!--end container-->
 </nav>

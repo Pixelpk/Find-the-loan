@@ -171,10 +171,10 @@ footer .contact-box__info {
             padding-right: 1rem;
             padding-top: 1rem;
           }
-          .navbar .btn, .dropdown-menu{
+          /* .navbar .btn, .dropdown-menu{
         margin-left: 1.3rem;
         margin-right: 1.3rem;
-    }
+    } */
     .navbar .btn-h{
         margin-right: 0;
     }

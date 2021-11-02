@@ -1,4 +1,7 @@
 <div>
+    {{-- Success is as dangerous as failure. --}}
+
+    <div>
     <div class="breadcrumb-wrapper">
     
     <div class="breadcrumb-wrapper-overlay"></div>
@@ -12,7 +15,7 @@
             <!--begin col-xs-12 -->
             <div class="col-sm-12 col-lg-12 col-xs-12">
     
-                <h2 class="page-title white text-center">Financial inclusion</h2>
+                <h2 class="page-title white text-center">Glossary</h2>
     
             </div>
     
@@ -37,7 +40,7 @@
         <!--begin row-->
         <div class="row">
             <div class="col-md-12">
-            {!! $financial_inclusion !!}
+         
             </div>
         </div>
         <!--end row-->
@@ -49,3 +52,4 @@
     <!--end section-white-->
     </div>
     
+</div>

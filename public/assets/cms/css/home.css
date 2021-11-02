@@ -2,6 +2,7 @@
 .mob-nav{
     display: none;
 }
+
 /* SEARCHBAR */
 .mob-srch{
     display: none;
@@ -39,7 +40,6 @@
     .dropdown-menu li a{
         color: #666;
     }
-
     /* MODAL COOKIE */
     .modal-backdrop{
         z-index: 1028;
@@ -244,7 +244,7 @@ background-color: #000 !important;
 /* sec 6 */
 .tooltip-inner {
  
-    max-width: 500px !important; 
+    max-width: 300px !important; 
     opacity: 0.9;
     font-size: 12px;
 }
@@ -292,7 +292,31 @@ background-color: #000 !important;
 #footer .footer-bottom .footer__links li a:hover{
     color: #000000;
 }
+@media(max-width:1024px){
+    .srch{
+        width: 30%;
+    }
+}
 @media(max-width:800px){
+    .srch {
+        display: none;
+    }
+    .mob-srch{
+        display: block;
+    }
+    .mob-nav{
+        display: block;
+    }
+    .desk-menu{
+        display: none;
+    }
+    ul.navbar-nav{
+        padding: 0 1rem;
+    }
+    .navbar .btn{
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
     .nmor-card{
         height: auto;
         }
@@ -309,18 +333,7 @@ background-color: #000 !important;
 }
 }
 @media(max-width:533px){
-    .srch {
-        display: none;
-    }
-    .mob-srch{
-        display: block;
-    }
-    .mob-nav{
-        display: block;
-    }
-    .desk-menu{
-        display: none;
-    }
+   
 .line{
     display: none;
 }
