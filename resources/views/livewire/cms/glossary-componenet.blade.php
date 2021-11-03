@@ -40,7 +40,7 @@
         <!--begin row-->
         <div class="row">
             <div class="col-md-12">
-         
+                {!! $glossary !!}
             </div>
         </div>
         <!--end row-->

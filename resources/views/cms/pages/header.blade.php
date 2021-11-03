@@ -69,9 +69,9 @@
                 <li><a href="{{ route('about-us') }}" class="nav-link">About Us</a></li>
                 <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
-                <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li>
+                {{-- <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li> --}}
                 <li><a href="{{ route('glossary') }}" class="nav-link">Glossary</a></li>
-                <li><a href="{{ route('faqs') }}" class="nav-link">Terms of uses</a></li>
+                <li><a href="{{ route('faqs') }}" class="nav-link">Terms of use</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Privacy policy</a></li>
                 <li><a href="{{ route('contact-us') }}" class="nav-link">Contact</a></li>
             </ul>
@@ -103,9 +103,9 @@
                             <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
                             <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
                             <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
-                            <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li>
+                            {{-- <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li> --}}
                             <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
-                            <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of uses</a></li>
+                            <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of use</a></li>
                             <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
                             <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact</a></li>
                         </ul>

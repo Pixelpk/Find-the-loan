@@ -27,7 +27,7 @@
                    <div class="col-sm-12 col-md-12 col-lg-8">
                        <div class="footer__text">
                            <p class="lea">
-                               FindTheLoan.com is a loan and finance comparison platform that connect users to various financial institutes and not a lender themseleves information on this platform should not be construed as an advice, offer, solication or recommendation of any product or service. You should always check the suitability, adequacy and appropriateness of the product or service that is of interest to you and it is your sole decision whether to obtain or refrain from obtaining any product or service. If in doubt as the suitability, adequacy and appropriateness of the product or service refferd to on this website, we advice that you seek professional advice.
+                               {!! getFooterText() !!}
                            </p>
                        </div>
                    </div>
