@@ -109,8 +109,8 @@ class OverDraft extends Component
     public function getData()
     {
        
-        $amount = ModelsApplyLoan::where('id', $this->apply_loan->id)->first()->amount;
-        $overDraft = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
+        $amount = ModelsApplyLoan::where('id', $this->apply_loan->id)->first()->amount ?? '';
+        $overDraft = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first() ?? '';
         if($overDraft){
             if($overDraft->type == 1){
                 $this->overdraft['unsecured'] = true;

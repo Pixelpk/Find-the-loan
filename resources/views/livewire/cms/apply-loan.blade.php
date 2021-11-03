@@ -18,6 +18,7 @@
                                 aria-current="page" href="#">LOAN TYPE DETAIL
                             </a>
                         </li>
+                        @if($main_type == 1)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
                                 class="{{ !$comDisable ? 'disabled' : '' }} nav-link {{ $tab == '4' ? 'active' : '' }}"
@@ -37,6 +38,7 @@
                                 href="#">SHAREHOLDER</a>
                         </li>
                         {{-- @endif --}}
+                        @endif
                         @endif
                         @if(!$lenderflag)
                         <li class="nav-item">
@@ -73,6 +75,31 @@
 
                     @livewire('widget.new-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 23)
+
+                    @livewire('widget.new-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 13)
+
+                    @livewire('widget.property-land-refinancing', ['loan_type_id' => $loan_type_id, "main_type" =>
+                    $main_type,
+                    'apply_loan' => $apply_loan,
+                    'loan_type_id' => $loan_type_id
+                    ])
+                    @elseif($tab == 8 && $loan_type_id == 24)
+
+                    @livewire('widget.property-land-refinancing', ['loan_type_id' => $loan_type_id, "main_type" =>
+                    $main_type,
+                    'apply_loan' => $apply_loan,
+                    'loan_type_id' => $loan_type_id
+                    ])
+                    @elseif($tab == 8 && $loan_type_id == 14)
+
+                    @livewire('widget.property-land-refinancing', ['loan_type_id' => $loan_type_id, "main_type" =>
+                    $main_type,
+                    'apply_loan' => $apply_loan,
+                    'loan_type_id' => $loan_type_id
+                    ])
                     @elseif($tab == 8 && $loan_type_id == 4)
 
                     @livewire('widget.project-finance', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
@@ -82,25 +109,42 @@
                     @livewire('widget.over-draft', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
 
+                    @elseif($tab == 8 && $loan_type_id == 19)
+
+                    @livewire('widget.over-draft', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+
                     @elseif($tab == 8 && $loan_type_id == 7)
 
                     @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
+                    $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                     @elseif($tab == 8 && $loan_type_id == 20)
+
+                     @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
+                     $loan_type_id, "main_type" => $main_type,
+                     'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 5)
+
+                    @livewire('cms.loan.business.loan-type.business-invoice-financing', ['loan_type_id' =>
+                    $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @elseif($tab == 8 && $loan_type_id == 6)
+
+                    @livewire('cms.loan.business.loan-type.business-purchase-order', ['loan_type_id' =>
                     $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
                     @elseif($tab == 8 && $loan_type_id == 17)
                     @livewire('cms.loan.business.loan-type.property-bridging', ['loan_type_id' => $loan_type_id,
                     "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
-                    @elseif($loan_type_id == 9 || $loan_type_id == 10 || $loan_type_id == 11)
+                    @elseif($loan_type_id == 9 || $loan_type_id == 10 || $loan_type_id == 11 || $loan_type_id == 21 || $loan_type_id == 22)
                     @if($tab == 8 && $apply_loan)
                     @livewire('cms.loan.business.loan-type.hire-purchase', ['loan_type_id' => $loan_type_id,
                     "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
                     @endif
-
-
                     @endif
-
                     @if($tab == 1)
                     <div class="row g-3">
                         <div class="col-md-12">
@@ -127,10 +171,11 @@
                                 <a class="list-group-item list-group-item-action">
                                     <div class="form-check form-switch">
                                         <input wire:model="values.{{ $subType->id }}"
+                                           
                                             wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
                                             class="form-check-input singleCheck" type="checkbox" />
                                         <label class="form-check-label"
-                                            for="{{ $subType->id }}">{{ $subType->sub_type }}</label>
+                                           >{{ $subType->sub_type }}</label>
                                     </div>
                                 </a>
                                 @endforeach

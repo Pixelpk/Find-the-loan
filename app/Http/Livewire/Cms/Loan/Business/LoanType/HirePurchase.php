@@ -89,7 +89,9 @@ class HirePurchase extends Component
        
         $businessHirePurchase = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->where('hire_purchase_type', '!=', $this->hirePurchase['hire_purchase_type'])->get();
         if($businessHirePurchase){
-            BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->delete();
+            BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)
+            ->where('hire_purchase_type', '!=', $this->hirePurchase['hire_purchase_type'])
+            ->delete();
         }
         
         $this->validate($this->rules, [
@@ -113,7 +115,9 @@ class HirePurchase extends Component
         $applyloan= ApplyLoan::where('id', $this->apply_loan->id)->first();
         $applyloan->amount = $this->hirePurchase['amount'];
         $applyloan->update();
+        // $this->hirePurchase = '';
         $this->hirePurchase = new BusinessHirePurchase();
+        // dd($this->hirePurchase);
         $this->hirePurchase['hire_purchase_type'] =  $oldValue;
         $this->hirePurchase['amount'] =  $applyloan->amount;
         $this->getHirePurchase();

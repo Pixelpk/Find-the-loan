@@ -11,6 +11,7 @@
                 </div>
                 @enderror
             </div>
+            @if($main_type == 1)
             <div class="col-md-12" style="margin-top: 30px;">
                 <select id="currency" wire:model="hirePurchase.hire_purchase_type" class="form-select">
                     <option value="" hidden>Select Hire Purchase Type</option>
@@ -29,36 +30,27 @@
                 <br>
                 <br>
             </div>
+            @endif
         </div>
-        @if($hirePurchase['hire_purchase_type'] ?? '')
+        @if($hirePurchase['hire_purchase_type'] || $main_type == 2  ?? '')
+        <br>
         <div class="row">
+            @if($hirePurchase['hire_purchase_type']  == 4 || $hirePurchase['hire_purchase_type']  == 5 || $main_type == 2 ?? '')
+            <div class="col-md-6">
+                <livewire:widget.upload-component
+                    :label="'Vehicle Sales Agreement/Quotation form if any'"
+                    :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                    :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_vehicle_agreement'" />
+            </div>
+            @else
             <div class="col-md-6">
                 <livewire:widget.upload-component
                     :label="'Quotation form/purchase order/sales agreement for the Equipment/Machinery/Vehicle'"
                     :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                     :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_agreement'" />
             </div>
-            {{-- <div class="col-md-6 text-left">
-                <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                    x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-                    x-on:livewire-upload-progress="progress = $event.detail.progress">
-                    <div class="form-group">
-                        <label class="control-label mb-10">
-                            Quotation form/purchase order/sales agreement for the Equipment/Machinery/Vehicle
-                        </label>
-                        <br>
-                        <br>
-                        <label class="label" data-toggle="tooltip" title="Select Image">
-                            <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                wire:model="hirePurchase.agreement" type="file" id="vehicleimage">
-                        </label>
-                    </div>
-    
-                    <div x-show="isUploading">
-                        <progress max="100" x-bind:value="progress"></progress>
-                    </div>
-                </div>
-            </div> --}}
+            @endif
+          
             <div class="col-md-3">
                 <div class="form-check">
                     <input wire:model="hirePurchase.type" value="Leasing" class="form-check-input" type="radio"
@@ -97,10 +89,12 @@
             <div class="col-md-12">
                 <b> Please provide any details not found in quotation form/purchase order/sales agreement</b>
             </div>
+            @if($hirePurchase['hire_purchase_type']  == 4 || $hirePurchase['hire_purchase_type']  == 5 ||  $main_type == 2 ?? '')
             <div class="col-md-12">
                 <br>
                 <b> Vehicle details</b>
             </div>
+            @endif
             @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
             $hirePurchase['hire_purchase_type'] == 3 ?? '')
             <div class="col-md-6" style="margin-top: 30px;">
@@ -134,7 +128,7 @@
                 @enderror
             </div>
             @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
-            $hirePurchase['hire_purchase_type'] == 3 ?? '')
+            $hirePurchase['hire_purchase_type'] == 3 ||  $main_type == 2 ?? '')
             <div class="col-md-6" style="margin-top: 30px;">
                 <label for="hirePurchase.number_of_units" class="form-label">Number of units
                 </label>
@@ -167,7 +161,7 @@
                 @enderror
             </div>
             @endif
-            @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+            @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
             <div class="col-md-6" style="margin-top: 30px;">
                 <label for="hirePurchase.purchase_price" class="form-label">Purchase price $
                 </label>
@@ -227,7 +221,7 @@
                 <br>
                 <hr>
             </div>
-            @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+            @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
             <div class="col-md-12">
                 Any discounts/rebates/benefits have the effect of reducing the actual price of the Vehicle below the
                 purchase price stated in the Vehicle Sales Agreement
@@ -451,7 +445,7 @@
     </div>
     </div>
     <div class="row">
-        @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5)
+        @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
         <div class="col-md-12">
             <b>Details of Seller</b>
         </div>

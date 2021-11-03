@@ -8,7 +8,7 @@
     @include('cms.pages.css')
     @livewireStyles
 </head>
-<body data-spy="scroll" data-target=".navbar" class="has-loading-screen">
+<body data-spy="scroll" data-target=".navbar" class="">
 <div class="ts-page-wrapper" id="page-top">
 @include('cms.pages.header')
     {{ $slot }}

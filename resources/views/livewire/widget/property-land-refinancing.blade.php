@@ -1,16 +1,29 @@
 <div>
     <div class="row">
 
-        <div class="col-md-12 text-left">
-            <livewire:widget.upload-component 
-            :label="'Renovation Quotation'" 
-            :apply_loan="$apply_loan"
-            :main_type="$main_type" 
-            :loan_type_id="$loan_type_id" 
-            :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" 
-            :keyvalue="'property_new_loan_sale_purchase_agreement'" 
-            />
+        <div class="col-md-6 text-left">
+            <livewire:widget.upload-component :label="'loan statement showing past 12 months repayment history if any'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_statement'" />
+        </div>
+
+        <div class="col-md-6 text-left">
+            <livewire:widget.upload-component
+                :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your repayment history statement'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_current_statement'" />
+        </div>
+        <div class="col-md-6 text-left">
+            <livewire:widget.upload-component :label="'CPF property withdrawal/utilization statement If CPF was used'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_cpf_statement'" />
+        </div>
+
+        <div class="col-md-6 text-left">
+            <br>
+            <livewire:widget.upload-component :label="'Tenancy Agreement If it’s rented out'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_tenancy_agreement'" />
         </div>
 
         <div class="col-md-12">
@@ -63,7 +76,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="lease_remaining" class="form-label">
                 Lease remaining
-                
+
             </label>
             <div class="input-group mb-3">
                 <input wire:model="lease_remaining_year" type="text" class="form-control"
@@ -89,7 +102,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fllor_area" class="form-label">
                 Land/Floor Area
-                    if applicable
+                if applicable
             </label>
             <input wire:model="fllor_area" type="text" class="form-control" id="fllor_area">
             @error("fllor_area")
@@ -101,7 +114,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="useable_area" class="form-label">
                 Build-in/Useable Area
-                
+
 
             </label>
             <input wire:model="useable_area" type="text" class="form-control" id="useable_area">
@@ -153,7 +166,7 @@
             <select wire:model="construction_year" class="form-select">
                 <option value="">Select</option>
                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
-                @endfor
+                    @endfor
             </select>
         </div>
         <div class="col-md-2">
@@ -181,8 +194,8 @@
             </div> --}}
             <br>
             <div class="form-check form-switch">
-                <input wire:model="float_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">  Check offer for floating rate
+                <input wire:model="float_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1234">
+                <label class="form-check-label" for="flexSwitchCheckDefault1234"> Check offer for floating rate
                 </label>
             </div>
             @error("float_rate")
@@ -202,8 +215,8 @@
             </div> --}}
             <br>
             <div class="form-check form-switch">
-                <input wire:model="fix_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">  Check offer for fixed rate
+                <input wire:model="fix_rate" class="form-check-input" type="checkbox" id="flexSwitchCheckDefaul24">
+                <label class="form-check-label" for="flexSwitchCheckDefaul24"> Check offer for fixed rate
                 </label>
             </div>
             @error("fix_rate")
@@ -213,7 +226,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-           
+
         </div>
         @error("check_offer")
         <div class="col-md-12 text-danger">
@@ -223,7 +236,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="preferred_tenure_month" class="form-label">
                 Preferred Tenure
-                
+
             </label>
             <div class="input-group mb-3">
                 <input wire:model="preferred_tenure_year" type="text" class="form-control"
@@ -237,16 +250,16 @@
                     <span class="input-group-text" id="basic-addon2">Months</span>
                 </div>
             </div>
-                @error("preferred_tenure_year")
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-                @error("preferred_tenure_month")
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
+            @error("preferred_tenure_year")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+            @error("preferred_tenure_month")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="col-md-2" style="margin-top: 40px;">
             <br>
@@ -259,6 +272,119 @@
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-12">
+            <b> Property type</b>
+
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="Commercial" wire:model="property_land_property_type" class="form-check-input" type="radio"
+                    id="flexRadioDefault101">
+                <label class="form-check-label" for="flexRadioDefault101">
+                    Commercial
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="Residential" wire:model="property_land_property_type" class="form-check-input"
+                    type="radio" id="flexRadioDefault202">
+                <label class="form-check-label" for="flexRadioDefault202">
+                    Residential
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="industrial" wire:model="property_land_property_type" class="form-check-input" type="radio"
+                    id="flexRadioDefault303">
+                <label class="form-check-label" for="flexRadioDefault303">
+                    industrial
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_property_type")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-12">
+            <br>
+            <br>
+            <b> Geographical location
+            </b>
+
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="Local" wire:model="property_land_geographical" class="form-check-input" type="radio"
+                    id="flexRadioDefault304">
+                <label class="form-check-label" for="flexRadioDefault304">
+                    Local
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input  value="Foreign" wire:model="property_land_geographical" class="form-check-input" type="radio"
+                    id="flexRadioDefault3044">
+                <label class="form-check-label" for="flexRadioDefault3044">
+                    Foreign
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_geographical")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        @if($loan_type_id == 14)
+        <div class="col-md-12">
+            <br>
+            <br>
+            <b>Property/Land is under
+            </b>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="Company name" value="Company name" wire:model="property_land_under" class="form-check-input"
+                    type="radio" name="flexRadioDefault" id="flexRadioDefault305">
+                <label class="form-check-label" for="flexRadioDefault305">
+                    Company name
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input value="Personal name" value="Personal name" wire:model="property_land_under" class="form-check-input"
+                    type="radio" name="flexRadioDefault" id="flexRadioDefault306">
+                <label class="form-check-label" for="flexRadioDefault306">
+                    Personal name
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_under")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        @endif
+        <div class="col-md-12">
             <div class="col-md-12" style="margin-top: 30px;">
                 <label for="amount" class="form-label">Amount</label>
                 <input wire:model="amount" type="number" class="form-control" id="amount">
@@ -269,7 +395,6 @@
                 @enderror
             </div>
         </div>
-
         <div class="col-12">
             <br>
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
