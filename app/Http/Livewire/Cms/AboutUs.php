@@ -13,6 +13,7 @@ class AboutUs extends Component
     {
         $data['partners'] = $this->allPartners();
         $data['about_us'] = WebData::where('key_name','=','about_us')->select('value')->first();
+        $data['financial_inclusion'] = WebData::where('key_name','=','financial_inclusion')->select('value')->first();
         $data['testimonials'] = Testimonial::where('status','=','1')->get();
         return view('livewire.cms.about-us',$data)->layout('cms.layouts.master');
     }

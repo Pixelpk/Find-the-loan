@@ -63,7 +63,7 @@ Route::get('faqs',FaqComponent::class)->name('faqs');
 Route::get('glossary',GlossaryComponenet::class)->name('glossary');
 Route::get('privacy-policy',PrivacyPolicyComponent::class)->name('privacy-policy');
 Route::get('terms-conditions',TermsConditionsComponent::class)->name('terms-conditions');
-Route::get('financial-inclusion',FinancialInclusionComponent::class)->name('financial-inclusion');
+// Route::get('financial-inclusion',FinancialInclusionComponent::class)->name('financial-inclusion');
 // Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
 Route::get('blog',BlogDetailComponent::class)->name('blog');
 Route::get('about-us',AboutUs::class)->name('about-us');
@@ -131,21 +131,21 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
         Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
 
-        Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
-        Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
-        Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
-        Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
-        Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
+        // Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+        // Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
+        // Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
+        // Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
+        // Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
 
-        Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
-        Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
-        Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
-        Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
+        // Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
+        // Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
+        // Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
+        // Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
 
-        Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
-        Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
-        Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
-        Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
+        // Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
+        // Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
+        // Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
+        // Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
     });
 
     Route::group(['middleware'=>['partner']],function (){

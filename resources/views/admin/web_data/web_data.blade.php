@@ -48,6 +48,10 @@
                                         <h5>Terms and conditions</h5>
                                         <textarea type="text" class="form-control ckeditor" required  name="terms_condition" >{{$web_data['terms_condition'] ?? ""}}</textarea>
                                     </div>
+                                    <div class="form-group">
+                                        <h5>Glossary</h5>
+                                        <textarea type="text" class="form-control ckeditor" required  name="glossary" >{{$web_data['glossary'] ?? ""}}</textarea>
+                                    </div>
 
                                     <div class="form-group mb-0">
                                         <div class="text-right">

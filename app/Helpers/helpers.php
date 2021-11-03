@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\FinancePartner;
+use App\Models\WebData;
 use Illuminate\Support\Facades\Auth;
 
 function getStatus($status): string
@@ -43,13 +44,18 @@ function getCmsRoute($route_name): string
         'our-blogs'=>"Blogs",
         'blog'=>"Blogs",
         'faqs'=>"Faqs",
-        'terms-conditions'=>"Terms of uses",
+        'terms-conditions'=>"Terms of use",
         'privacy-policy'=>"Privacy policy",
         'contact-us'=>"Contact",
         'financial-inclusion'=>"Financial Inclusion",
         'glossary'=>"Glossary",
     ];
     return $all[$route_name] ?? '';
+}
+
+function getFooterText()
+{
+    return WebData::where('key_name','=','footer_text')->select('value')->first()->value;
 }
 
 function moreDocReasons(): array
