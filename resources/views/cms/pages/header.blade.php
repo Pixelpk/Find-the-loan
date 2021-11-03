@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top ts-separate-bg-element headshad pt-2">
     <div class="container ">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img class="img-fluid" style="height:75px" src="{{ asset('assets/cms/img/FindTheLoan Logo-02.png') }}" alt="logo">
+            <img class="img-fluid" style="height:75px" src="{{ asset('assets/cms/img/FindTheLoan Logo-02.png') }}"
+                alt="logo">
         </a>
         <!--end navbar-brand-->
 
@@ -30,7 +31,8 @@
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="Search Here "
                                 aria-describedby="button-addon2">
-                            <button class="btn" type="button" id="button-addon2" style="margin-right: 0;">Search</button>
+                            <button class="btn" type="button" id="button-addon2"
+                                style="margin-right: 0;">Search</button>
                         </div>
                     </div>
                 </div>
@@ -81,17 +83,17 @@
                     <a href="">
                         <div class="btn-group desk-menu">
                             @php
-                                $current_route = Route::currentRouteName();
-                                
-                                if ($current_route == 'blog') {
-                                    $route = route('our-blogs');
-                                }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
-                                    $route = route('home');
-                                    $current_route = 'home';
-                                }
-                                else {
-                                    $route = route($current_route);
-                                }
+                            $current_route = Route::currentRouteName();
+
+                            if ($current_route == 'blog') {
+                            $route = route('our-blogs');
+                            }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
+                            $route = route('home');
+                            $current_route = 'home';
+                            }
+                            else {
+                            $route = route($current_route);
+                            }
                             @endphp
                         <a href="{{$route}}" class="btn btn-h">{{ getCmsRoute($current_route)}}</a>
                         <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
@@ -130,24 +132,25 @@
                         @endif
                     </a>
                 </li>
-
+                @if(Auth::guard('web')->check())
                 <li>
                     <a href="#" class="nav-link">
                         @if(Auth::guard('web')->check())
-        <div class="dropdown user-dropdown ms-md-3 me-0 d-none d-lg-inline-block">
-<a href="" class="" id="dropdownMenuOffset"
- data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
- <span class="">Hi, Sahahb</span>
-<img height="40" src="{{('assets/cms/img/Home/user.svg') }}" alt="user">
-</a>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-  <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
-</ul>
-</div>
-        <!-- <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a> -->
-        @endif
+                        <div class="dropdown user-dropdown ms-md-3 me-0 d-none d-lg-inline-block">
+                            <a href="" class="" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-offset="10,20">
+                                <span class="">Hi, {{ Auth::user()->first_name }}</span>
+                                <img height="40" src="{{('assets/cms/img/Home/user.svg') }}" alt="user">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <!-- <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a> -->
+                        @endif
                     </a>
                 </li>
+                @endif
             </ul>
             <!-- DESKTOP MENU -->
 

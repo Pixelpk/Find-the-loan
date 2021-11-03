@@ -199,7 +199,7 @@ class ApplyLoan extends Component
     public function getLoanReason($loan_type_id, $key)
     {
         
-       
+        $this->reasonValue = [];
         if(!$this->values[$loan_type_id]){
             return;
         }
@@ -213,8 +213,12 @@ class ApplyLoan extends Component
         }else{
             $this->loan_type_id = null;
         }
-       
-        $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
+        if($this->main_type == 1){
+            $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
+        }else{
+            $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('loan_type_id', $this->loan_type_id)->where('status', 1)->get();
+        }
+        
         // dd($this->values);
        
         // $this->goToReasons();
@@ -456,8 +460,9 @@ class ApplyLoan extends Component
 
     public function getMainType()
     {
-
+        $this->reasonValue = [];
         $this->mainTypes = MainType::where('profile_id', $this->main_type)->get();
+       
     }
 
     
