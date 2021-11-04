@@ -183,12 +183,12 @@ img.fluid {
 }
 
 .home-section {
-	background: url(http://placehold.it/1920x1280) top center no-repeat;
+	/* background: url(http://placehold.it/1920x1280) top center no-repeat;
 	background-size: cover;
 	width: 100%;
 	position: relative;
   	padding-top: 170px;
-  	padding-bottom: 200px;
+  	padding-bottom: 200px; */
 }
 
 .home-section-overlay{
