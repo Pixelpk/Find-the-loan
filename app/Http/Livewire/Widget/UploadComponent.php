@@ -31,7 +31,6 @@ class UploadComponent extends Component
     }
     public function updatedImages()
     {
-    //    dd($this->images);
         $this->validate([
             "images.*" =>'required|mimes:jpg,jpeg,png,pdf',
         ]);
@@ -54,26 +53,14 @@ class UploadComponent extends Component
     }
     public function getImage()
     {   
-        // dd('asda');
-        if($this->apply_loan){
-            $this->getImages = Media::where('apply_loan_id', $this->apply_loan->id)
-            ->where('model', $this->modell)
-            ->where('key', $this->keyvalue)
-            ->where('share_holder', $this->share_holder)
-            ->where('model_id', 0)
-            ->get();
-        }else{
-            $this->getImages = Media::where('apply_loan_id', null)
-            ->where('model', $this->modell)
-            ->where('key', $this->keyvalue)
-            ->where('share_holder', $this->share_holder)
-            ->where('model_id', 0)
-            ->get();
-        }
+        $this->getImages = Media::where('apply_loan_id', $this->apply_loan->id)
+        ->where('model', $this->modell)
+        ->where('key', $this->keyvalue)
+        ->where('share_holder', $this->share_holder)
+        ->where('model_id', 0)
+        ->get();
         if(sizeof($this->getImages) > 0){
-           
             $this->emit('documentReq', 'pass');
-           
         }
        
     }
