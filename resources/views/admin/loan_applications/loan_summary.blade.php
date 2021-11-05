@@ -21,7 +21,14 @@
             <div class="container py-3 info-container">
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid mb-3" style="padding:0">
-                        <span class="navbar-brand">Summary</span>
+                        <span class="navbar-brand">
+                            Summary
+                            @if ($application->application_rejected)
+                                <b style="color: #27B34D">(Rejected)</b>
+                            @elseif($application->application_quote)
+                                <b style="color: #27B34D">(Quoted)</b>
+                            @endif
+                        </span>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -29,20 +36,21 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <ul class="navbar-nav sum-nav me-auto mb-2 mb-lg-0">
-                                @if(!$application->application_rejected)
+                                @if(!$application->application_rejected && !$application->application_quote)
                                 <li class="nav-item">
                                     <a href="#" onclick="rejectApplication({{$application->id}});" data-toggle="tooltip"
                                         data-original-title="Reject" class="btn btn-primary"
                                         aria-current="page">Reject</a>
                                 </li>
-                                @endif
-
                                 <li class="nav-item">
                                     <a class="btn btn-primary" aria-current="page"
                                         href="{{ route('more-doc-required',['apply_loan_id'=>$application->id]) }}">
                                         More doc required
                                     </a>
                                 </li>
+                                @endif
+
+                                
                                 <li class="nav-item">
                                     <a class="btn btn-primary" data-original-title="Download All Documents"
                                         aria-current="page"
@@ -187,6 +195,8 @@
                     <!-- FOR AGE -->
                 </div>
             </div>
+
+            @if(!$application->application_rejected && !$application->application_quote)
             <div class="container bg-white py-3 mt-5 info-container" style="border-radius: .7rem;">
                 <h5 class="">Quantum section</h5>
                 <!-- SEC 1 -->
@@ -444,7 +454,7 @@
                         <div class="col-md-3">
                             <label for="input7" class="col-form-label">Quote is valid for(Days)
                             </label>
-                            <input type="text" required name="quote_validity" class="form-control date-picker-quote"
+                            <input type="text" required name="quote_validity" autocomplete="off"  class="form-control date-picker-quote"
                                 placeholder="Quote validity" id="input7">
                         </div>
                     </div>
@@ -468,6 +478,7 @@
                     </div>
                 </form>
             </div>
+            @endif
         </div>
         <!-- container-fluid -->
     </div>

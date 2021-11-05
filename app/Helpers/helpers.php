@@ -117,3 +117,9 @@ function getProfile($type): string
     return $all[$type] ?? '';
 }
 
+function getFixedFloating($type)
+{
+    $all = ['',"Fixed","Floating"];
+    return $all[$type];
+}
+

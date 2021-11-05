@@ -63,44 +63,9 @@ class LoanQuotationController extends Controller
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
         return redirect(route('quoted-customer'))->with('success','Quotation is submitted.');
-        // return $fill;
+
     }
 
-    // public function quoteAllOtherLoan(Request $request)
-    // {
-    //     $data = $request->all();
-    //     $fill = $this->quotedAllLoanData($request->all());
-    //     $fill['apply_loan_id'] = '1';
-    //     $fill['partner_id'] = '13'; // id of finance partner
-    //     $fill['quoted_by'] = '13'; // id of loggedin finance partner user
-    //     $quote = new LoanQuotations();
-    //     $quote->fill($fill)->save();
-    //     return $fill;
-    // }
-
-    // public function quotePropertyLand($data)
-    // {
-    //     $data = $request->all();
-    //     $fill = $this->quotedPropertyLandData($data);
-    //     $fill['apply_loan_id'] = '1';
-    //     $fill['partner_id'] = '13'; // id of finance partner
-    //     $fill['quoted_by'] = '13'; // id of loggedin finance partner user
-    //     $quote = new LoanQuotations();
-    //     $quote->fill($fill)->save();
-    //     return $fill;
-    // }
-
-    // public function quoteInvoiceFinancing(Request $request)
-    // {
-    //     $data = $request->all();
-    //     $fill = $this->quotedInvoiceFinancingData($data);
-    //     $fill['apply_loan_id'] = '1';
-    //     $fill['partner_id'] = '13'; // id of finance partner
-    //     $fill['quoted_by'] = '13'; // id of loggedin finance partner user
-    //     $quote = new LoanQuotations();
-    //     $quote->fill($fill)->save();
-    //     return $fill;
-    // }
 
     public function quotedInvoiceFinancingData($data)
     {

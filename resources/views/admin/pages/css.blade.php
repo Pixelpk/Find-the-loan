@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
 
 
@@ -74,5 +75,10 @@
 .sum-nav li{
     margin-left: 1rem;
 }
+
+/* sorting style */
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%;cursor: pointer; }
+#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 15px; height: 45px;color: white;background-color: #27b34d;border-radius: 5px; }
+#sortable li span { position: absolute; margin-left: -1.3em; }
 
 </style>

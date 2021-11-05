@@ -1,7 +1,7 @@
 @if(Route::currentRouteName() == 'faq')
 <div class="modal fade bs-example-modal-center" id="FaqModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title mt-0" id="faq_modal_heading">Add faq</h5>
@@ -19,13 +19,39 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Answer:</label>
-                        <textarea required id="faq_answer" name="answer" class="form-control"></textarea>
+                        <textarea required id="faq_answer" name="answer" class="form-control ckeditor"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
                         <button type="submit" id="faq_modal_btn" class="btn admin-btn">Add</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade bs-example-modal-center" id="sortFaqModal" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="faq_modal_heading">Sort Faq</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:350px;overflow:auto">
+                <ul id="sortable">
+                    @foreach($items as $key => $item)
+                    <li class='ui-state-default' id='{{$item->id}}' sort_id[]='{{$key}}'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>{{ $item->question }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0)" id="submitFaqSort" class="btn btn-primary btn-round" style="float: right;margin-top: 5px;">Sort</a>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -287,7 +313,7 @@
 @if(Route::currentRouteName() == 'blogs')
 <div class="modal fade bs-example-modal-center" id="BlogModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title mt-0" id="blog_modal_heading">Add Blog</h5>

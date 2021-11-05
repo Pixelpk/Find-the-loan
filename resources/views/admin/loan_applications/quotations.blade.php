@@ -21,9 +21,9 @@
 {{--                        </div>--}}
                         <div class="col-md-10">
                             <div class="float-right d-none d-md-block ml-2">
-                                <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{-- <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-filter"></i>
-                                </button>
+                                </button> --}}
                                 {{-- <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style="background-color: #27b34d;margin-top: 10px !important;width: 30%;">
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10"> From:</label>
@@ -57,12 +57,12 @@
                                 </form> --}}
                             </div>
 
-                            <div class=" col-md-3 float-right d-none d-md-block ml-2">
+                            {{-- <div class=" col-md-3 float-right d-none d-md-block ml-2">
                                 <div class="input-group no-border">
                                     <input class="form-control search-user" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >
                                 </div>
                                 <div id="search_list" style="" class="autocomplete-items"></div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -115,7 +115,11 @@
                                                 </td>
                                                 <td>{{ $quote->legal_fee->range_from."-".$quote->legal_fee->range_to }}</td>
                                                 <td></td>
-                                                <td></td>
+                                                <td>
+                                                    @if (($quote->loan_application->loan_type_id != 5) && ($quote->loan_application->loan_type_id != 6))
+                                                    {{getFixedFloating($quote->quantum_interest->fixed_or_floating)}}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $quote->quote_validity }}</td>
                                             
                                             </tr>
