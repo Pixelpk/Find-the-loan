@@ -19,6 +19,7 @@
                                 aria-current="page" href="#">LOAN TYPE DETAIL
                             </a>
                         </li>
+                        
                         @if($main_type == 1)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
@@ -40,6 +41,12 @@
                         </li>
                         {{-- @endif --}}
                         @endif
+                        @elseif($main_type == 2)
+                        <li class="nav-item">
+                            <a wire:click="$set('tab', '10')" style="padding: .1rem 1rem;"
+                                class="nav-link {{ $tab == '10' ? 'active' : '' }}"
+                                href="#">Consumer Detail</a>
+                        </li>
                         @endif
                         @if(!$lenderflag)
                         <li class="nav-item">
@@ -64,6 +71,10 @@
                     <div wire:ignore>
                         <input type="hidden" class="form-control" id="ship-address">
                     </div>
+                    @if($tab == 10)
+                        @livewire('widget.personal-detail', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
+                    @endif
                     @if($tab == 8 && $loan_type_id == 15)
                     @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
