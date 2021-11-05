@@ -1,3 +1,5 @@
+const { findLastIndex } = require('lodash');
+
 window._ = require('lodash');
 
 /**
@@ -26,3 +28,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+// $('.carousel').carousel({
+//     interval: 1000 
+//   });
+// $('.carousel').carousel({
+//     interval: 1000
+//   })
