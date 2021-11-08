@@ -99,8 +99,20 @@
                                                 <td>{{ $quote->loan_application->loan_user->first_name." ".$quote->loan_application->loan_user->last_name }}</td>
                                                 <td>{{ $quote->loan_application->loan_type->sub_type }}</td>
                                                 <td>{{ $quote->quantum_interest->quantum ?? "" }}</td>
-                                                <td></td>
-                                                <td>{{ $quote->quantum_interest->tenure->months ?? "" }}</td>
+                                                <td>
+                                                    @isset($quote->quantum_interest->fixed_or_floating)
+                                                        @if($quote->quantum_interest->fixed_or_floating == '1')
+                                                            {{ $quote->quantum_interest->fixed->interest->interest_pa."%" }}
+                                                        @endif
+                                                    @endisset
+                                                </td>
+                                                <td>
+                                                    @isset($quote->quantum_interest->fixed_or_floating)
+                                                    @if($quote->quantum_interest->fixed_or_floating == '1')
+                                                        {{ $quote->quantum_interest->fixed->tenure->years." Years ".$quote->quantum_interest->fixed->tenure->months." Months" }}
+                                                    @endif
+                                                    @endisset
+                                            </td>
                                                 <td></td>
                                                 <td>
                                                     @isset($quote->quantum_interest->fixed_or_floating)
@@ -114,7 +126,18 @@
                                                     {{ "$".$quote->one_time_fee->flat_value." & ".$quote->one_time_fee->percentage." %"}}
                                                 </td>
                                                 <td>{{ $quote->legal_fee->range_from."-".$quote->legal_fee->range_to }}</td>
-                                                <td></td>
+                                                <td>
+                                                    @isset($quote->one_time_fee->flat_value)
+                                                        @if($quote->one_time_fee->flat_value != '')
+                                                            One time fee: {{$quote->one_time_fee->flat_value}}
+                                                        @endif
+                                                    @endisset
+                                                    @isset($quote->annual_fee->flat_value)
+                                                        @if($quote->annual_fee->flat_value != '')
+                                                            Annual fee: {{$quote->annual_fee->flat_value}}
+                                                        @endif
+                                                    @endisset
+                                                </td>
                                                 <td>
                                                     @if (($quote->loan_application->loan_type_id != 5) && ($quote->loan_application->loan_type_id != 6))
                                                     {{getFixedFloating($quote->quantum_interest->fixed_or_floating)}}
