@@ -95,7 +95,7 @@
                             $route = route($current_route);
                             }
                             @endphp
-                        <a href="{{$route}}" class="btn btn-h">{{ getCmsRoute($current_route)}}</a>
+                        <a href="{{$route}}" class="btn btn-h" style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;">{{ getCmsRoute($current_route)}}</a>
                         <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
                             <span class="visually-hidden">Toggle Dropdown</span>

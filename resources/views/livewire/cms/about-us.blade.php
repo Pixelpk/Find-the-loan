@@ -10,13 +10,13 @@
 </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block" src="{{ asset('assets/cms/img/Home/image2.jpg') }}" alt="Second slide">
+      <img class="d-block" src="{{ asset('assets/cms/img/Home/image3.jpg') }}" alt="Second slide">
       <div class="carousel-caption d-none d-md-block">
         <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We beleive no hardworking entreprenures should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
   </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block" src="assets/cms/img/Home/image3.jpg" alt="Third slide">
+      <img class="d-block" src="assets/cms/img/Home/image2.jpg" alt="Third slide">
       <div class="carousel-caption d-none d-md-block">
         <h3 class="fw-bold mb-0 animated slideInUp" style="animation-delay: 1s;">Getting a loan should <br> be easier</h3>
         <button class="btn animated bounceInRight mt-3" style="animation-delay: 3s;">Apply Now</button>

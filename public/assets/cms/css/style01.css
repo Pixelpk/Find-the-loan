@@ -1219,7 +1219,7 @@ ul.header_social li a.skype i:hover {
 
 /* ----- 3. Breadcrumb ----- */
 .breadcrumb-wrapper {
-    /* background: url('../img/Home/home-bg.jpg') no-repeat top center; */
+    background: url('../img/Home/home-bg.jpg') no-repeat top center;
 	width:100%;
 	background-size: cover;
 	position:relative;
