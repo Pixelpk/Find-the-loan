@@ -51,6 +51,8 @@ Route::get('migration',function (){
     \Illuminate\Support\Facades\Artisan::call('migrate');
  });
 Route::get('clear-cache',function (){
+   \Illuminate\Support\Facades\Artisan::call('config:cache');
+   \Illuminate\Support\Facades\Artisan::call('cache:clear');
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
 //CMS routes
@@ -102,6 +104,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('/faq', [FaqController::class,'faq'])->name('faq');
         Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
         Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
+        Route::post('sort-faq-submitted', [FaqController::class,'sortSubmit'])->name('sort-faq-submitted');
         Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
 
         Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');

@@ -36,7 +36,7 @@
 <section class="section-white-services" id="about">
     <img
     class="about-bg"
-    src="assets/cms/img/Home/about-bg1.jpg"
+    src="{{ asset('assets/cms/img/Home/about-bg1.jpg') }}"
     alt=""
   >
     <div class="container position-relative">

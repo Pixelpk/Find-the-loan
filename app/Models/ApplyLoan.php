@@ -76,4 +76,8 @@ class ApplyLoan extends Model
     public function application_quote(){
         return $this->hasOne(LoanQuotations::class,'apply_loan_id','id');
     }
+
+    public function quotations_of_application(){
+        return $this->hasMany(LoanQuotations::class,'apply_loan_id','id');
+    }
 }

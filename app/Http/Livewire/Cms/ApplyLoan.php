@@ -45,7 +45,7 @@ class ApplyLoan extends Component
     public $loanReasons = [];
     public $saveCompanyDetail;
     public $reasonDisable;
-    public $values;
+    public $values = [];
     public $reasonValue = [];
     public $amount;
     public $tab = '1';
@@ -131,6 +131,7 @@ class ApplyLoan extends Component
     {
         $this->apply_loan = $apply_loan;
         $this->comDisable = true;
+       
         $this->tab = $id;
         
     }
@@ -198,7 +199,9 @@ class ApplyLoan extends Component
     }
     public function getLoanReason($loan_type_id, $key)
     {
-        
+        if(!$this->values[$loan_type_id]){
+            $this->values[$loan_type_id] =  true;
+        }
         $this->reasonValue = [];
         if(!$this->values[$loan_type_id]){
             return;
@@ -226,8 +229,8 @@ class ApplyLoan extends Component
 
     public function storeReasonLoanType()
     {
-       
-        if(sizeof($this->reasonValue) == 0){
+        // dd($this->values);
+        if(sizeof($this->reasonValue) == 0 || sizeof($this->values) == 0){
             $this->emit('danger', ['type' => 'success', 'message' => 'Loan reason required.']);
             return;
         }

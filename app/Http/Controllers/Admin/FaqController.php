@@ -5,16 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FaqController extends Controller
 {
     public function faq(Request $request){
         $data = $request->all();
         $data['items'] = Faq::query()
-            ->orderBy('id','desc')
+            ->orderBy('sequence_id','asc')
             ->where('status','!=',2)
             ->paginate(50);
         return view('admin.faq.faq',$data);
+    }
+
+    public function sortSubmit(Request$request)
+    {
+        $faqs = $request->pass_array;
+        // print_r($categories);exit();
+        foreach ($faqs as $key => $id) {
+            Faq::query()->where('id','=',$id)->update(['sequence_id' => $key]);
+        }
+        Session::flash('success',__("Faq order is updated."));
+        return response()->json([
+            'message'   =>  'success',
+            'status'  => '1',
+        ]);
+
     }
 
     function faqDetail(Request $request)
