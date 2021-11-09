@@ -109,7 +109,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\OverDraftInsurance'" 
+                :modell="'App\Models\OverDraftInsurance'" 
                 :keyvalue="'over_draft_benifit_illustration'" 
             />
         </div>

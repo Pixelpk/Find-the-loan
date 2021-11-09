@@ -10,7 +10,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" 
+                :modell="'App\Models\LoanGernalInfo'" 
                 :keyvalue="'property_renovation_tenancy_agreement'" 
                 />
                 </div>
@@ -21,7 +21,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" 
+                :modell="'App\Models\LoanGernalInfo'" 
                 :keyvalue="'property_renovation_quotation'" 
                 />
                 </div>

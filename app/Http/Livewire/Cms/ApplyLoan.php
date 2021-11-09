@@ -131,7 +131,6 @@ class ApplyLoan extends Component
     {
         $this->apply_loan = $apply_loan;
         $this->comDisable = true;
-       
         $this->tab = $id;
         
     }
@@ -365,6 +364,7 @@ class ApplyLoan extends Component
     }
     public function saveCompanyDocuments()
     {
+<<<<<<< HEAD
         
         $loanStatement = Media::where('model', '\App\Models\LoanStatement')
         ->where('share_holder', 0)
@@ -372,18 +372,48 @@ class ApplyLoan extends Component
         ->get()
         ->groupBy('key');
         if($loanStatement->count() < 6 && $loanStatement->count() > 1){
+=======
+       
+        //    if(isset($this->photo)){
+        //        $this->statement = null;
+        //    }
+        //     $this->errorArray = [];
+        //     if(!isset($this->statement)){
+        //         for ($x = 2; $x < 8; $x++) {
+        //             $montn = date("M", strtotime( date( 'Y-m-01' )." -$x months"));
+        //             if(isset($this->photo[$montn])){
+        //                 if($montn == $this->photo[$montn]){
+        //                 }
+        //             }
+        //             else{
+        //                 array_push($this->errorArray, $montn);
+        //             }
+        //         }
+            
+        //     }
+        //     if(sizeof($this->errorArray) > 0){
+        //         return;
+        //     }
+        // Media::where('model')
+        // $loanStatement = Media::where('model', '\App\Models\LoanStatement')
+        // ->where('share_holder', 0)
+        // ->where('apply_loan_id', $this->apply_loan->id)
+        // ->get()
+        // ->groupBy('key');
+        // if($loanStatement->count() < 6 && $loanStatement->count() > 1){
+>>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
            
-             $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
-            return;
-        }
-        $this->validate([
-            'profitable_latest_year' => 'required',
-            'profitable_before_year' => 'required',
-        ]);
+        //      $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
+        //     return;
+        // }
+        // $this->validate([
+        //     'profitable_latest_year' => 'required',
+        //     'profitable_before_year' => 'required',
+        // ]);
       
         $loanComanyDetaol = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0 )->first();
-        $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year;
-        $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year;
+        $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year ?? '';
+        $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year ?? '';
         $loanComanyDetaol->optional_revenuee  = $this->optional_revenuee;
         $loanComanyDetaol->update();
 

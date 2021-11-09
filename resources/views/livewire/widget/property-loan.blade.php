@@ -31,7 +31,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" 
+                :modell="'App\Models\LoanGernalInfo'" 
                 :keyvalue="'property_advance_loan_sale_purchase_agreement'" 
             />
         </div>
@@ -44,7 +44,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" 
+                :modell="'App\Models\LoanGernalInfo'" 
                 :keyvalue="'property_advance_loan_statement'" 
             />
             {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
@@ -84,7 +84,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" 
+                :modell="'App\Models\LoanGernalInfo'" 
                 :keyvalue="'property_advance_loan_current_statement'" 
             />
             {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"

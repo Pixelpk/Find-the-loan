@@ -127,7 +127,10 @@ class OverDraft extends Component
     }
 
     public function tabChange(){
-       
+       if($this->main_type == 2){
+        $this->emit('changeTab',$this->apply_loan->id, 10);
+        return;
+       }
         $this->emit('changeTab',$this->apply_loan->id, 4);
     }
     

@@ -58,12 +58,12 @@
     <div class="col-md-6">
         <livewire:widget.upload-component :label="'Add all purchase orders seeking financing'" :apply_loan="$apply_loan"
             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'business_invoice_financing_purchase'" />
+            :modell="'App\Models\LoanGernalInfo'" :keyvalue="'business_invoice_financing_purchase'" />
     </div>
     <div class="col-md-6">
         <livewire:widget.upload-component :label="'Latest account payables report (ageing list ) ideally within 30 days '" :apply_loan="$apply_loan"
             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'business_invoice_financing_latest_account_report'" />
+            :modell="'App\Models\LoanGernalInfo'" :keyvalue="'business_invoice_financing_latest_account_report'" />
     </div>
     
         <div class="col-md-6" style="margin-top: 30px;">

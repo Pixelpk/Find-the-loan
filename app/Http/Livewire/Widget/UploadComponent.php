@@ -31,6 +31,7 @@ class UploadComponent extends Component
     }
     public function updatedImages()
     {
+        dd($this->keyvalue);
         $this->validate([
             "images.*" =>'required|mimes:jpg,jpeg,png,pdf',
         ]);
@@ -73,6 +74,7 @@ class UploadComponent extends Component
         Media::find($media->id)->delete();
         $this->getImage();
         if(sizeof($this->getImages) == 0){
+           
             $this->emit('documentReq', '');
         }
     }
