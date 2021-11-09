@@ -72,6 +72,7 @@ class OCRController extends Controller
         return json_decode($response);
     }
 
+    //curl request
     public function curlRequest($header,$method,$url,$post_data){
         $curl = curl_init();
 
