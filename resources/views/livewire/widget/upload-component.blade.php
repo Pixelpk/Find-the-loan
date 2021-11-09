@@ -5,17 +5,16 @@
             {{ $label }}
         </label>
         <br>
-        <br>
-        <label class="label" data-toggle="tooltip" title="Select Image">
+      
+        <label class="label w-100" data-toggle="tooltip" title="Select Image">
           
-            <span wire:loading >
+            <input class="form-control" multiple accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" wire:model="images"
+                type="file" id="uploadID">
+        </label>
+        <span wire:loading class="my-2">
                 <span class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
             </span>
-
-            <input multiple accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" wire:model="images"
-                type="file" id="uploadID">
-        </label>
     </div>
     @error('images')
     <div style="color: red;">

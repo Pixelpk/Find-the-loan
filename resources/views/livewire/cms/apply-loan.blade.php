@@ -3,7 +3,7 @@
     $main_types = loanProfile();
     @endphp
 
-    <section class="section-white small-padding" style="margin-top: 50px;">
+    <section class="section-white pb-4" id="apply-loan">
         <div class="container">
             <div class="card" style="margin-top:30px;">
                 <div class="card-body">
@@ -60,6 +60,7 @@
                         @endif
                         {{-- @endif --}}
                     </ul>
+
                     <br>
                     <br>
                     @if(session('gernalMessage'))
@@ -77,10 +78,6 @@
                     @if($tab == 8 && $loan_type_id == 15)
                     @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
-                    
-
-
-
 
                     @elseif($tab == 8 && $loan_type_id == 16)
                     @livewire('widget.property-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
@@ -178,7 +175,7 @@
                     <div class="row g-3">
                         <div class="col-md-12">
                             <label for="">Select Borrower Profile</label>
-                            <select style="margin-top: 10px;" wire:model="main_type" class="form-control"
+                            <select wire:model="main_type" class="form-control mt-2"
                                 aria-label="Default select example" wire:change="getMainType()">
                                 <option value="">Select Borrower Profile</option>
                                 <option value="1">Business</option>
@@ -186,12 +183,12 @@
                             </select>
                         </div>
                     </div>
+
                     @if(sizeof($mainTypes) > 0)
                     <div class="row">
-
                         @foreach($mainTypes as $item)
                         @if($item->subTypes->count() > 0)
-                        <div class="col-md-3" style="padding-top:30px;">
+                        <div class="col-md-3 pt-3">
                             <div class="list-group">
                                 <a href="#" class="custmbtn list-group-item list-group-item-action active">
                                     {{ $item->main_type }}

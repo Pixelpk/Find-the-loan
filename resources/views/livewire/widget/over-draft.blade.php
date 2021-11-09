@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-6">
             <label for="amount" class="form-label">
-                Amount
+                Amount Required
             </label>
             <input wire:model="amount" type="number" class="form-control" id="amount">
             @error("amount")

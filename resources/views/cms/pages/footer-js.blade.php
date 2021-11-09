@@ -3,18 +3,21 @@
         document.getElementsByClassName("ts-full-screen")[0].style.height = window.innerHeight + "px";
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 <script src="{{ asset('assets/cms/js/jquery-3.3.1.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-<script>
-     
+<script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/cms/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- <script>  
      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
-      </script>
-
-<script src="{{ asset('assets/cms/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/cms/js/popper.min.js') }}"></script>
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
+ </script> -->
 <script src="{{ asset('assets/cms/js/imagesloaded.pkgd.min.js') }}"></script>
 {{-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyBEDfNcQRmKQEyulDN8nGWjLYPm8s4YB58"></script> --}}
 <script src="{{ asset('assets/cms/js/isInViewport.jquery.js') }}"></script>
