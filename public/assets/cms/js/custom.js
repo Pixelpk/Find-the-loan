@@ -516,3 +516,7 @@ function simpleMap(latitude, longitude, markerImage, mapStyle, mapElement, marke
         draggable: markerDrag
     });
 }
+
+     
+
+
