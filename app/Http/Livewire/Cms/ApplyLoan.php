@@ -131,7 +131,6 @@ class ApplyLoan extends Component
     {
         $this->apply_loan = $apply_loan;
         $this->comDisable = true;
-       
         $this->tab = $id;
         
     }
@@ -387,24 +386,24 @@ class ApplyLoan extends Component
         //         return;
         //     }
         // Media::where('model')
-        $loanStatement = Media::where('model', '\App\Models\LoanStatement')
-        ->where('share_holder', 0)
-        ->where('apply_loan_id', $this->apply_loan->id)
-        ->get()
-        ->groupBy('key');
-        if($loanStatement->count() < 6 && $loanStatement->count() > 1){
+        // $loanStatement = Media::where('model', '\App\Models\LoanStatement')
+        // ->where('share_holder', 0)
+        // ->where('apply_loan_id', $this->apply_loan->id)
+        // ->get()
+        // ->groupBy('key');
+        // if($loanStatement->count() < 6 && $loanStatement->count() > 1){
            
-             $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
-            return;
-        }
-        $this->validate([
-            'profitable_latest_year' => 'required',
-            'profitable_before_year' => 'required',
-        ]);
+        //      $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
+        //     return;
+        // }
+        // $this->validate([
+        //     'profitable_latest_year' => 'required',
+        //     'profitable_before_year' => 'required',
+        // ]);
       
         $loanComanyDetaol = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0 )->first();
-        $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year;
-        $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year;
+        $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year ?? '';
+        $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year ?? '';
         $loanComanyDetaol->optional_revenuee  = $this->optional_revenuee;
         $loanComanyDetaol->update();
         // $LD = LoanDocument::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();

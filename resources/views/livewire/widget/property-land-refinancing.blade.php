@@ -4,26 +4,26 @@
         <div class="col-md-6 text-left">
             <livewire:widget.upload-component :label="'loan statement showing past 12 months repayment history if any'"
                 :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_statement'" />
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_statement'" />
         </div>
 
         <div class="col-md-6 text-left">
             <livewire:widget.upload-component
                 :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your repayment history statement'"
                 :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_current_statement'" />
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_current_statement'" />
         </div>
         <div class="col-md-6 text-left">
             <livewire:widget.upload-component :label="'CPF property withdrawal/utilization statement If CPF was used'"
                 :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_cpf_statement'" />
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_cpf_statement'" />
         </div>
 
         <div class="col-md-6 text-left">
             <br>
             <livewire:widget.upload-component :label="'Tenancy Agreement If it’s rented out'" :apply_loan="$apply_loan"
                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_tenancy_agreement'" />
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_land_refinancing_tenancy_agreement'" />
         </div>
 
         <div class="col-md-12">

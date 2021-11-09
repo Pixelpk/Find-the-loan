@@ -19,7 +19,7 @@
                                 aria-current="page" href="#">LOAN TYPE DETAIL
                             </a>
                         </li>
-                        
+
                         @if($main_type == 1)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
@@ -44,8 +44,7 @@
                         @elseif($main_type == 2)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '10')" style="padding: .1rem 1rem;"
-                                class="nav-link {{ $tab == '10' ? 'active' : '' }}"
-                                href="#">Consumer Detail</a>
+                                class="nav-link {{ $tab == '10' ? 'active' : '' }}" href="#">Consumer Detail</a>
                         </li>
                         @endif
                         @if(!$lenderflag)
@@ -72,16 +71,24 @@
                         <input type="hidden" class="form-control" id="ship-address">
                     </div>
                     @if($tab == 10)
-                        @livewire('widget.personal-detail', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    @livewire('widget.personal-detail', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
                     @endif
                     @if($tab == 8 && $loan_type_id == 15)
                     @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+                    
+
+
+
 
                     @elseif($tab == 8 && $loan_type_id == 16)
                     @livewire('widget.property-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+
+                    {{-- @elseif($tab == 8 && $loan_type_id == 25)
+                    @livewire('widget.consumer-personal-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan]) --}}
 
                     @elseif($tab == 8 && $loan_type_id == 12)
 
@@ -131,11 +138,20 @@
                     @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
                     $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+
+                    @elseif($tab == 8 && $loan_type_id == 25)
+
+                    @livewire('cms.loan.consumer-personal-loan', ['loan_type_id' =>
+                    $loan_type_id, "main_type" => $main_type,
+                    'apply_loan' => $apply_loan])
                     @elseif($tab == 8 && $loan_type_id == 20)
 
                     @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
                     $loan_type_id, "main_type" => $main_type,
                     'apply_loan' => $apply_loan])
+
+          
+                   
                     @elseif($tab == 8 && $loan_type_id == 5)
 
                     @livewire('cms.loan.business.loan-type.business-invoice-financing', ['loan_type_id' =>
@@ -175,29 +191,29 @@
 
                         @foreach($mainTypes as $item)
                         @if($item->subTypes->count() > 0)
-                            <div class="col-md-3" style="padding-top:30px;">
-                                <div class="list-group">
-                                    <a href="#" class="custmbtn list-group-item list-group-item-action active">
-                                        {{ $item->main_type }}
-                                    </a>
-                                    @foreach($item->subTypes as $key => $subType)
-                                    <a class="list-group-item list-group-item-action">
-                                        <div class="form-check form-switch">
-                                            <input wire:model="values.{{ $subType->id }}"
-                                                wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
-                                                class="form-check-input singleCheck" type="checkbox" />
-                                            <label class="form-check-label">{{ $subType->sub_type }}</label>
-                                        </div>
-                                    </a>
-                                    @endforeach
-                                </div>
+                        <div class="col-md-3" style="padding-top:30px;">
+                            <div class="list-group">
+                                <a href="#" class="custmbtn list-group-item list-group-item-action active">
+                                    {{ $item->main_type }}
+                                </a>
+                                @foreach($item->subTypes as $key => $subType)
+                                <a class="list-group-item list-group-item-action">
+                                    <div class="form-check form-switch">
+                                        <input wire:model="values.{{ $subType->id }}"
+                                            wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
+                                            class="form-check-input singleCheck" type="checkbox" />
+                                        <label class="form-check-label">{{ $subType->sub_type }}</label>
+                                    </div>
+                                </a>
+                                @endforeach
                             </div>
-                            
+                        </div>
+
                         @endif
                         @endforeach
-                      
-                       
-                    
+
+
+
                     </div>
                     @if(sizeof($loanReasons) > 0)
                     <div class="row">
@@ -674,7 +690,7 @@
 
                             <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName"
                                 :getImages="$images" :apply_loan="$apply_loan" :main_type="$main_type"
-                                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'\App\Models\LoanStatement'" />
+                                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanStatement'" />
 
                     </div>
                     @endfor
@@ -689,7 +705,7 @@
                         <div class="col-md-4 text-left">
                             <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'\App\Models\LoanCompanyDetail'"
+                                :modell="'App\Models\LoanCompanyDetail'"
                                 :keyvalue="'parent_company_combine_statement'" />
 
                         </div>
@@ -707,7 +723,7 @@
                         <div class="col-md-4 text-left" style="margin-top: 30px;">
                             <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'\App\Models\LoanCompanyDetail'"
+                                :modell="'App\Models\LoanCompanyDetail'"
                                 :keyvalue="'parent_company_latest_year_statement'" />
 
                         </div>
@@ -715,7 +731,7 @@
                         <div class="col-md-3 text-left" style="margin-top: 30px;">
                             <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'\App\Models\LoanCompanyDetail'"
+                                :modell="'App\Models\LoanCompanyDetail'"
                                 :keyvalue="'parent_company_before_year_statement'" />
 
                         </div>
@@ -772,7 +788,7 @@
                         <div class="col-md-3 text-left">
                             <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'\App\Models\LoanCompanyDetail'"
+                                :modell="'App\Models\LoanCompanyDetail'"
                                 :keyvalue="'parent_company_current_year_statement'" />
 
                         </div>
@@ -812,25 +828,26 @@
                     @foreach($get_share_holder_type as $key => $item)
                     <div class="col-md-6" style="margin-top: 40px;">
                         <div class="form-check form-switch">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Shareholder {{ $key++ }}
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Shareholder 
+                                @if($key++ == 0)
+                                1
+                                @else
+                                {{ $key++ }}
+                                @endif
                             </label>
                         </div>
                     </div>
                     <div class="col-md-6">
-
                         <div class="form-check" style="margin-top: 40px;">
                             <select wire:model="checkShareHolder.{{ $item['id'] }}"
                                 wire:change="getShareholderTypeId({{ $item['id'] }})">
                                 <option value="0">Person</option>
                                 <option value="1">Company</option>
                             </select>
-
                         </div>
-
                     </div>
                     @endforeach
                 </div>
-
                 <div id="accordion" style="margin-top: 30px;">
                     @foreach($get_share_holder_type as $key => $item)
                     @if($item['share_holder_type'] == 1)
@@ -841,7 +858,12 @@
                                 <button class="btn btn-link" data-toggle="collapse"
                                     data-target="#collapseOne{{ $shreholder }}" aria-expanded="true"
                                     aria-controls="collapseOne{{ $shreholder }}">
-                                    Shareholder Person {{ $key++ }}
+                                    Shareholder Person 
+                                    @if($key++ == 0)
+                                    1
+                                    @else
+                                    {{ $key++ }}
+                                    @endif
                                 </button>
                             </h5>
                         </div>
@@ -1320,7 +1342,7 @@
                                         <livewire:widget.upload-component :label="'Or upload your Benefit illustration'"
                                             :apply_loan="$apply_loan" :main_type="$main_type"
                                             :loan_type_id="$loan_type_id" :share_holder="0"
-                                            :modell="'\App\Models\LoanCompanyDetail'"
+                                            :modell="'App\Models\LoanCompanyDetail'"
                                             :keyvalue="'parent_listed_company_subsidiary'" />
 
                                     </div>
@@ -1356,9 +1378,10 @@
                                     @for ($x = 1; $x <= 7; $x++) <div class="col-md-3" style="margin-top: 30px;">
                                         @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
 
-                                        <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName"
-                                            :getImages="$images" :apply_loan="$apply_loan" :main_type="$main_type"
-                                            :loan_type_id="$loan_type_id" :share_holder="$shreholder" :modell="'\App\Models\LoanStatement'" />
+                                        <livewire:widget.upload-component :label="$montName" :keyvalue="$montName"
+                                            :key="$montName" :getImages="$images" :apply_loan="$apply_loan"
+                                            :main_type="$main_type" :loan_type_id="$loan_type_id"
+                                            :share_holder="$shreholder" :modell="'App\Models\LoanStatement'" />
                                         {{-- <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -1375,37 +1398,37 @@
                                                     title="Select Image">
                                                     <input
                                                         wire:model="share_holder_photo.{{ $shreholder }}.{{ date("M", strtotime( date( 'Y-m-01' )." -$x months")) }}"
-                                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                        type="file" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @foreach($share_errorArray as $error)
-                                            @if($error == date("M", strtotime( date( 'Y-m-01' )." -$x months")))
-                                            <div class="text-danger">
-                                                {{ $error. ' month required' }}
-                                            </div>
-                                            @endif
-                                            @endforeach
-                                            <!-- Progress Bar -->
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div> --}}
+                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                        type="file" id="vehicleimage" name="" id="">
+                                        </label>
                                 </div>
-                                @endfor
-                                <b><br>OR</b>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
+                                @foreach($share_errorArray as $error)
+                                @if($error == date("M", strtotime( date( 'Y-m-01' )." -$x months")))
+                                <div class="text-danger">
+                                    {{ $error. ' month required' }}
+                                </div>
+                                @endif
+                                @endforeach
+                                <!-- Progress Bar -->
+                                <div x-show="isUploading">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+                            </div> --}}
+                        </div>
+                        @endfor
+                        <b><br>OR</b>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top: 30px;">
 
-                                        <b>Consolidated Statement.</b>
-                                        <p>If Your Statement Is Not Spilt Between Months But One</p>
-                                    </div>
-                                    <div class="col-md-4 text-left">
-                                        <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                :modell="'\App\Models\LoanCompanyDetail'"
-                                :keyvalue="'share_company_combine_statement'" />
-                                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
+                                <b>Consolidated Statement.</b>
+                                <p>If Your Statement Is Not Spilt Between Months But One</p>
+                            </div>
+                            <div class="col-md-4 text-left">
+                                <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+                                    :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
+                                    :modell="'App\Models\LoanCompanyDetail'"
+                                    :keyvalue="'share_company_combine_statement'" />
+                                {{-- <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
                                             x-on:livewire-upload-error="isUploading = false"
@@ -1417,36 +1440,36 @@
                                                 <label wire:ignore class="label" data-toggle="tooltip"
                                                     title="Select Image">
                                                     <input wire:model="share_holder_statement.{{ $shreholder }}"
-                                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                        type="file" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("share_holder_statement.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b>
-                                        <p>
-                                            (Income Statement also known as Profit & Loss
-                                            + Statement of financial position also known as Balance Sheet)
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
-                                        <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                :modell="'\App\Models\LoanCompanyDetail'"
-                                :keyvalue="'share_company_latest_year_statement'" />
-                                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
+                                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                type="file" id="vehicleimage" name="" id="">
+                                </label>
+                            </div>
+                            @error("share_holder_statement.$shreholder")
+                            <div style="color:red;">
+                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                {{ $message }}
+                            </div>
+                            @enderror
+                            <div x-show="isUploading">
+                                <progress max="100" x-bind:value="progress"></progress>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 30px;">
+                        <b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b>
+                        <p>
+                            (Income Statement also known as Profit & Loss
+                            + Statement of financial position also known as Balance Sheet)
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                        <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
+                            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
+                            :modell="'App\Models\LoanCompanyDetail'"
+                            :keyvalue="'share_company_latest_year_statement'" />
+                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
                                             x-on:livewire-upload-error="isUploading = false"
@@ -1457,28 +1480,27 @@
                                                 </label>
                                                 <br>
                                                 <input wire:model="share_holder_latest_year.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
-                                            </div>
-                                            @error("share_holder_latest_year.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div> --}}
-                                    </div>
-                                    @if(isset($share_holder_company_year[$shreholder]) &&
-                                    $share_holder_company_year[$shreholder] >= 3)
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
-                                        <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
-                                        :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                        :modell="'\App\Models\LoanCompanyDetail'"
-                                        :keyvalue="'share_company_before_year_statement'" />
-                                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
+                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                        type="file" id="vehicleimage" name="" id="">
+                    </div>
+                    @error("share_holder_latest_year.$shreholder")
+                    <div style="color:red;">
+                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div x-show="isUploading">
+                        <progress max="100" x-bind:value="progress"></progress>
+                    </div>
+                </div> --}}
+            </div>
+            @if(isset($share_holder_company_year[$shreholder]) &&
+            $share_holder_company_year[$shreholder] >= 3)
+            <div class="col-md-3 text-left" style="margin-top: 30px;">
+                <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
+                    :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
+                    :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'share_company_before_year_statement'" />
+                {{-- <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
                                             x-on:livewire-upload-error="isUploading = false"
@@ -1489,81 +1511,80 @@
                                                 </label>
                                                 <br>
                                                 <input wire:model="share_holder_year_before.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
-                                            </div>
-                                            @error("share_holder_year_before.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div> --}}
-                                    </div>
-                                    @endif
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>Profitable for the last 2 accounting years</b>
-                                    </div>
-                                    <div class="col-md-4" style="margin-top: 30px;">
+                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                type="file" id="vehicleimage" name="" id="">
+            </div>
+            @error("share_holder_year_before.$shreholder")
+            <div style="color:red;">
+                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                {{ $message }}
+            </div>
+            @enderror
+            <div x-show="isUploading">
+                <progress max="100" x-bind:value="progress"></progress>
+            </div>
+        </div> --}}
+</div>
+@endif
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-top: 30px;">
+        <b>Profitable for the last 2 accounting years</b>
+    </div>
+    <div class="col-md-4" style="margin-top: 30px;">
 
-                                        <div class="form-group">
+        <div class="form-group">
 
-                                            <select wire:model="share_holder_profitable_latest_year.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                            @error("share_holder_profitable_latest_year.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" style="margin-top: 30px;">
-                                        <div class="form-group">
-                                            <select wire:model="share_holder_profitable_before_year.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                <option value="1">Yes</option>
-                                                <option value="0">No</option>
-                                            </select>
-                                            @error("share_holder_profitable_before_year.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b style="color: grey;">Optional info</b>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>Current Year.</b>
-                                        <p>If you are <b>more than 3-6 months into your current accounting year,</b> and
-                                            if
-                                            your
-                                            management account(drafts/unaudited) pulls up the average, providing them
-                                            may be
-                                            helpful
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 text-left">
-                                        <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                        :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                        :modell="'\App\Models\LoanCompanyDetail'"
-                                        :keyvalue="'share_company_current_year_statement'" />
-                                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
+            <select wire:model="share_holder_profitable_latest_year.{{ $shreholder }}" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error("share_holder_profitable_latest_year.$shreholder")
+            <div style="color:red;">
+                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-4" style="margin-top: 30px;">
+        <div class="form-group">
+            <select wire:model="share_holder_profitable_before_year.{{ $shreholder }}" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error("share_holder_profitable_before_year.$shreholder")
+            <div style="color:red;">
+                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 30px;">
+        <b style="color: grey;">Optional info</b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-top: 30px;">
+        <b>Current Year.</b>
+        <p>If you are <b>more than 3-6 months into your current accounting year,</b> and
+            if
+            your
+            management account(drafts/unaudited) pulls up the average, providing them
+            may be
+            helpful
+        </p>
+    </div>
+    <div class="col-md-3 text-left">
+        <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
+            :loan_type_id="$loan_type_id" :share_holder="$shreholder" :modell="'App\Models\LoanCompanyDetail'"
+            :keyvalue="'share_company_current_year_statement'" />
+        {{-- <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
                                             x-on:livewire-upload-error="isUploading = false"
@@ -1573,62 +1594,60 @@
                                                 </label>
                                                 <br>
                                                 <input wire:model="share_holder_current_year.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
-                                            </div>
-                                            @error("share_holder_current_year.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div> --}}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>Revenue (rounded up is fine)</b>
-                                    </div>
-                                    <div class="col-md-3" style="margin-top: 30px;">
-                                        <div class="form-group">
-                                            <input type="number" class="form-control"
-                                                wire:model="share_holder_optional_revenuee">
-                                            @error("share_holder_optional_revenuee.$shreholder")
-                                            <div style="color:red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn" type="button" wire:target='share_holder_document_store'
-                                            wire:click.prevent='company_share_holder_documents_store({{ $shreholder  }})'>
-                                            <span wire:loading wire:target="share_holder_document_store"
-                                                class="spinner-border spinner-border-sm" role="status"
-                                                aria-hidden="true"></span>
-                                            Save & Continue
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {{-- @endif --}}
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                @endif
-                @endforeach
+        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+        type="file" id="vehicleimage" name="" id="">
+    </div>
+    @error("share_holder_current_year.$shreholder")
+    <div style="color:red;">
+        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+        {{ $message }}
+    </div>
+    @enderror
+    <div x-show="isUploading">
+        <progress max="100" x-bind:value="progress"></progress>
+    </div>
+</div> --}}
+</div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-top: 30px;">
+        <b>Revenue (rounded up is fine)</b>
+    </div>
+    <div class="col-md-3" style="margin-top: 30px;">
+        <div class="form-group">
+            <input type="number" class="form-control" wire:model="share_holder_optional_revenuee">
+            @error("share_holder_optional_revenuee.$shreholder")
+            <div style="color:red;">
+                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                {{ $message }}
             </div>
-            @endif
+            @enderror
         </div>
-    </section>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn" type="button" wire:target='share_holder_document_store'
+            wire:click.prevent='company_share_holder_documents_store({{ $shreholder  }})'>
+            <span wire:loading wire:target="share_holder_document_store" class="spinner-border spinner-border-sm"
+                role="status" aria-hidden="true"></span>
+            Save & Continue
+        </button>
+    </div>
+</div>
+
+{{-- @endif --}}
+</div>
+@endif
+</div>
+</div>
+</div>
+@endif
+@endforeach
+</div>
+@endif
+</div>
+</section>
 </div>
 </div>
 <script>

@@ -40,14 +40,14 @@
                 <livewire:widget.upload-component
                     :label="'Vehicle Sales Agreement/Quotation form if any'"
                     :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                    :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_vehicle_agreement'" />
+                    :modell="'App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_vehicle_agreement'" />
             </div>
             @else
             <div class="col-md-6">
                 <livewire:widget.upload-component
                     :label="'Quotation form/purchase order/sales agreement for the Equipment/Machinery/Vehicle'"
                     :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                    :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_agreement'" />
+                    :modell="'App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_agreement'" />
             </div>
             @endif
           
@@ -150,6 +150,7 @@
                 </div>
                 @enderror
             </div>
+            
             <div class="col-md-6" style="margin-top: 30px;">
                 <label for="hirePurchase.price_per_unit" class="form-label">Price per unit before trade if any $
                 </label>
@@ -160,9 +161,56 @@
                 </div>
                 @enderror
             </div>
+
+            <div class="col-md-6 mt-4">
+                <label for="hirePurchase.purchase_used" class="form-label">
+                    If Equipment Is purchased used, Please State Year Manufactured to the best of your knowledge
+                </label>
+                <input wire:model="hirePurchase.purchase_used" type="text" class="form-control">
+                @error("hirePurchase.purchase_used")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="col-md-6 mt-5">
+                <label for="hirePurchase.serial_number" class="form-label">
+                    Serial number if applicable
+                </label>
+                <input wire:model="hirePurchase.serial_number" type="text" class="form-control">
+                @error("hirePurchase.serial_number")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="col-md-6 mt-5">
+                <label for="hirePurchase.register_number" class="form-label">
+                    Registration number if applicable
+                </label>
+                <input wire:model="hirePurchase.register_number" type="text" class="form-control">
+                @error("hirePurchase.register_number")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
             @endif
+            <div class="col-md-6 mt-5">
+                <label for="hirePurchase.chassis_number" class="form-label">Vehicle/chassis number if applicable
+
+                </label>
+                <input wire:model="hirePurchase.chassis_number" type="text" class="form-control">
+                @error("hirePurchase.chassis_number")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
             @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
-            <div class="col-md-6" style="margin-top: 30px;">
+            <div class="col-md-6 mt-5">
                 <label for="hirePurchase.purchase_price" class="form-label">Purchase price $
                 </label>
                 <input wire:model="hirePurchase.purchase_price" type="number" class="form-control">
@@ -183,17 +231,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="col-md-6" style="margin-top: 30px;">
-                <label for="hirePurchase.chassis_number" class="form-label">Vehicle/chassis number if applicable
-
-                </label>
-                <input wire:model="hirePurchase.chassis_number" type="text" class="form-control">
-                @error("hirePurchase.chassis_number")
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
+            
             <div class="col-md-6" style="margin-top: 30px;">
                 <label for="hirePurchase.engine_number" class="form-label">Engine number if applicable
 
@@ -331,7 +369,7 @@
             <div class="col-md-6 text-left">
                 <livewire:widget.upload-component :label="'Brochure if any'" :apply_loan="$apply_loan"
                     :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                    :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_brochure'" />
+                    :modell="'App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_brochure'" />
                 {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                     x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
@@ -365,7 +403,7 @@
         <livewire:widget.upload-component
             :label="'For Gear up or refinancing please include latest month of loan outstanding statement If it is'"
             :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-            :modell="'\App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_gearup_refinancing'" />
+            :modell="'App\Models\BusinessHirePurchase'" :keyvalue="'business_hire_purchase_gearup_refinancing'" />
         <br>
         @error('hirePurchase.gearup_or_refinancing')
         <div style="color: red;">

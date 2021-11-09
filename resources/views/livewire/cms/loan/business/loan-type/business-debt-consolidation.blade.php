@@ -16,7 +16,7 @@
         :main_type="$main_type" 
         :loan_type_id="$loan_type_id" 
         :share_holder="0"
-        :modell="'\App\Models\LoanGernalInfo'" 
+        :modell="'App\Models\LoanGernalInfo'" 
         :keyvalue="'debt_consolidation_documents'" 
         />
         @error("documents")
@@ -36,7 +36,7 @@
         :main_type="$main_type" 
         :loan_type_id="$loan_type_id" 
         :share_holder="0"
-        :modell="'\App\Models\LoanGernalInfo'" 
+        :modell="'App\Models\LoanGernalInfo'" 
         :keyvalue="'debt_consolidation_settlement_notice'" 
         />
         @error("settlement_notice")

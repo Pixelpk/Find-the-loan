@@ -89,7 +89,7 @@
             </div>
             @enderror
         </div>
-        @endif
+       
         @if($tab == 8)
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fd_sd" class="form-label">
@@ -105,6 +105,7 @@
             </div>
             @enderror
         </div>
+        @endif
         @endif
     </div>
     <div class="row">
