@@ -13,7 +13,7 @@
     <div class="carousel-item">
       <img class="d-block" src="{{asset('assets/cms/img/Home/image3.jpg')}}" alt="Second slide">
       <div class="carousel-caption d-none d-md-block">
-        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We beleive no hardworking entreprenures should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
+        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We believe no hardworking entrepreneurs should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
   </div>
     </div>
     <div class="carousel-item">

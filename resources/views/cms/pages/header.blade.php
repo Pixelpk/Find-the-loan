@@ -145,7 +145,7 @@
                             <a href="" class="" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false"
                                 data-bs-offset="10,20">
                                 <span class="">Hi, {{ Auth::user()->first_name }}</span>
-                                <img height="40" src="{{('assets/cms/img/Home/user.svg') }}" alt="user">
+                                <img height="40" src="{{ asset('assets/cms/img/Home/user.svg') }}" alt="user">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
