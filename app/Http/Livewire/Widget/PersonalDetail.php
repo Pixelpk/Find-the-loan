@@ -23,10 +23,15 @@ class PersonalDetail extends Component
 
     public function documentReq($value)
     {
-        // dd($value);
-        // $this->vali['personal_document_nric_front'] = $value;
-        // $this->vali['personal_document_nric_back'] = $value;
-        // $this->vali['personal_document_passport_or_identity_card'] = $value;
+        if($value == "personal_document_nric_front"){
+            $this->vali['personal_document_nric_front'] = $value;
+        }
+        if($value == "personal_document_nric_back"){
+            $this->vali['personal_document_nric_back'] = $value;
+        }
+        if($value == "personal_document_passport_or_identity_card"){
+            $this->vali['personal_document_passport_or_identity_card'] = $value;
+        }
     }
 
     protected $rules = [
