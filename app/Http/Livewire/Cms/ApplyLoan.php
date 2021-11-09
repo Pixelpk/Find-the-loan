@@ -364,15 +364,6 @@ class ApplyLoan extends Component
     }
     public function saveCompanyDocuments()
     {
-<<<<<<< HEAD
-        
-        $loanStatement = Media::where('model', '\App\Models\LoanStatement')
-        ->where('share_holder', 0)
-        ->where('apply_loan_id', $this->apply_loan->id)
-        ->get()
-        ->groupBy('key');
-        if($loanStatement->count() < 6 && $loanStatement->count() > 1){
-=======
        
         //    if(isset($this->photo)){
         //        $this->statement = null;
@@ -401,7 +392,6 @@ class ApplyLoan extends Component
         // ->get()
         // ->groupBy('key');
         // if($loanStatement->count() < 6 && $loanStatement->count() > 1){
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
            
         //      $this->emit('danger', ['type' => 'success', 'message' => 'Bank Statement Month Wise Or Consolidated Statement Required.']);
         //     return;

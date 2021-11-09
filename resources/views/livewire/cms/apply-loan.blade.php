@@ -192,7 +192,6 @@
                     <div class="row">
                         @foreach($mainTypes as $item)
                         @if($item->subTypes->count() > 0)
-<<<<<<< HEAD
                         <div class="col-md-4 pt-3">
                             <div class="list-group">
                                 <a href="#" class="custmbtn list-group-item list-group-item-action text-white">
@@ -200,28 +199,16 @@
                                 </a>
                                 @foreach($item->subTypes as $key => $subType)
                                 <a class="list-group-item list-group-item-action d-flex justify-content-between">
-=======
-                        <div class="col-md-3" style="padding-top:30px;">
-                            <div class="list-group">
-                                <a href="#" class="custmbtn list-group-item list-group-item-action active">
-                                    {{ $item->main_type }}
-                                </a>
-                                @foreach($item->subTypes as $key => $subType)
-                                <a class="list-group-item list-group-item-action">
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
                                     <div class="form-check form-switch">
                                         <input wire:model="values.{{ $subType->id }}"
                                             wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
                                             class="form-check-input singleCheck" type="checkbox" />
                                         <label class="form-check-label">{{ $subType->sub_type }}</label>
                                     </div>
-<<<<<<< HEAD
                                     <div class="tooltip-c">
                                         <i class="fa fa-info-circle"></i>
                                         <span class="tooltip-text">Hello World</span>
                                     </div>
-=======
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
                                 </a>
                                 @endforeach
                             </div>
@@ -229,12 +216,6 @@
 
                         @endif
                         @endforeach
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
                     </div>
                     <!-- /LOAN TYPES -->
                     @if(sizeof($loanReasons) > 0)
@@ -752,12 +733,7 @@
 
                             <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName"
                                 :getImages="$images" :apply_loan="$apply_loan" :main_type="$main_type"
-<<<<<<< HEAD
                                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'\App\Models\LoanStatement'" />
-=======
-                                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanStatement'" />
-
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
                     </div>
                     @endfor
                 </div>
@@ -770,22 +746,11 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
                             :loan_type_id="$loan_type_id" :share_holder="0" :modell="'\App\Models\LoanCompanyDetail'"
                             :keyvalue="'parent_company_combine_statement'" />
-=======
-                            <b>Consolidated Statement.</b>
-                            <p>If Your Statement Is Not Spilt Between Months But One</p>
-                        </div>
-                        <div class="col-md-4 text-left">
-                            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_combine_statement'" />
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
 
                     </div>
                 </div>
@@ -801,7 +766,6 @@
                     </div>
                 </div>
 
-<<<<<<< HEAD
                 <div class="row mt-1">
                     <div class="col-md-6 col-lg-4">
                         <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
@@ -816,28 +780,6 @@
                             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                             :modell="'\App\Models\LoanCompanyDetail'"
                             :keyvalue="'parent_company_before_year_statement'" />
-=======
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial Statement</b>
-                            <p>
-                                (Income Statement also known as Profit & Loss
-                                + Statement of financial position also known as Balance Sheet)
-                            </p>
-                        </div>
-                        <div class="col-md-4 text-left" style="margin-top: 30px;">
-                            <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_latest_year_statement'" />
-
-                        </div>
-                        @if($getNumberOfCompanyYears >= 3)
-                        <div class="col-md-3 text-left" style="margin-top: 30px;">
-                            <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_before_year_statement'" />
->>>>>>> d4bee0af1eb4492564c8dffd5cb4ab7d91ebe4b8
 
                     </div>
                     @endif
