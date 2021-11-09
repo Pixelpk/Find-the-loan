@@ -1368,7 +1368,7 @@ form.ts-labels-inside-input .form-group label.focused,
 }
 
 .form-group {
-    margin-bottom: 1.5625rem;
+    /* margin-bottom: 1.5625rem; */
 }
 
 .form-group label {
