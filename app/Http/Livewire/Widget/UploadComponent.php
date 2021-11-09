@@ -31,7 +31,7 @@ class UploadComponent extends Component
     }
     public function updatedImages()
     {
-        dd($this->keyvalue);
+        // dd($this->keyvalue);
         $this->validate([
             "images.*" =>'required|mimes:jpg,jpeg,png,pdf',
         ]);

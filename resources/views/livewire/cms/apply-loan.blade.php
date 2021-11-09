@@ -190,7 +190,7 @@
                         @if($item->subTypes->count() > 0)
                         <div class="col-md-3 pt-3">
                             <div class="list-group">
-                                <a href="#" class="custmbtn list-group-item list-group-item-action active">
+                                <a href="#" class="custmbtn list-group-item list-group-item-action">
                                     {{ $item->main_type }}
                                 </a>
                                 @foreach($item->subTypes as $key => $subType)
@@ -220,6 +220,10 @@
                             <hr>
                             <h5>Loan Reasons</h5>
                         </div>
+                    </div>
+
+                     <!-- LOAN CARDS -->
+                    <div class="row mt-3">
                         @foreach($loanReasons as $key => $item)
                         <div class="col-md-4" style="margin-top: 30px;">
                             <div class="form-check form-switch">
@@ -230,6 +234,7 @@
                         </div>
                         @endforeach
                     </div>
+                    <!-- /LOAN CARDS -->
                     <div class="col-md-12 text-end">
                         <div>
                             <br>
