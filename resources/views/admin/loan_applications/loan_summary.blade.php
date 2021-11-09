@@ -94,6 +94,16 @@
                         <span class="info__field">{{ $application->loan_reason->reason ?? "" }}</span>
                         <span class="info__text">No of shareholder</span>
                         <span class="info__field">{{ $application->loan_company_detail->share_holder ?? '' }}</span>
+                        @if ($application->application_rejected != null)
+                        <span class="info__text">Rejected by</span>
+                        <span class="info__field">{{ $application->application_rejected->rejected_by->name }}</span>
+                        <span class="info__text">Customer reject reason</span>
+                        <span class="info__field">{{ $application->application_rejected->customer_reject_reason->reason }}</span>
+                        <span class="info__text">Internal reject reason</span>
+                        <span class="info__field">{{ $application->application_rejected->internal_reject_reason->reason }}</span>
+                        <span class="info__text">Reject date</span>
+                        <span class="info__field">{{ $application->application_rejected->created_at }}</span>
+                        @endif
                     </div>
                     <hr style="background:#000000; margin: 2rem 0">
                     <!-- /SYMMARY-LIST -->
@@ -440,7 +450,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="input7" class="col-form-label">Deffered after
+                            <label for="input7" class="col-form-label">Deferred after
                             </label>
                             <input type="number" step="1" min="0" required name="deffered_after" class="form-control"
                                 placeholder="Months" id="input7">
