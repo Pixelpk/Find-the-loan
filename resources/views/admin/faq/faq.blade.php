@@ -18,7 +18,11 @@
                             <div class="float-right d-none d-md-block">
                                 <button onclick="resetFormFields()" type="button" id="add_faq_btn" data-toggle="modal" data-target="#FaqModal" data-dismiss="modal" aria-label="Close" class="btn admin-btn "><i class="fa fa-plus-circle"></i></button>
                             </div>
+                            <div class="float-right mr-2 d-none d-md-block">
+                                <button type="button" id="sort_faq" data-toggle="modal" data-target="#sortFaqModal" data-dismiss="modal" aria-label="Close" class="btn admin-btn ">Sort</button>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
                 <!-- end page-title -->
@@ -42,7 +46,7 @@
                                             @foreach($items as $item)
                                             <tr>
                                                 <td>{{$item->question}}</td>
-                                                <td>{{$item->answer}}</td>
+                                                <td>{!! $item->answer !!}</td>
                                                 <td>{{ getStatus($item->status) }}</td>
                                                 <td>
                                                     <a href="#" onclick="getFaqDetail({{$item->id}})" class=" edit_faq_btn icons-td" data-toggle="tooltip" data-original-title="Edit">
@@ -108,8 +112,7 @@
                 if (data.success === 1) {
                     $('#update_faq_id').val(detail.id);
                     $("#faq_question").val(detail.question);
-                    $("#faq_answer").val(detail.answer);
-
+                    CKEDITOR.instances['faq_answer'].setData(detail.answer);
 
                     $('#FaqModal').modal('toggle');
                     $('#FaqModal').modal('show');

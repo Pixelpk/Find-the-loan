@@ -18,6 +18,7 @@
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script>
     let todayDate = new Date();
     let quoteEndDate= new Date(new Date().setDate(todayDate.getDate() + 29));
@@ -62,6 +63,31 @@
     let more_doc_msg_index = 0;
     let floating_count = 0;
     $(document).ready(function() {
+
+        var pass_array = [];
+       $( "#sortable" ).sortable({
+           update: function () {
+               pass_array = $(this).sortable('toArray');
+           }
+       });
+       pass_array = $("#sortable").sortable('toArray');
+       $( "#sortable" ).disableSelection();
+       $("#submitFaqSort").click(function (argument) {
+        //    console.log(pass_array)
+        //    return false;
+           $.ajax({
+               method: "POST",
+               url:"{{route('sort-faq-submitted')}}",
+               data:{
+                   "_token": "{{csrf_token()}}",
+                   "pass_array": pass_array
+               }
+           }).done(function(data) {
+               if(data.status && data.status == '1') {
+                   window.location = "{{route('faq')}}";
+               }
+           });
+       });
         
         $( '.ckeditor.editor' ).ckeditor();
         @if(Route::currentRouteName() == 'loan-application-summary')

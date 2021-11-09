@@ -45,15 +45,18 @@ class LoanApplications extends Controller
 
         $query = ApplyLoan::select('*')
             ->where('profile','=',$data['profile'])
-            ->with(['loan_type','loan_company_detail','loan_reason','assigned_application',
-            'assigned_by_application',
-            'application_rejected'=>function($query) use($partner_id){
-                $query->where('partner_id','=',$partner_id);
-            },
-            'application_quote'=>function($query) use($partner_id){
-                $query->where('partner_id','=',$partner_id);
-            },
-        ]);
+            ->with([
+                'loan_type','loan_company_detail','loan_reason',
+                'assigned_application',
+                'assigned_by_application',
+                'application_rejected'=>function($query) use($partner_id){
+                    $query->where('partner_id','=',$partner_id);
+                },
+                'application_quote'=>function($query) use($partner_id){
+                    $query->where('partner_id','=',$partner_id);
+                },
+                ])->withCount(['quotations_of_application']
+            );
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -120,7 +123,7 @@ class LoanApplications extends Controller
         if ($to_date != null){
             $data['applications']->appends(['to_date' => $to_date]);
         }
-//        return $data;
+    //    return $data;
         return view('admin.loan_applications.loan_applications',$data);
     }
 
@@ -137,6 +140,8 @@ class LoanApplications extends Controller
             $query->where('partner_id','=',$partner_id);
         },])
         ->first();
+
+        // return $data['application'];
         if($id == null || !$data['application']){
             return redirect()->back()->with('error','Oops. something went wrong.');
         }

@@ -34,7 +34,7 @@
             <div class="col-md-12">
               <div class="accordion" id="accordionExample">
                 @foreach($faqs as $key=>$faq)
-                <div class="accordion-item shadow mb-3">
+                <div class="accordion-item shadow">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$key}}" aria-expanded="false" aria-controls="collapseOne">
                       {{$faq->question}}
@@ -42,7 +42,7 @@
                   </h2>
                   <div id="collapse{{$key}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      {{ $faq->answer }}
+                      {!! $faq->answer !!}
                     </div>
                   </div>
                 </div>

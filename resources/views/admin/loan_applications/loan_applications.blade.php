@@ -93,7 +93,8 @@
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
-                                                <th>Status</th>
+                                                <th>Action Done</th>
+                                                <th>Market Status</th>
                                                 <th>Assigned to</th>
                                                 <th>Applied at</th>
                                                 <th>User</th>
@@ -117,15 +118,18 @@
                                             @foreach($applications as $application)
                                                 <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
                                                     <td class="selected_application">
-                                                        @if($application->assigned_by_application == null)
+                                                        @if($application->assigned_by_application == null && $application->application_quote == null)
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>
+                                                        @elseif($application->application_quote)
+                                                        <span class="badge badge-info">Quoted</span>
                                                         @endif
                                                     </td>
+                                                    <td>{{ $application->quotations_of_application_count." Finance partners have quoted"}}</td>
                                                     <td>
                                                         @if($application->assigned_by_application != null)
                                                             {{ $application->assigned_by_application->user->name }}
