@@ -49,7 +49,7 @@
                               <a href="{{ route('about-us') }}" class="nav-link">About Us</a>
                           </li>
                           <li class="nav-item">
-                              <a href="" class="nav-link">Financial Inclusion</a>
+                              <a href="" class="nav-link">Blog</a>
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('faqs') }}" class="nav-link">FAQ</a>
@@ -62,6 +62,9 @@
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('privacy-policy') }}" class="nav-link">Privacy Policy</a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="{{ route('contact-us') }}" class="nav-link">Contact us</a>
                           </li>
                       </ul>
                   </div>

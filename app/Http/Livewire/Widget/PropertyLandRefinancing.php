@@ -167,6 +167,10 @@ class PropertyLandRefinancing extends Component
             $LGI->save();
        }
        $this->gernalInfo = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();
+       if($this->main_type == 2){
+        $this->emit('changeTab',$this->apply_loan->id, 10);
+        return;
+       }
        $this->emit('changeTab',$this->apply_loan->id, 4);
     }
 

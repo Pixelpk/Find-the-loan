@@ -1,15 +1,25 @@
 <section>
-    <div class="row">
+    <div class="row mt-3">
 
         <div class="col-md-3 text-left">
             <livewire:widget.upload-component :label="'NRIC Front'" :apply_loan="$apply_loan" :main_type="$main_type"
-                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'\App\Models\PersonalDetail'"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
                 :keyvalue="'personal_document_nric_front'" />
+            @error('vali.personal_document_nric_front')
+            <div style="color:red;">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="col-md-3 text-left">
-            <livewire:widget.upload-component :label="'NRIC Back'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_nric_back'" />
+            <livewire:widget.upload-component :label="'NRIC Back'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_nric_back'" />
+            @error('vali.personal_document_nric_back')
+            <div style="color:red;">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="col-md-1">
             <br>
@@ -17,13 +27,21 @@
             <b>OR</b>
         </div>
         <div class="col-md-3 text-left">
-            <livewire:widget.upload-component :label="'Passport/Indentity Card (Foreigner only)'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_passport_or_identity_card'" />
+            <livewire:widget.upload-component :label="'Passport/Indentity Card (Foreigner only)'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_passport_or_identity_card'" />
+            @error('vali.personal_document_passport_or_identity_card')
+            <div style="color:red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="col-md-12">
+            <b>Proof of address</b>
         </div>
         <div class="col-md-12">
             <hr>
-            
+
             <b>For self employed or full commission earner
             </b>
         </div>
@@ -32,19 +50,20 @@
             <label for="">Personal NOA (Notice of Assessment) (2 Years)</label>
             <br>
             <br>
-            <livewire:widget.upload-component :label="'Latest'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_personal_noa_latest'" />
+            <livewire:widget.upload-component :label="'Latest'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_personal_noa_latest'" />
         </div>
         <div class="col-md-3 ">
-           
+
             <br>
             <br>
             <br>
-            <livewire:widget.upload-component :label="'Older'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_personal_noa_older'" />
+            <livewire:widget.upload-component :label="'Older'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_personal_noa_older'" />
         </div>
+
         <div class="col-md-12">
             <hr>
             <b>For Employed
@@ -58,25 +77,29 @@
             </p>
         </div>
         <div class="col-md-3 text-left">
-            <livewire:widget.upload-component :label="'CPF Contribution History'" :apply_loan="$apply_loan" :main_type="$main_type"
-                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'\App\Models\PersonalDetail'"
-                :keyvalue="'personal_document_cpf_contribution_history'" />
+            <livewire:widget.upload-component :label="'CPF Contribution History'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_cpf_contribution_history'" />
         </div>
         <div class="col-md-3 text-left">
             <livewire:widget.upload-component :label="'Notice Of Assessment'" :apply_loan="$apply_loan"
                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_notice_assessment'" />
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_notice_assessment'" />
         </div>
-       
+
         <div class="col-md-3 text-left">
-            <livewire:widget.upload-component :label="'Payslip'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_pay_slip'" />
+            <livewire:widget.upload-component :label="'Payslip'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_pay_slip'" />
+        </div>
+        @if(sizeof($personalDetail) > 0)
+        <div class="col-md-12">
+            <hr>
         </div>
         <div class="col-md-12 text-left">
             <livewire:widget.upload-component :label="'Or Birth Certificate'" :apply_loan="$apply_loan"
                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'\App\Models\PersonalDetail'" :keyvalue="'personal_document_birth_certificate'" />
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_birth_certificate'" />
         </div>
         <div class="col-md-12">
             He/she does not have any income proof as he/she is a
@@ -86,35 +109,39 @@
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Student" wire:model="income_proof" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <input value="Student" wire:model="income_proof" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault1">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Student
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Homemaker" wire:model="income_proof" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <input value="Homemaker" wire:model="income_proof" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault2">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Homemaker
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Retired" wire:model="income_proof" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                <input value="Retired" wire:model="income_proof" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault3">
                 <label class="form-check-label" for="flexRadioDefault3">
                     Retired
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Unemployed" wire:model="income_proof" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                <input value="Unemployed" wire:model="income_proof" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault4">
                 <label class="form-check-label" for="flexRadioDefault4">
                     Unemployed
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-12">
             <br>
@@ -127,35 +154,39 @@
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Spouse" wire:model="relation" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault11">
+                <input value="Spouse" wire:model="relation" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault11">
                 <label class="form-check-label" for="flexRadioDefault11">
                     Spouse
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Parent" wire:model="relation" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault22">
+                <input value="Parent" wire:model="relation" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault22">
                 <label class="form-check-label" for="flexRadioDefault22">
-                    Parent    
+                    Parent
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Sibling" wire:model="relation" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault33">
+                <input value="Sibling" wire:model="relation" class="form-check-input" type="radio"
+                    name="flexRadioDefault" id="flexRadioDefault33">
                 <label class="form-check-label" for="flexRadioDefault33">
-                    Sibling    
+                    Sibling
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="form-check">
-                <input value="Child" wire:model="relation" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault355">
+                <input value="Child" wire:model="relation" class="form-check-input" type="radio" name="flexRadioDefault"
+                    id="flexRadioDefault355">
                 <label class="form-check-label" for="flexRadioDefault355">
-                    Child    
+                    Child
                 </label>
-              </div>
+            </div>
         </div>
         <div class="col-12">
             <br>
@@ -165,8 +196,20 @@
                 Add Detail
             </button>
         </div>
+        @endif
     </div>
-    <div class="row">
+    <div class="row mt-3 text-end">
+        <div class="col-md-12">
+            <button wire:loading.attr='disabled' class="btn" type="button" wire:target='store'
+                wire:click.prevent='store'>
+                <div wire:loading wire:target="store">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                Save & Continue
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
         <div class="col-md-12">
             <br>
             <br>
@@ -175,7 +218,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Type</th>
-                      
+
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -184,8 +227,8 @@
                     <tr>
                         <th scope="row">1</th>
                         <td>{{ $item->type }}</td>
-                       
-                      
+
+
                         <td><button wire:click="deleteRecord({{ $item->id }})" style="background: red;"
                                 class="btn">Delete</button></td>
                     </tr>
@@ -196,4 +239,3 @@
         </div>
     </div>
 </section>
-

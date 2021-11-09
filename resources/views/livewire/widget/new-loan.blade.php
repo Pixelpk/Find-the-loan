@@ -8,7 +8,7 @@
             :main_type="$main_type" 
             :loan_type_id="$loan_type_id" 
             :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" 
+            :modell="'App\Models\LoanGernalInfo'" 
             :keyvalue="'property_new_loan_sale_purchase_agreement'" 
             />
         </div>

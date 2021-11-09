@@ -15,7 +15,37 @@ class PersonalDetail extends Component
     public $personalDetail = [];
     public $income_proof;
     public $relation;
+    public $vali;
  
+    protected $listeners = [
+        'documentReq'
+    ];
+
+    public function documentReq($value)
+    {
+        if($value == "personal_document_nric_front"){
+            $this->vali['personal_document_nric_front'] = $value;
+        }
+        if($value == "personal_document_nric_back"){
+            $this->vali['personal_document_nric_back'] = $value;
+        }
+        if($value == "personal_document_passport_or_identity_card"){
+            $this->vali['personal_document_passport_or_identity_card'] = $value;
+        }
+    }
+
+    protected $rules = [
+        'vali.personal_document_nric_front' =>  'required_without:vali.personal_document_passport_or_identity_card',
+        'vali.personal_document_nric_back' =>'required_without:vali.personal_document_passport_or_identity_card',
+        'vali.personal_document_passport_or_identity_card' => 'required_without:vali.personal_document_passport_or_identity_card,personal_document_passport_or_identity_card',
+        'vali.personal_document_personal_noa_latest' => 'required',
+        'vali.personal_document_personal_noa_older' => 'required',
+        'vali.personal_document_cpf_contribution_history' => 'required',
+        'vali.personal_document_notice_assessment' => 'required',
+        'vali.personal_document_pay_slip' => 'required',
+        'vali.personal_document_birth_certificate' => 'required',
+    ];
+
     public function mount()
     {
         
@@ -27,16 +57,30 @@ class PersonalDetail extends Component
 
     public function store()
     {
-
-       $personalDetail=ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->get();
-       if($personalDetail->count() > 0){
+        $this->validate($this->rules, [
+            'vali.personal_document_nric_front.required_without' => 'NRIC front is required',
+            'vali.personal_document_nric_back.required_without' => 'NRIC back is required',
+            'vali.personal_document_passport_or_identity_card.required_without' => 'Passport is required',
+        ]);
+        $passportImage = Media::where('model','App\Models\PersonalDetail')
+        ->where('key', 'personal_document_passport_or_identity_card')
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->first();
+        if($passportImage){
+            $this->customValidation = [
+                'bill' => 'Proof of address & employment pass is required',
+            ];
+            return;
+        }
+        $personalDetail=ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        if($personalDetail->count() > 0){
             $PD = PersonalDetail::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,
                 'type' => 'Joint Applicant',
                 'income_proof' => $this->income_proof,
                 'relation' => $this->relation
             ]);
-       }else{
+        }else{
 
             $PD = ModelsPersonalDetail::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,

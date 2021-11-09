@@ -138,7 +138,7 @@ class PropertyLand extends Component
            'model_id' => $overDraft->id,
        ]);
        $this->emit('getImage'); 
-      
+       $this->emit('enableButton', true);
        $apply_loan = ApplyLoan::find($this->apply_loan->id);
        $apply_loan->amount = $this->amount;
        $apply_loan->update();

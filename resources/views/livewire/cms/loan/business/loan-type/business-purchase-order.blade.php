@@ -70,12 +70,12 @@
     <div class="col-md-6">
         <livewire:widget.upload-component :label="'Add all invoices seeking financing'" :apply_loan="$apply_loan"
             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'business_purchase_order_invoice_seeking'" />
+            :modell="'App\Models\LoanGernalInfo'" :keyvalue="'business_purchase_order_invoice_seeking'" />
     </div>
     <div class="col-md-6">
         <livewire:widget.upload-component :label="'Latest account receivables report (ageing list) ideally within 30 days'" :apply_loan="$apply_loan"
             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-            :modell="'\App\Models\LoanGernalInfo'" :keyvalue="'business_purchase_order_latest_account_report'" />
+            :modell="'App\Models\LoanGernalInfo'" :keyvalue="'business_purchase_order_latest_account_report'" />
     </div>
     <div class="col-md-4">
        

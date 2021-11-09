@@ -77,7 +77,7 @@
                 <li><a href="{{ route('faqs') }}" class="nav-link">Privacy policy</a></li>
                 <li><a href="{{ route('contact-us') }}" class="nav-link">Contact</a></li>
             </ul>
-            <!-- MOBILE MENU -->
+            <!-- /MOBILE MENU -->
             <ul class="navbar-nav desk-nav justify-content-end">
                 <li>
                     <a href="">
@@ -111,7 +111,7 @@
                                 <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
                                 <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of use</a></li>
                                 <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
-                                <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact</a></li>
+                                <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact us</a></li>
                             </ul>
                             @endif
                     </div>

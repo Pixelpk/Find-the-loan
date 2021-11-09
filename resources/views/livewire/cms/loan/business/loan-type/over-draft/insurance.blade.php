@@ -1,7 +1,7 @@
 <section>
 
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 30px;">
+    <div class="row mt-3">
+        <div class="col-md-6">
             <label for="insurance" class="form-label">Name of insured
             </label>
             <input wire:model="insurance" type="text" class="form-control" id="insurance">
@@ -11,7 +11,7 @@
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
             <label for="type_of_policy" class="form-label">Type of policy
             </label>
             <select class="form-select" wire:model="type_of_policy">
@@ -109,7 +109,7 @@
                 :main_type="$main_type" 
                 :loan_type_id="$loan_type_id" 
                 :share_holder="0"
-                :modell="'\App\Models\OverDraftInsurance'" 
+                :modell="'App\Models\OverDraftInsurance'" 
                 :keyvalue="'over_draft_benifit_illustration'" 
             />
         </div>
