@@ -12,7 +12,7 @@
         <!--begin col-xs-12 -->
         <div class="col-sm-12 col-lg-12 col-xs-12">
 
-            <h2 class="page-title white text-center">Terms & Conditions</h2>
+            <h2 class="page-title white text-center">Terms of Use</h2>
 
         </div>
 
