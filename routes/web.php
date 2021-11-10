@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
@@ -57,7 +57,7 @@ Route::get('clear-cache',function (){
 });
 //CMS routes
 Route::get('/',Home::class)->name('home');
-Route::get('our-blogs',BlogComponent::class)->name('our-blogs');
+Route::get('all-blogs',BlogComponent::class)->name('all-blogs');
 Route::get('registration',RegisterComponent::class)->name('registration');
 Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
 Route::get('faqs',FaqComponent::class)->name('faqs');

@@ -129,7 +129,7 @@
                                                         <span class="badge badge-info">Quoted</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ $application->quotations_of_application_count." Finance partners have quoted"}}</td>
+                                                    <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                     <td>
                                                         @if($application->assigned_by_application != null)
                                                             {{ $application->assigned_by_application->user->name }}

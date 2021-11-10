@@ -75,5 +75,12 @@ class ApplyLoan extends Model
         return $this->hasMany(LoanQuotations::class,'apply_loan_id','id');
     }
 
+    public function loan_lenders_cbs_member_image(){
+        return $this->hasOne(LoanLender::class,'apply_loan_id','id');
+    }
+
+    public function loan_lender_details(){
+        return $this->hasOne(LoanLenderDetail::class,'apply_loan_id','id');
+    }
 
 }
