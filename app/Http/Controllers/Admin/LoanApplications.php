@@ -9,6 +9,7 @@ use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
+use App\Models\Media;
 use App\Models\RejectReason;
 use App\Models\UserLoanReject;
 use Illuminate\Http\Request;
@@ -102,8 +103,7 @@ class LoanApplications extends Controller
             ->get();
         $data['company_structure'] = CompanyStructure::where('status','=','1')
             ->get();
-        // $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
-        // $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
+
         $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
             ->pluck('value', 'key_name');
 
@@ -127,19 +127,69 @@ class LoanApplications extends Controller
         return view('admin.loan_applications.loan_applications',$data);
     }
 
+    public function rejectedApplications(Request $request){
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('application_rejected',function($query) use ($partner_id,$parent_id,$logged_user_id){
+            $query->where('partner_id','=',$partner_id);
+            //checking if finance partner admin is not loggedIn then only get assigned applications of user
+            if ($parent_id !=0 ){
+                $query->where('user_id','=',$logged_user_id);
+            }
+        })->with([
+            'loan_company_detail','loan_reason',
+            'assigned_application',
+            'application_rejected',
+            'loan_type:id,sub_type',
+            'loan_user:id,first_name,last_name',
+            ])->paginate(20);
+
+        return view('admin.loan_applications.rejected-loan-applications',$data);
+        
+    }
+
+    public function assginedOutApplications(Request $request){
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('assigned_application',function($query) use ($logged_user_id){
+            $query->where('assigned_by','=',$logged_user_id);
+        })->with(
+            [
+                'loan_company_detail','loan_reason',
+                'assigned_application',
+                'loan_type:id,sub_type',
+                'loan_user:id,first_name,last_name',
+                ])->paginate(20);
+
+        // return $data['applications'];
+
+        return view('admin.loan_applications.assigned-out-applications',$data);
+    }
+
     public function applicationSummary(Request $request){
         $id = $request->apply_loan_id ?? null;
         $partner_id = Session::get('partner_id');
         $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
         $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['application'] = ApplyLoan::where('id','=',$id)
-        ->with(['loan_type','loan_company_detail','loan_reason','application_rejected'=>function($query) use($partner_id){
-            $query->where('partner_id','=',$partner_id);
-        },
-        'application_quote'=>function($query) use($partner_id){
-            $query->where('partner_id','=',$partner_id);
-        },])
-        ->first();
+        ->with([
+            'loan_type','loan_company_detail','loan_reason',
+            'application_rejected'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
+            'application_quote'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            }
+            ])
+            ->first();
 
         // return $data['application'];
         if($id == null || !$data['application']){
@@ -209,67 +259,108 @@ class LoanApplications extends Controller
         $partner_id = Session::get('partner_id');
 
         $id = $request->id  ?? null;
-        $query = ApplyLoan::where('id','=',$id)
-            ->with(['loan_documents','loan_person_share_holder','loan_statements']);
-//        if ($parent_id != 0 ){
-//            $query->whereHas('assigned_application', function ($query) use ($logged_user_id) {
-//                $query->where('user_id','=',$logged_user_id);
-//            });
-//        }
-        $application = $query->first();
+        $application = ApplyLoan::where('id','=',$id)
+        ->with('loan_person_share_holder')
+        ->first();
         if (!$application || $id== null){
             return redirect(route('loan-applications'))->with('error','Oops. Something went wrong');
         }
+
+        $application_docs = Media::where('apply_loan_id',$id)->get()->groupBy('model');
 
         $zip_file = 'documents.zip';
         $zip = new \ZipArchive();
         $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
         $path = storage_path('app/');
-        foreach ($application->loan_documents as $key=>$document) {
-            $statementFilePath = $path.$document->statement;
-            $statement = 'loan_documents/' . $document->statement;
-            $zip->addFile($statementFilePath, $statement);
-
-            $latestYearFilePath = $path.$document->latest_year;
-            $latest_year = 'loan_documents/' . $document->latest_year;
-            $zip->addFile($latestYearFilePath, $latest_year);
-
-            $yearBeforeFilePath = $path.$document->latest_year;
-            $year_before = 'loan_documents/' . $document->year_before;
-            $zip->addFile($yearBeforeFilePath, $year_before);
+        foreach($application_docs as $model_key=>$docs){
+            $models_explode = explode("\\",$model_key);
+            // return $models_explode;
+            $folder_name = $models_explode[2]; //make model name as folder name
+            foreach ($docs as $docs_key=>$doc) {
+                $file_path = $path."/".$doc->image;
+                $file = $folder_name.'/' . $doc->orignal_name;
+                $zip->addFile($file_path, $file);
+            }
+            
         }
         foreach ($application->loan_person_share_holder as $key=>$document) {
-            $nricFrontFilePath = $path.$document->nric_front;
-            $nric_front = 'person_share_holders/' . $document->nric_front;
-            $zip->addFile($nricFrontFilePath, $nric_front);
-
-            $nricBackFilePath = $path.$document->nric_back;
-            $nric_back = 'person_share_holders/' . $document->nric_back;
-            $zip->addFile($nricBackFilePath, $nric_back);
-
-            $naoLatestFilePath = $path.$document->nao_latest;
-            $nao_latest = 'person_share_holders/' . $document->nao_latest;
-            $zip->addFile($naoLatestFilePath, $nao_latest);
-
-            $naoOlderFilePath = $path.$document->nao_older;
-            $nao_older = 'person_share_holders/' . $document->nao_older;
-            $zip->addFile($naoOlderFilePath, $nao_older);
-
-        }
-
-        foreach ($application->loan_statements as $key=>$document) {
-            $statementFilePath = $path.$document->statement;
-            $file = 'loan_six_month_statements/' . $document->statement;
-            $zip->addFile($statementFilePath, $file);
-
-        }
+                $nricFrontFilePath = $path.$document->nric_front;
+                $nric_front = 'PersonShareHolders/' . $document->nric_front;
+                $zip->addFile($nricFrontFilePath, $nric_front);
+    
+                $nricBackFilePath = $path.$document->nric_back;
+                $nric_back = 'PersonShareHolders/' . $document->nric_back;
+                $zip->addFile($nricBackFilePath, $nric_back);
+    
+                $naoLatestFilePath = $path.$document->nao_latest;
+                $nao_latest = 'PersonShareHolders/' . $document->nao_latest;
+                $zip->addFile($naoLatestFilePath, $nao_latest);
+    
+                $naoOlderFilePath = $path.$document->nao_older;
+                $nao_older = 'PersonShareHolders/' . $document->nao_older;
+                $zip->addFile($naoOlderFilePath, $nao_older);
+    
+            }
         $zip->close();
         try {
             return response()->download($zip_file);
         }catch (\Exception $exception){
             return redirect()->back()->with('error','Sorry. There are no documents to download');
         }
+        // return ;
+
+        //old code. dont'remove
+
+        // $zip_file = 'documents.zip';
+        // $zip = new \ZipArchive();
+        // $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        // $path = storage_path('app/');
+        // foreach ($application->loan_documents as $key=>$document) {
+        //     $statementFilePath = $path.$document->statement;
+        //     $statement = 'loan_documents/' . $document->statement;
+        //     $zip->addFile($statementFilePath, $statement);
+
+        //     $latestYearFilePath = $path.$document->latest_year;
+        //     $latest_year = 'loan_documents/' . $document->latest_year;
+        //     $zip->addFile($latestYearFilePath, $latest_year);
+
+        //     $yearBeforeFilePath = $path.$document->latest_year;
+        //     $year_before = 'loan_documents/' . $document->year_before;
+        //     $zip->addFile($yearBeforeFilePath, $year_before);
+        // }
+        // foreach ($application->loan_person_share_holder as $key=>$document) {
+        //     $nricFrontFilePath = $path.$document->nric_front;
+        //     $nric_front = 'person_share_holders/' . $document->nric_front;
+        //     $zip->addFile($nricFrontFilePath, $nric_front);
+
+        //     $nricBackFilePath = $path.$document->nric_back;
+        //     $nric_back = 'person_share_holders/' . $document->nric_back;
+        //     $zip->addFile($nricBackFilePath, $nric_back);
+
+        //     $naoLatestFilePath = $path.$document->nao_latest;
+        //     $nao_latest = 'person_share_holders/' . $document->nao_latest;
+        //     $zip->addFile($naoLatestFilePath, $nao_latest);
+
+        //     $naoOlderFilePath = $path.$document->nao_older;
+        //     $nao_older = 'person_share_holders/' . $document->nao_older;
+        //     $zip->addFile($naoOlderFilePath, $nao_older);
+
+        // }
+
+        // foreach ($application->loan_statements as $key=>$document) {
+        //     $statementFilePath = $path.$document->statement;
+        //     $file = 'loan_six_month_statements/' . $document->statement;
+        //     $zip->addFile($statementFilePath, $file);
+
+        // }
+        // $zip->close();
+        // try {
+        //     return response()->download($zip_file);
+        // }catch (\Exception $exception){
+        //     return redirect()->back()->with('error','Sorry. There are no documents to download');
+        // }
 
     }
 

@@ -16,8 +16,10 @@ class OCRController extends Controller
     const STAPLE_CREATE_GROUP_API = "https://api-gateway.staple.io/v1/groups";
     const STAPLE_CREATE_QUEUES_API = "https://api-gateway.staple.io/v1/queues";
     const STAPLE_SCAN_BANK_STAT_API = "https://api-gateway.staple.io/v1/documents/scan/bank-stat";
-    public $accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjU5MSwiaWRlbnRpdHkiOiI1OTEiLCJpYXQiOjE2MzM1MDAzODIsImV4cCI6MTYzNDEwNTE4Mn0.fxzKAmUXON3aethuwSfssMOIjL5EnHTGoJ6rHvizQqE";
-    public $apiKey = "4881b880dad969d1cf21a0ced31cb8e0f687687d35bd3bcca1f2eebe3bf1471e";
+
+    //accesstoken and apikey will be generated in login function.. followin is dummy accesstoken and apikey
+    public $accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjU5MSwiaWRlbnRpdHkiOiI1OTEiLCJpYXQiOjE2MzY0NTUwMjgsImV4cCI6MTYzNzA1OTgyOH0.yWkConoXaYxaMW7fapFipt4-8WjxrTvn6Da0cHS4Hvw";
+    public $apiKey = "039c345337606233c23d593c67a5c4c2cc107bbacdd5f36cf1f7e2ad35d0faaa";
     public function login(){
         $post_data = [
             'credential'=>[
@@ -32,7 +34,7 @@ class OCRController extends Controller
     }
 
     public function createGroup(){
-        $post_data = ['name'=>'Find the loan'];
+        $post_data = ['name'=>'TestGroup'];
         $response = json_decode($this->curlRequest(array('Content-Type: application/json','x-api-key: '.$this->apiKey, 'Authorization: Bearer '.$this->accessToken),'POST',self::STAPLE_CREATE_GROUP_API,json_encode($post_data)));
         return $response;
 
@@ -41,8 +43,8 @@ class OCRController extends Controller
     public function createQueue(){
         $post_data = ['input'=>
             [
-                'gid'=> 683,
-                'name'=>'queue name',
+                'gid'=> 821, //gid will be generated in createGroup function
+                'name'=>'TestQueue',
                 'accountType'=>'Test',
                 'supplier'=>'Test',
                 'customer'=>'Test',
@@ -56,10 +58,12 @@ class OCRController extends Controller
     }
 
     public function bankStatDocType(){
+        
         $path = public_path('test.pdf');
+        // dd($path);
         $post_data = array(
             'files'=> new CURLFILE($path),
-            'qid' => 1548,
+            'qid' => 1778, //qid will be generated in createQueue function
             'handwritten' => false
         );
 
@@ -69,6 +73,7 @@ class OCRController extends Controller
             self::STAPLE_SCAN_BANK_STAT_API,
             $post_data
         );
+        // dd($response);
         return json_decode($response);
     }
 

@@ -118,7 +118,7 @@
                                             @foreach($applications as $application)
                                                 <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
                                                     <td class="selected_application">
-                                                        @if($application->assigned_by_application == null && $application->application_quote == null)
+                                                        @if($application->assigned_by_application == null && $application->application_quote == null && $application->application_rejected == null)
                                                             <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                         @endif
                                                     </td>

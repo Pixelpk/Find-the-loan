@@ -87,7 +87,7 @@
 
                             if ($current_route == 'blog') {
                             $route = route('our-blogs');
-                            }else if( ($current_route == 'login') || $current_route == ('apply-loan')){
+                            }else if( ($current_route == 'login')){
                             $route = route('home');
                             $current_route = 'home';
                             }
@@ -95,22 +95,25 @@
                             $route = route($current_route);
                             }
                             @endphp
-                        <a href="{{$route}}" class="btn btn-h" style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;">{{ getCmsRoute($current_route)}}</a>
-                        <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
-                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                        <li><a href="{{ route('home') }}" class="dropdown-item">Home</a></li>
-                            <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
-                            <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
-                            <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
-                            {{-- <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li> --}}
-                            <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
-                            <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of Use</a></li>
-                            <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
-                            <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact Us</a></li>
-                        </ul>
+                            @if($current_route != "applyLoan")
+                            
+                            <a href="{{$route}}" class="btn btn-h" style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;">{{ getCmsRoute($current_route)}}</a>
+                            <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                            <li><a href="{{ route('home') }}" class="dropdown-item">Home</a></li>
+                                <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
+                                <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
+                                <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
+                                {{-- <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li> --}}
+                                <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
+                                <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of use</a></li>
+                                <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
+                                <li><a href="{{ route('contact-us') }}" class="dropdown-item">Contact us</a></li>
+                            </ul>
+                            @endif
                     </div>
                     </a>
                 </li>
@@ -128,7 +131,9 @@
                 <li>
                     <a href="#" class="nav-link">
                         @if(Auth::guard('web')->check())
-                        <a href="{{ route('applyLoan') }}" class="btnnew2 btn">Apply </a>
+                            @if(Route::currentRouteName() != "applyLoan")
+                            <a href="{{ route('applyLoan') }}" class="btnnew2 btn">Apply </a>
+                            @endif
                         @endif
                     </a>
                 </li>
@@ -140,7 +145,7 @@
                             <a href="" class="" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false"
                                 data-bs-offset="10,20">
                                 <span class="">Hi, {{ Auth::user()->first_name }}</span>
-                                <img height="40" src="{{('assets/cms/img/Home/user.svg') }}" alt="user">
+                                <img height="40" src="{{ asset('assets/cms/img/Home/user.svg') }}" alt="user">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
