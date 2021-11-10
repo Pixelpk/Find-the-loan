@@ -2739,5 +2739,5 @@ E. Template Specific Elements
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 150px;
+    /* width: 150px; */
 }
