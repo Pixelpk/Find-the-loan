@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
@@ -56,27 +56,17 @@ Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
 //CMS routes
-// Route::get('/',[HomeController::class,'home'])->name('home');
 Route::get('/',Home::class)->name('home');
-Route::get('our-blogs',BlogComponent::class)->name('our-blogs');
+Route::get('all-blogs',BlogComponent::class)->name('all-blogs');
 Route::get('registration',RegisterComponent::class)->name('registration');
 Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
 Route::get('faqs',FaqComponent::class)->name('faqs');
 Route::get('glossary',GlossaryComponenet::class)->name('glossary');
 Route::get('privacy-policy',PrivacyPolicyComponent::class)->name('privacy-policy');
 Route::get('terms-conditions',TermsConditionsComponent::class)->name('terms-conditions');
-// Route::get('financial-inclusion',FinancialInclusionComponent::class)->name('financial-inclusion');
-// Route::get('our-blogs',[HomeController::class,'blogs'])->name('our-blogs');
 Route::get('blog',BlogDetailComponent::class)->name('blog');
 Route::get('about-us',AboutUs::class)->name('about-us');
-// Route::get('privacy-policy',[HomeController::class,'privacyPolicy'])->name('privacy-policy');
 Route::get('contact-us',ContactUs::class)->name('contact-us');
-// Route::get('terms-conditions',[HomeController::class,'termsConditions'])->name('terms-conditions');
-//Route::post('contact-us',[HomeController::class,'contactUsSubmit'])->name('contact-us');
-// Route::get('login',[Login::class])->name('login');
-// Route::post('login',[LoginController::class,'loginAttempt'])->name('loginAttempt');
-// Route::get('registration',[RegistrationController::class,'index'])->name('registration');
-// Route::post('registration',[RegistrationController::class,'store'])->name('registrationStore');
 
 
 // Admin routes
@@ -85,7 +75,6 @@ Route::post('/admin-login', [UserController::class,'login'])->name('admin-login'
 Route::get('partner-login', [UserController::class,'partnerLogin'])->name('partner-login');
 Route::post('/partner-login-submit', [UserController::class,'partnerLoginSubmit'])->name('partner-login-submit');
 Route::group(['middleware'=>['auth:partners','partner']],function (){
-//    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
 
 });
 Route::group(['middleware'=>['auth:users,partners']],function (){
@@ -134,21 +123,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
         Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
 
-        // Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
-        // Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
-        // Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
-        // Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
-        // Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
-
-        // Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
-        // Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
-        // Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
-        // Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
-
-        // Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
-        // Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
-        // Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
-        // Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
     });
 
     Route::group(['middleware'=>['partner']],function (){
@@ -177,7 +151,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('application-search',[LoanApplications::class,'applicationSearch'])->name('application-search');
         Route::post('reject-application',[LoanApplications::class,'rejectLoanApplication'])->name('reject-application');
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
-        // Route::get('put-quotation',[LoanQuotationController::class,'putQuotation'])->name('put-quotation');
+        Route::get('rejected-applications',[LoanApplications::class,'rejectedApplications'])->name('rejected-applications');
+        Route::get('assigned-out',[LoanApplications::class,'assginedOutApplications'])->name('assigned-out');
+        
+        
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
@@ -187,64 +164,57 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     }); 
 
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
-//    Route::get('/profile', [UserController::class,'profile'])->name('profile');
-    Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
-
-    Route::get('/admin-dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
-    Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
-    // Route::get('/logout', [UserController::class,'logout'])->name('admin-logout');
-
     Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
     Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
+    Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
+    Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
 
     Route::get('/faq', [FaqController::class,'faq'])->name('faq');
+    Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
     Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
     Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
-    Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
 
     Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
+    Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
     Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
     Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
-    Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
 
     Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
+    Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
     Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
     Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
-    Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
 
     Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
+    Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
     Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
     Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
     Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
-    Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
 
     Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
     Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
     Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
     Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
-    // Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
-
     Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
     Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
 
     Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
     Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
+    Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
     Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
     Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
-    Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
 
     Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
+    Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
     Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
     Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
-    Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
 
     Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
-    Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
-    Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
     Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
+    Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
+    Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
 
 
 });
@@ -253,16 +223,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 Route::get('/login', Login::class)->name('login');
 Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
-    // Route::get('/apply-loan', [ControllersUserController::class,'applyLoan'])->name('applyLoan');
-    // Route::post('/apply-loan', [UserLoanController::class,'applyLoanStore'])->name('apply-loan-store');
-    // Route::post('/loan-reason', [ControllersUserController::class,'loanReason'])->name('loan-reason');
-    // Route::post('/loan-amount', [ControllersUserController::class,'loanAmount'])->name('loan-amount');
-    // Route::get('/get-loan-type/{id}', [LoanReasonController::class,'getLoanType'])->name('get-loan-type');
-    // Route::post('/get-loan-main-type', [LoanReasonController::class,'getLoanMainType'])->name('get-loan-main-type');
-     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
-    //  Route::post('/loan-share-holder-store', [UserLoanController::class,'shareHolderStore'])->name('loan-share-holder-store');
-    //  Route::post('/get-share-holder-screen', [UserLoanController::class,'shareHolderScreen'])->name('get-share-holder-screen');
-    //  Route::get('/company-share-holder/{apply_loan_id}/{index}', [UserLoanController::class,'CompanyShareHolder'])->name('company-share-holder');
+    Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
 
 });
 Route::get('test', function (){

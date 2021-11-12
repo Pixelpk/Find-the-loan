@@ -41,7 +41,7 @@ function getCmsRoute($route_name): string
     $all = [
         'home'=>"Home",
         'about-us'=>"About",
-        'our-blogs'=>"Blogs",
+        'all-blogs'=>"Blogs",
         'blog'=>"Blogs",
         'faqs'=>"Faqs",
         'terms-conditions'=>"Terms of use",
@@ -49,6 +49,7 @@ function getCmsRoute($route_name): string
         'contact-us'=>"Contact",
         'financial-inclusion'=>"Financial Inclusion",
         'glossary'=>"Glossary",
+        'apply-loan'=>"Apply loan",
     ];
     return $all[$route_name] ?? '';
 }

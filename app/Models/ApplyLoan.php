@@ -46,13 +46,7 @@ class ApplyLoan extends Model
     }
 
     public function assigned_application(){
-        $loggedin_user = Auth::user();
-        $partner_id = Session::get('partner_id');
-
-        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')
-//            ->where('partner_id','=',$partner_id)
-//            ->where('user_id','=',$loggedin_user->id)
-            ->with(['user']);
+        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->with(['user']);
     }
 
     public function assigned_by_application(){
@@ -70,7 +64,7 @@ class ApplyLoan extends Model
     }
 
     public function application_rejected(){
-        return $this->hasOne(UserLoanReject::class,'apply_loan_id','id');
+        return $this->hasOne(UserLoanReject::class,'apply_loan_id','id')->with(['rejected_by','customer_reject_reason','internal_reject_reason']);
     }
 
     public function application_quote(){
@@ -80,4 +74,13 @@ class ApplyLoan extends Model
     public function quotations_of_application(){
         return $this->hasMany(LoanQuotations::class,'apply_loan_id','id');
     }
+
+    public function loan_lenders_cbs_member_image(){
+        return $this->hasOne(LoanLender::class,'apply_loan_id','id');
+    }
+
+    public function loan_lender_details(){
+        return $this->hasOne(LoanLenderDetail::class,'apply_loan_id','id');
+    }
+
 }

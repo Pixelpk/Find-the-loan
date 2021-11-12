@@ -4,20 +4,20 @@
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block" src="assets/cms/img/Home/image1.jpg" alt="First slide">
+      <img class="d-block" src="{{asset('assets/cms/img/Home/image1.jpg')}}" alt="First slide">
       <div class="carousel-caption d-none d-md-block">
-      <h3 class="fw-bold mb-0 animated bounceInLeft" style="animation-delay: 1s;">Be it for your bussines</h3>
+      <h3 class="fw-bold mb-0 animated bounceInLeft" style="animation-delay: 1s;">Be it for your business</h3>
       <h4 class="animated bounceInRight" style="animation-delay: 2s;">Or an investment for your future.</h4>
 </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block" src="assets/cms/img/Home/image3.jpg" alt="Second slide">
+      <img class="d-block" src="{{asset('assets/cms/img/Home/image3.jpg')}}" alt="Second slide">
       <div class="carousel-caption d-none d-md-block">
-        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We beleive no hardworking entreprenures should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
+        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We believe no hardworking entrepreneurs should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
   </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block" src="assets/cms/img/Home/image2.jpg" alt="Third slide">
+      <img class="d-block" src="{{asset('assets/cms/img/Home/image2.jpg')}}" alt="Third slide">
       <div class="carousel-caption d-none d-md-block">
         <h3 class="fw-bold mb-0 animated slideInUp" style="animation-delay: 1s;">Getting a loan should <br> be easier</h3>
         <button class="btn animated bounceInRight" style="animation-delay: 3s;">Apply Now</button>
@@ -38,28 +38,30 @@
 <section id="home" class="home-section">
   
   <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="cookie-img text-center">
-              <img src="{{ asset ('assets/cms/img/Home/cookie.png')}}" alt="cookie img">
-          </div>
-          <div class="cookie-content text-center my-2">
-              <p class="lea">
-                We use cookie to offer a better user experience such as 
-                allowing your browser to remember who you are and not 
-                having to enter your login address each time.
-              </p>
-          </div>
-          <div class="cookie-buttons text-center">
-            <button type="button" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
-            <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
+  @if($is_cookie == 0)
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="cookie-img text-center">
+                <img src="{{ asset ('assets/cms/img/Home/cookie.png')}}" alt="cookie img">
+            </div>
+            <div class="cookie-content text-center my-2">
+                <p class="lea">
+                  We use cookie to offer a better user experience such as 
+                  allowing your browser to remember who you are and not 
+                  having to enter your login address each time.
+                </p>
+            </div>
+            <div class="cookie-buttons text-center">
+              <button  wire:click="setCookie" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
+              <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  @endif
 <!-- /MODAL COOKIE -->
 
 <!-- MAIN CONTENT -->

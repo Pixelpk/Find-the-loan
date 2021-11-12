@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan enquires <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan enquiries <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li>
                                 <a href="{{ route('loan-applications',['profile'=>'1']) }}" class="@if(Route::CurrentRouteName() == 'loan-applications') mm-active @endif">
@@ -34,6 +34,16 @@
                             <li>
                                 <a href="{{ route('quoted-customer') }}" class="@if(Route::CurrentRouteName() == 'quoted-customer') mm-active @endif">
                                     <i class="fa fa-money-bill-alt"></i><span> Quoted customer </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('rejected-applications') }}" class="@if(Route::CurrentRouteName() == 'rejected-applications') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Rejected </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('assigned-out') }}" class="@if(Route::CurrentRouteName() == 'assigned-out') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Assigned out </span>
                                 </a>
                             </li>
 

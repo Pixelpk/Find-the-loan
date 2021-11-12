@@ -189,43 +189,51 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                     </div>
 
                     @if(sizeof($mainTypes) > 0)
+                    <!-- LOAN TYPE CARDS -->
                     <div class="row">
                         @foreach($mainTypes as $item)
                         @if($item->subTypes->count() > 0)
-                        <div class="col-md-3 pt-3">
+                        <div class="col-md-4 pt-3">
                             <div class="list-group">
-                                <a href="#" class="custmbtn list-group-item list-group-item-action active">
+                                <a href="#" class="custmbtn list-group-item list-group-item-action text-white">
                                     {{ $item->main_type }}
                                 </a>
                                 @foreach($item->subTypes as $key => $subType)
-                                <a class="list-group-item list-group-item-action">
+                                <a class="list-group-item list-group-item-action d-flex justify-content-between">
                                     <div class="form-check form-switch">
                                         <input wire:model="values.{{ $subType->id }}"
                                             wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
                                             class="form-check-input singleCheck" type="checkbox" />
                                         <label class="form-check-label">{{ $subType->sub_type }}</label>
                                     </div>
+
+                                    <!-- LOAN TYPE TOOLTIP -->
+                                    <div class="tooltip-c">
+                                        <i class="fa fa-info-circle"></i>
+                                        <span class="tooltip-text">Hello World</span>
+                                    </div>
+                                    <!-- /LOAN TYPE TOOLTIP -->
                                 </a>
                                 @endforeach
                             </div>
                         </div>
-
                         @endif
                         @endforeach
-
-
-
                     </div>
+                      <!-- /LOAN TYPE CARDS -->
+
                     @if(sizeof($loanReasons) > 0)
                     <div class="row">
-                        <div class="col-md-12">
                             <br>
                             <br>
                             <hr>
                             <h5>Loan Reasons</h5>
                         </div>
+
+                     <!-- LOAN REASONS -->
+                    <div class="row mt-3">
                         @foreach($loanReasons as $key => $item)
-                        <div class="col-md-4" style="margin-top: 30px;">
+                        <div class="col-md-4 mb-2">
                             <div class="form-check form-switch">
                                 <input wire:click="pushReason({{ $item->id }})" wire:model="reasonValue.{{ $item->id }}"
                                     class="form-check-input reasonCheck" type="checkbox" id="{{ $item->id }}" />
@@ -234,7 +242,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                         </div>
                         @endforeach
                     </div>
-                    <div class="col-md-12 text-end">
+                    <!-- /LOAN REASONS -->
+
+                    <div class="row text-end">
                         <div>
                             <br>
                             <br>
@@ -252,8 +262,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                     <div class="row">
                         <div class="col-md-8">
                             @foreach($NFL as $item)
-                            <div class="row">
-                                <div class="col-md-8" style="margin-top: 30px;">
+                            <div class="row mt-3">
+                                <div class="col-md-8">
                                     <b>
                                         @if($item == 1)
                                         Bank
@@ -266,7 +276,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         @endif
                                     </b>
                                 </div>
-                                <div class="col-md-4" style="margin-top: 30px;">
+                                <div class="col-md-4">
                                     <div class="form-check">
                                         <input wire:model="checkSelect.{{ $item }}" wire:change="Selectall({{ $item }})"
                                             class="form-check-input" type="checkbox" value="" id="{{ $item }}">
@@ -276,10 +286,12 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <!-- FINANCE PARTNERS -->
+                            <div class="row mt-3">
                                 @foreach($financePartners as $financePartner)
                                 @if($financePartner->type == 1 && $item == 1)
-                                <div class="col-md-4" style="margin-top:30px;">
+                                <div class="col-md-3">
                                     <div class="form-check">
                                         <input wire:model="lender.{{ $financePartner->id }}" class="form-check-input"
                                             type="checkbox" value="" id="{{ $financePartner->id }}">
@@ -291,7 +303,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     </div>
                                 </div>
                                 @elseif($financePartner->type == 2 && $item == 2)
-                                <div class="col-md-4" style="margin-top:30px;">
+                                <div class="col-md-3">
                                     <div class="form-check">
                                         <input wire:model="lender.{{ $financePartner->id }}" class="form-check-input"
                                             type="checkbox" value="" id="{{ $financePartner->id }}">
@@ -303,7 +315,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     </div>
                                 </div>
                                 @elseif($financePartner->type == 3 && $item == 3)
-                                <div class="col-md-4" style="margin-top:30px;">
+                                <div class="col-md-3">
                                     <div class="form-check">
                                         <input wire:model="lender.{{ $financePartner->id }}" class="form-check-input"
                                             type="checkbox" value="" id="{{ $financePartner->id }}">
@@ -315,7 +327,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     </div>
                                 </div>
                                 @elseif($financePartner->type == 4 && $item == 4)
-                                <div class="col-md-4" style="margin-top:30px;">
+                                <div class="col-md-3">
                                     <div class="form-check">
                                         <input wire:model="lender.{{ $financePartner->id }}" class="form-check-input"
                                             type="checkbox" value="" id="{{ $financePartner->id }}">
@@ -329,8 +341,10 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 @endif
                                 @endforeach
                             </div>
+                            <!-- /FINANCE PARTNERS -->
                             @endforeach
                         </div>
+
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-12">
@@ -373,6 +387,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
 
                             </div>
                         </div>
+                        </div>
+
+                        <div class="row">
                         <div class="col-md-12">
                             <br>
                             <button wire:loading.attr='disabled' class="btn" type="button" wire:target='storeLender'
@@ -384,7 +401,6 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 Submit
                             </button>
                         </div>
-
                     </div>
 
 
@@ -401,6 +417,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             @endif
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-12">
                             <br>
@@ -415,10 +432,13 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
 
                         </div>
                     </div>
+
                     @elseif($tab == 4)
 
                     <div class="row">
-                        <div class="col-md-12" style="margin-top: 40px;">
+                        <!-- OVERDRAFT UNSECURED COMPANY DETAILS-->
+                        <div class="row mt-3">
+                        <div class="col-md-12">
                             <div class="form-check form-switch">
                                 <input wire:model="listed_company_check" class="form-check-input" type="checkbox"
                                     id="flexSwitchCheckDefault">
@@ -426,109 +446,125 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     company</label>
                             </div>
                         </div>
+                    </div>
+                   
+                    <div class="row mt-3">
                         @if(!$listed_company_check)
-                        <div class="col-md-5" style="margin-top:20px;margin-bottom:20px;">
-                            <label for="company_year">When was the company incorporated?
-                            </label>
-                            <div class="input-group">
-                                {{-- <label for="">Year</label> --}}
-                                <select wire:model="company_years" class="form-select"
-                                    aria-label="Default select example" wire:change="getnoofYear()">
-                                    <option value="" hidden>Select</option>
-                                    @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
-                                        @endfor
-                                </select>
-                                &nbsp;&nbsp;<p style="padding-top:10px;">Year</p>
-
-                            </div>
-                            @error('company_years')
-                            <div style="color: red;">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-3" style="margin-top:20px;margin-bottom:20px;">
-                            <div class="input-group" style="margin-top:20px;">
-                                
-                                <select wire:model="company_months" class="form-select"
-                                    aria-label="Default select example" wire:change="getnoofYear()">
-                                    <option value="" hidden>Select</option>
-                                    @for ($x = 0; $x <= 10; $x++) <option value="{{ $x }}">{{  $mnth[$x] }}</option>
-                                        @endfor
-                                </select>
-                                &nbsp;&nbsp;<p style="padding-top:10px;">Month</p>
-                                @error('company_months')
-                                <div style="color: red;">
-                                    {{ $message }}
+                        <div class="col-md-5">
+                            <p> When was the company incorporated?</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group mb-2">
+                                        {{-- <label for="">Year</label> --}}
+                                        <select wire:model="company_years" class="form-select"
+                                            aria-label="Default select example" wire:change="getnoofYear()">
+                                            <option value="" hidden>Select</option>
+                                            @for ($x = 0; $x <= 10; $x++) <option value="{{ $x }}">{{  $mnth[$x] }}</option>
+                                            @endfor
+                                        </select>
+                                        <label class="input-group-text">Year</label>
+                                    </div>
+                                    @error('company_years')
+                                    <div style="color: red;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4"></div>
-
-                        <div class="col-md-12" style=""><b>OR</b></div>
-                        <div class="col-md-5" style="margin-top: 30px;">
-                            <label for="company_year" class="form-label">How long has the company been in
-                                business?</label>
-                            <div class="input-group">
-                                <input wire:keyup="resetComapny" placeholder="Number of years" wire:model="company_year"
-                                    type="number" class="form-control" aria-label="Text input with dropdown button">
-                                &nbsp;&nbsp;<p style="padding-top:10px;">Years</p>
-                            </div>
-                            @error('company_year')
-                            <div style="color: red;">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="col-md-3" style="margin-top: 30px;">
-                            <div class="input-group" style="margin-top:29px;">
-                                <input wire:keyup="resetComapny" placeholder="Number of month"
-                                    wire:model="company_month" type="number" class="form-control"
-                                    aria-label="Text input with dropdown button">
-                                &nbsp;&nbsp;<p style="padding-top:10px;">Months</p>
-                            </div>
-                            @error('company_month')
-                            <div style="color: red;">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <label for="percentage_shareholder" class="form-label">% of local shareholding
-                            </label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-
-                                </div>
-                                <input wire:model="percentage_shareholder" type="number" class="form-control"
-                                    id="percentage_shareholder">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-2">
+                                        <select wire:model="company_months" class="form-select"
+                                            aria-label="Default select example" wire:change="getnoofYear()">
+                                            <option value="" hidden>Select</option>
+                                            @for ($x = 01; $x <= 11; $x++) <option value="{{ $x }}">{{ $x }}</option>
+                                                @endfor
+                                        </select>
+                                        <label class="input-group-text">Month</label>
+                                        <!-- &nbsp;&nbsp;<p class="pt-2">Month</p> -->
+                                        @error('company_months')
+                                        <div style="color: red;">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end justify-content-center">
+                            <p class="fw-bold">or</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>How long has the company been in
+                                business?</p>
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="input-group mb-2">
+                                        <input wire:keyup="resetComapny" placeholder="No of years"
+                                            wire:model="company_year" type="number" class="form-control"
+                                            aria-label="Text input with dropdown button">
+                                        <label class="input-group-text">Years</label>
+                                    </div>
+                                    @error('company_year')
+                                    <div style="color: red;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group mb-2">
+                                        <input wire:keyup="resetComapny" placeholder="No of months"
+                                            wire:model="company_month" type="number" class="form-control"
+                                            aria-label="Text input with dropdown button">
+                                        <label class="input-group-text">Months</label>
+                                    </div>
+                                    @error('company_month')
+                                    <div style="color: red;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="percentage_shareholder" class="form-label">% of local shareholding
+                        </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
 
-                            @error('percentage_shareholder')
-                            <div style="color: red;">
-                                {{ $message }}
                             </div>
-                            @enderror
-                        </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <label for="number_of_share_holder" class="form-label">Number of shareholder including
-                                parent
-                                company if any
-                            </label>
-                            <input max="10" wire:model="number_of_share_holder" type="number" class="form-control"
-                                id="number_of_share_holder">
-                            @error('number_of_share_holder')
-                            <div style="color: red;">
-                                {{ $message }}
+                            <input wire:model="percentage_shareholder" type="number" class="form-control"
+                                id="percentage_shareholder">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
                             </div>
-                            @enderror
                         </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
+
+                        @error('percentage_shareholder')
+                        <div style="color: red;">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="number_of_share_holder" class="form-label">Number of shareholder including
+                            parent
+                            company if any
+                        </label>
+                        <input max="10" wire:model="number_of_share_holder" type="number" class="form-control"
+                            id="number_of_share_holder">
+                        @error('number_of_share_holder')
+                        <div style="color: red;">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
                             <label class="form-label">Company structure type</label>
                             <select wire:model="company_structure_type_id" class="form-select"
                                 aria-label="Default select example">
@@ -543,7 +579,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             </div>
                             @enderror
                         </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
+
+                        <div class="col-md-6">
                             <label class="form-label" for="">Sector</label>
                             <select wire:model="sector_id" class="form-select" aria-label="Default select example">
                                 <option value="" hidden>Select</option>
@@ -557,34 +594,38 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             </div>
                             @enderror
                         </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <label for="number_of_employees" class="form-label">Number of full-time employee
-                            </label>
-                            <input wire:model="number_of_employees" type="number" class="form-control"
-                                id="number_of_employees">
-                            @error('number_of_employees')
-                            <div style="color: red;">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                    </div>
+
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="number_of_employees" class="form-label">Number of full-time employee
+                        </label>
+                        <input wire:model="number_of_employees" type="number" class="form-control"
+                            id="number_of_employees">
+                        @error('number_of_employees')
+                        <div style="color: red;">
+                            {{ $message }}
                         </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="revenue" class="form-label">Revenue (rounded up is fine)</label>
+                        <div class="input-group">
+                            <input placeholder="$" wire:model="revenue" type="number" class="form-control"
+                                aria-label="Text input with dropdown button">
 
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <label for="revenue" class="form-label">Revenue (rounded up is fine)</label>
-                            <div class="input-group">
-                                <input placeholder="$" wire:model="revenue" type="number" class="form-control"
-                                    aria-label="Text input with dropdown button">
-
-                            </div>
-                            @error('revenue')
-                            <div style="color: red;">
-                                {{ $message }}
-                            </div>
-                            @enderror
                         </div>
+                        @error('revenue')
+                        <div style="color: red;">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                  </div>
 
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <label for="company_name" class="form-label">COMPANY NAME</label>
+                     <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="company_name" class="form-label">Company name</label>
                             <input wire:model="company_name" type="text" class="form-control" id="company_name">
                             @error('company_name')
                             <div style="color: red;">
@@ -592,7 +633,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             </div>
                             @enderror
                         </div>
-                        <div class="col-md-6" style="margin-top: 30px;">
+                        <div class="col-md-6">
                             <label for="website" class="form-label">Company website (if available)</label>
                             <input wire:model="website" type="text" class="form-control" id="website">
                             @error('website')
@@ -601,7 +642,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             </div>
                             @enderror
                         </div>
-
+                     </div>
+                     <!-- /OVERDRAFT UNSECURED COMPANY DETAILS-->
 
                         @else
                         <div class="col-md-12" style="margin-top: 30px;">
@@ -660,10 +702,12 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 </div>
                             </div>
                         </div>
+
                         @endif
                     </div>
-                    <div class="row">
-                        <div class="col-12">
+
+                    <!-- SAVE & CONTINUE BUTTON -->
+                    <div class="ro">
                             <br>
                             <button class="btn" type="button" wire:target='confirmationMessage'
                                 wire:click.prevent='confirmationMessage'>
@@ -673,64 +717,71 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 </div>
                                 Save & Continue
                             </button>
-
-                        </div>
                     </div>
+                    <!-- /SAVE & CONTINUE BUTTON -->
+
+                    <!-- COMPANY DOCUMENTS__TOPCONTENT -->
                     @elseif($tab == 5)
                     @if(!$listed_company_check)
                     <div class="row">
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>6 months latest bank statement</b>
-                            <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You Would Need To
-                                Submit
-                                from Dec And Not Nov As The Latest Months. For companies less than 6 months old or
-                                unprofitable do check out our FAQ here.</p>
+                        <div class="row">
+                                <b>6 months latest bank statement</b>
+                                <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You Would Need To
+                                    Submit
+                                    from Dec And Not Nov As The Latest Months. For companies less than 6 months old or
+                                    unprofitable do check out our FAQ here.</p>
                         </div>
+                        <!-- /COMPANY DOCUMENTS__TOPCONTENT -->
+                     
+                        <!-- COMPANY DOCUMENTS__FILE FEILD -->
+                         <div class="row mt-3">
+                            @for ($x = 1; $x < 8; $x++) <div class="col-md-6 col-lg-4 mb-3">
+                                @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
+                        
+                                <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName" :getImages="$images"
+                                    :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                                    :modell="'App\Models\LoanStatement'" />
+                                    </div>
+                                    @endfor
+                                    </div>
+                        <!-- /COMPANY DOCUMENTS__FILE FEILD -->
 
-                        @for ($x = 1; $x < 8; $x++) <div class="col-md-3" style="margin-top: 30px;">
-                            @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
+       <!-- COMPANY DOCUMENTS__Consolidated Statement -->
+       <div class="row">
+           <p><b>OR</b></p>
+           <p><b>Consolidated Statement.</b></p>
+           <p>If Your Statement Is Not Spilt Between Months But One</p>
+        </div>
 
-                            <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName"
-                                :getImages="$images" :apply_loan="$apply_loan" :main_type="$main_type"
-                                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanStatement'" />
+        <div class="row">
+           <div class="col-md-4">
+               <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+                   :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                   :modell="'App\Models\LoanCompanyDetail'"
+                   :keyvalue="'parent_company_combine_statement'" />
+           </div>
+       </div>
+       <!-- /COMPANY DOCUMENTS__Consolidated Statement -->
+                    <hr class="mt-3">
 
-                    </div>
-                    @endfor
-
-                    <b><br>OR</b>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top: 30px;">
-
-                            <b>Consolidated Statement.</b>
-                            <p>If Your Statement Is Not Spilt Between Months But One</p>
-                        </div>
-                        <div class="col-md-4 text-left">
-                            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_combine_statement'" />
-
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial Statement</b>
+                    <!-- COMPANY DOCUMENTS__LATEST YEAR -->
+                        <div class="row">
+                           <p> <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
                             <p>
                                 (Income Statement also known as Profit & Loss
                                 + Statement of financial position also known as Balance Sheet)
                             </p>
                         </div>
-                        <div class="col-md-4 text-left" style="margin-top: 30px;">
+
+                        <div class="row mt-2">
+                        <div class="col-md-4">
                             <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                                 :modell="'App\Models\LoanCompanyDetail'"
                                 :keyvalue="'parent_company_latest_year_statement'" />
-
                         </div>
                         @if($getNumberOfCompanyYears >= 3)
-                        <div class="col-md-3 text-left" style="margin-top: 30px;">
+                        <div class="col-md-4">
                             <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
                                 :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                                 :modell="'App\Models\LoanCompanyDetail'"
@@ -739,79 +790,94 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                         </div>
                         @endif
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>Profitable for the last 2 accounting years</b>
-                        </div>
-                        <div class="col-md-4" style="margin-top: 30px;">
-                            <div class="form-group">
-                                <select wire:model="profitable_latest_year" class="form-select"
-                                    aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('profitable_latest_year')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="margin-top: 30px;">
-                            <div class="form-group">
-                                <select wire:model="profitable_before_year" class="form-select"
-                                    aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('profitable_before_year')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
+                    <!-- /COMPANY DOCUMENTS__LATEST YEAR -->
+                    <hr class="mt-3">
 
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b style="color: grey;">Optional info</b>
-                        </div>
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>Current Year.</b>
-                            <p>If you are <b>more than 3-6 months into your current accounting year,</b> and if your
-                                management account(drafts/unaudited) pulls up the average, providing them may be helpful
-                            </p>
-                        </div>
-                        <div class="col-md-3 text-left">
-                            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_current_year_statement'" />
+                     <!-- COMPANY DOCUMENTS__PROFITABLE -->
+                     <div class="row mt-2">
+                        <div class="col-md-4">
+                            <p> <b>Profitable for the last 2 accounting years</b></p>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Before Years</label>
+                                 <select wire:model="profitable_latest_year" class="form-select"
+                                     aria-label="Default select example">
+                                     <option value="" hidden>Select</option>
+                                     <option value="1">Yes</option>
+                                     <option value="0">No</option>
+                                 </select>
+                                 @error('profitable_latest_year')
+                                 <div style="color: red;">
+                                     {{ $message }}
+                                 </div>
+                                 @enderror
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                <label>After Years</label>
+                                 <select wire:model="profitable_before_year" class="form-select"
+                                     aria-label="Default select example">
+                                     <option value="" hidden>Select</option>
+                                     <option value="1">Yes</option>
+                                     <option value="0">No</option>
+                                 </select>
+                                 @error('profitable_before_year')
+                                 <div style="color: red;">
+                                     {{ $message }}
+                                 </div>
+                                 @enderror
+                             </div>
+                         </div>
+                     </div>
+                     <!-- /COMPANY DOCUMENTS__PROFITABLE -->
+                    <hr class="mt-3">
 
-                        </div>
+                      <!-- COMPANY DOCUMENTS__OPTIONOL INFO -->
+                      <div class="row">
+                        <P class="text-muted"><b>Optional info</b></P>
                     </div>
+
                     <div class="row">
-                        <div class="col-md-12" style="margin-top: 30px;">
-                            <b>Revenue (rounded up is fine)</b>
-                        </div>
-                        <div class="col-md-3" style="margin-top: 30px;">
-                            <div class="form-group">
-                                <input type="number" class="form-control" wire:model="optional_revenuee">
-                                @error('optional_revenuee')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                        <p><b>Current Year</b></p>
+                        <p>If you are <b>more than 3-6 months into your current accounting year,</b> and if your
+                            management account(drafts/unaudited) pulls up the average, providing them may be helpful
+                        </p>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-4">
+                        <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+                            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                            :modell="'App\Models\LoanCompanyDetail'"
+                            :keyvalue="'parent_company_current_year_statement'" />
+                    </div>
+                </div>
+                      <!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
+
+                      <!-- COMPANY DOCUMENTS__REVENUE -->
+                      <div class="row mt-3">
+                        <b>Revenue (rounded up is fine)</b>
+                    </div>
+
+                    <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="number" class="form-control" wire:model="optional_revenuee">
+                            @error('optional_revenuee')
+                            <div style="color: red;">
+                                {{ $message }}
                             </div>
+                            @enderror
                         </div>
                     </div>
-                    <hr>
-                    <div class="col-12">
+                </div>
+                      <!-- /COMPANY DOCUMENTS__REVENUE -->
+                    <hr class="mt-3">
+
+
+                    <div class="ro">
                         <br>
                         <button class="btn" type="button" wire:target='saveCompanyDocuments'
                             wire:click.prevent='saveCompanyDocuments'>
@@ -826,9 +892,10 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                 @elseif($tab == 7)
                 @php $srno = 1; @endphp
                 @php $no = 1; @endphp
+                <!-- SHAREHOLDER__SELECT -->
                 <div class="row">
                     @foreach($get_share_holder_type as $key => $item)
-                    <div class="col-md-6" style="margin-top: 40px;">
+                    <div class="col-md-3 mb-3">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Shareholder 
                                 @if($key++ == 0)
@@ -839,9 +906,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-check" style="margin-top: 40px;">
-                            <select wire:model="checkShareHolder.{{ $item['id'] }}"
+                    <div class="col-md-9 mb-3">
+                        <div class="form-check">
+                            <select class="form-control" wire:model="checkShareHolder.{{ $item['id'] }}"
                                 wire:change="getShareholderTypeId({{ $item['id'] }})">
                                 <option value="0">Person</option>
                                 <option value="1">Company</option>
@@ -850,14 +917,16 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                     </div>
                     @endforeach
                 </div>
+                <!-- /SHAREHOLDER__SELECT -->
+
                 <div id="accordion" style="margin-top: 30px;">
                     @foreach($get_share_holder_type as $key => $item)
                     @if($item['share_holder_type'] == 1)
                     <div class="card">
                         @php $shreholder = $item['id'] @endphp
-                        <div class="card-header" id="{{ $shreholder }}" style="padding:10px;">
+                        <div class="card-header" id="{{ $shreholder }}">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse"
+                                <button class="btn" data-toggle="collapse"
                                     data-target="#collapseOne{{ $shreholder }}" aria-expanded="true"
                                     aria-controls="collapseOne{{ $shreholder }}">
                                     Shareholder Person 
@@ -873,11 +942,13 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                             class="collapse {{  $key == 0 ? 'show' : '' }}" aria-labelledby="{{ $shreholder }}"
                             data-parent="#accordion">
                             <div class="card-body">
+
+                                 <!-- SHAREHOLDER__SELECT PERSON -->
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <b>NRIC</b> or <b>Passport/Identity Card</b> ( Foreigner)
-                                    </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                                   <p class="mb-1"> <b>NRIC</b> or <b>Passport/Identity Card</b> ( Foreigner)</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -888,7 +959,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 <label for="">NRIC Front</label>
                                                 <input wire:model="nric_front.{{ $shreholder }}"
                                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
+                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
                                                 </label>
                                             </div>
                                             @error("nric_front.$shreholder")
@@ -902,7 +973,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                                    <div class="col-md-4">
                                         <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -913,7 +984,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 <label for="">NRIC Back</label>
                                                 <input wire:model="nric_back.{{ $shreholder }}"
                                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
+                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
                                                 </label>
                                             </div>
                                             @error("nric_back.$shreholder")
@@ -927,7 +998,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                                    <div class="col-md-4">
                                         <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -938,7 +1009,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 <label for="">Passport</label>
                                                 <input wire:model="passport.{{ $shreholder }}"
                                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
+                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
                                                 </label>
                                             </div>
                                             @error("passport.$shreholder")
@@ -953,12 +1024,12 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mt-4">
+                                   <p class="mb-1"> <b>Personal NOA</b></p>
+                                    <p class="mb-1">(Notice of Assessment) 2 Years</p>
+                                </div>
                                 <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>Personal NOA</b>
-                                        <p>(Notice of Assessment) 2 Years</p>
-                                    </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                                    <div class="col-md-4">
                                         <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -969,7 +1040,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 <label for="">Latest</label>
                                                 <input wire:model="nao_latest.{{ $shreholder }}"
                                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
+                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
                                                 </label>
                                             </div>
                                             @error("nao_latest.$shreholder")
@@ -983,7 +1054,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+                                    <div class="col-md-4">
                                         <div x-data="{ isUploading: false, progress: 0 }"
                                             x-on:livewire-upload-start="isUploading = true"
                                             x-on:livewire-upload-finish="isUploading = false"
@@ -994,7 +1065,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 <label for="">Older</label>
                                                 <input wire:model="nao_older.{{ $shreholder }}"
                                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" id="vehicleimage" name="" id="">
+                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
                                                 </label>
                                             </div>
                                             @error("nao_older.$shreholder")
@@ -1009,11 +1080,12 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 30px;">
-                                        <b>I don't have income proof because i am</b>
-                                    </div>
-                                    <div class="col-md-4" style="margin-top:30px;">
+
+                                <div class="row mt-4">
+                                    <p> <b>I don't have income proof because i am</b></p>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-4">
                                         <select class="form-control" name="" id=""
                                             wire:model.defer="not_proof.{{ $shreholder }}">
                                             <option value="" hidden>Select</option>
@@ -1030,8 +1102,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
+                                <div class="ro">
                                         <br>
                                         <button class="btn" type="button" wire:target='share_holder_document_store'
                                             wire:click.prevent='share_holder_document_store({{ $item['id'] }})'>
@@ -1040,17 +1111,17 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                                 aria-hidden="true"></span>
                                             Save & Continue
                                         </button>
-                                    </div>
                                 </div>
+                                 <!-- /SHAREHOLDER__SELECT PERSON -->
                             </div>
                         </div>
                     </div>
                     @else
                     <div class="card">
                         @php $shreholder = $item['id'] @endphp
-                        <div class="card-header" id="{{ $shreholder }}" style="padding:10px;">
+                        <div class="card-header" id="{{ $shreholder }}">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse"
+                                <button class="btn" data-toggle="collapse"
                                     data-target="#collapseOne{{ $shreholder }}" aria-expanded="true"
                                     aria-controls="collapseOne{{ $shreholder }}">
                                     Shareholder Company {{ $key++ }}
@@ -1060,9 +1131,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                         <div wire:ignore.self id="collapseOne{{ $shreholder }}" class="collapse"
                             aria-labelledby="{{ $shreholder }}" data-parent="#accordion">
                             <div class="card-body">
+                                <!-- SHAREHOLDER__SELECT COMPANY -->
                                 <ul class="nav nav-pills">
-
-
                                     <li class="nav-item">
                                         <a wire:click="$set('subtab', '1')" style="padding: .1rem 1rem;"
                                             class="nav-link {{ $subtab == '1' ? 'active' : '' }}" href="#">SHAREHOLDER
@@ -1078,9 +1148,6 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                             DOCUMENTS</a>
                                     </li>
                                     @endif
-
-
-
                                 </ul>
                                 @if($subtab == 1)
                                 <div class="row">
@@ -1098,93 +1165,98 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                     </div>
                                 </div>
                                 @if(!$chklsit[$shreholder])
-                                <div class="row" style="margin-top:30px;">
 
-
-
-                                    <div class="col-md-5" style="margin-top: 30px;">
-                                        <label for="share_holder_company_year.{{ $shreholder }}" class="form-label">How
-                                            long has the
-                                            company
-                                            been in
-                                            business?</label>
-                                        <div class="input-group">
-                                            <input wire:click="shareHolderResetComapny({{ $shreholder }})"
-                                                placeholder="Number of years"
-                                                wire:model="share_holder_company_year.{{ $shreholder }}" type="number"
-                                                class="form-control" aria-label="Text input with dropdown button">
-                                            &nbsp;&nbsp;<p style="padding-top:10px;">Years</p>
-                                        </div>
-                                        @error("share_holder_company_year.$shreholder")
-                                        <div style="color: red;">
-                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-3" style="margin-top: 30px;">
-                                        <div class="input-group" style="margin-top:29px;">
-                                            <input wire:click="shareHolderResetComapny({{ $shreholder }})"
-                                                placeholder="Number of month"
-                                                wire:model="share_holder_company_month.{{ $shreholder }}" type="number"
-                                                class="form-control" aria-label="Text input with dropdown button">
-                                            &nbsp;&nbsp;<p style="padding-top:10px;">Months</p>
-                                        </div>
-                                        @error("share_holder_company_month.$shreholder")
-                                        <div style="color: red;">
-                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-12" style="margin-top:20px;margin-bottom:20px;"><b>OR</b></div>
+                                <div class="row">
+<!-- SHAREHOLDER__COMPANY DETAIL -->
+                                    <div class="row mt-3">
                                     <div class="col-md-5">
-                                        <label for="share_holder_company_years.{{ $shreholder }}">When was the company
-                                            incorporated?
-                                        </label>
-                                        <div class="input-group">
-                                            {{-- <label for="">Year</label> --}}
-                                            <select
-                                                {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
-                                                wire:model="share_holder_company_years.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">
-                                                    {{ $x }}</option>
-                                                    @endfor
-                                            </select>
-                                            &nbsp;&nbsp;<p style="padding-top:10px;">Years</p>
-
-                                        </div>
-                                        @error("share_holder_company_years.$shreholder")
-                                        <div style="color: red;">
-                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="input-group" style="margin-top:20px;">
-                                            <select
-                                                {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
-                                                wire:model="share_holder_company_months.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                @for ($x = 01; $x <= 12; $x++) <option value="1">{{ $x }}</option>
-                                                    @endfor
-                                            </select>
-                                            &nbsp;&nbsp;<p style="padding-top:10px;">Months</p>
-                                            @error("share_holder_company_months.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
+                                            <div class="row">
+                                                <p>When was the company incorporated?</p>
+                                                <div class="col-md-6">
+                                                     <div class="input-group">
+                                                         {{-- <label for="">Year</label> --}}
+                                                         <select
+                                                             {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
+                                                             wire:model="share_holder_company_years.{{ $shreholder }}"
+                                                             class="form-select" aria-label="Default select example">
+                                                             <option value="" hidden>Select</option>
+                                                             @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">
+                                                                 {{ $x }}</option>
+                                                                 @endfor
+                                                         </select>
+                                                         <label class="input-group-text">Year</label>
+                                                     </div>
+                                                     @error("share_holder_company_years.$shreholder")
+                                                     <div style="color: red;">
+                                                         @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                         {{ $message }}
+                                                     </div>
+                                                     @enderror
+                                                 </div>
+                                                <div class="col-md-6">
+                                                 <div class="input-group">
+                                                     <select
+                                                         {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
+                                                         wire:model="share_holder_company_months.{{ $shreholder }}"
+                                                         class="form-select" aria-label="Default select example">
+                                                         <option value="" hidden>Select</option>
+                                                         @for ($x = 01; $x <= 12; $x++) <option value="1">{{ $x }}</option>
+                                                             @endfor
+                                                     </select>
+                                                     <label class="input-group-text">Month</label>
+                                                     @error("share_holder_company_months.$shreholder")
+                                                     <div style="color: red;">
+                                                         @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                         {{ $message }}
+                                                     </div>
+                                                     @enderror
+                                                 </div>
+                                                </div>
                                             </div>
-                                            @enderror
                                         </div>
+                                
+                                    <div class="col-md-1 d-flex align-items-end justify-content-center">
+                                        <p class="fw-bold">or</p>
                                     </div>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <p>How long has the company been in business?</p>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input wire:click="shareHolderResetComapny({{ $shreholder }})"
+                                                        placeholder="Number of years"
+                                                        wire:model="share_holder_company_year.{{ $shreholder }}" type="number"
+                                                        class="form-control" aria-label="Text input with dropdown button">
+                                                        <label class="input-group-text">Years</label>
+                                                </div>
+                                                @error("share_holder_company_year.$shreholder")
+                                                <div style="color: red;">
+                                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input wire:click="shareHolderResetComapny({{ $shreholder }})"
+                                                        placeholder="Number of month"
+                                                        wire:model="share_holder_company_month.{{ $shreholder }}" type="number"
+                                                        class="form-control" aria-label="Text input with dropdown button">
+                                                    <label class="input-group-text">Months</label>
+                                                </div>
+                                                @error("share_holder_company_month.$shreholder")
+                                                <div style="color: red;">
+                                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            </div>
+                                </div>
+                            </div>
+                            
+                                 <div class="row mt-3">
+                                    <div class="col-md-6">
                                         <label for="share_holder_percentage_shareholder.{{ $shreholder }}"
                                             class="form-label">% of
                                             local
@@ -1200,7 +1272,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                    <div class="col-md-6">
                                         <label for="share_holder_number_of_share_holder" class="form-label">Number of
                                             shareholder including
                                             parent
@@ -1216,7 +1288,10 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                 </div>
+
+                                 <div class="row mt-3">
+                                    <div class="col-md-6">
                                         <label class="form-label">Company structure type</label>
                                         <select wire:model="share_holder_company_structure_type_id.{{ $shreholder }}"
                                             class="form-select" aria-label="Default select example">
@@ -1232,7 +1307,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                    <div class="col-md-6"">
                                         <label class="form-label" for="">Sector</label>
                                         <select wire:model="share_holder_sector_id.{{ $shreholder }}"
                                             class="form-select" aria-label="Default select example">
@@ -1248,7 +1323,10 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                 </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
                                         <label for="share_holder_number_of_employees" class="form-label">Number of
                                             full-time
                                             employee
@@ -1263,7 +1341,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                    <div class="col-md-6">
                                         <label for="share_holder_revenue.{{ $shreholder }}" class="form-label">Revenue
                                             (rounded up is fine)</label>
                                         <div class="input-group">
@@ -1278,8 +1356,11 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
-                                        <label for="share_holder_company_name" class="form-label">COMPANY NAME</label>
+                                </div>
+                                 
+                                 <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label for="share_holder_company_name" class="form-label">Company name</label>
                                         <input wire:model="share_holder_company_name.{{ $shreholder }}" type="text"
                                             class="form-control" id="share_holder_company_name.{{ $shreholder }}">
                                         @error("share_holder_company_name.$shreholder")
@@ -1289,7 +1370,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6" style="margin-top: 30px;">
+                                    <div class="col-md-6">
                                         <label for="share_holder_website.{{ $shreholder }}" class="form-label">Company
                                             website (if available)</label>
                                         <input wire:model="share_holder_website.{{ $shreholder }}" type="text"
@@ -1301,7 +1382,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                         </div>
                                         @enderror
                                     </div>
-
+                                 </div>
+   <!-- /SHAREHOLDER__COMPANY DETAIL -->   
                                 </div>
 
                                 @else
@@ -1351,7 +1433,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 </div>
 
                                 @endif
-                                <div class="row" class="row">
+                                <div class="row">
                                     <div class="col-12">
                                         <br>
                                         <button class="btn" type="button" wire:target='share_holder_document_store'
@@ -1365,8 +1447,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                 </div>
                                 @elseif($subtab == 2)
 
-                                <div class="row">
-                                    <div class="col-md-12" style="margin-top: 60px;">
+                                
+
+                                    <div class="row mt-4">
                                         <b>6 months latest bank statement</b>
                                         <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You
                                             Would
@@ -1377,96 +1460,49 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
                                             or
                                             unprofitable do check out our FAQ here.</p>
                                     </div>
-                                    @for ($x = 1; $x <= 7; $x++) <div class="col-md-3" style="margin-top: 30px;">
-                                        @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
 
-                                        <livewire:widget.upload-component :label="$montName" :keyvalue="$montName"
-                                            :key="$montName" :getImages="$images" :apply_loan="$apply_loan"
-                                            :main_type="$main_type" :loan_type_id="$loan_type_id"
-                                            :share_holder="$shreholder" :modell="'App\Models\LoanStatement'" />
-                                        {{-- <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <label class="control-label mb-10">
-                                                    @php echo date("M", strtotime( date( 'Y-m-01' )." -$x months"))
-                                                    @endphp
-                                                    @if(1 == $x) (Optional) @endif
-                                                </label>
-                                                <br>
-                                                <label wire:ignore class="label" data-toggle="tooltip"
-                                                    title="Select Image">
-                                                    <input
-                                                        wire:model="share_holder_photo.{{ $shreholder }}.{{ date("M", strtotime( date( 'Y-m-01' )." -$x months")) }}"
-                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                        type="file" id="vehicleimage" name="" id="">
-                                        </label>
-                                </div>
-                                @foreach($share_errorArray as $error)
-                                @if($error == date("M", strtotime( date( 'Y-m-01' )." -$x months")))
-                                <div class="text-danger">
-                                    {{ $error. ' month required' }}
-                                </div>
-                                @endif
-                                @endforeach
-                                <!-- Progress Bar -->
-                                <div x-show="isUploading">
-                                    <progress max="100" x-bind:value="progress"></progress>
-                                </div>
-                            </div> --}}
-                        </div>
-                        @endfor
-                        <b><br>OR</b>
-                        <div class="row">
-                            <div class="col-md-12" style="margin-top: 30px;">
+                             <!-- SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
+                             <div class="row mt-3">
+                                @for ($x = 1; $x < 8; $x++) <div class="col-md-6 col-lg-4 mb-3">
+                                    @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
+                            
+                                    <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName" :getImages="$images"
+                                        :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                                        :modell="'App\Models\LoanStatement'" />
+                                        </div>
+                                        @endfor
+                                        </div>
+                            <!-- /SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
+                       
+                
+       <!-- SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
+       <div class="row mt-1">
+        <p><b>OR</b></p>
+        <p><b>Consolidated Statement.</b></p>
+        <p>If Your Statement Is Not Spilt Between Months But One</p>
+     </div>
 
-                                <b>Consolidated Statement.</b>
-                                <p>If Your Statement Is Not Spilt Between Months But One</p>
-                            </div>
-                            <div class="col-md-4 text-left">
-                                <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                    :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                    :modell="'App\Models\LoanCompanyDetail'"
-                                    :keyvalue="'share_company_combine_statement'" />
-                                {{-- <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <label class="control-label mb-10">
-                                                </label>
-                                                <br>
-                                                <label wire:ignore class="label" data-toggle="tooltip"
-                                                    title="Select Image">
-                                                    <input wire:model="share_holder_statement.{{ $shreholder }}"
-                                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                type="file" id="vehicleimage" name="" id="">
-                                </label>
-                            </div>
-                            @error("share_holder_statement.$shreholder")
-                            <div style="color:red;">
-                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                {{ $message }}
-                            </div>
-                            @enderror
-                            <div x-show="isUploading">
-                                <progress max="100" x-bind:value="progress"></progress>
-                            </div>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="margin-top: 30px;">
-                        <b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b>
-                        <p>
-                            (Income Statement also known as Profit & Loss
-                            + Statement of financial position also known as Balance Sheet)
-                        </p>
-                    </div>
-                    <div class="col-md-3 text-left" style="margin-top: 30px;">
+     <div class="row">
+        <div class="col-md-4">
+            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'"
+                :keyvalue="'parent_company_combine_statement'" />
+        </div>
+    </div>
+    <!-- /SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
+    <hr class="mt-3">
+     <!-- SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
+     <div class="row mt-4">
+ <p><b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
+         <p>
+             (Income Statement also known as Profit & Loss
+             + Statement of financial position also known as Balance Sheet)
+         </p>
+     </div>
+               
+                    <div class="row mt-2">
+                    <div class="col-md-4">
                         <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
                             :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
                             :modell="'App\Models\LoanCompanyDetail'"
@@ -1498,7 +1534,7 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
             </div>
             @if(isset($share_holder_company_year[$shreholder]) &&
             $share_holder_company_year[$shreholder] >= 3)
-            <div class="col-md-3 text-left" style="margin-top: 30px;">
+            <div class="col-md-4">
                 <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
                     :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
                     :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'share_company_before_year_statement'" />
@@ -1529,14 +1565,17 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
 </div>
 @endif
 </div>
-<div class="row">
-    <div class="col-md-12" style="margin-top: 30px;">
-        <b>Profitable for the last 2 accounting years</b>
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
+<hr class="mt-3">
+
+<!-- SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
+<div class="row mt-4">
+    <div class="col-md-4">
+       <p> <b>Profitable for the last 2 accounting years</b></p>
     </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-
+    <div class="col-md-4">
         <div class="form-group">
-
+            <label for="">Before year</label>
             <select wire:model="share_holder_profitable_latest_year.{{ $shreholder }}" class="form-select"
                 aria-label="Default select example">
                 <option value="" hidden>Select</option>
@@ -1551,8 +1590,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
             @enderror
         </div>
     </div>
-    <div class="col-md-4" style="margin-top: 30px;">
+    <div class="col-md-4">
         <div class="form-group">
+            <label for="">Before year</label>
             <select wire:model="share_holder_profitable_before_year.{{ $shreholder }}" class="form-select"
                 aria-label="Default select example">
                 <option value="" hidden>Select</option>
@@ -1567,13 +1607,17 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
             @enderror
         </div>
     </div>
-    <div class="col-md-12" style="margin-top: 30px;">
-        <b style="color: grey;">Optional info</b>
-    </div>
 </div>
-<div class="row">
-    <div class="col-md-12" style="margin-top: 30px;">
-        <b>Current Year.</b>
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
+<hr class="mt-3">
+<!-- SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
+    <div class="row mt-4">
+        <p class="text-muted"><b>Optional info</b></p>
+    </div>
+
+
+    <div class="row">
+       <p> <b>Current Year</b></p>
         <p>If you are <b>more than 3-6 months into your current accounting year,</b> and
             if
             your
@@ -1582,7 +1626,8 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
             helpful
         </p>
     </div>
-    <div class="col-md-3 text-left">
+    <div class="row">
+    <div class="col-md-4">
         <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
             :loan_type_id="$loan_type_id" :share_holder="$shreholder" :modell="'App\Models\LoanCompanyDetail'"
             :keyvalue="'share_company_current_year_statement'" />
@@ -1611,11 +1656,15 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
 </div> --}}
 </div>
 </div>
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
+<hr class="mt-3">
+
+<!-- SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+<div class="row mt-4">
+   <p> <b>Revenue (rounded up is fine)</b></p>
+</div>
 <div class="row">
-    <div class="col-md-12" style="margin-top: 30px;">
-        <b>Revenue (rounded up is fine)</b>
-    </div>
-    <div class="col-md-3" style="margin-top: 30px;">
+    <div class="col-md-4">
         <div class="form-group">
             <input type="number" class="form-control" wire:model="share_holder_optional_revenuee">
             @error("share_holder_optional_revenuee.$shreholder")
@@ -1627,7 +1676,9 @@ $mnth =   ["January", "February", "March", "April", "May", "June", "July", "Augu
         </div>
     </div>
 </div>
-<div class="row">
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+
+<div class="row mt-4">
     <div class="col-md-12">
         <button class="btn" type="button" wire:target='share_holder_document_store'
             wire:click.prevent='company_share_holder_documents_store({{ $shreholder  }})'>
