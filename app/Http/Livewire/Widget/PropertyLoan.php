@@ -37,6 +37,8 @@ class PropertyLoan extends Component
     public $amount;
     public $apply_loan;
     public $gernalInfo;
+    public $property_land_advanced_property_type;
+    public $property_land_advanced_graphical_location;
     protected $listeners = [
         'getAddress'
     ];
@@ -63,6 +65,8 @@ class PropertyLoan extends Component
             $this->preferred_tenure_month = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_month')->first()->value ?? '';
             $this->preferred_tenure_year = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'preferred_tenure_year')->first()->value ?? '';
             $this->as_long_as_possiable = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'as_long_as_possiable')->first()->value ?? '';
+            $this->property_land_advanced_property_type = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_advanced_property_type')->first()->value ?? '';
+            $this->property_land_advanced_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_advanced_graphical_location')->first()->value ?? '';
             ///
             // $this->unit = $this->unit->value;
             // $this->amount = $this->amount->value;
@@ -94,22 +98,24 @@ class PropertyLoan extends Component
        
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'agreement' =>  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
-           'tmonth_statement' => $this->tmonth_statement ?  'mimes:jpg,jpeg,png,pdf' : '',
-           'statement' => $this->statement ?  'mimes:jpg,jpeg,png,pdf' : '',
+        //    'agreement' =>  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+        //    'tmonth_statement' => $this->tmonth_statement ?  'mimes:jpg,jpeg,png,pdf' : '',
+        //    'statement' => $this->statement ?  'mimes:jpg,jpeg,png,pdf' : '',
            'lot_number' => $this->address ?  '' : 'required',
            'address' => $this->lot_number ?  '' : 'required',
            'lease_remaining_year' => 'required|integer|min:1',
            'useable_area' => 'required|integer|min:1',
            'preferred_tenure_year' => 'required|integer|min:1',
            'preferred_tenure_month' => 'required|integer|min:1',
+           'property_land_advanced_property_type' => 'required',
+           'property_land_advanced_graphical_location' => 'required',
           
            
        ]);
        $data = [
-             ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
-             ['type' => 'file', 'value' => $this->tmonth_statement, 'key' => 'tmonth_statement'], 
-             ['type' => 'file', 'value' => $this->statement, 'key' => 'statement'], 
+            //  ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
+            //  ['type' => 'file', 'value' => $this->tmonth_statement, 'key' => 'tmonth_statement'], 
+            //  ['type' => 'file', 'value' => $this->statement, 'key' => 'statement'], 
              ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'], 
              ['type' => 'text', 'value' => $this->address, 'key' => 'address'], 
              ['type' => 'text', 'value' => $this->unit, 'key' => 'unit'], 
@@ -124,6 +130,8 @@ class PropertyLoan extends Component
              ['type' => 'number', 'value' => $this->preferred_tenure_month, 'key' => 'preferred_tenure_month'], 
              ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
              ['type' => 'text', 'value' => $this->as_long_as_possiable, 'key' => 'as_long_as_possiable'], 
+             ['type' => 'radio', 'value' => $this->property_land_advanced_property_type, 'key' => 'property_land_advanced_property_type'], 
+             ['type' => 'radio', 'value' => $this->property_land_advanced_graphical_location, 'key' => 'property_land_advanced_graphical_location'], 
        ];
       
        if($this->apply_loan){

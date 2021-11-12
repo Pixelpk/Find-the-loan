@@ -43,6 +43,8 @@ class NewLoan extends Component
     public $amount;
     public $apply_loan;
     public $gernalInfo;
+    public $property_land_property_type;
+    public $property_land_graphical_location;
     protected $listeners = [
         'getAddress'
     ];
@@ -74,6 +76,8 @@ class NewLoan extends Component
             $this->construction_year_time = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'construction_year_time')->first()->value ?? '';
             $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first()->value ?? '';
             $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first()->value ?? '';
+            $this->property_land_property_type = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_property_type')->first()->value ?? '';
+            $this->property_land_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_graphical_location')->first()->value ?? '';
                     
         }
     }
@@ -86,7 +90,7 @@ class NewLoan extends Component
     {
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
+        //    'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
            'lot_number' => $this->address ?  '' : 'required',
            'address' => $this->lot_number ?  '' : 'required',
            'lease_remaining_year' => 'required|integer|min:1',
@@ -95,6 +99,8 @@ class NewLoan extends Component
            'preferred_tenure_month' => 'required|integer|min:1',
            'float_rate' => $this->fix_rate ? '' :  'required',
            'fix_rate' => $this->float_rate ? '' :  'required',
+           'property_land_property_type' => 'required',
+           'property_land_graphical_location' =>  'required',
        ]);
        $data = [
              ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
@@ -117,6 +123,8 @@ class NewLoan extends Component
              ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'], 
              ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'], 
              ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'], 
+             ['type' => 'radio', 'value' => $this->property_land_property_type, 'key' => 'property_land_property_type'], 
+             ['type' => 'radio', 'value' => $this->property_land_graphical_location, 'key' => 'property_land_graphical_location'], 
        ];
       
        if($this->apply_loan){
@@ -143,12 +151,12 @@ class NewLoan extends Component
             $LGI->apply_loan_id = $this->apply_loan->id;
             $LGI->type = $item['type'];
             $LGI->key = $item['key'];
-            if($item['type'] == 'file'){
+            // if($item['type'] == 'file'){
                
-                $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : isset($item['value']);
-            }else{
+            //     $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : isset($item['value']);
+            // }else{
                 $LGI->value = isset($item['value']) ? $item['value'] : '';
-            }
+            // }
             $LGI->save();
        }
        $this->gernalInfo = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();

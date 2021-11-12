@@ -21,7 +21,7 @@ class TrustFund extends Component
    ///sold///
     public $total_indicative_value;
     public $fund_name;
-    public $currency;
+    public $currency = "SGD";
     public $company_purchased;
     public $deposit_ac_number;
     public $indicative_nav;

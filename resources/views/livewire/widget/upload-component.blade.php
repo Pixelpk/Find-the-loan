@@ -11,10 +11,10 @@
             <input class="form-control" multiple accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" wire:model="images"
                 type="file" id="uploadID">
         </label>
-        {{-- <span wire:loading class="my-2">
+        <span wire:loading class="my-2">
                 <span class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-            </span> --}}
+            </span>
     </div>
     @error('images')
     <div style="color: red;">

@@ -102,8 +102,23 @@ class PersonalDetail extends Component
         ->where('key', 'personal_document_passport_or_identity_card')
         ->where('apply_loan_id', $this->apply_loan->id)
         ->first();
+
+        $proof_of_address = Media::where('model','App\Models\PersonalDetail')
+        ->where('key', 'personal_document_proof_of_address')
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->first();
+
+        $personal_document_employement_pass_front = Media::where('model','App\Models\PersonalDetail')
+        ->where('key', 'personal_document_employement_pass_front')
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->first();
+
+        $personal_document_employement_pass_front = Media::where('model','App\Models\PersonalDetail')
+        ->where('key', 'personal_document_employement_pass_back')
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->first();
        
-        if($passportImage){
+        if($passportImage && !$proof_of_address && !$personal_document_employement_pass_front && !$personal_document_employement_pass_front){
             $this->customValidation = [
                 'bill' => 'Proof of address & employment pass is required',
             ];

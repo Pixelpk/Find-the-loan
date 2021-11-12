@@ -1,9 +1,8 @@
 <div>
     <div class="row">
-
         <div class="col-md-12 text-left">
             <livewire:widget.upload-component 
-            :label="'Renovation Quotation'" 
+            :label="'OTP/Sale & Purchase Agreement if any'" 
             :apply_loan="$apply_loan"
             :main_type="$main_type" 
             :loan_type_id="$loan_type_id" 
@@ -12,13 +11,10 @@
             :keyvalue="'property_new_loan_sale_purchase_agreement'" 
             />
         </div>
-
         <div class="col-md-12">
             <hr>
         </div>
         <div class="col-md-12" style="margin-top: 30px;">
-
-
             <label for="lot_number" class="form-label">Lot Number</label>
             <input wire:model="lot_number" type="text" class="form-control">
             @error("lot_number")
@@ -39,7 +35,6 @@
             </div>
             @enderror
         </div>
-
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="unit" class="form-label">Unit if any
             </label>
@@ -258,6 +253,82 @@
             </div>
         </div>
         <div class="col-md-4"></div>
+        <div class="col-md-12">
+            <b>
+                Property type
+            </b>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_property_type"
+                    value="Residential" id="flexRadioDefault1224">
+                <label class="form-check-label" for="flexRadioDefault1224">
+                    Residential
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_property_type" value="Commercial"
+                    id="flexRadioDefault1545">
+                <label class="form-check-label" for="flexRadioDefault1545">
+                    Commercial
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_property_type" value="industrial"
+                    id="flexRadioDefault154548">
+                <label class="form-check-label" for="flexRadioDefault154548">
+                    industrial
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_property_type")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+        </div>
+        <div class="col-md-12">
+            <b>
+                Geographical location
+
+            </b>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_graphical_location"
+                    value="Local" id="flexRadioDefault122445545">
+                <label class="form-check-label" for="flexRadioDefault122445545">
+                    Local
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_graphical_location" value="Foreign"
+                    id="flexRadioDefault15455454">
+                <label class="form-check-label" for="flexRadioDefault15455454">
+                    Foreign
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_graphical_location")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
         <div class="col-md-12">
             <div class="col-md-12" style="margin-top: 30px;">
                 <label for="amount" class="form-label">Amount</label>

@@ -21,7 +21,7 @@ class StockBond extends Component
    ///sold///
     public $total_indicative_value;
     public $name;
-    public $currency;
+    public $currency = "SGD";
     public $company_purchased;
     public $indicative_bid_price;
     public $tab;
@@ -50,12 +50,11 @@ class StockBond extends Component
 
     public function store()
     {
-     
+
        $this->validate([
            'currency' => 'required',
            'total_indicative_value' => 'required',
            'name' => 'required',
-         
            'company_purchased' => 'required',
            'indicative_bid_price' => 'required',  
        ]);
@@ -65,17 +64,16 @@ class StockBond extends Component
            'total_indicative_value' => $this->total_indicative_value,
            'currency' => $this->currency,
            'indicative_bid_price' => $this->indicative_bid_price,
-           
            'company_purchased' => $this->company_purchased,
            'name' => $this->name,
            'type' => $this->tab,
-          
        ]);
-      
+       
        $this->getStockBond();
        $this->emit('enableButton', true);
        $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
        $this->resetInput();
+
     }
     public function resetInput()
     {

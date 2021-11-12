@@ -2,117 +2,23 @@
     <div class="row">
 
         <div class="col-md-6 text-left">
-            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-                x-on:livewire-upload-progress="progress = $event.detail.progress">
-                <div class="form-group">
-                    <label class="control-label mb-10">
-                         OTP or Sale/Purchase Agreement of property/land being sold
-                    </label>
-                    <br>
-                    <br>
-                    <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                        <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                            wire:model="agreement" type="file" id="vehicleimage">
-                    </label>
-                </div>
-                @error('agreement')
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div x-show="isUploading">
-                    <progress max="100" x-bind:value="progress"></progress>
-                </div>
-            </div> --}}
-            <livewire:widget.upload-component 
-                :label="' OTP or Sale/Purchase Agreement of property/land being sold'" 
-                :apply_loan="$apply_loan"
-                :main_type="$main_type" 
-                :loan_type_id="$loan_type_id" 
-                :share_holder="0"
-                :modell="'App\Models\LoanGernalInfo'" 
-                :keyvalue="'property_advance_loan_sale_purchase_agreement'" 
-            />
+            <livewire:widget.upload-component :label="' OTP or Sale/Purchase Agreement of property/land being sold'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_advance_loan_sale_purchase_agreement'" />
         </div>
         <div class="col-md-6 text-left">
-            <livewire:widget.upload-component 
-                :label="' loan statement showing past 12 months repayment history if any(please ensure address is
+            <livewire:widget.upload-component :label="' loan statement showing past 12 months repayment history if any(please ensure address is
                 visible,
-                if not kindly include the main page where address is visible)'" 
-                :apply_loan="$apply_loan"
-                :main_type="$main_type" 
-                :loan_type_id="$loan_type_id" 
-                :share_holder="0"
-                :modell="'App\Models\LoanGernalInfo'" 
-                :keyvalue="'property_advance_loan_statement'" 
-            />
-            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-                x-on:livewire-upload-progress="progress = $event.detail.progress">
-                <div class="form-group">
-                    <label class="control-label mb-10">
-                       
-                            loan statement showing past 12 months repayment history if any(please ensure address is
-                            visible,
-                            if not kindly include the main page where address is visible)
-                        
-                    </label>
-                    <br>
-                    <br>
-                    <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                        <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                            wire:model="tmonth_statement" type="file" id="vehicleimage">
-                    </label>
-                </div>
-                @error('tmonth_statement')
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div x-show="isUploading">
-                    <progress max="100" x-bind:value="progress"></progress>
-                </div>
-            </div> --}}
+                if not kindly include the main page where address is visible)'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanGernalInfo'" :keyvalue="'property_advance_loan_statement'" />
         </div>
         <div class="col-md-6 text-left">
             <br>
-            <livewire:widget.upload-component 
-                :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your
-                repayment history statement'" 
-                :apply_loan="$apply_loan"
-                :main_type="$main_type" 
-                :loan_type_id="$loan_type_id" 
-                :share_holder="0"
-                :modell="'App\Models\LoanGernalInfo'" 
-                :keyvalue="'property_advance_loan_current_statement'" 
-            />
-            {{-- <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-                x-on:livewire-upload-progress="progress = $event.detail.progress">
-                <div class="form-group">
-                    <label class="control-label mb-10">
-                   
-                            Loan statement reflecting current Outstanding loan amount if it is not reflected in your
-                            repayment history statement
-                       
-                    </label>
-                    <br>
-                    <br>
-                    <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                        <input accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                            wire:model="statement" type="file" id="vehicleimage">
-                    </label>
-                </div>
-                @error('statement')
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-                <div x-show="isUploading">
-                    <progress max="100" x-bind:value="progress"></progress>
-                </div>
-            </div> --}}
+            <livewire:widget.upload-component :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your
+                repayment history statement'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanGernalInfo'"
+                :keyvalue="'property_advance_loan_current_statement'" />
         </div>
         <div class="col-md-12">
             <hr>
@@ -164,11 +70,11 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="lease_remaining" class="form-label">
                 Lease remaining
-              
+
             </label>
             <div class="input-group mb-3">
-                <input wire:model="lease_remaining_year" type="text" class="form-control" aria-label="Recipient's username"
-                    aria-describedby="basic-addon2">
+                <input wire:model="lease_remaining_year" type="text" class="form-control"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">Years</span>
                 </div>
@@ -190,7 +96,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fllor_area" class="form-label">
                 Land/Floor Area
-                    if applicable
+                if applicable
             </label>
             <input wire:model="fllor_area" type="text" class="form-control" id="fllor_area">
             @error("fllor_area")
@@ -202,7 +108,7 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="useable_area" class="form-label">
                 Build-in/Useable Area
-               
+
 
             </label>
             <input wire:model="useable_area" type="text" class="form-control" id="useable_area">
@@ -215,7 +121,8 @@
         <div class="col-md-2">
             <br>
             <div class="form-check form-switch">
-                <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox"
+                    id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Feet
 
                 </label>
@@ -224,7 +131,8 @@
         <div class="col-md-2">
             <br>
             <div class="form-check form-switch">
-                <input wire:change="changeAreaType()" wire:model="square_meter" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <input wire:change="changeAreaType()" wire:model="square_meter" class="form-check-input" type="checkbox"
+                    id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Meter
                 </label>
             </div>
@@ -237,16 +145,16 @@
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="preferred_tenure_month" class="form-label">
                 Preferred Tenure
-                
+
             </label>
             <div class="input-group mb-3">
-                <input wire:model="preferred_tenure_year" type="text" class="form-control" aria-label="Recipient's username"
-                    aria-describedby="basic-addon2">
+                <input wire:model="preferred_tenure_year" type="text" class="form-control"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">Years</span>
                 </div>
-                <input wire:model="preferred_tenure_month" type="text" class="form-control" aria-label="Recipient's username"
-                    aria-describedby="basic-addon2">
+                <input wire:model="preferred_tenure_month" type="text" class="form-control"
+                    aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2">Month</span>
                 </div>
@@ -265,12 +173,89 @@
         <div class="col-md-2" style="margin-top: 40px;">
             <br>
             <div class="form-check form-switch">
-                <input  wire:model="as_long_as_possiable" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <input wire:model="as_long_as_possiable" class="form-check-input" type="checkbox"
+                    id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">As Long As Possible
                 </label>
             </div>
         </div>
         <div class="col-md-4"></div>
+        <div class="col-md-12">
+            <b>
+                Property type
+            </b>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_advanced_property_type"
+                    value="Residential" id="flexRadioDefault1224">
+                <label class="form-check-label" for="flexRadioDefault1224">
+                    Residential
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_advanced_property_type" value="Commercial"
+                    id="flexRadioDefault1545">
+                <label class="form-check-label" for="flexRadioDefault1545">
+                    Commercial
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_advanced_property_type" value="industrial"
+                    id="flexRadioDefault154548">
+                <label class="form-check-label" for="flexRadioDefault154548">
+                    industrial
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_advanced_property_type")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+        </div>
+        <div class="col-md-12">
+            <b>
+                Geographical location
+
+            </b>
+            <br>
+            <br>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_advanced_graphical_location"
+                    value="Local" id="flexRadioDefault122445545">
+                <label class="form-check-label" for="flexRadioDefault122445545">
+                    Local
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" wire:model="property_land_advanced_graphical_location" value="Foreign"
+                    id="flexRadioDefault15455454">
+                <label class="form-check-label" for="flexRadioDefault15455454">
+                    Foreign
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @error("property_land_advanced_graphical_location")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
         <div class="col-md-12">
             <div class="col-md-12" style="margin-top: 30px;">
                 <label for="amount" class="form-label">Amount</label>

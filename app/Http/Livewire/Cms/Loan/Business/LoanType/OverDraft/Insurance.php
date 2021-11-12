@@ -22,7 +22,7 @@ class Insurance extends Component
     public $name_of_policy_owner;
     public $insurer;
     public $surrender_value;
-    public $currency;
+    public $currency = "SGD";
     public $images;
     public $above;
     public $tab;

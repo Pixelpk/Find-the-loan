@@ -39,12 +39,58 @@
         </div>
         <div class="col-md-12">
             <br>
-            <b>Proof of address</b>
+            <p>Proof of address</p>
+        </div>
+        <div class="col-md-6 text-left">
+            <br>
+            <livewire:widget.upload-component :label="'Phone/Electrical/Water Bill'"
+                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_proof_of_address'" />
+            @if(isset($customValidation['personal_document_proof_of_address']))
+            <div style="color:red;">
+                {{ $customValidation['personal_document_proof_of_address'] }}
+            </div>
+            @endif
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6 text-left">
+            <br>
+            <label for="">employment pass of at least 6 months validity 
+            </label>
+
+            <br>
+            <br>
+            <livewire:widget.upload-component :label="'Front'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_employement_pass_front'" />
+           
         </div>
         <div class="col-md-6">
+
+            <br>
+            <br>
+            <br>
+            <livewire:widget.upload-component :label="'Back'" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
+                :keyvalue="'personal_document_employement_pass_back'" />
+           
+        </div>
+        <div class="col-md-12">
+            <br>
+            <br>
+            @if(isset($customValidation['bill']))
+            <div style="color:red;">
+                {{ $customValidation['bill'] }}
+            </div>
+            @endif
+        </div>
+        <div class="col-md-12">
+            <br>
             <hr>
-            <b>
-            </b>
+           <br>
+        </div>
+        <div class="col-md-6">
+            
             <div class="form-check">
                 <input value="self_employee" wire:model="employee_type" class="form-check-input" type="radio"
                     id="flexRadioDefault2">
@@ -55,7 +101,7 @@
             <br>
         </div>
         <div class="col-md-6">
-            <hr>
+           
 
             <b>
             </b>
