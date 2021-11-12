@@ -71,7 +71,7 @@
             @enderror
         </div>
         @endif
-        @if($tab == 6)
+        @if($tab == 6 || $tab == 8)
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="tranche" class="form-label">
                 For Structured Deposit, please specify name & tranche:
@@ -90,7 +90,7 @@
             @enderror
         </div>
        
-        @if($tab == 8)
+        @if($tab == 8 || $tab == 6)
         <div class="col-md-6" style="margin-top: 30px;">
             <label for="fd_sd" class="form-label">
                 For FD and SD please state Maturity date
