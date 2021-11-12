@@ -2,6 +2,10 @@
     @php
     $main_types = loanProfile();
     @endphp
+@php 
+$mnth =   ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November"];
+   
+@endphp
 
     <section class="section-white pb-4" id="apply-loan">
         <div class="container">
@@ -446,10 +450,11 @@
 
                         <div class="col-md-3" style="margin-top:20px;margin-bottom:20px;">
                             <div class="input-group" style="margin-top:20px;">
+                                
                                 <select wire:model="company_months" class="form-select"
                                     aria-label="Default select example" wire:change="getnoofYear()">
                                     <option value="" hidden>Select</option>
-                                    @for ($x = 01; $x <= 11; $x++) <option value="{{ $x }}">{{ $x }}</option>
+                                    @for ($x = 0; $x <= 10; $x++) <option value="{{ $x }}">{{  $mnth[$x] }}</option>
                                         @endfor
                                 </select>
                                 &nbsp;&nbsp;<p style="padding-top:10px;">Month</p>
