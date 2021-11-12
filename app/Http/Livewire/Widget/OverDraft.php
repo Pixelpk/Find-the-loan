@@ -102,7 +102,6 @@ class OverDraft extends Component
     }
     public function render()
     {
-      
         return view('livewire.widget.over-draft');
     }
     
@@ -127,6 +126,7 @@ class OverDraft extends Component
     }
 
     public function tabChange(){
+        // dd();
        if($this->main_type == 2){
         $this->emit('changeTab',$this->apply_loan->id, 10);
         return;

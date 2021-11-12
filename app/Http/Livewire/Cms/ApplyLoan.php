@@ -711,7 +711,7 @@ class ApplyLoan extends Component
             'company_month' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:11|integer|gt:0',
             'company_years' =>  $this->company_months  ? 'required|integer|gt:0' : '',
             'company_months' =>  $this->company_years  ? 'required|integer|gt:0' : '',
-            'number_of_share_holder' => 'numeric|max:10|integer|gt:-1',
+            'number_of_share_holder' => 'numeric|max:10|integer|gt:0',
             'sector_id' => 'required',
             'revenue' => 'required|integer|gt:0',
             'percentage_shareholder' => 'required|integer|gt:0',
@@ -1157,9 +1157,6 @@ class ApplyLoan extends Component
 
     public function getnoofYear()
     {
-        // dd($this->company_years);
-       
-        // dd($this->company_years."-".$this->company_months);
        $interval = date('Y')-$this->company_years;
         if($this->company_years){
             $this->company_year = $interval;
@@ -1173,7 +1170,6 @@ class ApplyLoan extends Component
 
     public function confirmationMessage()
     {
-
         $LCD=LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
         if($LCD && $LCD->listed_company_check != $this->listed_company_check){
             $this->dispatchBrowserEvent('confirmation', ['message' => "Company detail will be deleted if update", "function" => "companyDetailStore"]);

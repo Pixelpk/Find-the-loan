@@ -8,6 +8,7 @@
                 {{ $message }}
             </div>
             @enderror
+            <br>
         </div>
     </div>
     <div class="row">

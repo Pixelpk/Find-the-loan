@@ -18,7 +18,7 @@ class Deposit extends Component
    ///sold///
     public $bank;
     public $other_bank_name;
-    public $currency;
+    public $currency = 'SGD';
     public $deposit_amount;
     public $deposit_ac_number;
     public $tranche;

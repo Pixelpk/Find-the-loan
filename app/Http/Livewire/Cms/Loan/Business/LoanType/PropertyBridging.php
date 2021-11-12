@@ -106,13 +106,13 @@ class PropertyBridging extends Component
         //    'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
         //    'sold_tmonth_statement' =>  $this->sold_tmonth_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
         //    'sold_statement' =>  $this->sold_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
-           'sold_lot_number' => $this->sold_address ?  '' : 'required',
-           'sold_address' => $this->sold_lot_number ?  '' : 'required',
-           'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
-           'sold_free_hold' => $this->sold_lease_remaining_year ? '' : 'required',
-           'sold_useable_area' => 'required|integer',
-           'sold_square_meter' => $this->sold_square_feet ? '' : 'required',
-           'sold_square_feet' => $this->sold_square_meter ? '' : 'required',
+        //    'sold_lot_number' => $this->sold_address ?  '' : 'required',
+        //    'sold_address' => $this->sold_lot_number ?  '' : 'required',
+        //    'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
+        //    'sold_free_hold' => $this->sold_lease_remaining_year ? '' : 'required',
+        //    'sold_useable_area' => 'required|integer',
+        //    'sold_square_meter' => $this->sold_square_feet ? '' : 'required',
+        //    'sold_square_feet' => $this->sold_square_meter ? '' : 'required',
        ]);
        $data = [
 

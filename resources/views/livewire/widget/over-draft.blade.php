@@ -232,7 +232,7 @@
     <div class="row">
         <div class="col-md-12 text-end">
             <br>
-            @if($enableButtons == false)
+            @if($enableButtons == false && sizeof($overdraft['security_type']) > 0)
                 <div>
                     <button wire:click="tabChange()" class="btn">Save & Continue</button>
                 </div>
