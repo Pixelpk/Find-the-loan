@@ -37,7 +37,11 @@ class LoanQuotationController extends Controller
 
     public function quotedCustomer(Request $request)
     {
+        $loggedin_user = $request->user();
+        $partner_id = Session::get('partner_id');
+        
         $data['quotations'] = LoanQuotations::Query()
+        ->where('partner_id',$partner_id)
         ->with(['loan_application'])->paginate(20);
         // return $data; 
         return view('admin.loan_applications.quotations',$data);

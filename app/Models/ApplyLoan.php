@@ -83,4 +83,8 @@ class ApplyLoan extends Model
         return $this->hasOne(LoanLenderDetail::class,'apply_loan_id','id');
     }
 
+    public function application_more_doc(){
+        return $this->hasMany(MoreDocRequireRequest::class,'apply_loan_id','id')->with('more_doc_msg_desc');
+    }
+
 }
