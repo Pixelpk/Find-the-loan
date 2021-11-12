@@ -11,9 +11,19 @@ class MoreDocRequireRequest extends Model
 
     protected $table = "more_docs_require_requests";
 
-    protected $fillable = ['msg_desc_section','quote_additional_doc_idz','user_id','partner_id','apply_loan_id'];
-    protected $casts = [
-        'msg_desc_section' => 'array',
-        'quote_additional_doc_idz' => 'array',
-    ];
+    protected $fillable = ['user_id','partner_id','apply_loan_id'];
+
+    public function loan_application()
+    {
+        return $this->belongsTo(ApplyLoan::class,'apply_loan_id')->with('loan_user','loan_type','loan_reason');
+    }
+
+    public function loan_company_detail(){
+        return $this->hasOne(LoanCompanyDetail::class,'apply_loan_id','id')->with(['loan_company_sector','loan_company_structure']);
+    }
+
+    public function more_doc_msg_desc(){
+        return $this->hasMany(MoreDocMsgDesc::class,'more_doc_request_id','id')->with('quote_additional_doc');
+    }
+
 }

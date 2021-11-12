@@ -1,15 +1,18 @@
 <section>
 
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 30px;">
+    <div class="row mt-4">
+        <div class="col-md-6">
+           <div class="mb-3">
             <livewire:widget.currency/>
             @error("currency")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
+         <div class="mb-3">
             <label for="deposit_amount" class="form-label">Deposit Amount
             </label>
             <input wire:model="deposit_amount" type="number" class="form-control" id="deposit_amount">
@@ -18,8 +21,13 @@
                 {{ $message }}
             </div>
             @enderror
+         </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-6">
+           <div class="mb-3">
             <label for="deposit_ac_number" class="form-label">Deposit A/c Number
             </label>
             <input wire:model="deposit_ac_number" type="number" class="form-control" id="deposit_ac_number">
@@ -28,8 +36,10 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
+           <div class="mb-3">
             <label for="bank" class="form-label">Banks
             </label>
             <select class="form-select" wire:model="bank">
@@ -53,9 +63,14 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
+    </div>
+
+    <div class="row mt-2">
         @if($bank == 'other')
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-6">
+           <div class="mb-3">
             <label for="other_bank_name" class="form-label">
                 Bank Name
             </label>
@@ -69,29 +84,33 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
         @endif
-        @if($tab == 6 || $tab == 8)
-        <div class="col-md-6" style="margin-top: 30px;">
+        @if($tab == 6)
+        <div class="col-md-6">
+           <div class="mb-3">
             <label for="tranche" class="form-label">
                 For Structured Deposit, please specify name & tranche:
-               
-               
             </label>
-            <div class="input-form mb-3">
+            <div class="input-form">
                 <input wire:model="tranche" type="text" class="form-control" aria-label="tranche"
                     aria-describedby="basic-addon2">
-                    <span> e.g. SG growth 50 Tranche A</span>
+                    <!-- <span> e.g. SG growth 50 Tranche A</span> -->
             </div>
             @error("tranche")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-       
-        @if($tab == 8 || $tab == 6)
-        <div class="col-md-6" style="margin-top: 30px;">
+    </div>
+
+    <div class="row">
+        @if($tab == 8)
+        <div class="col-md-6">
+           <div class="mb-3">
             <label for="fd_sd" class="form-label">
                 For FD and SD please state Maturity date
             </label>
@@ -104,22 +123,21 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
         @endif
         @endif
     </div>
-    <div class="row">
+
+    <div class="row mt-2">
         <div class="col-md-12">
-            <br>
-            <br>
             <button class="btn" wire:click="store">Add @if($Deposits->count() > 0)Another @endif Deposit</button>
             {{-- <button class="btn" wire:click="store">Submit</button> --}}
         </div>
     </div>
-    <div class="row">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <table class="table table-striped">
                 <thead>
                     <tr>

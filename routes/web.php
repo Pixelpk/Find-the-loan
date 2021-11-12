@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
+Route::get('fourteen-day-cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
@@ -153,6 +153,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
         Route::get('rejected-applications',[LoanApplications::class,'rejectedApplications'])->name('rejected-applications');
         Route::get('assigned-out',[LoanApplications::class,'assginedOutApplications'])->name('assigned-out');
+        Route::get('ask-more-docs-applications',[LoanApplications::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
         
         
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');

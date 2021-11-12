@@ -48,6 +48,15 @@
                                         More doc required
                                     </a>
                                 </li>
+
+                                @if (!$application->application_more_doc->isEmpty())
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" id="view_more_doc_detail_btn" data-toggle="modal" data-target="#ViewMoreDocDetails" data-dismiss="modal" aria-label="Close" 
+                                        href="javascript:void(0)">
+                                        View more doc request
+                                    </a>
+                                </li>
+                                @endif
                                 @endif
 
                                 

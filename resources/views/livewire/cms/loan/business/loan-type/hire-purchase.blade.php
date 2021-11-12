@@ -1,37 +1,42 @@
 <section>
     <div>
         <div class="row">
-            <div class="col-md-12" style="margin-top: 30px;">
-                <label for="hirePurchase.amount" class="form-label">Amount
-                </label>
-                <input wire:model="hirePurchase.amount" type="number" class="form-control" id="hirePurchase.amount">
-                @error("hirePurchase.amount")
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
+            <div class="col-md-6">
+           <div class="mb-3">
+            <label for="hirePurchase.amount" class="form-label">Amount required
+            </label>
+            <input wire:model="hirePurchase.amount" type="number" class="form-control" id="hirePurchase.amount">
+            @error("hirePurchase.amount")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+           </div>
             </div>
             @if($main_type == 1)
-            <div class="col-md-12" style="margin-top: 30px;">
-                <select id="currency" wire:model="hirePurchase.hire_purchase_type" class="form-select">
-                    <option value="" hidden>Select Hire Purchase Type</option>
-                    <option value="1">Office Equipment</option>
-                    <option value="2">Other Commercial & Industrial Equipment
-                    </option>
-                    <option value="3">Industry Vehicle –
-                        Cranes, forklift, Tractors etc
-                    </option>
-                    <option value="4">Commercial Vehicle – Cars, lorries, trucks etc
-                    </option>
-                    <option value="5">Passenger Vehicle
-                    </option>
+            <div class="col-md-6">
+          <div class="mb-3">
+            <label for="" class="form-label">Select Hire Purchase Type
+            </label>
+            <select id="currency" wire:model="hirePurchase.hire_purchase_type" class="form-select">
+                <option value="" hidden>Select</option>
+                <option value="1">Office Equipment</option>
+                <option value="2">Other Commercial & Industrial Equipment
+                </option>
+                <option value="3">Industry Vehicle –
+                    Cranes, forklift, Tractors etc
+                </option>
+                <option value="4">Commercial Vehicle – Cars, lorries, trucks etc
+                </option>
+                <option value="5">Passenger Vehicle
+                </option>
 
-                </select>
-                <br>
-                <br>
+            </select>
+          </div>
             </div>
             @endif
         </div>
+
         @if($hirePurchase['hire_purchase_type'] || $main_type == 2  ?? '')
         <br>
         <div class="row">

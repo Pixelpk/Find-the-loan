@@ -54,9 +54,7 @@
                 <a href="javascript:void(0)" id="submitFaqSort" class="btn btn-primary btn-round" style="float: right;margin-top: 5px;">Sort</a>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 @endif
@@ -750,7 +748,7 @@
                     <form method="post" action="{{ route('reject-application') }}">
                         @csrf
                         <input type="hidden" name="apply_loan_id" id="reject_loan_id">
-{{--                        <span style="color: red;display: none" id="assign_error">Please select any application first</span>--}}
+                    {{--<span style="color: red;display: none" id="assign_error">Please select any application first</span>--}}
                         <div class="form-group">
                             <label for="shown_to_customer">Shown to customer</label>
                             <select class="form-control" name="customer_reject_reason_id" id="shown_to_customer">
@@ -780,8 +778,78 @@
                     </form>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-@endif
+
+    @isset($application)
+    @if (!$application->application_more_doc->isEmpty())
+    <div class="modal fade bs-example-modal-center" id="ViewMoreDocDetails" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="faq_modal_heading">Requested more doc</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:350px;overflow:auto">
+                @foreach ($application->application_more_doc as $item)
+                <div class="row">
+                    @foreach ($item->more_doc_msg_desc as $item2)
+                    <div class="col-md-3">
+                        <h6>If any:</h6>
+                        <span>{{ getYesNo($item2->if_any) }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>From:</h6>
+                        <span>{{ $item2->from }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>To:</h6>
+                        <span>{{ $item2->to }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Within days:</h6>
+                        <span>{{ $item2->within_days }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Past Months:</h6>
+                        <span>{{ $item2->past_months }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Valid for:</h6>
+                        <span>{{ $item2->valid_for }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Document:</h6>
+                        <span>{{ $item2->quote_additional_doc->info }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Document of:</h6>
+                        <span>{{ getDocumentOf($item2->document_of) }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Reasons:</h6>
+                        <span>
+                            @foreach ($item2->more_doc_reasons as $reason)
+                            {{ getMoreDocReason($reason) }},
+                            @endforeach
+                        </span>
+                    </div>
+                    @endforeach
+                </div>
+                <hr>
+                @endforeach
+
+            </div>
+            <div class="modal-footer">
+                {{-- <a href="javascript:void(0)" id="" class="btn btn-primary btn-round" style="float: right;margin-top: 5px;">Sort</a> --}}
+            </div>
+        </div>
+    </div
+    @endif
+    @endisset
+
+
+    @endif

@@ -49,3 +49,6 @@ color: #858585;
     visibility: visible;
     opacity: 1;
   }
+  .lender-bank{
+    border: 1px solid #858585;
+  }

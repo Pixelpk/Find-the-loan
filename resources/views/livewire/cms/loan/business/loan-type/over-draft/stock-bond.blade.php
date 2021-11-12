@@ -1,7 +1,8 @@
 <section>
 
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 30px;">
+    <div class="row mt-4">
+        <div class="col-md-4">
+        <div class="mb-3">
             <livewire:widget.currency/>
             @error("currency")
             <div style="color: red;">
@@ -9,17 +10,21 @@
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
-            <label for="total_indicative_value" class="form-label">Total Indicative Value
-            </label>
-            <input wire:model="total_indicative_value" type="number" class="form-control" id="total_indicative_value">
-            @error("total_indicative_value")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-4">
+       <div class="mb-3">
+        <label for="total_indicative_value" class="form-label">Total Indicative Value
+        </label>
+        <input wire:model="total_indicative_value" type="number" class="form-control" id="total_indicative_value">
+        @error("total_indicative_value")
+        <div style="color: red;">
+            {{ $message }}
+        </div>
+        @enderror
+       </div>
+        </div>
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="indicative_bid_price" class="form-label">Current Indicative Bid Price
             </label>
             <input wire:model="indicative_bid_price" type="number" class="form-control" id="indicative_bid_price">
@@ -28,12 +33,14 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-     
-        <div class="col-md-6" style="margin-top: 30px;">
-            <label for="company_purchased" class="form-label">Company purchased from
+    </div>
 
-            </label>
+    <div class="row mt-2">
+        <div class="col-md-6">
+         <div class="mb-3">
+            <label for="company_purchased" class="form-label">Company purchased from</label>
             <select class="form-select" wire:model="company_purchased">
                 <option value="">Select Company</option>
                 @foreach($financePartners as $item)
@@ -45,38 +52,36 @@
                 {{ $message }}
             </div>
             @enderror
+         </div>
         </div>
         
-        <div class="col-md-6" style="margin-top: 30px;">
-            <label for="name" class="form-label">
-                Please Specify  @if($tab == 4)Bond Name @else Stock Name Or Code @endif  
-            </label>
-            <div class="input-form mb-3">
-                <input wire:model="name" type="text" class="form-control" aria-label="name"
-                    aria-describedby="basic-addon2">
-                    @if($tab == 4)
-                    <span>e..g TESLA 2021 CV
-
-                    </span>
-                    @endif
-                    @if($tab == 3)
-                    <span>e..g Tesla Inc, NASDAQ: TSLA
-
-                    </span>
-                    @endif
-            </div>
-            @error("name")
-            <div style="color: red;">
-                Field Is Required
-            </div>
-            @enderror
+        <div class="col-md-6"">
+       <div class="mb-3">
+        <label for="name" class="form-label">
+            Please Specify  @if($tab == 4)Bond Name @else Stock Name Or Code @endif  
+        </label>
+        <div class="input-form">
+            <input wire:model="name" type="text" class="form-control" aria-label="name"
+                aria-describedby="basic-addon2">
+                @if($tab == 4)
+                <!-- <span>e..g TESLA 2021 CV </span> -->
+                @endif
+                @if($tab == 3)
+                <!-- <span>e..g Tesla Inc, NASDAQ: TSLA
+                </span> -->
+                @endif
+        </div>
+        @error("name")
+        <div style="color: red;">
+            Field Is Required
+        </div>
+        @enderror
+       </div>
         </div>
       
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <button class="btn" wire:click="store">
                 @if($tab==4)Add @if($stockBonds->count() > 0)Another @endif Bond @endif
                 @if($tab==3)Add @if($stockBonds->count() > 0)Another @endif Stock @endif
@@ -84,10 +89,11 @@
           
         </div>
     </div>
-    <div class="row">
+
+    <hr class="mt-4 mb-0">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <table class="table table-striped">
                 <thead>
                     <tr>
