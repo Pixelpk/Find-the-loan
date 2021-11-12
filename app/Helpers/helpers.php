@@ -41,7 +41,7 @@ function getCmsRoute($route_name): string
     $all = [
         'home'=>"Home",
         'about-us'=>"About",
-        'our-blogs'=>"Blogs",
+        'all-blogs'=>"Blogs",
         'blog'=>"Blogs",
         'faqs'=>"Faqs",
         'terms-conditions'=>"Terms of use",
@@ -65,10 +65,20 @@ function moreDocReasons(): array
     return $all;
 }
 
+function getMoreDocReason($id){
+    $all = moreDocReasons();
+    return $all[$id];
+}
+
 function moreDocOfList()
 {
     $all = ['', 'Of company', 'Of Parent Company','Of all companies in the group','Of  all Local director','Of Ultimate Beneficial Owner','Of  guarantor','Of mortgagor','Of all property/asset owner','Of new property','Of property sold','Of current property','Personal/company info not shown/Unable to correctly identify as belonging to'];
     return $all;
+}
+
+function getDocumentOf($id){
+    $all = moreDocOfList();
+    return $all[$id];
 }
 
 function adminTermsRequests(){

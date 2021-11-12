@@ -46,6 +46,11 @@
                                     <i class="fa fa-money-bill-alt"></i><span> Assigned out </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('ask-more-docs-applications') }}" class="@if(Route::CurrentRouteName() == 'ask-more-docs-applications') mm-active @endif">
+                                    <i class="fa fa-money-bill-alt"></i><span> Ask for more docs </span>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>

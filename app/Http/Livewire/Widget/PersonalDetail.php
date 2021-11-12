@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Widget;
 
+use App\Http\Controllers\CommonController;
 use App\Models\Media;
 use App\Models\PersonalDetail as ModelsPersonalDetail;
 use Livewire\Component;
@@ -15,40 +16,15 @@ class PersonalDetail extends Component
     public $personalDetail = [];
     public $income_proof;
     public $relation;
-    public $vali;
- 
-    protected $listeners = [
-        'documentReq'
-    ];
-
-    public function documentReq($value)
-    {
-        if($value == "personal_document_nric_front"){
-            $this->vali['personal_document_nric_front'] = $value;
-        }
-        if($value == "personal_document_nric_back"){
-            $this->vali['personal_document_nric_back'] = $value;
-        }
-        if($value == "personal_document_passport_or_identity_card"){
-            $this->vali['personal_document_passport_or_identity_card'] = $value;
-        }
-    }
-
-    protected $rules = [
-        'vali.personal_document_nric_front' =>  'required_without:vali.personal_document_passport_or_identity_card',
-        'vali.personal_document_nric_back' =>'required_without:vali.personal_document_passport_or_identity_card',
-        'vali.personal_document_passport_or_identity_card' => 'required_without:vali.personal_document_passport_or_identity_card,personal_document_passport_or_identity_card',
-        'vali.personal_document_personal_noa_latest' => 'required',
-        'vali.personal_document_personal_noa_older' => 'required',
-        'vali.personal_document_cpf_contribution_history' => 'required',
-        'vali.personal_document_notice_assessment' => 'required',
-        'vali.personal_document_pay_slip' => 'required',
-        'vali.personal_document_birth_certificate' => 'required',
-    ];
-
+    public $customValidation;
+    public $employee_type = "self_employee";
     public function mount()
     {
-        
+        $this->getData();
+       $personalDetail = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->first();
+       $this->income_proof = $personalDetail->income_proof  ?? '';
+       $this->relation = $personalDetail->relation  ?? '';
+       $this->employee_type = $personalDetail->employee_type  ?? 'self_employee';
     }
     public function render()
     {
@@ -57,15 +33,76 @@ class PersonalDetail extends Component
 
     public function store()
     {
-        $this->validate($this->rules, [
-            'vali.personal_document_nric_front.required_without' => 'NRIC front is required',
-            'vali.personal_document_nric_back.required_without' => 'NRIC back is required',
-            'vali.personal_document_passport_or_identity_card.required_without' => 'Passport is required',
-        ]);
+        // $this->customValidation = '';
+        $this->customValidation['personal_document_nric_front'] = '';
+        $this->customValidation['personal_document_nric_back'] = '';
+        $this->customValidation['personal_document_passport_or_identity_card'] = '';
+        $this->customValidation['personal_document_pay_slip'] = '';
+        $this->customValidation['personal_document_notice_assessment'] = '';
+        $this->customValidation['personal_document_personal_noa_latest'] = '';
+        $this->customValidation['personal_document_personal_noa_older'] = '';
+        $this->customValidation['personal_document_cpf_contribution_history'] = '';
+        $this->customValidation['bill'] = '';
+        $personal_document_nric_front = CommonController::vali('App\Models\PersonalDetail', 'personal_document_nric_front', $this->apply_loan->id, 0);
+        $personal_document_nric_back = CommonController::vali('App\Models\PersonalDetail', 'personal_document_nric_back', $this->apply_loan->id, 0);
+        $personal_document_passport_or_identity_card = CommonController::vali('App\Models\PersonalDetail', 'personal_document_passport_or_identity_card', $this->apply_loan->id, 0);
+        $nao_latest = CommonController::vali('App\Models\PersonalDetail', 'personal_document_personal_noa_latest', $this->apply_loan->id, 0);
+        $nao_older = CommonController::vali('App\Models\PersonalDetail', 'personal_document_personal_noa_older', $this->apply_loan->id, 0);
+        $cpf_contribution_history = CommonController::vali('App\Models\PersonalDetail', 'personal_document_cpf_contribution_history', $this->apply_loan->id, 0);
+        $notice_accessment = CommonController::vali('App\Models\PersonalDetail', 'personal_document_notice_assessment', $this->apply_loan->id, 0);
+        $payslip = CommonController::vali('App\Models\PersonalDetail', 'personal_document_pay_slip', $this->apply_loan->id, 0);
+        
+        
+        
+        if(!$payslip && $this->employee_type == "for_employee"){
+            
+            $this->customValidation['personal_document_pay_slip'] = "Pay slip is required";
+        }
+
+        if(!$notice_accessment && $this->employee_type == "for_employee"){
+
+            $this->customValidation['personal_document_notice_assessment'] = "Notice accessment is required";
+        }
+
+        if(!$cpf_contribution_history && $this->employee_type == "for_employee"){
+            $this->customValidation['personal_document_cpf_contribution_history'] = "CPF contribution history is required";
+        }
+
+        if(!$nao_latest && $this->employee_type == "self_employee"){
+
+            $this->customValidation['personal_document_personal_noa_latest'] = "NOA latest is required";
+
+        }
+
+        if(!$nao_older && $this->employee_type == "self_employee"){
+            
+            $this->customValidation['personal_document_personal_noa_older'] = "NOA old is required";
+
+        }
+        if(!$personal_document_passport_or_identity_card && !$personal_document_nric_front){
+            
+            $this->customValidation['personal_document_nric_front'] = "NRIC front is required";
+
+        }
+
+        if(!$personal_document_passport_or_identity_card && !$personal_document_nric_back){
+            $this->customValidation['personal_document_nric_back'] = "NRIC back is required";
+        }
+        
+        if((!$personal_document_nric_front && !$personal_document_nric_back) && !$personal_document_passport_or_identity_card){
+
+            $this->customValidation['personal_document_passport_or_identity_card'] = "Passport  is required";
+        }
+      
+        if(array_filter($this->customValidation)){
+           
+            return;
+        }
         $passportImage = Media::where('model','App\Models\PersonalDetail')
         ->where('key', 'personal_document_passport_or_identity_card')
         ->where('apply_loan_id', $this->apply_loan->id)
         ->first();
+       
         if($passportImage){
             $this->customValidation = [
                 'bill' => 'Proof of address & employment pass is required',
@@ -74,21 +111,30 @@ class PersonalDetail extends Component
         }
         $personalDetail=ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->get();
         if($personalDetail->count() > 0){
-            $PD = PersonalDetail::forceCreate([
+           
+            $this->validate([
+                'income_proof' => 'required',
+                'relation' => 'required',
+            ]);
+            $PD = ModelsPersonalDetail::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,
                 'type' => 'Joint Applicant',
                 'income_proof' => $this->income_proof,
-                'relation' => $this->relation
+                'relation' => $this->relation,
+                'employee_type' => $this->employee_type
             ]);
+            $this->income_proof = '';
+            $this->relation = '';
         }else{
 
             $PD = ModelsPersonalDetail::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,
                 'type' => 'Applicant',
+                'employee_type' => $this->employee_type,
             ]);   
        }
     //    $this->emit('changeTab',$this->apply_loan->id, 4);
-       Media::where('model', '\App\Models\PersonalDetail')
+       Media::where('model', 'App\Models\PersonalDetail')
     //    ->where('key', 'over_draft_benifit_illustration')
        ->where('share_holder', 0)
        ->where('model_id', 0)
@@ -101,6 +147,11 @@ class PersonalDetail extends Component
 
     public function getData(){
         $this->personalDetail = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+    }
+
+    public function goTolender()
+    {
+        $this->store();
     }
 
     public function deleteRecord(ModelsPersonalDetail $PersonalDetail)

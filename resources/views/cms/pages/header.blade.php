@@ -69,7 +69,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <ul class="navbar-nav mob-nav">
                 <li><a href="{{ route('about-us') }}" class="nav-link">About Us</a></li>
-                <li><a href="{{ route('our-blogs') }}" class="nav-link">Blog</a></li>
+                <li><a href="{{ route('all-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
                 {{-- <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li> --}}
                 <li><a href="{{ route('glossary') }}" class="nav-link">Glossary</a></li>
@@ -86,7 +86,7 @@
                             $current_route = Route::currentRouteName();
 
                             if ($current_route == 'blog') {
-                            $route = route('our-blogs');
+                            $route = route('all-blogs');
                             }else if( ($current_route == 'login')){
                             $route = route('home');
                             $current_route = 'home';
@@ -105,7 +105,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                             <li><a href="{{ route('home') }}" class="dropdown-item">Home</a></li>
                                 <li><a href="{{ route('about-us') }}" class="dropdown-item">About Us</a></li>
-                                <li><a href="{{ route('our-blogs') }}" class="dropdown-item">Blog</a></li>
+                                <li><a href="{{ route('all-blogs') }}" class="dropdown-item">Blog</a></li>
                                 <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
                                 {{-- <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li> --}}
                                 <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>

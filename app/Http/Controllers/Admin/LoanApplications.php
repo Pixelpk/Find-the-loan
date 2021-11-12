@@ -10,8 +10,11 @@ use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
 use App\Models\Media;
+use App\Models\MoreDocRequireRequest;
+use App\Models\QuoteAdditionalDocs;
 use App\Models\RejectReason;
 use App\Models\UserLoanReject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -45,19 +48,23 @@ class LoanApplications extends Controller
         }
 
         $query = ApplyLoan::select('*')
-            ->where('profile','=',$data['profile'])
-            ->with([
-                'loan_type','loan_company_detail','loan_reason',
-                'assigned_application',
-                'assigned_by_application',
-                'application_rejected'=>function($query) use($partner_id){
-                    $query->where('partner_id','=',$partner_id);
-                },
-                'application_quote'=>function($query) use($partner_id){
-                    $query->where('partner_id','=',$partner_id);
-                },
-                ])->withCount(['quotations_of_application']
-            );
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
+        ->where('profile','=',$data['profile'])
+        ->orderBy('id','desc')
+        ->with([
+            'loan_type','loan_company_detail','loan_reason',
+            'assigned_application',
+            'assigned_by_application',
+            'application_rejected'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
+            'application_quote'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
+            ])->withCount(['quotations_of_application']
+        );
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -134,6 +141,9 @@ class LoanApplications extends Controller
         $parent_id = $loggedin_user->parent_id;
 
         $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
         ->whereHas('application_rejected',function($query) use ($partner_id,$parent_id,$logged_user_id){
             $query->where('partner_id','=',$partner_id);
             //checking if finance partner admin is not loggedIn then only get assigned applications of user
@@ -152,6 +162,33 @@ class LoanApplications extends Controller
         
     }
 
+    public function askMoreDocsApplications(Request $request)
+    {
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
+        ->whereHas('application_more_doc',function($query) use ($partner_id,$parent_id,$logged_user_id){
+            $query->where('partner_id','=',$partner_id);
+            //checking if finance partner admin is not loggedIn then only get assigned applications of user
+            if ($parent_id !=0 ){
+                $query->where('user_id','=',$logged_user_id);
+            }
+        })->with([
+            'loan_company_detail','loan_reason',
+            'assigned_application',
+            'loan_type:id,sub_type',
+            'loan_user:id,first_name,last_name',
+            ])->paginate(20);
+        // return $data; 
+        return view('admin.loan_applications.more-doc-request-list',$data);
+    }
+
     public function assginedOutApplications(Request $request){
         $loggedin_user = $request->user();
         $logged_user_id = $loggedin_user->id;
@@ -159,6 +196,9 @@ class LoanApplications extends Controller
         $parent_id = $loggedin_user->parent_id;
 
         $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
         ->whereHas('assigned_application',function($query) use ($logged_user_id){
             $query->where('assigned_by','=',$logged_user_id);
         })->with(
@@ -180,6 +220,9 @@ class LoanApplications extends Controller
         $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
         $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['application'] = ApplyLoan::where('id','=',$id)
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
         ->with([
             'loan_type','loan_company_detail','loan_reason',
             'application_rejected'=>function($query) use($partner_id){
@@ -187,7 +230,10 @@ class LoanApplications extends Controller
             },
             'application_quote'=>function($query) use($partner_id){
                 $query->where('partner_id','=',$partner_id);
-            }
+            },
+            'application_more_doc'=>function($query) use($partner_id){
+                $query->where('partner_id','=',$partner_id);
+            },
             ])
             ->first();
 
@@ -195,7 +241,7 @@ class LoanApplications extends Controller
         if($id == null || !$data['application']){
             return redirect()->back()->with('error','Oops. something went wrong.');
         }
-        // return $data['apply_loan'];
+        // return $data['application'];
         return view('admin.loan_applications.loan_summary',$data);
     }
 
@@ -212,7 +258,10 @@ class LoanApplications extends Controller
         if ($search != '') {
             $query = ApplyLoan::query()
                 ->where('profile','=',$profile)
-                ->select('*');
+                ->select('*')
+                ->whereHas('loan_lender_details',function($query) use ($partner_id){
+                    $query->where('lender_id','=',$partner_id);
+                });
 
             if ($parent_id != 0 ){
                 $query->whereHas('assigned_application', function ($query) use ($logged_user_id) {
@@ -260,8 +309,15 @@ class LoanApplications extends Controller
 
         $id = $request->id  ?? null;
         $application = ApplyLoan::where('id','=',$id)
-        ->with('loan_person_share_holder')
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id);
+        })
+        ->with(['loan_person_share_holder','loan_lenders_cbs_member_image',
+        'loan_company_detail'=> function ($related) {
+            $related->without(['loan_company_sector','loan_company_structure']);
+        }])
         ->first();
+        // return $application;
         if (!$application || $id== null){
             return redirect(route('loan-applications'))->with('error','Oops. Something went wrong');
         }
@@ -285,23 +341,33 @@ class LoanApplications extends Controller
             
         }
         foreach ($application->loan_person_share_holder as $key=>$document) {
-                $nricFrontFilePath = $path.$document->nric_front;
-                $nric_front = 'PersonShareHolders/' . $document->nric_front;
-                $zip->addFile($nricFrontFilePath, $nric_front);
-    
-                $nricBackFilePath = $path.$document->nric_back;
-                $nric_back = 'PersonShareHolders/' . $document->nric_back;
-                $zip->addFile($nricBackFilePath, $nric_back);
-    
-                $naoLatestFilePath = $path.$document->nao_latest;
-                $nao_latest = 'PersonShareHolders/' . $document->nao_latest;
-                $zip->addFile($naoLatestFilePath, $nao_latest);
-    
-                $naoOlderFilePath = $path.$document->nao_older;
-                $nao_older = 'PersonShareHolders/' . $document->nao_older;
-                $zip->addFile($naoOlderFilePath, $nao_older);
-    
-            }
+            $nricFrontFilePath = $path.$document->nric_front;
+            $nric_front = 'PersonShareHolders/' . $document->nric_front;
+            $zip->addFile($nricFrontFilePath, $nric_front);
+
+            $nricBackFilePath = $path.$document->nric_back;
+            $nric_back = 'PersonShareHolders/' . $document->nric_back;
+            $zip->addFile($nricBackFilePath, $nric_back);
+
+            $naoLatestFilePath = $path.$document->nao_latest;
+            $nao_latest = 'PersonShareHolders/' . $document->nao_latest;
+            $zip->addFile($naoLatestFilePath, $nao_latest);
+
+            $naoOlderFilePath = $path.$document->nao_older;
+            $nao_older = 'PersonShareHolders/' . $document->nao_older;
+            $zip->addFile($naoOlderFilePath, $nao_older);
+
+        }
+        if($application->loan_company_detail != null && $application->loan_company_detail->subsidiary != ""){
+            $companyDetailDocPath = $path.$application->loan_company_detail->subsidiary;
+            $companyDocument = 'LoanCompanyDetail/' . $application->loan_company_detail->subsidiary;
+            $zip->addFile($companyDetailDocPath, $companyDocument);
+        }
+        if($application->loan_lenders_cbs_member_image != null && $application->loan_lenders_cbs_member_image->cbs_member_image != ""){
+            $companyDetailDocPath = $path.$application->loan_lenders_cbs_member_image->cbs_member_image;
+            $cbdMemberImage = 'LoanLenderCbsMemberImage/' . $application->loan_lenders_cbs_member_image->cbs_member_image;
+            $zip->addFile($companyDetailDocPath, $cbdMemberImage);
+        }
         $zip->close();
         try {
             return response()->download($zip_file);
@@ -403,5 +469,20 @@ class LoanApplications extends Controller
         $reject->save();
 
         return redirect()->back()->with('success','Loan application is rejected successfully');
+    }
+
+    public function fourteenDayNoActionCronJob(Request $request)
+    {
+        // return Carbon::today()->subDays(14);
+        $applications = ApplyLoan::whereHas('loan_lender_details')
+        ->whereDoesntHave('application_rejected')
+        ->whereDoesntHave('application_quote')
+        ->whereDoesntHave('application_more_doc')
+        ->whereDate('created_at', '<', Carbon::today()->subDays(14))
+        ->with('loan_lender_details')
+        ->get();
+        return $applications;
+            
+            
     }
 }

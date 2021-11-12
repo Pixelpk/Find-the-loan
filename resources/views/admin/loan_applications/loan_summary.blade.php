@@ -48,6 +48,15 @@
                                         More doc required
                                     </a>
                                 </li>
+
+                                @if (!$application->application_more_doc->isEmpty())
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" id="view_more_doc_detail_btn" data-toggle="modal" data-target="#ViewMoreDocDetails" data-dismiss="modal" aria-label="Close" 
+                                        href="javascript:void(0)">
+                                        View more doc request
+                                    </a>
+                                </li>
+                                @endif
                                 @endif
 
                                 
@@ -92,8 +101,33 @@
                         <span class="info__field">${{ $application->amount }}</span>
                         <span class="info__text">Reason for loan</span>
                         <span class="info__field">{{ $application->loan_reason->reason ?? "" }}</span>
+                        
+                        <span class="info__text">Market Status</span>
+                        <span class="info__field">{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</span>
+                        <span class="info__text">Assigned to</span>
+                        <span class="info__field">
+                            @if($application->assigned_by_application != null)
+                            {{ $application->assigned_by_application->user->name }}
+                            @endif
+                        </span>
+                        <span class="info__text">Applied at</span>
+                        <span class="info__field">{{ $application->created_at }}</span>
+                        <span class="info__text">Company name</span>
+                        <span class="info__field">{{ $application->loan_company_detail->company_name ?? '' }}</span>
+                        <span class="info__text">Company website</span>
+                        <span class="info__field">{{ $application->loan_company_detail->website ?? '' }}</span>
+                        <span class="info__text">No. of employees</span>
+                        <span class="info__field">{{ $application->loan_company_detail->number_of_employees ?? '' }}</span>
+                        <span class="info__text">Revenue</span>
+                        <span class="info__field">{{ $application->loan_company_detail->revenue ?? '' }}</span>
+                        <span class="info__text">Optional revenue</span>
+                        <span class="info__field">{{ $application->loan_company_detail->optional_revenuee ?? '' }}</span>
                         <span class="info__text">No of shareholder</span>
                         <span class="info__field">{{ $application->loan_company_detail->share_holder ?? '' }}</span>
+                        <span class="info__text">Profitable latest year</span>
+                        <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}</span>
+                        <span class="info__text">Profitable year before</span>
+                        <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}</span>
                         @if ($application->application_rejected != null)
                         <span class="info__text">Rejected by</span>
                         <span class="info__field">{{ $application->application_rejected->rejected_by->name }}</span>
