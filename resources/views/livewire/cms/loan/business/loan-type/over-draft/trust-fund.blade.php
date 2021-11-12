@@ -1,15 +1,18 @@
 <section>
 
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 30px;">
+    <div class="row mt-4">
+        <div class="col-md-4">
+           <div class="mb-3">
             <livewire:widget.currency/>
             @error("currency")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="total_indicative_value" class="form-label">Total Indicative Value
             </label>
             <input wire:model="total_indicative_value" type="number" class="form-control" id="total_indicative_value">
@@ -18,8 +21,10 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="indicative_nav" class="form-label">indicative NAV
             </label>
             <input wire:model="indicative_nav" type="text" class="form-control" id="indicative_nav">
@@ -28,8 +33,13 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+</div>
+
+<div class="row mt-2">
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="deposit_ac_number" class="form-label">Deposit A/c Number
             </label>
             <input wire:model="deposit_ac_number" type="number" class="form-control" id="deposit_ac_number">
@@ -38,11 +48,11 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
-            <label for="company_purchased" class="form-label">Company purchased from
-
-            </label>
+        <div class="col-md-4">
+        <div class="mb-3">
+            <label for="company_purchased" class="form-label">Company purchased from</label>
             <select class="form-select" wire:model="company_purchased">
                 <option value="">Select Company</option>
                 @foreach($financePartners as $item)
@@ -55,51 +65,57 @@
             </div>
             @enderror
         </div>
-        
-        <div class="col-md-6" style="margin-top: 30px;">
+        </div>
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="fund_name" class="form-label">
                 Please specify fund name
             </label>
             <div class="input-form mb-3">
                 <input wire:model="fund_name" type="text" class="form-control" aria-label="fund_name"
                     aria-describedby="basic-addon2">
-                    <span> e.g. SG equity fund
-                    </span>
+                    <!-- <span> e.g. SG equity fund
+                    </span> -->
             </div>
             @error("fund_name")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6" style="margin-top: 10px;">
-            <label for="fd_sd" class="form-label">
-                For FD and SD please state Maturity Date
+    </div>
 
-            </label>
-            <div class="input-form mb-3">
-                <input wire:model="fd_sd_date" type="date" class="form-control" aria-label="fd_sd_date"
-                    aria-describedby="basic-addon2">
-            </div>
-            @error("fd_sd_date")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
+    <div class="row mt-2">
+        <div class="col-md-6">
+     <div class="mb-3">
+        <label for="fd_sd" class="form-label">
+            For FD and SD please state Maturity Date
+
+        </label>
+        <div class="input-form mb-3">
+            <input wire:model="fd_sd_date" type="date" class="form-control" aria-label="fd_sd_date"
+                aria-describedby="basic-addon2">
+        </div>
+        @error("fd_sd_date")
+        <div style="color: red;">
+            {{ $message }}
+        </div>
+        @enderror
+     </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <button class="btn" wire:click="store">Add @if($trustFunds->count() > 0)Another @endif Unit Trust/Fund</button>
-            
         </div>
     </div>
-    <div class="row">
+
+    <hr class="mt-4 mb-0">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <table class="table table-striped">
                 <thead>
                     <tr>

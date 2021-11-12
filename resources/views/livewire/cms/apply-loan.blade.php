@@ -255,7 +255,95 @@
                     @php $NFL = [1,2,3,4]
                     @endphp
 
-                    <div class="row">
+                    <!-- LENDERS -->
+                    <div class="row mb-4 text-center">
+                        <p class="lead fw-bold">Select Lenders</p>
+                        <p>The following lenders offer the loan type you chose, factoring the information you have entered.</p>
+                        <p>Please select which of our following Financing Partners you wish to send your enquiry to.</p>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Show only CBS
+                                    members</label>
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="cbc">
+                               <p><b>CBS</b>(Downloaded Within The Last 30 days)</p>
+                              <input type="file" class="mt-2 form-control">
+                           </div>
+                        </div>
+                    </div>
+                    @foreach($NFL as $item)
+                    <div class="row mb-3">
+                        <div class="card px-0">
+                            <div class="card-header d-flex justify-content-between py-2">
+                                @if($item == 1)
+                                <p class="mb-0">Bank</p>
+                                @elseif($item == 2)
+                                <p class="mb-0">Excluded Moneylender</p>
+                                
+                                @else
+                                <p class="mb-0">Moneylender</p>
+                                
+                               
+                                @endif
+                                <div class="form-check">
+                                   
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate1">
+                            <label class="form-check-label" for="flexCheckIndeterminate1">
+                                Select All
+                             </label>
+                          </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach($financePartners as $financePartner)
+                                    @if($financePartner->type == 1 && $item == 1)
+                                    <div class="col-md-6 col-lg-3">
+                                     <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
+                                        <div class="lender-bank__img">
+                                            <img for="{{ $financePartner->id }}"
+                                            src="uploads/financePartnerImages/{{ $financePartner->image }}" alt=""
+                                            width="80px" height="25px">
+                                            </div>
+                                        <input   wire:model="lender.{{ $financePartner->id }}" wire:change="Selectall({{ $item }})"    type="checkbox" id="{{ $financePartner->id }}">
+                                     </div>
+                                    </div>
+                                   
+                                   
+                                    @endif
+                                    @endforeach
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                    <div class="row mb-3 mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                            <label class="form-check-label" for="flexCheckIndeterminate">
+                                I/we agree the information I/we provided is true to the best of my knowledge and I/we give consent to these Financing Partners to verify them and those that are CBS members to access my credit report/s instead of furnishing it myself. I/we \also agree to FindTheLoan.com’s Privacy Policy, Terms of use and any related policies.
+                            </label>
+                          </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn">Send Enquiry</button>
+                    </div>
+
+                    <div class="row mt-3 d-flex">
+                        
+                        <p><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your risk profile, their monthly limited to a certain risk bracket etc. It is generally better to check with more lenders to compare with.</p>
+                      
+                    </div>
+                    <!-- /LENDERS -->
+                    <!-- <div class="row">
                         <div class="col-md-8">
                             @foreach($NFL as $item)
                             <div class="row mt-3">
@@ -283,7 +371,7 @@
                                 </div>
                             </div>
 
-                            <!-- FINANCE PARTNERS -->
+                            
                             <div class="row mt-3">
                                 @foreach($financePartners as $financePartner)
                                 @if($financePartner->type == 1 && $item == 1)
@@ -337,7 +425,7 @@
                                 @endif
                                 @endforeach
                             </div>
-                            <!-- /FINANCE PARTNERS -->
+                        
                             @endforeach
                         </div>
 
@@ -397,7 +485,7 @@
                                 Submit
                             </button>
                         </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -643,7 +731,8 @@
                      <!-- /OVERDRAFT UNSECURED COMPANY DETAILS-->
 
                         @else
-                        <div class="col-md-12" style="margin-top: 30px;">
+                        <div class="row">
+                        <div class="col-md-12 col-lg-6">
                             <label for="company_name" class="form-label">Please provide either parent company name or
                                 its ticker number followed by which stock exchange</label>
                             <input wire:model="company_name" type="text" class="form-control" id="company_name">
@@ -653,10 +742,9 @@
                             </div>
                             @enderror
                         </div>
-
-                        <div class="col-md-12" style="margin-top:30px;">
-                            <div class="form-group">
-                                <label for="company_name" class="form-label">Country</label>
+                        <div class="col-md-12 col-lg-6">
+                            <p style="margin-bottom: 20px;"><label for="company_name" class="form-label">Select country</label></p>
+                            <div class="form-group d-flex align-items-end">
                                 <select wire:model="country" class="form-select" aria-label="Default select example">
                                     <option value="" hidden>Select</option>
                                     @foreach($countries as $country)
@@ -670,32 +758,36 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4 text-left">
-                            <div x-data="{ isUploading: false, progress: 0 }"
-                                x-on:livewire-upload-start="isUploading = true"
-                                x-on:livewire-upload-finish="isUploading = false"
-                                x-on:livewire-upload-error="isUploading = false"
-                                x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                <div class="form-group">
+                        </div>
 
-                                    <label class="control-label mb-10">
-                                        Subsidiary’s (borrower)M&AA
-                                    </label>
-                                    <br>
-                                    <br>
-                                    <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                                        <input wire:model="subsidiary"
-                                            accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                            type="file" id="vehicleimage">
-                                    </label>
-                                </div>
-                                @error('subsidiary')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <div x-show="isUploading">
-                                    <progress max="100" x-bind:value="progress"></progress>
+                        <div class="row">
+                            <div class="col-md-4 mt-4">
+                                <div x-data="{ isUploading: false, progress: 0 }"
+                                    x-on:livewire-upload-start="isUploading = true"
+                                    x-on:livewire-upload-finish="isUploading = false"
+                                    x-on:livewire-upload-error="isUploading = false"
+                                    x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <div class="form-group">
+    
+                                        <label class="control-label">
+                                            Subsidiary’s (borrower)M&AA
+                                        </label>
+                                        <br>
+                                        <br>
+                                        <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
+                                            <input wire:model="subsidiary"
+                                                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                                type="file" class="form-control" id="vehicleimage">
+                                        </label>
+                                    </div>
+                                    @error('subsidiary')
+                                    <div style="color: red;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    <div x-show="isUploading">
+                                        <progress max="100" x-bind:value="progress"></progress>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -892,7 +984,7 @@
                 <!-- SHAREHOLDER__SELECT -->
                 <div class="row">
                     @foreach($get_share_holder_type as $key => $item)
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 col-lg-2 mb-3">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Shareholder 
                                 @if($key++ == 0)
@@ -903,9 +995,9 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-9 mb-3">
+                    <div class="col-md-4 col-lg-3 mb-3">
                         <div class="form-check">
-                            <select class="form-control" wire:model="checkShareHolder.{{ $item['id'] }}"
+                            <select class="form-select" wire:model="checkShareHolder.{{ $item['id'] }}"
                                 wire:change="getShareholderTypeId({{ $item['id'] }})">
                                 <option value="0">Person</option>
                                 <option value="1">Company</option>
@@ -1083,7 +1175,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-4">
-                                        <select class="form-control" name="" id=""
+                                        <select class="form-select" name="" id=""
                                             wire:model.defer="not_proof.{{ $shreholder }}">
                                             <option value="" hidden>Select</option>
                                             <option value="1">Student</option>

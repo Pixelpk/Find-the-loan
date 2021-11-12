@@ -1,7 +1,7 @@
 <section>
     <div class="form-group">
 
-        <label class="control-label mb-10">
+        <label class="control-label form-label mb-10">
             {{ $label }}
         </label>
         <br>

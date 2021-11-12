@@ -1,17 +1,20 @@
 <section>
 
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <label for="insurance" class="form-label">Name of insured
-            </label>
-            <input wire:model="insurance" type="text" class="form-control" id="insurance">
-            @error("insurance")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
+    <div class="row mt-4">
+        <div class="col-md-4">
+       <div class="mb-3">
+        <label for="insurance" class="form-label">Name of insured
+        </label>
+        <input wire:model="insurance" type="text" class="form-control" id="insurance">
+        @error("insurance")
+        <div style="color: red;">
+            {{ $message }}
         </div>
-        <div class="col-md-6">
+        @enderror
+       </div>
+        </div>
+        <div class="col-md-4">
+        <div class="mb-3">
             <label for="type_of_policy" class="form-label">Type of policy
             </label>
             <select class="form-select" wire:model="type_of_policy">
@@ -26,7 +29,9 @@
             </div>
             @enderror
         </div>
-        <div class="col-md-6" style="margin-top: 30px;">
+        </div>
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="lease_remaining" class="form-label">
                 Policy start date
             </label>
@@ -42,9 +47,13 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
+    </div>
 
-        <div class="col-md-6" style="margin-top: 30px;">
+    <div class="row mt-2">
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="name_of_policy_owner" class="form-label">
                 Name of policyowner
             </label>
@@ -61,8 +70,10 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+           <div class="mb-3">
             <label for="insurer" class="form-label">
                 Insurer
             </label>
@@ -72,63 +83,64 @@
                 {{ $message }}
             </div>
             @enderror
+           </div>
         </div>
-        
-        
-        <div class="col-md-6">
-            <label for="surrender_value" class="form-label">
-                Surrender Value $
-            </label>
-            <input wire:model="surrender_value" type="number" class="form-control" id="surrender_value">
-            <span>
-                Download from your insurer’s website or check with your advisor for a updated copy. The latest surrender value can be found on it.
-            </span>
-            @error("surrender_value")
-            <div style="color: red;">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <div class="mb-3">
             <livewire:widget.currency/>
             @error("currency")
             <div style="color: red;">
                 {{ $message }}
             </div>
             @enderror
+          </div>
         </div>
-       
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <br>
-            <br>
+
+    <div class="row mt-3">
+        <div class="col-md-5">
+          <div class="mb-3">
+            <label for="surrender_value" class="form-label">
+                Surrender Value $
+            </label>
+            <input wire:model="surrender_value" type="number" class="form-control" id="surrender_value">
+           <p>  Download from your insurer’s website or check with your advisor for a updated copy. The latest surrender value can be found on it.</p>
+            @error("surrender_value")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+          </div>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+            <h5 class="pb-5">Or</h5>
+        </div>
+        <div class="col-md-5">
+           <div class="mb-3">
             <livewire:widget.upload-component 
-                :label="'Or upload your Benefit illustration'" 
-                :apply_loan="$apply_loan"
-                :main_type="$main_type" 
-                :loan_type_id="$loan_type_id" 
-                :share_holder="0"
-                :modell="'App\Models\OverDraftInsurance'" 
-                :keyvalue="'over_draft_benifit_illustration'" 
-            />
-        </div>
-        
-        <div class="col-md-12">
-            <hr>
+            :label="'upload your benefit illustration'" 
+            :apply_loan="$apply_loan"
+            :main_type="$main_type" 
+            :loan_type_id="$loan_type_id" 
+            :share_holder="0"
+            :modell="'App\Models\OverDraftInsurance'" 
+            :keyvalue="'over_draft_benifit_illustration'" 
+        />
+           </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
             <button class="btn" wire:click="store">Add @if(sizeof($insurances) > 0) Another @endif Policy</button>
         </div>
     </div>
-    <div class="row">
+
+<hr class="mt-4 mb-0">
+
+    <div class="row mt-3">
         <div class="col-md-12">
-            <br>
-            <br>
+          <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -173,6 +185,8 @@
 
                 </tbody>
             </table>
+          </div>
+           
         </div>
     </div>
 
