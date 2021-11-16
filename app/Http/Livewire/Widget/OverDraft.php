@@ -35,7 +35,10 @@ class OverDraft extends Component
     ];
     public function mount()
     {
+        $this->overdraft['security_type'] = [];
         $this->getData();
+        $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
+       
         // dd($this->apply_loan);
       
     }
@@ -142,6 +145,7 @@ class OverDraft extends Component
     }
     public function removeIndexInSecurityType($value)
     {
+        // dd($this->overdraft['security_type']);
         BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->delete();
         $overDraftType = new BusinessOverDraft();
         $overDraftType->type = 2; 
@@ -162,8 +166,11 @@ class OverDraft extends Component
     }
     public function changeType()
     {
+        // dd($this->overdraft['unsecured']);
+        $this->overdraft['security_type'] = ["1" => true];
+        $this->overdraft['secure'] = '';
         // && $this->overdraft['unsecured']
-        
+        // dd($this->overdraft);
         $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
         if($overDraftType)
         {
@@ -180,7 +187,8 @@ class OverDraft extends Component
             $loan->update();
             $overDraftType->update();
            
-        }else{
+        }
+        else{
             
             $overDraftType = new BusinessOverDraft();
            
