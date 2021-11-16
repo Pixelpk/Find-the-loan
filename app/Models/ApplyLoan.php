@@ -83,6 +83,11 @@ class ApplyLoan extends Model
         return $this->hasOne(LoanLenderDetail::class,'apply_loan_id','id');
     }
 
+    public function loan_all_lender_details(){
+        return $this->hasMany(LoanLenderDetail::class,'apply_loan_id','id')
+        ->with(['application_rejected','application_quote','application_more_doc']);
+    }
+
     public function application_more_doc(){
         return $this->hasMany(MoreDocRequireRequest::class,'apply_loan_id','id')->with('more_doc_msg_desc');
     }

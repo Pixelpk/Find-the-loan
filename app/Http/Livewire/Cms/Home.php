@@ -14,7 +14,7 @@ class Home extends Component
     public $is_cookie = 0;
     public function mount()
     {
-        $this->partners= FinancePartner::where('status','=',1)->get();
+        $this->partners= FinancePartner::where('status','=',1)->where('type',1)->get();
         $this->loan_types = LoanType::query()
         ->orderBy('id','desc')
         ->where('status','!=',2)

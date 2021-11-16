@@ -8,6 +8,7 @@ use App\Models\AssignedApplication;
 use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
+use App\Models\LoanLenderDetail;
 use App\Models\LoanType;
 use App\Models\Media;
 use App\Models\MoreDocRequireRequest;
@@ -49,7 +50,7 @@ class LoanApplications extends Controller
 
         $query = ApplyLoan::select('*')
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->where('profile','=',$data['profile'])
         ->orderBy('id','desc')
@@ -142,7 +143,7 @@ class LoanApplications extends Controller
 
         $data['applications'] = ApplyLoan::select('*')
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->whereHas('application_rejected',function($query) use ($partner_id,$parent_id,$logged_user_id){
             $query->where('partner_id','=',$partner_id);
@@ -171,7 +172,7 @@ class LoanApplications extends Controller
 
         $data['applications'] = ApplyLoan::select('*')
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->whereHas('application_more_doc',function($query) use ($partner_id,$parent_id,$logged_user_id){
             $query->where('partner_id','=',$partner_id);
@@ -197,7 +198,7 @@ class LoanApplications extends Controller
 
         $data['applications'] = ApplyLoan::select('*')
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->whereHas('assigned_application',function($query) use ($logged_user_id){
             $query->where('assigned_by','=',$logged_user_id);
@@ -221,7 +222,7 @@ class LoanApplications extends Controller
         $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['application'] = ApplyLoan::where('id','=',$id)
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->with([
             'loan_type','loan_company_detail','loan_reason',
@@ -260,7 +261,7 @@ class LoanApplications extends Controller
                 ->where('profile','=',$profile)
                 ->select('*')
                 ->whereHas('loan_lender_details',function($query) use ($partner_id){
-                    $query->where('lender_id','=',$partner_id);
+                    $query->where('lender_id','=',$partner_id)->where('status',1);
                 });
 
             if ($parent_id != 0 ){
@@ -310,7 +311,7 @@ class LoanApplications extends Controller
         $id = $request->id  ?? null;
         $application = ApplyLoan::where('id','=',$id)
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->with(['loan_person_share_holder','loan_lenders_cbs_member_image',
         'loan_company_detail'=> function ($related) {
@@ -471,18 +472,5 @@ class LoanApplications extends Controller
         return redirect()->back()->with('success','Loan application is rejected successfully');
     }
 
-    public function fourteenDayNoActionCronJob(Request $request)
-    {
-        // return Carbon::today()->subDays(14);
-        $applications = ApplyLoan::whereHas('loan_lender_details')
-        ->whereDoesntHave('application_rejected')
-        ->whereDoesntHave('application_quote')
-        ->whereDoesntHave('application_more_doc')
-        ->whereDate('created_at', '<', Carbon::today()->subDays(14))
-        ->with('loan_lender_details')
-        ->get();
-        return $applications;
-            
-            
-    }
+
 }
