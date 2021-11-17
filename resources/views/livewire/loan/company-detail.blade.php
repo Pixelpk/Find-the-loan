@@ -249,40 +249,15 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4 mt-4">
-                <div x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                    x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
-                    x-on:livewire-upload-progress="progress = $event.detail.progress">
-                    <div class="form-group">
-
-                        <label class="control-label">
-                            Subsidiary’s (borrower)M&AA
-                        </label>
-                        <br>
-                        <br>
-                        <label wire:ignore class="label" data-toggle="tooltip" title="Select Image">
-                            <input wire:model="subsidiary"
-                                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
-                                class="form-control" id="vehicleimage">
-                        </label>
-                    </div>
-                    @error('subsidiary')
-                    <div style="color: red;">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    <div x-show="isUploading">
-                        <progress max="100" x-bind:value="progress"></progress>
-                    </div>
-                </div>
+                <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
+                :keyvalue="'parent_company_subsidairy'" />
             </div>
         </div>
-
         @endif
     </div>
-
     <!-- SAVE & CONTINUE BUTTON -->
     <div class="ro">
         <br>

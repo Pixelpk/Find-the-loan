@@ -34,9 +34,11 @@ class CompanyDetail extends Component
     public $revenue;
     public $website;
     public $subsidiary;
-    public $listed_company_check = 0;
+    public $listed_company_check = false;
     public $countries;
     public $get_share_holder_type = [];
+    public $main_type;
+    public $loan_type_id;
     
 
     public function mount()
@@ -44,6 +46,9 @@ class CompanyDetail extends Component
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
 
         $this->sectors = Sector::where('status', 1)->get();
+
+        $this->main_type == $this->apply_loan->main_type;
+        $this->loan_type_id == $this->apply_loan->loan_type_id;
 
         $this->countries = CountryListFacade::getList('en');
 
@@ -69,18 +74,18 @@ class CompanyDetail extends Component
             $this->listed_company_check = $companyDetail->listed_company_check;
             
             $this->country = $companyDetail->country;
+            
+            $company_motnh = explode("/", $companyDetail->company_start_date);
 
-            $whatIWant = substr($companyDetail->company_months, strpos($companyDetail->company_months, "/") + 1);
-            // dd($whatIWant);
-            // $then_ts = strtotime("$this->company_years-01-01");
+            $this->company_year = substr($companyDetail->company_start_date, 0, strpos($companyDetail->company_start_date, "/"));
             
-            // $then_year = date('Y', $then_ts);
+            $this->company_months = $company_motnh[1];
             
-            // $diff = date('Y') - $then_year;
+            $this->resetComapny();
+
+            $this->company_month = $company_motnh[1];
             
-            // if(strtotime('+' . $diff . ' years', $then_ts) > time()) $diff--;
-            // dd($diff);
-            // $company_start_date = $diff.'/'.$this->company_months;
+            
             
             
         }
@@ -111,56 +116,27 @@ class CompanyDetail extends Component
 
     public function companyDetailStore()
     {
-        
+      
         if($this->listed_company_check){
+            
             $this->validate([
-                'subsidiary' => 'image|required',
                 'company_name' => 'required',
                 'country' => 'required'
             ]);
+          
             $companyDetail = LoanCompanyDetail::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->first();
+           
             if($companyDetail && $companyDetail->listed_company_check == 0){
                
-               $LD = LoanDocument::where('apply_loan_id', $this->apply_loan->id)->first();
-               $LS = LoanStatement::where('apply_loan_id', $this->apply_loan->id)->get();
-               if($LD){
-                    if(Storage::exists($LD->statement)) {
-                        Storage::delete($LD->statement);
-                    }
-                    if(Storage::exists($LD->latest_year)) {
-                        Storage::delete($LD->latest_year);
-                    }
-                    if(Storage::exists($LD->year_before)) {
-                        Storage::delete($LD->year_before);
-                    }
-                    if(Storage::exists($LD->current_year)) {
-                        Storage::delete($LD->current_year);
-                    }
-                    $LD->delete();
-               }
-               if($LS->count() > 0){
-                   foreach($LS as $item){
-                        if(Storage::exists($item->statement)) {
-                            Storage::delete($item->statement);
-                        }  
-                   }
-                   LoanStatement::where('apply_loan_id', $this->apply_loan->id)->delete();
-               }
                $SHCD = LoanCompanyDetail::where('share_holder', '!=', 0)->where('apply_loan_id', $this->apply_loan->id)->delete();
 
             }
             if($this->apply_loan && $companyDetail){
-                
                 $companyDetail->company_name = $this->company_name;
                 $companyDetail->country = $this->country;
                 $companyDetail->listed_company_check = $this->listed_company_check;
-                if(Storage::exists($companyDetail->subsidiary)) {
-                    Storage::delete($companyDetail->subsidiary);
-                }
-                $companyDetail->subsidiary = $this->subsidiary->store('documents');
                 $companyDetail->update();
                 $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been udpate.']);
-                // $companyDetail->subsidiary = $this->company_name;
             }
             else{
                 LoanCompanyDetail::forceCreate([
@@ -173,7 +149,6 @@ class CompanyDetail extends Component
                 $this->apply_loan = $this->apply_loan;
                 $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been saved.']);
             }
-            // $this->tab = 9;
             $this->emit('changeTab',$this->apply_loan->id, 9);
             $this->lenderflag = true;
             return;
@@ -190,7 +165,7 @@ class CompanyDetail extends Component
             'number_of_share_holder' => 'numeric|max:10|integer|gt:0',
             'sector_id' => 'required',
             'revenue' => 'required|integer|gt:0',
-            'percentage_shareholder' => 'required|integer|gt:0',
+            'percentage_shareholder' => 'required|integer|gt:0|max:100',
             'company_structure_type_id' => 'required',
             'number_of_employees' => 'required|numeric|max:50000|integer|gt:0',
             'website' => 'nullable',

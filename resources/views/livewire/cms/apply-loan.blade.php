@@ -19,7 +19,7 @@
                    
                     <li class="nav-item">
                         <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
-                            class=" nav-link {{ $tab == '4' ? 'active' : '' }}" href="#">COMPANY DETAIL</a>
+                            class="{{ isset($enable['companyDetail']) ? '' : 'disabled' }} nav-link {{ $tab == '4' ? 'active' : '' }}" href="#">COMPANY DETAIL</a>
                     </li>
 
                     {{-- @if(!$this->listed_company_check) --}}
@@ -29,12 +29,12 @@
                     </li>
                     <li class="nav-item">
                         <a wire:click="$set('tab', '5')" style="padding: .1rem 1rem;"
-                            class=" nav-link {{ $tab == '5' ? 'active' : '' }}" href="#">COMPANY DOCUMENTS</a>
+                            class="{{ isset($enable['companyDocuments']) ? '' : 'disabled' }} nav-link {{ $tab == '5' ? 'active' : '' }}" href="#">COMPANY DOCUMENTS</a>
                     </li>
                     
                     <li class="nav-item">
                         <a wire:click="$set('tab', '7')" style="padding: .1rem 1rem;"
-                            class="nav-link {{ $tab == '7' ? 'active' : '' }}"
+                            class="{{ isset($enable['companyShareHolder']) ? '' : 'disabled' }} nav-link {{ $tab == '7' ? 'active' : '' }}"
                             href="#">SHAREHOLDER</a>
                     </li>
                     {{-- @endif --}}
