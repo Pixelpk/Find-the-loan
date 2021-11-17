@@ -18,8 +18,8 @@ class OCRController extends Controller
     const STAPLE_SCAN_BANK_STAT_API = "https://api-gateway.staple.io/v1/documents/scan/bank-stat";
 
     //accesstoken and apikey will be generated in login function.. followin is dummy accesstoken and apikey
-    public $accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjU5MSwiaWRlbnRpdHkiOiI1OTEiLCJpYXQiOjE2MzY0NTUwMjgsImV4cCI6MTYzNzA1OTgyOH0.yWkConoXaYxaMW7fapFipt4-8WjxrTvn6Da0cHS4Hvw";
-    public $apiKey = "039c345337606233c23d593c67a5c4c2cc107bbacdd5f36cf1f7e2ad35d0faaa";
+    public $accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjU5MSwiaWRlbnRpdHkiOiI1OTEiLCJpYXQiOjE2MzY5NzQ3OTQsImV4cCI6MTYzNzU3OTU5NH0.AE5fcr6ZxRb0th10GGrrx2JV-aTehCS6cfkKrn0eFtU";
+    public $apiKey = "b3bec2a8317bab6163543a75598a36da49508da1b8f7d32b744db0e419ff54e1";
     public function login(){
         $post_data = [
             'credential'=>[
@@ -43,13 +43,13 @@ class OCRController extends Controller
     public function createQueue(){
         $post_data = ['input'=>
             [
-                'gid'=> 821, //gid will be generated in createGroup function
+                'gid'=> 906, //gid will be generated in createGroup function
                 'name'=>'TestQueue',
                 'accountType'=>'Test',
-                'supplier'=>'Test',
-                'customer'=>'Test',
-                'docType'=>'BANKSTAT',
-                'language'=>'Test',
+                // 'supplier'=>'',
+                // 'customer'=>'',
+                'docType'=>'BANKSTAT', 
+                'language'=>'EN'
             ],
             'members'=>['Pixelpkk@gmail.com']
         ];
@@ -63,7 +63,7 @@ class OCRController extends Controller
         // dd($path);
         $post_data = array(
             'files'=> new CURLFILE($path),
-            'qid' => 1778, //qid will be generated in createQueue function
+            'qid' => 1882, //qid will be generated in createQueue function
             'handwritten' => false
         );
 

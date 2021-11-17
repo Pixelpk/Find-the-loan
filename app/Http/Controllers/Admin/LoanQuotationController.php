@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReceiveQuote;
 use App\Models\ApplyLoan;
+use App\Models\FinancePartner;
 use Illuminate\Http\Request;
 use App\Models\LoanQuotations;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use function GuzzleHttp\Promise\all;
 
@@ -52,6 +56,7 @@ class LoanQuotationController extends Controller
         $data = $request->all();
         // return $data;
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
+        ->with('loan_user:id,first_name,last_name,email')
         ->first();
         // return $apply_loan;
         //for invoice financing and purchase order financing
@@ -66,6 +71,15 @@ class LoanQuotationController extends Controller
         $fill['quoted_by'] = Auth::user()->id; // id of loggedin finance partner user
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
+        $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();
+        try
+        {
+            Mail::to($apply_loan->loan_user->email)->send(new ReceiveQuote(['user'=>$apply_loan->loan_user, 'apply_loan'=>$apply_loan,'finance_partner'=>$finance_partner]));
+        }
+        catch(Exception $ex)
+        {
+            // dd($ex->getMessage());
+        }
         return redirect(route('quoted-customer'))->with('success','Quotation is submitted.');
 
     }

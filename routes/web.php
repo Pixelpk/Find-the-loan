@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\Admin\MoreDocController;
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\CronJobController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\GlossaryComponenet;
 use App\Http\Livewire\Cms\FaqComponent;
@@ -42,7 +43,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('fourteen-day-cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
+Route::get('application-no-action-cronjob',[CronJobController::class,'applicationsNoActionCronJob']);
+Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
+
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');

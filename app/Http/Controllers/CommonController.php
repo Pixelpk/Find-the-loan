@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Crypt;
 
 class CommonController extends Controller
 {
+
     public function verifyEmail(Request $request)
     {
-         $user = User::where('email', Crypt::decryptString($request->email))->first();
+         $user = User::where('email', Crypt::decryptString($request->email))
+         ->orderBy('id','desc')
+         ->where('status','3')->first();
+         if(!$user){
+            return redirect()->route('login')->with('message', 'Oops..You are trying old link.');
+         }
          $user->status = 1;
          $user->update();
-         return redirect()->route('login')->with('message', 'Email verify successfully');
+         return redirect()->route('login')->with('message', 'Email verified successfully');
     }
 
     public static function vali($model, $key, $apply_loan_id, $share_holder)
