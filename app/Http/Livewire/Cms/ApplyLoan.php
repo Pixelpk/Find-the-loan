@@ -93,7 +93,7 @@ class ApplyLoan extends Component
     public $financial_institute = false;
     public $cbs_member = false;
     public $cbs_member_image;
-   
+    public $enable;
     ////
     public $gernalinfo;
     protected $listeners = [
@@ -104,6 +104,20 @@ class ApplyLoan extends Component
         $this->apply_loan = $apply_loan;
         $this->comDisable = true;
         $this->tab = $id;
+        if($this->tab == 4)
+        {
+            $this->enable['companyDetail'] = true;
+        }
+        
+        if($this->tab == 5)
+        {
+            $this->enable['companyDocuments'] = true;
+        }
+
+        if($this->tab == 7)
+        {
+            $this->enable['companyShareHolder'] = true;
+        }
         
     }
     public function mount()

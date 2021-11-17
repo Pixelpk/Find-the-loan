@@ -35,8 +35,12 @@ class CompanyDocuments extends Component
         $companyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->first();
 
         if($companyDetail){
+
             $this->profitable_latest_year = $companyDetail->profitable_latest_year;
+
             $this->profitable_before_year = $companyDetail->profitable_before_year;
+
+            $this->optional_revenuee = $companyDetail->optional_revenuee;
         }
     }
     

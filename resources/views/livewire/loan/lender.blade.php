@@ -55,8 +55,8 @@
                         <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
                             <div class="lender-bank__img">
                                 <img for="{{ $financePartner->id }}"
-                                    src="uploads/financePartnerImages/{{ $financePartner->image }}" alt="" width="80px"
-                                    height="25px">
+                                    src="{{ asset('uploads/financePartnerImages/'.$financePartner->image) }}" alt=""
+                                    width="80px" height="25px">
                             </div>
                             <input wire:model="lender.{{ $financePartner->id }}" wire:change="Selectall({{ $item }})"
                                 type="checkbox" id="{{ $financePartner->id }}">
