@@ -34,7 +34,7 @@ class OCRController extends Controller
     }
 
     public function createGroup(){
-        $post_data = ['name'=>'TestGroup'];
+        $post_data = ['name'=>'TestGroup2'];
         $response = json_decode($this->curlRequest(array('Content-Type: application/json','x-api-key: '.$this->apiKey, 'Authorization: Bearer '.$this->accessToken),'POST',self::STAPLE_CREATE_GROUP_API,json_encode($post_data)));
         return $response;
 
@@ -43,8 +43,8 @@ class OCRController extends Controller
     public function createQueue(){
         $post_data = ['input'=>
             [
-                'gid'=> 906, //gid will be generated in createGroup function
-                'name'=>'TestQueue',
+                'gid'=> 922, //gid will be generated in createGroup function
+                'name'=>'TestQueue20',
                 'accountType'=>'Test',
                 // 'supplier'=>'',
                 // 'customer'=>'',
@@ -63,7 +63,7 @@ class OCRController extends Controller
         // dd($path);
         $post_data = array(
             'files'=> new CURLFILE($path),
-            'qid' => 1882, //qid will be generated in createQueue function
+            'qid' => 1910, //qid will be generated in createQueue function
             'handwritten' => false
         );
 
@@ -109,6 +109,21 @@ class OCRController extends Controller
         $add_doc_quote->fill($data)->save();
 
         return redirect()->back()->with('success',"Added successfully!");
+    }
+
+    public function ocrResults()
+    {
+        $path = base_path("bankstatementresults.json");
+        $content = file_get_contents($path);
+        $content = json_decode($content);
+        $document_data = $content->scanDocuments->data;
+        // $scanDocuments = $content['scanDocuments'];
+        $AccountNumber = $document_data->AccountNumber->matches[0]->match;
+        $Email = $document_data->Email->matches[0]->match;
+        $Currency = $document_data->Currency->matches[0]->match;
+        $BankName = $document_data->BankName->matches[0]->match;
+        
+        return $document_data;
     }
 
 

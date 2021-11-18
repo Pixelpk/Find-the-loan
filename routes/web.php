@@ -46,6 +46,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('application-no-action-cronjob',[CronJobController::class,'applicationsNoActionCronJob']);
 Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
 
+Route::get('ocr-results',[OCRController::class,'ocrResults'])->name('ocr-results');
+
+
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
