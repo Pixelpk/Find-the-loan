@@ -1,4 +1,4 @@
-<section class="section-white pb-4" id="apply-loan"> 
+<section class="section-white pb-4" id="apply-loan">
     @php $main_types = loanProfile(); @endphp
     <div class="container">
         <div class="card" style="margin-top:30px;">
@@ -16,10 +16,11 @@
                         </a>
                     </li>
                     @if($main_type == 1)
-                   
+
                     <li class="nav-item">
                         <a wire:click="$set('tab', '4')" style="padding: .1rem 1rem;"
-                            class="{{ isset($enable['companyDetail']) ? '' : 'disabled' }} nav-link {{ $tab == '4' ? 'active' : '' }}" href="#">COMPANY DETAIL</a>
+                            class="{{ isset($enable['companyDetail']) ? '' : 'disabled' }} nav-link {{ $tab == '4' ? 'active' : '' }}"
+                            href="#">COMPANY DETAIL</a>
                     </li>
 
                     {{-- @if(!$this->listed_company_check) --}}
@@ -29,9 +30,10 @@
                     </li>
                     <li class="nav-item">
                         <a wire:click="$set('tab', '5')" style="padding: .1rem 1rem;"
-                            class="{{ isset($enable['companyDocuments']) ? '' : 'disabled' }} nav-link {{ $tab == '5' ? 'active' : '' }}" href="#">COMPANY DOCUMENTS</a>
+                            class="{{ isset($enable['companyDocuments']) ? '' : 'disabled' }} nav-link {{ $tab == '5' ? 'active' : '' }}"
+                            href="#">COMPANY DOCUMENTS</a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a wire:click="$set('tab', '7')" style="padding: .1rem 1rem;"
                             class="{{ isset($enable['companyShareHolder']) ? '' : 'disabled' }} nav-link {{ $tab == '7' ? 'active' : '' }}"
@@ -212,7 +214,6 @@
                     @endforeach
                 </div>
                 <!-- /LOAN TYPE CARDS -->
-
                 @if(sizeof($loanReasons) > 0)
                 <div class="row">
                     <br>
@@ -220,7 +221,6 @@
                     <hr>
                     <h5>Loan Reasons</h5>
                 </div>
-
                 <!-- LOAN REASONS -->
                 <div class="row mt-3">
                     @foreach($loanReasons as $key => $item)
@@ -234,7 +234,6 @@
                     @endforeach
                 </div>
                 <!-- /LOAN REASONS -->
-
                 <div class="row text-end">
                     <div>
                         <br>
@@ -243,7 +242,6 @@
                     </div>
                 </div>
                 @endif
-
                 @endif
                 {{-- get lender --}}
                 @elseif($tab == 9)
@@ -261,7 +259,6 @@
                             @endif
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-12">
                             <br>
@@ -273,17 +270,16 @@
                                 </div>
                                 Save & Continue
                             </button>
-
                         </div>
                     </div>
                     @elseif($tab == 4)
-                    <livewire:loan.company-detail :apply_loan="$apply_loan">
+                    <livewire:loan.company-detail :apply_loan="$apply_loan" :share_holder="$share_holder">
                         <!-- COMPANY DOCUMENTS__TOPCONTENT -->
-                    @elseif($tab == 5)
-                    <livewire:loan.company-documents :apply_loan="$apply_loan">
-                    @elseif($tab == 7)
-                    <livewire:loan.company-share-holder :apply_loan="$apply_loan">
-                    @endif
+                        @elseif($tab == 5)
+                        <livewire:loan.company-documents :apply_loan="$apply_loan" :share_holder="$share_holder">
+                            @elseif($tab == 7)
+                            <livewire:loan.company-share-holder :apply_loan="$apply_loan">
+                                @endif
             </div>
 
         </div>
