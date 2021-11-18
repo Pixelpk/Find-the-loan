@@ -259,7 +259,7 @@
         @endif
     </div>
     <!-- SAVE & CONTINUE BUTTON -->
-    <div class="ro">
+    <div class="ro text-end">
         <br>
         <button class="btn" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
             <div wire:loading wire:target="confirmationMessage">

@@ -25,9 +25,13 @@ class CompanyDocuments extends Component
 
     public $optional_revenuee;
 
+    public $share_holder;
+
 
     public function mount()
     {
+        
+
         $this->main_type = $this->apply_loan->main_type; 
         
         $this->loan_type_id = $this->apply_loan->loan_type_id;

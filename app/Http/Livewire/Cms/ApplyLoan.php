@@ -94,6 +94,7 @@ class ApplyLoan extends Component
     public $cbs_member = false;
     public $cbs_member_image;
     public $enable;
+    public $share_holder;
     ////
     public $gernalinfo;
     protected $listeners = [
@@ -122,15 +123,9 @@ class ApplyLoan extends Component
     }
     public function mount()
     {
-        
-       
+        $this->share_holder = 0;
         $this->mainTypes = [];
         $this->loanReasons = [];
-        // $this->reasonValue = [];
-        
-       
-        
-        // $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', 2)->get();
     }
     
     public function pushReason($id)

@@ -44,7 +44,7 @@ class CompanyShareHolder extends Component
     public $get_share_holder_type = [];
     public $checkShareHolder;
     public $chklsit=[];
-    public $subtab;
+    public $subtab = 1;
     public $shareholderCompany;
     public $company_structure_types = [];
     public $sectors = [];
@@ -58,19 +58,51 @@ class CompanyShareHolder extends Component
     public $nric_back;
     public $nao_older;
     public $gernal;
+    public $share_holder;
+    public $share_holder_type;
+    public $company_share_holder;
+    public $check;
 
+
+    protected $listeners = [
+        'changeSubTab'
+    ];
+
+    public function gotoView($data)
+    {
+        
+        $this->share_holder = $data['id'];
+        $this->share_holder_type = $data['share_holder_type'];
+        $test = ShareHolderDetail::where('id', $data['id'])->first();
+        if($test->share_holder_type == 2){
+            $this->check = true;
+            $this->company_share_holder[$data['id']] = true;
+        }else{
+            $this->check = false;
+        }
+        // $this->check = false;
+        
+    }
+
+    public function changeSubTab($id)
+    {
+        $this->subtab = $id;
+    }
     public function mount()
     {
+        
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
 
         $this->sectors = Sector::where('status', 1)->get();
 
         $this->countries = CountryListFacade::getList('en');
+
         $this->main_type = $this->apply_loan->main_type;
 
         $this->loan_type_id  = $this->apply_loan->loan_type_id ;
 
         $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        // dd($this->get_share_holder_type);
     }
     public function render()
     {
@@ -80,65 +112,25 @@ class CompanyShareHolder extends Component
     public function getShareholderTypeId($id)
     {
         // $this->dispatchBrowserEvent('name-updated', ['newName' => 'All shareholder will be deleted if you update']);
-        if($this->checkShareHolder[$id]){
-            $LPSH=LoanPersonShareHolder::where('share_holder_detail_id', $id)->Where('apply_loan_id', $this->apply_loan->id)->first();
-            if($LPSH){
-                if($LPSH && Storage::exists($LPSH->nric_front)) {
-                    Storage::delete($LPSH->nric_front);
-                }
-                if($LPSH && Storage::exists($LPSH->nric_back)) {
-                    Storage::delete($LPSH->nric_back);
-                }
-                if($LPSH && Storage::exists($LPSH->nao_latest)) {
-                    Storage::delete($LPSH->nao_latest);
-                }
-                if($LPSH && Storage::exists($LPSH->nao_older)) {
-                    Storage::delete($LPSH->nao_older);
-                }
-                if($LPSH && Storage::exists($LPSH->passport)) {
-                    Storage::delete($LPSH->passport);
-                }
-                $LPSH->delete();
-            }
-        }
-        if(!$this->checkShareHolder[$id]){
-            $LD = LoanDocument::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->first();
-            $LS = LoanStatement::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->get();
-            if($LS->count() > 0){
-                foreach($LS as $LSDetail){
-                    if(Storage::exists($LSDetail->statement)) {
-                        Storage::delete($LSDetail->statement);
-                    }
-                }
-                LoanStatement::where('share_holder', $id)->where('apply_loan_id', $this->apply_loan->id)->delete();
-            }
-            if($LD){
-                if(Storage::exists($LD->statement)) {
-                    Storage::delete($LD->statement);
-                }
-                if(Storage::exists($LD->latest_year)) {
-                    Storage::delete($LD->latest_year);
-                }
-                if(Storage::exists($LD->year_before)) {
-                    Storage::delete($LD->year_before);
-                }
-                if(Storage::exists($LD->current_year)) {
-                    Storage::delete($LD->current_year);
-                }
-              
-                $LD->delete();
-            }
-        }
-        if($this->checkShareHolder[$id]){
-            $shareholder = ShareHolderDetail::where('id', $id)->first();
+        
+        // dd($this->company_share_holder);
+        // dd($this->share_holder);
+        // dd();
+        $this->check = $this->company_share_holder[$this->share_holder];
+        
+        if($this->company_share_holder[$this->share_holder]){
+            $shareholder = ShareHolderDetail::where('id', $this->share_holder)->first();
             $shareholder->share_holder_type = 2;
             $shareholder->update();
         }else{
-            $shareholder = ShareHolderDetail::where('id', $id)->first();
+            $shareholder = ShareHolderDetail::where('id', $this->share_holder)->first();
             $shareholder->share_holder_type = 1;
             $shareholder->update();
         }
+
         $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        
+       
         // dd($this->chklsit);
        
         // if($this->checkShareHolder[$id] == 1){
@@ -432,5 +424,12 @@ class CompanyShareHolder extends Component
            
             
         }
+    }
+    
+    public function getshare_holderID($id)
+    {
+        $this->share_holder = $id;
+
+       
     }
 }

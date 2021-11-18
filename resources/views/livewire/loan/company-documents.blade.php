@@ -19,7 +19,7 @@
 
                 <livewire:widget.upload-component :label="$montName" :keyvalue="$montName" :key="$montName"
                     :getImages="$images" :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
-                    :share_holder="0" :modell="'App\Models\LoanStatement'" />
+                    :share_holder="$share_holder" :modell="'App\Models\LoanStatement'" />
         </div>
         @endfor
     </div>
@@ -44,7 +44,7 @@
 
     <!-- COMPANY DOCUMENTS__LATEST YEAR -->
     <div class="row">
-        <p> <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial
+        <p> <b>Latest 2 Years Financial
                 Statement</b></p>
         <p>
             (Income Statement also known as Profit & Loss
@@ -58,14 +58,14 @@
                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
                 :keyvalue="'parent_company_latest_year_statement'" />
         </div>
-        @if($getNumberOfCompanyYears >= 3)
+        {{-- @if($getNumberOfCompanyYears >= 3) --}}
         <div class="col-md-4">
             <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan" :main_type="$main_type"
                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
                 :keyvalue="'parent_company_before_year_statement'" />
 
         </div>
-        @endif
+        {{-- @endif --}}
     </div>
     <!-- /COMPANY DOCUMENTS__LATEST YEAR -->
     <hr class="mt-3">
@@ -152,7 +152,7 @@
     <hr class="mt-3">
 
 
-    <div class="ro">
+    <div class="ro text-end">
         <br>
         <button class="btn" type="button" wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
             <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm" role="status"
