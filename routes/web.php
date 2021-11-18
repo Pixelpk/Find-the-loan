@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\Admin\MoreDocController;
+use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\CronJobController;
 use App\Http\Livewire\Cms\AboutUs;
@@ -167,6 +168,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
         Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation'); 
         Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating'); 
+
+
+        Route::get('partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('partner-sales-report'); 
+        // Route::get('get-partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('get-partner-sales-report'); 
 
     }); 
 
