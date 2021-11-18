@@ -122,8 +122,19 @@ class OCRController extends Controller
         $Email = $document_data->Email->matches[0]->match;
         $Currency = $document_data->Currency->matches[0]->match;
         $BankName = $document_data->BankName->matches[0]->match;
-        
-        return $document_data;
+        $lineItems = $document_data->LineItems;
+        $total_debit_amount = 0;
+        $total_credit_amount = 0;
+        $month_end_balance = 0;
+
+        // foreach($lineItems as $item){
+        //     // return $item;
+        //     // foreach($item as $sub_item){
+        //     //     return end($sub_item)[0];
+        //     // }
+        // }
+        // exit;
+        return $lineItems;
     }
 
 

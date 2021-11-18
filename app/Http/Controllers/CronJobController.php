@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\IncompleteSignupReminder;
 use App\Mail\NoQuoteDueToCredit;
+use App\Mail\SignupWithoutEnquiryMail;
 use Illuminate\Http\Request;
 use App\Models\ApplyLoan;
 use App\Models\LoanLenderDetail;
@@ -39,7 +40,6 @@ class CronJobController extends Controller
         // echo Carbon::today()->subDays(30);exit;
         //30 days after last action -  Leads in Loan Disbursed folder will be available for 12 months
         $thirty_day_applications = ApplyLoan::whereHas('loan_all_lender_details') //where status is 1
-        
         ->with('loan_all_lender_details',function($query){
             $query->where('status',1)->whereHas('application_rejected',function($query){
                 $query->whereDate('created_at', '<', Carbon::today()->subDays(30));
@@ -79,7 +79,32 @@ class CronJobController extends Controller
                 }
             }
         }
-        return $no_one_quoted_applications;
+        // return $no_one_quoted_applications;
+
+        //--------------------------------------------------
+
+        //Complete signup without any enquiry(loan application) made. 2 days later 
+        // echo Carbon::today()->subDays(2);exit;
+        $users = User::where('status',1)
+        ->whereDate('created_at', '<', Carbon::today()->subDays(2))
+        ->whereNull('signup_without_enquiry_mail')
+        ->whereDoesntHave('user_loan_applications')
+        ->get();
+        // return $users;
+
+        foreach($users as $user){
+            $update_user = User::find($user->id);
+            $update_user->signup_without_enquiry_mail = date('Y-m-d h:i');
+            $update_user->save();
+            try 
+            {
+                Mail::to($user->email)->send(new SignupWithoutEnquiryMail($user));
+            }
+            catch(Exception $ex)
+            {
+                // dd($ex->getMessage());
+            }
+        }
             
     }
 

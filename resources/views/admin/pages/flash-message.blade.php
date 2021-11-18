@@ -28,7 +28,7 @@
 @if ($errors->any())
     @foreach ($errors->all() as $error)
     <script>
-        showNotificationModal('{{ $error }}','bg-red',"top","right");
+        showNotificationModal('{{ $error }}','alert-danger',"top","right");
     </script>
     @endforeach
 @endif

@@ -218,6 +218,9 @@ class LoanApplications extends Controller
     public function applicationSummary(Request $request){
         $id = $request->apply_loan_id ?? null;
         $partner_id = Session::get('partner_id');
+        $logged_in_user = $request->user();
+        // return $logged_in_user;
+
         $data['customer_reject_reasons'] = RejectReason::where('type','=',2)->get();
         $data['internal_reject_reasons'] = RejectReason::where('type','=',1)->get();
         $data['application'] = ApplyLoan::where('id','=',$id)
@@ -242,6 +245,14 @@ class LoanApplications extends Controller
         if($id == null || !$data['application']){
             return redirect()->back()->with('error','Oops. something went wrong.');
         }
+        if($logged_in_user->parent_id != 0){
+            //if partner user have viewed the loan application then update the is_viewed column value.
+            AssignedApplication::where('apply_loan_id',$id)
+            ->where('user_id',$logged_in_user->id)
+            ->where('is_viewed',0)
+            ->update(['is_viewed'=>1]);
+        }
+        
         // return $data['application'];
         return view('admin.loan_applications.loan_summary',$data);
     }
