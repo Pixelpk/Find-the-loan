@@ -75,8 +75,8 @@ class SalesReportController extends Controller
             })->whereHas('assigned_application',function($query) use($partner_user_id,$date){
                 $query->where('is_viewed',1)
                 ->whereDate('created_at',">=",$date) //assigned greater then this date
-                ->where('user_id',$partner_user_id);
-                // ->groupBY('created_at');
+                ->where('user_id',$partner_user_id)
+                ->groupBY('created_at');
             })
             ->get();
             // return $data['applications'];
