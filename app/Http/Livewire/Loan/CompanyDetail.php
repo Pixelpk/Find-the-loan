@@ -156,6 +156,7 @@ class CompanyDetail extends Component
                 $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been saved.']);
             }
             // $this->emit('changeTab',$this->apply_loan->id, 9);
+            $this->emit('changeTab',$this->apply_loan->id, 9);
             // $this->lenderflag = true;
             return;
         }
@@ -168,7 +169,7 @@ class CompanyDetail extends Component
             'company_month' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:11|integer|gt:0',
             'company_years' =>  $this->company_months  ? 'required|integer|gt:0' : '',
             'company_months' =>  $this->company_years  ? 'required|integer|gt:0' : '',
-            'number_of_share_holder' => 'numeric|max:10|integer|gt:0',
+            'number_of_share_holder' => 'numeric|max:50|integer|gt:0',
             'sector_id' => 'required',
             'revenue' => 'required|integer|gt:0',
             'percentage_shareholder' => 'required|integer|gt:0|max:100',
