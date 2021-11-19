@@ -20,9 +20,15 @@
 @livewireScripts
 <script>
 window.livewire.on('alert', param => {
+    toastr.options = {
+    "positionClass": "toast-top-center",
+    }
     toastr.success(param['message'])
 });
 window.livewire.on('danger', param => {
+    toastr.options = {
+    "positionClass": "toast-top-center",
+    }
     toastr.error(param['message'])
 });
 </script>

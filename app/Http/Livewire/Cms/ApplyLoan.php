@@ -119,6 +119,11 @@ class ApplyLoan extends Component
         {
             $this->enable['companyShareHolder'] = true;
         }
+
+        if($this->tab == 9)
+        {
+            $this->enable['lender'] = true;
+        }
         
     }
     public function mount()

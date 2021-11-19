@@ -152,12 +152,12 @@
     <hr class="mt-3">
 
 
-    <div class="ro text-end">
+    <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
         <button class="btn" type="button" wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
             <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>
-            Save & Continue
+            Save @if($share_holder == 0) & Continue @endif
         </button>
     </div>
     </div>

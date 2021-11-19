@@ -49,7 +49,7 @@
                     @endif
                     @if(!$lenderflag)
                     <li class="nav-item">
-                        <a style="padding: .1rem 1rem;" class="disabled nav-link {{ $tab == '9' ? 'active' : '' }}"
+                        <a wire:click="$set('tab', '9')" style="padding: .1rem 1rem;" class="{{ isset($enable['lender']) ? '' : 'disabled' }} nav-link {{ $tab == '9' ? 'active' : '' }}"
                             href="#">LENDER</a>
                     </li>
                     @elseif($lenderflag)

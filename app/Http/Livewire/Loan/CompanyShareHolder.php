@@ -62,15 +62,38 @@ class CompanyShareHolder extends Component
     public $share_holder_type;
     public $company_share_holder;
     public $check;
+    public $hideCompanyDocuments;
+    public $test;
 
 
     protected $listeners = [
-        'changeSubTab'
+        'changeSubTab', "hideCompanyDocuments"
     ];
+   
+    
+    public function hideCompanyDocuments($data)
+    {
+       
+        if($data == 'hide'):
+            $this->hideCompanyDocuments = true;
+        endif;
+        if($data == 'show'):
+            $this->hideCompanyDocuments = false;
+        endif;
+    }
 
     public function gotoView($data)
     {
-        
+        $this->subtab = 1;        
+        $checkShareholder = LoanCompanyDetail::where('share_holder', $data['id'])
+        ->where('apply_loan_id', $this->apply_loan->id)
+        ->first();
+        if($checkShareholder && $checkShareholder->listed_company_check){
+            $this->hideCompanyDocuments = true;
+        }else{
+            $this->hideCompanyDocuments = false;
+        }
+        $this->test = true;
         $this->share_holder = $data['id'];
         $this->share_holder_type = $data['share_holder_type'];
         $test = ShareHolderDetail::where('id', $data['id'])->first();
@@ -80,8 +103,7 @@ class CompanyShareHolder extends Component
         }else{
             $this->check = false;
         }
-        // $this->check = false;
-        
+
     }
 
     public function changeSubTab($id)
@@ -90,7 +112,10 @@ class CompanyShareHolder extends Component
     }
     public function mount()
     {
-        
+        $shareholder = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->first();
+        if($shareholder){
+            $this->gotoView($shareholder);
+        }
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
 
         $this->sectors = Sector::where('status', 1)->get();
@@ -111,11 +136,6 @@ class CompanyShareHolder extends Component
 
     public function getShareholderTypeId($id)
     {
-        // $this->dispatchBrowserEvent('name-updated', ['newName' => 'All shareholder will be deleted if you update']);
-        
-        // dd($this->company_share_holder);
-        // dd($this->share_holder);
-        // dd();
         $this->check = $this->company_share_holder[$this->share_holder];
         
         if($this->company_share_holder[$this->share_holder]){
@@ -130,30 +150,12 @@ class CompanyShareHolder extends Component
 
         $this->get_share_holder_type = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
         
-       
-        // dd($this->chklsit);
-       
-        // if($this->checkShareHolder[$id] == 1){
-
             if(sizeof($this->get_share_holder_type) > 0){
                
                 foreach($this->get_share_holder_type as $key => $item){
-                   
-                    // if($id != $item->id){
-                        // dd($key);
                         $this->chklsit[$item->id] = false;
-                    // }
                 }
-                // dd($this->chklsit);
             }
-           
-            // dd($this->chklsit);
-            
-            
-        // }
-        
-        // dd($this->checkShareHolder);
-        // dd($id);
     }
 
 
@@ -164,25 +166,24 @@ class CompanyShareHolder extends Component
         }else{
             $this->chklsit[$id] = false;
         }
-        // dd($this->chklsit[$id]);
     }
 
 
     public function share_holder_document_store($id)
     {
-        
-        $getsholder = ShareHolderDetail::where('id', $id)->first();
+        $currentID = $this->share_holder;
+        $getsholder = ShareHolderDetail::where('id', $currentID)->first();
         if($getsholder->share_holder_type == 1){
         
             $this->validate([
-                "nric_front.$id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
-                "nric_back.$id" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
-                "passport.$id" => isset($this->nric_front[$getsholder->id]) && isset($this->nric_back[$id]) ? '' : 'image|required',
-                "not_proof.$id" => isset($this->nao_latest[$getsholder->id]) && isset($this->nao_older[$id]) ? '' : 'required',
-                "nao_latest.$id" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
-                "nao_older.$id" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                "nric_front.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                "nric_back.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                "passport.$currentID" => isset($this->nric_front[$getsholder->id]) && isset($this->nric_back[$currentID]) ? '' : 'image|required',
+                "not_proof.$currentID" => isset($this->nao_latest[$getsholder->id]) && isset($this->nao_older[$currentID]) ? '' : 'required',
+                "nao_latest.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                "nao_older.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
             ]);
-            // dd($this->passport[$getsholder->id]);
+
             $LPSH = LoanPersonShareHolder::where('share_holder_detail_id',$getsholder->id)->where('apply_loan_id', $this->apply_loan->id)->first();
             if($LPSH){
                 if($LPSH && Storage::exists($LPSH->nric_front)) {
@@ -221,7 +222,6 @@ class CompanyShareHolder extends Component
         }
         if($getsholder->share_holder_type == 2)
         {
-            dd('asd');
             if(isset($this->share_holder_listed_company_check[$id]) && $this->share_holder_listed_company_check[$id]){
                 $this->validate([
                     "share_holder_company_name.$getsholder->id" => 'required',
@@ -268,12 +268,10 @@ class CompanyShareHolder extends Component
                 ]);
                 $this->emit('alert', ['type' => 'success', 'message' => 'Shareholder company data saved.']);
                 $this->lenderflag = true;
-                // $this->subtab = '2';
                 return;
                 
             }
             
-            // dd('asd');
             $this->validate([
                 "share_holder_company_name.$getsholder->id" => 'required',
                 "share_holder_company_year.$getsholder->id" => 'required',
@@ -304,7 +302,6 @@ class CompanyShareHolder extends Component
                 "apply_loan_id" => $this->apply_loan->id,
                 "share_holder" => $getsholder->id,
                 "listed_company_check" => $this->listed_company_check,
-                // "company_start_date" =>  $this->share_holder_company_year[$getsholder->id].'/'.$this->share_holder_company_month[$getsholder->id],
                 "company_start_date" =>  $company_start_date,
                 "revenue" => $this->share_holder_revenue[$getsholder->id],
                 "number_of_share_holder" => $this->share_holder_number_of_share_holder[$getsholder->id],
@@ -319,8 +316,6 @@ class CompanyShareHolder extends Component
             $this->lenderflag = true;
             $this->subtab = '2';
         }
-        // $this->lenderflag = true;
-        // $this->shareholderCompany = true;
     }
 
     public function  shareHolderResetComapny($shreholder)
@@ -421,15 +416,49 @@ class CompanyShareHolder extends Component
             }
             $this->emit('alert', ['type' => 'success', 'message' => 'Shareholder Company documents added successfully.']);
 
-           
-            
         }
     }
     
     public function getshare_holderID($id)
     {
         $this->share_holder = $id;
+    }
 
-       
+    public function searchLender()
+    {
+        $shareHolders = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        $error = [];
+        $sr = 1;
+        foreach($shareHolders as $key => $shareHolder)
+        {
+            
+            if($shareHolder->share_holder_type == 1){
+                $personShareHolder = LoanPersonShareHolder::where('apply_loan_id', $this->apply_loan->id)
+                ->where('share_holder_detail_id', $shareHolder->id)
+                ->first();
+                
+                if(!$personShareHolder){
+                    
+                    $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
+                }
+            }
+            else{
+
+                $loanCompanyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
+                ->where('share_holder', $shareHolder->id)
+                ->first();
+
+                if(!$loanCompanyDetail){
+                    
+                    $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
+                }
+            }
+        }
+
+        if(sizeof($error) > 0){
+            $this->emit('danger', ['type' => 'success', 'message' => 'All shareholder required.']);
+            return;
+        }
+        $this->emit('changeTab',$this->apply_loan->id, 9);
     }
 }

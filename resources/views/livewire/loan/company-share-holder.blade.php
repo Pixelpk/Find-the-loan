@@ -2,6 +2,7 @@
     <ul class="nav nav-pills">
         @php $sr = 1; @endphp
         @foreach($get_share_holder_type as $item)
+
         <li class="nav-item">
             <a wire:click="gotoView({{ $item }})" style="padding: .1rem 1rem;"
                 class="nav-link {{ $share_holder == $item['id'] ? 'active' : '' }}" aria-current="page"
@@ -188,7 +189,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="ro text-end">
+                <div class="ro">
                     <br>
                     <button class="btn" type="button" wire:target='share_holder_document_store'
                         wire:click.prevent='share_holder_document_store({{ $item['id'] }})'>
@@ -216,22 +217,42 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a style="padding: .1rem 1rem;padding-left: 0px; {{ $subtab == 1 ? 'color: green;' : '' }}" class="nav-link"
-                            aria-current="page" href="#"><b>Shareholder company detail</b></a>
+                        <a wire:click="$set('subtab', '1')"
+                            style="padding: .1rem 1rem;padding-left: 0px; {{ $subtab == 1 ? 'color: green;' : '' }}"
+                            class="nav-link" aria-current="page" href="#"><b>Shareholder company detail</b></a>
                     </li>
+                    @if(!$hideCompanyDocuments)
                     <li class="nav-item">
-                        <a style="padding: .1rem 1rem; {{ $subtab == 2 ? 'color: green;' : '' }}" class="nav-link"
+                        <a wire:click="$set('subtab', '2')"
+                            style="padding: .1rem 1rem; {{ $subtab == 2 ? 'color: green;' : '' }}" class="nav-link"
                             aria-current="page" href="#"><b>Shareholder company documents</b></a>
                     </li>
-                </ul>
-                @if($subtab == 1)
-                <livewire:loan.company-detail :apply_loan="$apply_loan" :share_holder="$share_holder">
                     @endif
+                </ul>
+
+                @if($subtab == 1 && $share_holder)
+
+                <livewire:loan.company-detail :key="$share_holder" :apply_loan="$apply_loan"
+                    :share_holder="$share_holder">
+
+                    @endif
+
                     @if($subtab == 2)
-                    <livewire:loan.company-documents :apply_loan="$apply_loan" :share_holder="$share_holder">
+
+                    <livewire:loan.company-documents key="{{ now() }}" :apply_loan="$apply_loan"
+                        :share_holder="$share_holder">
+
                         @endif
             </div>
             @endif
         </div>
+    </div>
+    <div class="ro text-end">
+
+        <button class="btn" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
+            <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
+                aria-hidden="true"></span>
+            Save Continue
+        </button>
     </div>
 </section>

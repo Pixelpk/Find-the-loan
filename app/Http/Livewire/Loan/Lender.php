@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Loan;
 
 use App\Models\FinancePartner;
+use App\Models\LoanCompanyDetail;
 use App\Models\LoanLender;
 use App\Models\LoanLenderDetail;
 use Livewire\Component;
@@ -11,29 +12,60 @@ class Lender extends Component
 {
     public $apply_loan;
     public $financePartners = [];
-    public $lender;
+    public $lender =  [];
     public $cbs_member_image;
     public $cbs_member;
     public $loan_type_id;
     public $financial_institute;
     public $main_type;
+    public $selectall;
+    public $policy;
     // public $checkSelect;
     public $checkSelect= [];
-    // public $loan_type_id;
+    
     public function mount()
     {
+        $this->getFinancePartner();
+        
+        foreach($this->financePartners as $item){
+            
+            $this->lender[$item->id] = false;
+        }
+       
+    }
+
+    public function getFinancePartner()
+    {
+        $loancompanyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
+        ->where('share_holder', 0)
+        ->where('listed_company_check', 0)
+        ->first();     
+
         $this->loan_type_id = $this->apply_loan->loan_type_id;
         $this->main_type = $this->apply_loan->main_type;
-        $this->financePartners = FinancePartner::where('status', 1)->whereRaw("find_in_set('".$this->apply_loan->loan_type_id."',loan_type_id)")
+        $query = FinancePartner::where('status', 1)
+        ->whereRaw("find_in_set('".$this->apply_loan->loan_type_id."',loan_type_id)")
         ->where('min_quantum', '<=', $this->apply_loan->amount)
         ->where('max_quantum', '>=', $this->apply_loan->amount)
-        ->where('parent_id', 0)
-        ->get();
-        // dd($this->financePartners );
+        ->where('parent_id', 0);
+        if($loancompanyDetail){
+            $lengthOfIncorporation = substr($loancompanyDetail->company_start_date, 0, strpos($loancompanyDetail->company_start_date, "/"));
+            $query->whereRaw("find_in_set('".$loancompanyDetail->company_structure_type_id."',company_structure_id)")
+            ->where('length_of_incorporation', '<=', $lengthOfIncorporation)
+            ->where('local_shareholding', '<=', $loancompanyDetail->percentage_shareholder);
+        }
+        if($this->cbs_member){
+            $query->where('cbs_member', 1);
+        }
+        
+        $this->financePartners = $query->get();
     }
+
+    
 
     public function render()
     {
+
         return view('livewire.loan.lender');
     }
 
@@ -64,6 +96,7 @@ class Lender extends Component
 
     public function findLender()
     {
+        // foreach($this->)
         $this->financePartners = FinancePartner::where('status', 1)
         ->whereRaw("find_in_set('".$this->apply_loan->loan_type_id."',loan_type_id)")
         ->where('min_quantum', '<=', $this->apply_loan->amount)
@@ -75,44 +108,49 @@ class Lender extends Component
 
     public function Selectall($id)
     {
-        // dd($id);
-    //    dd($this->lender);
-        if($this->cbs_member_image){
-            $FP= FinancePartner::where('type', $id)
-            ->where('cbs_member', 1)
-            ->where('loan_type_id', $this->loan_type_id)
-            ->get();
-        }else{
-            $FP= FinancePartner::where('type', $id)
-            ->where('loan_type_id', $this->loan_type_id)
-            ->get();
-        }
-        
-        // if($this->checkSelect[$id]){
-        //     foreach($FP as $key => $item){
-        //         $key = $item['id'];
-        //         $this->lender[$key] = true;
-        //     }
-        // }
-        // else{
-            foreach($FP as $key => $item){
-                $key = $item['id'];
-                $this->lender[$key] = false;
+
+        if($this->selectall[$id]){
+            foreach($this->lender as $key => $item){
+                
+                $FP = FinancePartner::find($key);
+                if($FP->type == $id){
+                    $this->lender[$key] = true;
+                }
             }
-        // }
+        }else{
+
+            foreach($this->lender as $key => $item){
+
+                $FP = FinancePartner::find($key);
+                if($FP->type == $id){
+                    $this->lender[$key] = false;
+                }
+            }
+        }
        
-        // dd($this->lender);
-        // dd($this->lender[13]);
     }
 
 
     public function storeLender()
     {
+        $error = false;
+        foreach($this->lender as $key => $item){           
+            if($item){
+                $error = true;
+            }
+        }
+        if(!$error){
+            $this->emit('danger', ['type' => 'success', 'message' => 'Please select lenders.']);
+            return;
+        }
         $this->validate([
             'cbs_member_image' => $this->cbs_member ?  'required|mimes:jpg,jpeg,png,pdf' : 'nullable',
         ]);
         if(sizeof($this->lender) == 0){
             $this->emit('danger', ['type' => 'success', 'message' => 'Select lenders.']);
+            return;
+        }
+        if(!$this->policy){
             return;
         }
         LoanLender::where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -123,12 +161,15 @@ class Lender extends Component
             'cbs_member_image' => $this->cbs_member ? $this->cbs_member_image->store('documents') : '',
             'financial_institute' => $this->financial_institute,
         ]);
+        // dd($this->lender);
         foreach($this->lender as $key => $item){
-            LoanLenderDetail::forceCreate([
-                'loan_lender_id' => $LL->id,
-                'apply_loan_id' => $this->apply_loan->id,
-                'lender_id' => $key,
-            ]);
+            if($item){
+                LoanLenderDetail::forceCreate([
+                    'loan_lender_id' => $LL->id,
+                    'apply_loan_id' => $this->apply_loan->id,
+                    'lender_id' => $key,
+                ]);
+            }
         }
         return redirect()->route('home');
     }

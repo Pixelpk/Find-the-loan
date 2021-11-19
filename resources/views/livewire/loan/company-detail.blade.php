@@ -6,8 +6,8 @@
         <div class="row mt-3">
             <div class="col-md-12">
                 <div class="form-check form-switch">
-                    <input wire:model="listed_company_check" class="form-check-input" type="checkbox"
-                        id="flexSwitchCheckDefault">
+                    <input wire:model="listed_company_check" wire:change="listedCompanyCheck()" class="form-check-input"
+                        type="checkbox" id="flexSwitchCheckDefault">
                     <label class="form-check-label" for="flexSwitchCheckDefault">This is a listed
                         company</label>
                 </div>
@@ -26,11 +26,11 @@
                                 wire:change="getnoofYear()">
                                 <option value="" hidden>Select</option>
                                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">
-                                    
+
                                     {{  $x }}
-                                   
+
                                     </option>
-                                @endfor
+                                    @endfor
                             </select>
                             <label class="input-group-text">Year</label>
                         </div>
@@ -45,12 +45,10 @@
                             <select wire:model="company_months" class="form-select" aria-label="Default select example"
                                 wire:change="getnoofYear()">
                                 <option value="" hidden>Select</option>
-                                @for ($x = 0; $x <= 12; $x++) 
-                                @if($x != 0)
-                                <option value="{{ $x }}">
-                                   
+                                @for ($x = 0; $x <= 12; $x++) @if($x !=0) <option value="{{ $x }}">
+
                                     {{$mnth[$x] }}
-                                   
+
                                     </option>
                                     @endif
                                     @endfor
@@ -251,63 +249,65 @@
         </div>
         <div class="row">
             <div class="col-md-4 mt-4">
-                <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
-                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
-                :keyvalue="'parent_company_subsidairy'" />
+                <livewire:widget.upload-component :label="'subsidairy'" :apply_loan="$apply_loan"
+                    :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$share_holder"
+                    :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'parent_company_subsidairy'" />
             </div>
         </div>
         @endif
     </div>
     <!-- SAVE & CONTINUE BUTTON -->
-    <div class="ro text-end">
+    <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
         <button class="btn" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
             <div wire:loading wire:target="confirmationMessage">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             </div>
-            Save & Continue
+            
+            Save @if($share_holder == 0) & Continue @endif
         </button>
     </div>
     <!-- /SAVE & CONTINUE BUTTON -->
-<script>
-    window.addEventListener('name-updated', event => {
-        Swal.fire({
-            title: event.detail.newName,
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Update',
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.value) {
-                // calling destroy method to delete
-                @this.call('shareholderDelete')
-                // success response
+    <script>
+        window.addEventListener('name-updated', event => {
+            Swal.fire({
+                title: event.detail.newName,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Update',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    // calling destroy method to delete
+                    @this.call('shareholderDelete')
+                    // success response
 
-            } else {
+                } else {
 
-            }
+                }
+            })
         })
-    })
 
-</script>
-<script>
-    window.addEventListener('confirmation', event => {
-        Swal.fire({
-            title: event.detail.message,
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Update',
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.value) {
-                // calling destroy method to delete
-                @this.call(event.detail.function)
-                // success response
+    </script>
+    <script>
+        window.addEventListener('confirmation', event => {
+            Swal.fire({
+                title: event.detail.message,
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Update',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    // calling destroy method to delete
+                    @this.call(event.detail.function)
+                    // success response
 
-            } else {
+                } else {
 
-            }
+                }
+            })
         })
-    })
-</script>
+
+    </script>
 </section>
