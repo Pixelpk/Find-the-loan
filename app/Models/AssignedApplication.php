@@ -18,4 +18,6 @@ class AssignedApplication extends Model
     public function reject_application(){
         return $this->hasOne(UserLoanRejectReason::class,'partner_id','id');
     }
+
+    
 }
