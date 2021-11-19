@@ -44,7 +44,6 @@ class CompanyDetail extends Component
 
     public function mount()
     {
-    //    dd($this->share_holder);
         $this->company_structure_types = CompanyStructure::where('status', 1)->get();
 
         $this->sectors = Sector::where('status', 1)->get();
@@ -57,7 +56,10 @@ class CompanyDetail extends Component
         $companyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
         ->where('share_holder', $this->share_holder)
         ->first();
+       
         if($companyDetail){
+           
+            $this->listed_company_check = $companyDetail->listed_company_check;
 
             $this->percentage_shareholder = $companyDetail->percentage_shareholder;
 
@@ -75,23 +77,20 @@ class CompanyDetail extends Component
             
             $this->website = $companyDetail->website;
             
-            $this->listed_company_check = $companyDetail->listed_company_check;
-            
             $this->country = $companyDetail->country;
             
             $company_motnh = explode("/", $companyDetail->company_start_date);
 
             $this->company_year = substr($companyDetail->company_start_date, 0, strpos($companyDetail->company_start_date, "/"));
             
-            $this->company_months = $company_motnh[1];
+            $this->company_months = isset( $company_motnh[1]) ?? '';
             
             $this->resetComapny();
 
-            $this->company_month = $company_motnh[1];
+            $this->company_month = isset( $company_motnh[1]) ?? '';
+        }else{
             
-            
-            
-            
+            $this->emit('hideCompanyDocuments', 'show');
         }
 
     }
@@ -101,8 +100,6 @@ class CompanyDetail extends Component
     {
         return view('livewire.loan.company-detail');
     }
-
-
 
     public function confirmationMessage()
     {
@@ -116,22 +113,16 @@ class CompanyDetail extends Component
        
     }
 
-
-
     public function companyDetailStore()
     {
-       
-        // dd($this->share_holder);
+
         if($this->listed_company_check){
-        //    dd($this->share_holder);
             $this->validate([
                 'company_name' => 'required',
                 'country' => 'required'
             ]);
-           
             $companyDetail = LoanCompanyDetail::where('share_holder', $this->share_holder)
             ->where('apply_loan_id', $this->apply_loan->id)->first();
-           
             if($companyDetail && $companyDetail->listed_company_check == 0 && $this->share_holder == 0){
                $SHCD = LoanCompanyDetail::where('share_holder', $this->share_holder)
                ->where('share_holder', '!=', 0)->where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -150,20 +141,17 @@ class CompanyDetail extends Component
                     "listed_company_check" => $this->listed_company_check,
                     'country' => $this->country,
                     'share_holder' => $this->share_holder,
-                    // 'subsidiary' => $this->subsidiary->store('documents'),
+                  
                 ]);
                 $this->apply_loan = $this->apply_loan;
                 $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been saved.']);
             }
-            // $this->emit('changeTab',$this->apply_loan->id, 9);
-            $this->emit('changeTab',$this->apply_loan->id, 9);
-            // $this->lenderflag = true;
+            if($this->share_holder == 0):
+                $this->emit('changeTab',$this->apply_loan->id, 9);
+            endif;
             return;
         }
         $this->validate([
-            // 'amount' => 'required',
-            // 'loan_type_id' => 'required',
-            // 'reasons' => 'required',
             'company_name' => 'required',
             'company_year' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:100|integer|gt:0',
             'company_month' =>  $this->company_months || $this->company_years ? '' : 'required|numeric|max:11|integer|gt:0',
@@ -404,6 +392,17 @@ class CompanyDetail extends Component
         }
         $this->emit('alert', ['type' => 'success', 'message' => 'Company Detail has been updated.']);
         $this->emit('changeTab',$this->apply_loan->id, 5);
+    }
+
+
+    public function listedCompanyCheck()
+    {
+        if($this->share_holder && $this->listed_company_check && $this->share_holder > 0):
+            $this->emit('hideCompanyDocuments', 'hide');
+        endif;
+        if($this->share_holder && !$this->listed_company_check && $this->share_holder > 0):
+            $this->emit('hideCompanyDocuments', 'show');
+        endif;
     }
 
 
