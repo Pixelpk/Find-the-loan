@@ -290,7 +290,7 @@
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" value="1"
                                             name="is_joint_account_required" id="is_joint_account_required">
-                                        <label class="custom-control-label" for="is_joint_account_required">Joint
+                                        <label class="custom-control-label" for="is_joint_account_required">If Joint
                                             account required</label>
                                     </div>
                                 </div>

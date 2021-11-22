@@ -49,13 +49,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-rep-plugin">
+                                <div class="">
                                     <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        @isset($sales_report)
+                                        
                                         <h6>
-                                            Total leads received = {{$total_applications}}
+                                            Total leads received = @isset($sales_report) {{$total_applications}} @endisset 
                                         </h6>
-                                        @endisset
+                                        
                                         <table id="" class="table">
                                             @isset($sales_report)
                                             <thead>
@@ -74,73 +74,129 @@
                                                 <th style="min-width:130px;">Letter of offer Signed</th>
                                                 <th style="min-width:130px;">Loan Disbursed</th>
                                             </thead>
-                                                <tbody>
+                                            <tbody>
+                                                @foreach ($sales_report as $report)
+                                                    @foreach ($report as $item)
+                                                        <tr>
+                                                            <td>{{$item['lable']}}</td>
+                                                            <td>{{$item['total_viewed_applications']}} 
+                                                                @if($item['total_viewed_applications'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_viewed_applications']*100)/$total_applications}} %) @endif
+                                                            </td>
+                                                            <td>{{$item['total_rejected_applications']}} 
+                                                                @if($item['total_rejected_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_viewed_applications']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
+                                                            <td>{{$item['total_more_doc_requests']}} 
+                                                                @if($item['total_more_doc_requests'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_more_doc_requests']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>{{$item['total_assigned_out_application']}} 
+                                                                @if($item['total_assigned_out_application'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_assigned_out_application']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
+                                                            <td>{{$item['total_quoted_application']}} 
+                                                                @if($item['total_quoted_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_quoted_application']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                            <td>0</td>
+                                                        </tr>
+                                                        
                                                     
-                                                    {{-- <tr>
-                                                        @foreach ($sales_report as $report)
-                                                            @foreach ($report as $item)
-                                                                @if ($loop->first)
-                                                                    <td></td>
-                                                                @endif
-                                                                <td style="min-width:130px;" >{{$item['lable']}}</td>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </tr>
-                                                    <tr>
-                                                        @foreach ($sales_report as $report)
-                                                            @foreach ($report as $item)
-                                                            @if ($loop->first)
-                                                                <td>Viewed</td>
-                                                            @endif
-                                                                <td style="min-width:130px;" >{{$item['count']}}</td>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </tr> --}}
-                                                    <tr>
-                                                        @foreach ($sales_report as $report)
-                                                            @foreach ($report as $item)
-                                                                <tr>
-                                                                    <td>{{$item['lable']}}</td>
-                                                                    <td>{{$item['total_viewed_applications']}} 
-                                                                        @if($item['total_viewed_applications'] >0) ({{($item['total_viewed_applications']*100)/$total_applications}} %) @endif
-                                                                    </td>
-                                                                    <td>{{$item['total_rejected_applications']}} 
-                                                                        @if($item['total_rejected_applications'] > 0) ({{($item['total_viewed_applications']*100)/$item['total_viewed_applications']}} %) @endif
-                                                                    </td>
-                                                                    <td>{{$item['total_more_doc_requests']}} 
-                                                                        @if($item['total_more_doc_requests'] >0) ({{($item['total_more_doc_requests']*100)/$item['total_viewed_applications']}} %) @endif
-                                                                    </td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>{{$item['total_assigned_out_application']}} 
-                                                                        @if($item['total_assigned_out_application'] >0) ({{($item['total_assigned_out_application']*100)/$item['total_viewed_applications']}} %) @endif
-                                                                    </td>
-                                                                    <td>{{$item['total_quoted_application']}} 
-                                                                        @if($item['total_quoted_application'] >0) ({{($item['total_quoted_application']*100)/$item['total_viewed_applications']}} %) @endif
-                                                                    </td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                    <td>0</td>
-                                                                </tr>
-                                                                
-                                                            
-                                                            @endforeach
-                                                        @endforeach
-                                                    </tr>
-                                                    {{-- <tr>
-                                                        @foreach ($sales_report as $report)
-                                                            @foreach ($report as $item)
-                                                            @if ($loop->first)
-                                                                <td>Viewed</td>
-                                                            @endif
-                                                                <td style="min-width:130px;" >{{$item['count']}}</td>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </tr> --}}
-                                                </tbody>
+                                                    @endforeach
+                                                @endforeach
+                                            </tbody>
+                                            @endisset
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                                        <h6>
+                                            Quoted and Disbursed details
+                                        </h6>
+                                        <table id="" class="table">
+                                            @isset($month_vise)
+                                            <thead>
+                                                <th style="min-width:130px;">Month</th>
+                                                <th style="min-width:130px;">Loan Quoted</th>
+                                                <th style="min-width:130px;">Loan Disbursed</th>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($month_vise as $month)
+                                                        <tr>
+                                                            <td>{{ $month['month_name'] }}</td>
+                                                            <td>
+                                                                Total loan Quoted: {{ $month['quoted']['total_loan_quoted'] }}<br>
+                                                                Average loan size: {{ $month['quoted']['quoted_average_loan_size'] }}<br>
+                                                                Average interest: {{ $month['quoted']['quoted_average_interest'] }}<br>
+                                                                Average tenure: {{ $month['quoted']['quoted_average_tenure'] }}<br>
+                                                                Among xx cases: {{$month['quoted']['quoted_count']}}<br>
+                                                                Disbursed to quoted ratio: <br>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                @endforeach
+                                            </tbody>
+                                            @endisset
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                                        <h6>
+                                            Reason For Rejection
+                                        </h6>
+                                        <table id="" class="table">
+                                            @isset($month_vise)
+                                            <thead>
+                                                <th style="min-width:130px;">Month</th>
+                                                <th style="min-width:130px;">Reason</th>
+                                                
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($month_vise as $month)
+                                                        <tr>
+                                                            <td>{{ $month['month_name'] }}</td>
+                                                            <td>
+                                                                @foreach ($month['reject_reasons']  as $reason)
+                                                                <span style="font-weight:bold">{{$reason->reason}} : ({{count($reason->user_loan_reject)}})<span> <br>
+                                                                @endforeach
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                @endforeach
+                                            </tbody>
                                             @endisset
                                             
                                         </table>
