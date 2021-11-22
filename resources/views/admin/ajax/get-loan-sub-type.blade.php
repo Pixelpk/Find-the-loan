@@ -6,6 +6,5 @@
        @foreach($mainType as $item)
             <option @if($loanType && $loanType->profile == $item->id) selected @endif  value="{{ $item->id }}">{{ $item->main_type }}</option>
        @endforeach
-       
     </select>
 </div>

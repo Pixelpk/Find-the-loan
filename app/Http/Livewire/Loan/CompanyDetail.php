@@ -80,14 +80,14 @@ class CompanyDetail extends Component
             $this->country = $companyDetail->country;
             
             $company_motnh = explode("/", $companyDetail->company_start_date);
-
+          
             $this->company_year = substr($companyDetail->company_start_date, 0, strpos($companyDetail->company_start_date, "/"));
             
-            $this->company_months = isset( $company_motnh[1]) ?? '';
-            
+            $this->company_months =  $company_motnh[1] ?? '';
+
             $this->resetComapny();
 
-            $this->company_month = isset( $company_motnh[1]) ?? '';
+            $this->company_month = $company_motnh[1] ?? '';
         }else{
             
             $this->emit('hideCompanyDocuments', 'show');

@@ -208,6 +208,8 @@ class ApplyLoan extends Component
                  'loan_type_id' =>  $this->loan_type_id,
                  'reason_id' =>  $reason,
              ]);
+             $this->apply_loan->enquiry_id = date('Y').date('m').$this->apply_loan->id;
+             $this->apply_loan->update();
          }
          $this->tab = 8;
     }
@@ -335,6 +337,7 @@ class ApplyLoan extends Component
     ///////gernalinfo
     public function store()
     {
+        // dd('asda');
         // dd($this->gernalinfo['user_owned']);
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
             $this->validate([
