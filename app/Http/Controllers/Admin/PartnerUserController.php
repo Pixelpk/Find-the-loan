@@ -17,10 +17,11 @@ class PartnerUserController extends Controller
         $user = $request->user();
         $partner_id = Session::get('partner_id');
 //        echo Session::get('partner_id');exit();
-        $query = FinancePartner::Query()->where('partner_id','=',$partner_id);
-        if ($user->parent_id != 0){
-            $query->where('parent_id','=',$user->id);
-        }
+        $query = FinancePartner::Query()->where('partner_id','=',$partner_id)
+        ->whereIn('status',[0,1])->where('parent_id','=',$user->id);
+        // if ($user->parent_id != 0){
+        //     $query->where('parent_id','=',$user->id);
+        // }
         $data['users'] = $query->paginate(30);
         return view('admin.partner_users.users',$data);
     }

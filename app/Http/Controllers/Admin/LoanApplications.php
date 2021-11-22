@@ -64,8 +64,7 @@ class LoanApplications extends Controller
             'application_quote'=>function($query) use($partner_id){
                 $query->where('partner_id','=',$partner_id);
             },
-            ])->withCount(['quotations_of_application']
-        );
+            ])->withCount(['quotations_of_application']);
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -246,11 +245,11 @@ class LoanApplications extends Controller
             return redirect()->back()->with('error','Oops. something went wrong.');
         }
         if($logged_in_user->parent_id != 0){
-            //if partner user have viewed the loan application then update the is_viewed column value.
+            //if partner user have viewed the loan application then update the viewed_at column value.
             AssignedApplication::where('apply_loan_id',$id)
             ->where('user_id',$logged_in_user->id)
-            ->where('is_viewed',0)
-            ->update(['is_viewed'=>1]);
+            ->whereNull('viewed_at')
+            ->update(['viewed_at'=>date("Y-m-d H:i:s")]);
         }
         
         // return $data['application'];

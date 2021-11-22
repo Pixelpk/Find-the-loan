@@ -10,4 +10,9 @@ class RejectReason extends Model
     use HasFactory;
 
     protected $table = "reject_reasons";
+
+    public function user_loan_reject(){
+        return $this->hasMany(UserLoanReject::class,'internal_reject_reason_id','id');
+    }
+
 }

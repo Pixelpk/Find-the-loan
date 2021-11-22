@@ -86,7 +86,7 @@
                             @endphp
                             {{$start_date[0] ?? '0'}} years , {{$start_date[1] ?? '0'}} months ago
                         </span>
-                        <span class="info__text">Bussiness Structure</span>
+                        <span class="info__text">Business Structure</span>
                         <span
                             class="info__field">{{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}</span>
                         <span class="info__text">Local Shareholding</span>
@@ -290,7 +290,7 @@
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" value="1"
                                             name="is_joint_account_required" id="is_joint_account_required">
-                                        <label class="custom-control-label" for="is_joint_account_required">Joint
+                                        <label class="custom-control-label" for="is_joint_account_required">If Joint
                                             account required</label>
                                     </div>
                                 </div>
