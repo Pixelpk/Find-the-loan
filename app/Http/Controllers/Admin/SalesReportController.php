@@ -223,18 +223,20 @@ class SalesReportController extends Controller
             }
             $partner_quoted_applications_count = $month_report ? $month_report->partner_quoted_applications_count : 0;
             $partner_applications_count = $month_report ? $month_report->partner_applications_count : 0;
+
+            
+            $month_list[$key]['partner_applications_count'] = $partner_applications_count;
+            $month_list[$key]['partner_quoted_applications_count'] = $partner_quoted_applications_count;
             $month_list[$key]['avg_quoted_applications'] = $avg_quoted_applications;
             $month_list[$key]['amount_quoted'] = $month_amount_quoted;
             $month_list[$key]['amount_quoted_average'] = ($partner_quoted_applications_count > 0) ? ($month_amount_quoted/$partner_quoted_applications_count) : 0;
-            $month_list[$key]['partner_applications_count'] = $partner_applications_count;
-            $month_list[$key]['partner_quoted_applications_count'] = $partner_quoted_applications_count;
         
         }
 
         $data['finance_partners'] = $finance_partners;
         $data['selected_partner'] = $partner_id;
         $data['month_list'] = $month_list;
-        return $data;
+        // return $data;
 
         return view('admin.sales_report.admin-sales-report',$data);
 

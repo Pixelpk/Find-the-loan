@@ -124,15 +124,18 @@
                     $("#edit_partner_phone").val(detail.phone);
                     $("#edit_min_quantum").val(detail.min_quantum);
                     $("#edit_max_quantum").val(detail.max_quantum);
-                    $("#edit_partner_company_structure").val(detail.company_structure_id);
+                    // $("#edit_partner_company_structure").val(detail.company_structure_id);
+                    $("#edit_partner_company_structure").select2().val(detail.company_structure_id).trigger("change");
                     $("#edit_partner_loan_type").select2().val(detail.loan_type_id).trigger("change");
                     $("#edit_property_types").select2().val(detail.property_types).trigger("change");
                     $("#edit_equipment_types").select2().val(detail.equipment_types).trigger("change");
                     $("#edit_length_of_incorporation").val(detail.length_of_incorporation);
                     $("#edit_local_shareholding").val(detail.local_shareholding);
-                    $("#edit_subsidiaries").val(detail.subsidiaries);
                     if(detail.cbs_member ==  1){
                         $('#edit_cbs_member').prop('checked', true);
+                    }
+                    if(detail.subsidiaries ==  1){
+                        $('#edit_subsidiaries').prop('checked', true);
                     }
                     CKEDITOR.instances['edit_partner_terms_condition'].setData(detail.terms_condition);
                     if (detail.image != "") {

@@ -148,8 +148,8 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <hr>
-                                    <h6>Reasons</h6>
+                                    {{-- <hr> --}}
+                                    {{-- <h6>Reasons</h6> --}}
                                     <span style="color: red" id="more_doc_reasons_error"></span>
                                     @php
                                         $list = moreDocReasons();

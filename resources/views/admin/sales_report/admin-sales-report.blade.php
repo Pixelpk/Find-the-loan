@@ -48,7 +48,21 @@
                                                 <th style="min-width:130px;">Disburse to quote ratio by lead count</th>
                                             </thead>
                                             <tbody>
-                                                
+                                                @foreach ($month_list as $month)
+                                                <tr>
+                                                    <td>{{ $month['month_name'] }}</td>
+                                                    <td>{{ $month['partner_applications_count'] }}</td>
+                                                    <td>
+                                                        <span style="font-weight:bold">Leads: {{ $month['partner_quoted_applications_count'] }}</span><br>
+                                                        <span style="font-weight:bold">Of Leads: {{ $month['avg_quoted_applications'] }}</span><br>
+                                                        <span style="font-weight:bold">Amount quoted: {{ $month['amount_quoted'] }}</span><br>
+                                                        <span style="font-weight:bold">Average quoted: {{ $month['amount_quoted_average'] }}</span><br>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>                                            
                                         </table>
                                     </div>
