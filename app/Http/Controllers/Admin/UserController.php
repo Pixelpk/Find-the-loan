@@ -91,7 +91,7 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
-//        dd(Auth::user());exit();
+    //    dd(Auth::user());exit();
         $loggedin_user = $request->user();
         $user_id = $loggedin_user->id;
 
@@ -253,45 +253,45 @@ class UserController extends Controller
         }
     }
 
-    public function addUser(Request $request){
-        $data = $request->all();
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'role_id' => 'required',
-            'email' => 'required',
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'password' => 'required'
-        ]);
+    // public function addUser(Request $request){
+    //     $data = $request->all();
+    //     $request->validate([
+    //         'first_name' => 'required',
+    //         'last_name' => 'required',
+    //         'role_id' => 'required',
+    //         'email' => 'required',
+    //         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+    //         'password' => 'required'
+    //     ]);
 
-        $data['password'] = Hash::make($data['password']);
-        $dup = User::where(function ($query) use($data){
-            $query->where('email','=',$data['email']);
-            $query->orwhere('phone','=',$data['phone']);
-        })->where('status','!=','2')->first();
+    //     $data['password'] = Hash::make($data['password']);
+    //     $dup = User::where(function ($query) use($data){
+    //         $query->where('email','=',$data['email']);
+    //         $query->orwhere('phone','=',$data['phone']);
+    //     })->where('status','!=','2')->first();
 
-        if ($dup){
-            return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',  "User already exists!")->withInput();
-        }
+    //     if ($dup){
+    //         return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',  "User already exists!")->withInput();
+    //     }
 
-        $user = new User();
-        try {
-            $user->fill($data)->save();
-        }catch (\Exception $exception){
-            return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',$exception->getMessage());
-        }
-        return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('success',"User added successfully!");
+    //     $user = new User();
+    //     try {
+    //         $user->fill($data)->save();
+    //     }catch (\Exception $exception){
+    //         return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',$exception->getMessage());
+    //     }
+    //     return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('success',"User added successfully!");
 
-    }
+    // }
 
     public function logout(Request $request)
     {
 //        dd(Auth::user());exit();
         if (Auth::guard('users')->check()){
-            Auth::logout();
+            Auth::guard('users')->logout();
             return redirect(route('admin-login'));
         }else{
-            Auth::logout();
+            Auth::guard('partners')->logout();
             return redirect(route('partner-login'));
         }
     }

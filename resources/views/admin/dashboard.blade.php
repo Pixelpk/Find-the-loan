@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">Dashboard</h4>
+                                <h4 class="page-title">Overview</h4>
 {{--                                <ol class="breadcrumb">--}}
 {{--                                    <li class="breadcrumb-item active">Welcome to Admin dashboard</li>--}}
 {{--                                </ol>--}}

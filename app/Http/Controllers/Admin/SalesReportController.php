@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 class SalesReportController extends Controller
 {
-    public function viewPeriod()
+    public function lastSixMonthViewPeriod()
     {
         $last_six_mont_start_date = Carbon::now()->subMonths(6)->startOfMonth()->format('Y-m-d');
         $date_now = date('Y-m-d');
@@ -33,6 +33,29 @@ class SalesReportController extends Controller
 
             $months_list[$key]['month_name'] = $month->format('M');
             $months_list[$key]['month_number'] = $month->format('m');
+        }
+
+        return $months_list;
+    }
+
+    public function lastThreeMonths()
+    {
+        $last_three_month_start_date = Carbon::now()->subMonths(2)->startOfMonth()->format('Y-m-d');
+        $date_now = date('Y-m-d');
+        $last_three_months = CarbonPeriod::create($last_three_month_start_date,new DateInterval('P1M'),$date_now);
+         
+        $months_list = [];
+        foreach ($last_three_months as $key=>$month) {
+            // $dt =  Carbon::create($month);
+            // $months_list[$key]['month_start_day'] = $dt->startOfMonth()->format('d');
+            // $months_list[$key]['month_end_day'] = $dt->endOfMonth()->format('d');
+            // $months_list[$key]['start_date1'] = $dt->startOfMonth()->format('Y-m-d');
+            // $months_list[$key]['start_date2'] = $dt->startOfMonth()->addDays(10)->format('Y-m-d');
+            // $months_list[$key]['start_date3'] = $dt->startOfMonth()->addDays(20)->format('Y-m-d');
+
+            $months_list[$key]['month_name'] = $month->format('M');
+            $months_list[$key]['month_number'] = $month->format('m');
+            $months_list[$key]['year'] = $month->format('Y');
         }
 
         return $months_list;
@@ -136,15 +159,87 @@ class SalesReportController extends Controller
             $data['selected_period'] = $date ?? null;
 
         }
-        // return $data;
         
         $data['all_users'] = FinancePartner::where('partner_id','=',$partner_id)
         ->where('parent_id','=',$loggedin_user->id)
         ->get();
-        $data['months_list'] = $this->viewPeriod();
+        $data['months_list'] = $this->lastSixMonthViewPeriod();
 
         return view('admin.sales_report.partner-sales-report',$data);
     }
+
+
+
+    public function getAdminSalesReport(Request $request)
+    {
+        $finance_partners = FinancePartner::select("id","name")
+        ->orderBy('id','desc')
+        ->where('parent_id','=',0)
+        ->where('status','!=',2)
+        ->get();
+
+        $partner_id = $request->partner_id ?? null;
+        if($partner_id != null){
+            $if_partner = FinancePartner::where('id',$partner_id)
+            ->where('parent_id','=',0)
+            ->where('status','!=',2)->first();
+
+            if(!$if_partner){
+                return redirect(route('admin-sales-report'))->with('error',"Oops. something went wrong.");
+            }
+        }
+
+        $month_list = $this->lastThreeMonths();
+
+        
+        foreach($month_list as $key=>$month){
+
+            $month_filter = function($query) use($month){
+                $query->whereMonth('created_at',$month['month_number'])
+                ->whereYear('created_at',$month['year']);
+            };
+
+            $month_report = FinancePartner::select('id','name')->where('id',$partner_id)
+            ->whereHas('partner_applications',$month_filter)
+            ->with('partner_quoted_applications',$month_filter)
+            ->withCount([
+                'partner_applications'=>$month_filter,
+                'partner_quoted_applications'=>$month_filter,
+                ])
+            ->first();
+
+
+            $avg_quoted_applications = 0;
+            if($month_report && $month_report->partner_applications_count > 0){
+                $avg_quoted_applications = number_format(($month_report->partner_quoted_applications_count/$month_report->partner_applications_count),2);
+            }
+            
+
+            $month_amount_quoted = 0;
+            if($month_report){
+                foreach($month_report->partner_quoted_applications as $report){
+                    $month_amount_quoted += $report->quantum_interest->quantum;
+                }
+            }
+            $partner_quoted_applications_count = $month_report ? $month_report->partner_quoted_applications_count : 0;
+            $partner_applications_count = $month_report ? $month_report->partner_applications_count : 0;
+            $month_list[$key]['avg_quoted_applications'] = $avg_quoted_applications;
+            $month_list[$key]['amount_quoted'] = $month_amount_quoted;
+            $month_list[$key]['amount_quoted_average'] = ($partner_quoted_applications_count > 0) ? ($month_amount_quoted/$partner_quoted_applications_count) : 0;
+            $month_list[$key]['partner_applications_count'] = $partner_applications_count;
+            $month_list[$key]['partner_quoted_applications_count'] = $partner_quoted_applications_count;
+        
+        }
+
+        $data['finance_partners'] = $finance_partners;
+        $data['selected_partner'] = $partner_id;
+        $data['month_list'] = $month_list;
+        return $data;
+
+        return view('admin.sales_report.admin-sales-report',$data);
+
+    }
+
 
     public function quoted_and_disbursed($partner_user_id,$parent_id,$month_number,$year_number)
     {
@@ -199,30 +294,18 @@ class SalesReportController extends Controller
     }
 
     public function fetchReportOfUser($partner_user_id, $parent_id,$start_date_from,$start_date_to){
-
+        $range_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
+            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
+        };
         return FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
         ->where('parent_id',$parent_id)
-        ->with('assigned_application',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
-        })
-        ->with('viewed_applications',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date     
-        })
-        ->with('user_all_rejected_applications',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
-        })->with('user_all_quoted_applications',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
-        })->with('user_all_more_doc_requests',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
-        })->with('assigned_out_application',function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to);
-        })
+        ->with('assigned_application',$range_filter)
+        ->with('viewed_applications',$range_filter)
+        ->with('user_all_rejected_applications',$range_filter)
+        ->with('user_all_quoted_applications',$range_filter)
+        ->with('user_all_more_doc_requests',$range_filter)
+        ->with('assigned_out_application',$range_filter )
         ->first();
 
     }
