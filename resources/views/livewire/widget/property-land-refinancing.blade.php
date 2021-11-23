@@ -310,7 +310,7 @@
             </div>
     
             <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="Commercial" wire:model="property_land_property_type" class="form-check-input" type="radio"
                         id="flexRadioDefault101">
@@ -320,7 +320,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="Residential" wire:model="property_land_property_type" class="form-check-input"
                         type="radio" id="flexRadioDefault202">
@@ -329,7 +329,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="industrial" wire:model="property_land_property_type" class="form-check-input" type="radio"
                         id="flexRadioDefault303">
@@ -354,7 +354,7 @@
         </div>
     
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="Local" wire:model="property_land_geographical" class="form-check-input" type="radio"
                         id="flexRadioDefault304">
@@ -363,7 +363,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input  value="Foreign" wire:model="property_land_geographical" class="form-check-input" type="radio"
                         id="flexRadioDefault3044">
@@ -389,8 +389,8 @@
             </div>
     
             <div class="row">   
-            <div class="col-md-4">
-                <div class="form-check mb-3">
+            <div class="col-md-2">
+                <div class="form-check mb-2">
                     <input value="Company name" value="Company name" wire:model="property_land_under" class="form-check-input"
                         type="radio" name="flexRadioDefault" id="flexRadioDefault305">
                     <label class="form-check-label" for="flexRadioDefault305">
@@ -398,7 +398,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="Personal name" value="Personal name" wire:model="property_land_under" class="form-check-input"
                         type="radio" name="flexRadioDefault" id="flexRadioDefault306">
@@ -430,7 +430,7 @@
        </div>
                 </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 text-end">
                 <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                     <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>

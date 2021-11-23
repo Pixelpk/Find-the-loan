@@ -22,9 +22,9 @@
         <div class="col-md-6">
             <div class="cbc">
                 <p><b>CBS</b>(Downloaded Within The Last 30 days)</p>
-                <input type="file" class="mt-2 form-control">
+                <input type="file" wire:model="cbs_member_image" class="mt-2 form-control">
                 @error('cbs_member_image')
-                   <span style="color:red;">Filed is required</span>
+                   <span style="color:red;">Field is required</span>
                 @enderror
             </div>
         </div>

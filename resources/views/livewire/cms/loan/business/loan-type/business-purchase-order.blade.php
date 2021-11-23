@@ -73,7 +73,16 @@
 
     <div class="row mt-2">
     <div class="col-md-5 col-lg-2">
+        <div class="col-md-12">
+           <b> Quote for</b>
+           <div class="tooltip-c">
+            <i class="fa fa-info-circle"></i>
+            <span class="tooltip-text">Hello World</span>
+        </div>
+           <p>You can click both</p>
+        </div>
   <div class="mb-3">
+     
     <div class="form-check form-switch">
         <input wire:model="notified" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault123">
         <label class="form-check-label" for="flexSwitchCheckDefault123">  Notified
@@ -86,9 +95,14 @@
     @enderror
   </div>
     </div>
+   
     <div class="col-md-5 col-lg-2">
      <div class="mb-3">
-        <div class="form-check form-switch">
+        <div class="form-check form-switch" style="margin-top:12px;">
+            
+           
+            <br>
+            <br>
             <input wire:model="unnotified" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault56345">
             <label class="form-check-label" for="flexSwitchCheckDefault56345">  Unnotified
             </label>
@@ -115,7 +129,7 @@
             </div>
         </div>
     </div>
-        <div class="mt-3">
+        <div class="mt-3 text-end">
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>

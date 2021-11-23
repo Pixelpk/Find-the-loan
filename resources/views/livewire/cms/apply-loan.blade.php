@@ -44,7 +44,7 @@
                     @else
                     <li class="nav-item">
                         <a wire:click="$set('tab', '10')" style="padding: .1rem 1rem;"
-                            class="nav-link {{ $tab == '10' ? 'active' : '' }}" href="#">Consumer Detail</a>
+                            class="nav-link {{ $tab == '10' ? 'active' : '' }}" href="#">CONSUMER DETAIL</a>
                     </li>
                     @endif
                     @if(!$lenderflag)
