@@ -7,9 +7,11 @@ use App\Models\LoanCompanyDetail;
 use App\Models\LoanLender;
 use App\Models\LoanLenderDetail;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Lender extends Component
 {
+    use WithFileUploads;
     public $apply_loan;
     public $financePartners = [];
     public $lender =  [];
@@ -133,6 +135,7 @@ class Lender extends Component
 
     public function storeLender()
     {
+        // dd($this->cbs_member_image);
         $error = false;
         foreach($this->lender as $key => $item){           
             if($item){

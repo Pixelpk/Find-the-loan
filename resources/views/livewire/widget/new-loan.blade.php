@@ -296,7 +296,7 @@
         <div class="col-md-6"></div>
     </div>
 
-    <div class="mt-3">
+    <div class="mt-3 text-end">
         <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
             <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>

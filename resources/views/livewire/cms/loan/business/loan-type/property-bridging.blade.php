@@ -93,7 +93,7 @@
          </div>
         </div>
         <div wire:ignore.self class="col-md-2 text-center">
-            <p><b>OR</b></p>
+            <p><b>or</b></p>
         </div>
         <div class="col-md-5">
 <div class="mb-3">
@@ -285,7 +285,7 @@
  </div>
     </div>
     <div wire:ignore.self class="col-md-2 text-center">
-        <p><b>OR</b></p>
+        <p><b>or</b></p>
     </div> 
     <div class="col-md-5">
         <div class="mb-3">

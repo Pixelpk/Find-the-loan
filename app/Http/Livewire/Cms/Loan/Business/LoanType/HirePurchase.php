@@ -42,6 +42,7 @@ class HirePurchase extends Component
         'hirePurchase.preferred_tenure_month' =>  'nullable',
         'hirePurchase.as_long_as_possiable' =>  'nullable',
         'hirePurchase.unit' =>  'nullable',
+        'hirePurchase.current_estimate_value' =>  'nullable',
         'hirePurchase.building_name' =>  'nullable',
         'hirePurchase.property_type' =>   "required_if:hirePurchase.hire_purchase_type,1,2,3",
         'hirePurchase.lender_name' =>  "required_if:hirePurchase.property_type,Rented",
