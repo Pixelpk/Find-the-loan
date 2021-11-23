@@ -9,7 +9,7 @@
                 <li class="menu-title">Menu</li>
                 <li>
                     <a href="{{ route('admin-dashboard') }}" class="waves-effect @if(Route::CurrentRouteName() == 'admin-dashboard') mm-active @endif">
-                        <i class="dripicons-meter"></i><span> Dashboard </span>
+                        <i class="dripicons-meter"></i><span> Overview </span>
                     </a>
                 </li>
                 @if(Auth::guard('partners')->check())
@@ -132,6 +132,12 @@
                     <li>
                         <a href="{{ route('conditions-approval-requests') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span> Terms&Conditions requests </span><span style="color: #27b34d">@if(adminTermsRequests() > 0) ({{adminTermsRequests()}}) @endif</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin-sales-report') }}" class="waves-effect">
+                            <i class="fa fa-list"></i><span> Sales report </span>
                         </a>
                     </li>
                 @endif
