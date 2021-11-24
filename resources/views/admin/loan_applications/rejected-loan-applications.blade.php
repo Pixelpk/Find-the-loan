@@ -37,7 +37,7 @@
                                                 <th>Assigned to</th>
                                                 <th>Applied at</th>
                                                 <th>Amount</th>
-                                                <th>Company name</th>
+                                                {{-- <th>Company name</th>
                                                 <th>Company website</th>
                                                 <th>Company structure</th>
                                                 <th>Sector</th>
@@ -48,7 +48,7 @@
                                                 <th>Share holders</th>
                                                 <th>% Shareholder</th>
                                                 <th>Profitable latest year</th>
-                                                <th>Profitable year before</th>
+                                                <th>Profitable year before</th> --}}
                                                 
                                             </tr>
                                             </thead>
@@ -74,8 +74,8 @@
                                                     <td>{{ $application->application_rejected->created_at }}</td>
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                     <td>
-                                                        @if($application->assigned_by_application != null)
-                                                            {{ $application->assigned_by_application->user->name }}
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->user->name }}
                                                         @endif
                                                     </td>
                                                     <td>
@@ -84,7 +84,7 @@
                                                     <td>
                                                         {{ $application->amount }}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{ $application->loan_company_detail->company_name ?? '' }}
                                                     </td>
                                                     <td>
@@ -122,7 +122,7 @@
                                                     </td>
                                                     <td>
                                                         {{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                             </tbody>

@@ -45,22 +45,6 @@
                                             @endforeach
                                         </div>
                                         @endforeach
-                                        
-                                        {{-- <div class="col-md-12 col-lg-12">
-                                            <div class="form-group">
-                                                <label>Point to any specific document/applicant?</label>
-                                                <select required class="form-control" name="quote_additional_doc_id" id="quote_additional_doc_id">
-                                                    @foreach($additional_docs as $key=>$items)
-                                                    <optgroup label="{{ getAdditionDocInfoType($key) }}">
-                                                        @foreach($items as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->info }}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                    @endforeach
-                                                </select>
-                                                <span style="color: red" id="add_doc_id_error"></span>
-                                            </div>
-                                        </div> --}}
                                     
                                     <hr>
                                     <section id="more_doc_section">
@@ -116,38 +100,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch">
-                                                <input type="checkbox" class="custom-control-input" name="latest" id="latest">
-                                                <label class="custom-control-label" for="latest">Latest</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch">
-                                                <input type="checkbox" class="custom-control-input" name="required_company_stamp" id="required_company_stamp">
-                                                <label class="custom-control-label" for="required_company_stamp">Required Company stamp</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch">
-                                                <input type="checkbox" class="custom-control-input" name="need_notarized" id="need_notarized">
-                                                <label class="custom-control-label" for="need_notarized">Need notarized</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch">
-                                                <input type="checkbox" class="custom-control-input" name="signature_borrower" id="signature_borrower">
-                                                <label class="custom-control-label" for="signature_borrower">Require Signature of borrower</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group custom-switch">
-                                                <input type="checkbox" class="custom-control-input" name="signature_borrowers_customer" id="signature_borrowers_customer">
-                                                <label class="custom-control-label" for="signature_borrowers_customer">Require Signature of borrower's Customer</label>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     {{-- <hr> --}}
                                     {{-- <h6>Reasons</h6> --}}
                                     <span style="color: red" id="more_doc_reasons_error"></span>
@@ -164,18 +116,7 @@
                                             </div>
                                         </div>
                                         @endfor
-                                        {{-- <div class="col-md-4">
-                                            <label>Reasons</label>
-                                            <select class="form-control select2" name="more_doc_reasons" id="more_doc_reasons">
-                                                @php 
-                                                $list = moreDocReasons();
-                                                @endphp
-                                                @for($i=1;$i<count($list);$i++)
-                                                    <option value="{{ $i }}">{{$list[$i]}}</option>
-                                                @endfor
-                                            </select>
-                                            <span style="color: red" id="more_doc_reasons_error"></span>
-                                        </div> --}}
+
                                     </div>
                                     <hr>
                                     <h6>Document of</h6>
@@ -192,18 +133,7 @@
                                             </div>
                                         </div>
                                         @endfor
-                                        {{-- <div class="col-md-4">
-                                            <label>Document of</label>
-                                            <select class="form-control select2" name="document_of" id="document_of">
-                                                @php 
-                                                $list = moreDocOfList();
-                                                @endphp
-                                                @for($i=1;$i<count($list);$i++)
-                                                    <option value="{{ $i }}">{{$list[$i]}}</option>
-                                                @endfor
-                                            </select>
-                                            <span style="color: red" id="document_of_error"></span>
-                                        </div> --}}
+
                                     </div>
                                     <hr>
                                     </section>

@@ -36,6 +36,12 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                             <ul class="navbar-nav sum-nav me-auto mb-2 mb-lg-0">
+                                @if (!$application->pending_meet_call)
+                                <li class="nav-item">
+                                    <a href="{{ route('pending-meet-call',['apply_loan_id'=>$application->id]) }}" class="btn btn-primary change_status" msg="Are you sure to keep it in Pending Meet Call List?">Pending Meet Call</a>
+                                </li>
+                                @endif
+                                
                                 @if(!$application->application_rejected && !$application->application_quote)
                                 <li class="nav-item">
                                     <a href="#" onclick="rejectApplication({{$application->id}});" data-toggle="tooltip"
@@ -79,22 +85,7 @@
                 <!-- SEC 1 -->
                 <div class="container">
                     <div class="sumary-list same-gp">
-                        <span class="info__text">Incorporated</span>
-                        <span class="info__field">
-                            @php
-                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
-                            @endphp
-                            {{$start_date[0] ?? '0'}} years , {{$start_date[1] ?? '0'}} months ago
-                        </span>
-                        <span class="info__text">Business Structure</span>
-                        <span
-                            class="info__field">{{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}</span>
-                        <span class="info__text">Local Shareholding</span>
-                        <span
-                            class="info__field">{{ $application->loan_company_detail->percentage_shareholder ?? '' }}%</span>
-                        <span class="info__text">Sector</span>
-                        <span
-                            class="info__field">{{ $application->loan_company_detail->loan_company_sector->name ?? '' }}</span>
+                        
                         <span class="info__text">Loan type looking for</span>
                         <span class="info__field">{{ $application->loan_type->sub_type }}</span>
                         <span class="info__text">Amount looking at</span>
@@ -106,28 +97,59 @@
                         <span class="info__field">{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</span>
                         <span class="info__text">Assigned to</span>
                         <span class="info__field">
-                            @if($application->assigned_by_application != null)
-                            {{ $application->assigned_by_application->user->name }}
+                            @if($application->assigned_to_user != null)
+                            {{ $application->assigned_to_user->user->name }}
                             @endif
                         </span>
                         <span class="info__text">Applied at</span>
                         <span class="info__field">{{ $application->created_at }}</span>
-                        <span class="info__text">Company name</span>
-                        <span class="info__field">{{ $application->loan_company_detail->company_name ?? '' }}</span>
-                        <span class="info__text">Company website</span>
-                        <span class="info__field">{{ $application->loan_company_detail->website ?? '' }}</span>
-                        <span class="info__text">No. of employees</span>
-                        <span class="info__field">{{ $application->loan_company_detail->number_of_employees ?? '' }}</span>
-                        <span class="info__text">Revenue</span>
-                        <span class="info__field">{{ $application->loan_company_detail->revenue ?? '' }}</span>
-                        <span class="info__text">Optional revenue</span>
-                        <span class="info__field">{{ $application->loan_company_detail->optional_revenuee ?? '' }}</span>
-                        <span class="info__text">No of shareholder</span>
-                        <span class="info__field">{{ $application->loan_company_detail->share_holder ?? '' }}</span>
-                        <span class="info__text">Profitable latest year</span>
-                        <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}</span>
-                        <span class="info__text">Profitable year before</span>
-                        <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}</span>
+
+                        @if ($application->profile == '1')
+                            <span class="info__text">Company name</span>
+                            <span class="info__field">{{ $application->loan_company_detail->company_name ?? '' }}</span>
+                            <span class="info__text">Company website</span>
+                            <span class="info__field">{{ $application->loan_company_detail->website ?? '' }}</span>
+                            <span class="info__text">Incorporated</span>
+                            <span class="info__field">
+                                @php
+                                $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
+                                @endphp
+                                {{$start_date[0] ?? '0'}} years , {{$start_date[1] ?? '0'}} months ago
+                            </span>
+                            <span class="info__text">Business Structure</span>
+                            <span
+                                class="info__field">{{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}</span>
+                            <span class="info__text">Local Shareholding</span>
+                            <span
+                                class="info__field">{{ $application->loan_company_detail->percentage_shareholder ?? '' }}%</span>
+                            <span class="info__text">Sector</span>
+                            <span
+                                class="info__field">{{ $application->loan_company_detail->loan_company_sector->name ?? '' }}</span>
+                            <span class="info__text">No. of employees</span>
+                            <span class="info__field">{{ $application->loan_company_detail->number_of_employees ?? '' }}</span>
+                            <span class="info__text">Revenue</span>
+                            <span class="info__field">{{ $application->loan_company_detail->revenue ?? '' }}</span>
+                            <span class="info__text">Optional revenue</span>
+                            <span class="info__field">{{ $application->loan_company_detail->optional_revenuee ?? '' }}</span>
+                            <span class="info__text">No of shareholder</span>
+                            <span class="info__field">{{ $application->loan_company_detail->share_holder ?? '' }}</span>
+                            <span class="info__text">Profitable latest year</span>
+                            <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}</span>
+                            <span class="info__text">Profitable year before</span>
+                            <span class="info__field">{{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}</span>
+
+                        @else
+
+                        <span class="info__text">NRIC</span>
+                        <span class="info__field"></span>
+                        <span class="info__text">Nationality</span>
+                        <span class="info__field"></span>
+                        <span class="info__text">Estimated monthly income</span>
+                        <span class="info__field"></span>
+                            
+                        @endif
+                        
+                        
                         @if ($application->application_rejected != null)
                         <span class="info__text">Rejected by</span>
                         <span class="info__field">{{ $application->application_rejected->rejected_by->name }}</span>

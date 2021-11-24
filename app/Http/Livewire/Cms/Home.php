@@ -29,7 +29,7 @@ class Home extends Component
     }
 
     public function setCookie() {
-        Cookie::queue('is_cookie', 1, 600000); //for testing purpose
+        Cookie::queue('is_cookie', 1, 600); //for testing purpose
         $this->is_cookie = 1;
     
      }

@@ -286,7 +286,7 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-//        dd(Auth::user());exit();
+        // return Auth::user();
         if (Auth::guard('users')->check()){
             Auth::guard('users')->logout();
             return redirect(route('admin-login'));
