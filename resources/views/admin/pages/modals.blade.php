@@ -111,7 +111,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Company structure:</label>
-                        <select class="form-control select2" required multiple name="company_structure_id[]" id="partner_company_structure">
+                        <select class="form-control select2" style="width: 100%;" required multiple name="company_structure_id[]" id="partner_company_structure">
                             @foreach($structures as $structure)
                             <option value="{{$structure->id}}">{{ $structure->structure_type }}</option>
                             @endforeach

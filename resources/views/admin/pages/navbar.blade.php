@@ -48,6 +48,11 @@
                             <i class="fa fa-money-bill-alt"></i><span> Ask for more docs </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('pending-meet-applications') }}" class="@if(Route::CurrentRouteName() == 'pending-meet-applications') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Pending meet call </span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan enquiries <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">

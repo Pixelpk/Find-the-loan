@@ -26,103 +26,37 @@
                                         <table id="loan_application_table" class="table table-hover table-striped text-center  w-100">
                                             <thead>
                                             <tr>
-                                                <th>Customer</th>
-                                                <th>Rejected by</th>
+                                                <th>Enquiry Id</th>
+                                                <th>Profile</th>
+                                                <th>Date Received</th>
+                                                <th>Customer Name</th>
                                                 <th>Loan type</th>
+                                                <th>Amount</th>
+                                                <th>Rejected by</th>
                                                 <th>Customer reject reason</th>
                                                 <th>Internal reject reason</th>
                                                 <th>Other reasons</th>
                                                 <th>Reject date</th>
                                                 <th>Market Status</th>
-                                                <th>Assigned to</th>
-                                                <th>Applied at</th>
-                                                <th>Amount</th>
-                                                {{-- <th>Company name</th>
-                                                <th>Company website</th>
-                                                <th>Company structure</th>
-                                                <th>Sector</th>
-                                                <th>No. of employees</th>
-                                                <th>Incorporated for</th>
-                                                <th>Revenue</th>
-                                                <th>Optional revenue</th>
-                                                <th>Share holders</th>
-                                                <th>% Shareholder</th>
-                                                <th>Profitable latest year</th>
-                                                <th>Profitable year before</th> --}}
-                                                
+                                            
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($applications as $application)
                                                 <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
-                                                    <td>
-                                                        {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
-                                                    </td>
+                                                    <td>{{ $application->enquiry_id }}</td>
+                                                    <td>{{ getProfile($application->profile) }}</td>
+                                                    <td>{{ $application->created_at }}</td>
+                                                    <td>{{ $application->loan_user->first_name." ".$application->loan_user->last_name }}</td>
+                                                    <td>{{ $application->loan_type->sub_type }}</td>
+                                                    <td>{{ $application->amount }}</td>
                                                     <td>{{ $application->application_rejected->rejected_by->name }}</td>
-                                                    <td>
-                                                        {{ $application->loan_type->sub_type }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->application_rejected->customer_reject_reason->reason }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->application_rejected->internal_reject_reason->reason }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->application_rejected->other_reasons }}
-                                                    </td>
+                                                    <td>{{ $application->application_rejected->customer_reject_reason->reason }}</td>
+                                                    <td>{{ $application->application_rejected->internal_reject_reason->reason }}</td>
+                                                    <td>{{ $application->application_rejected->other_reasons }}</td>
                                                     <td>{{ $application->application_rejected->created_at }}</td>
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
-                                                    <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->user->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->created_at }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->amount }}
-                                                    </td>
-                                                    {{-- <td>
-                                                        {{ $application->loan_company_detail->company_name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->website ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->loan_company_sector->name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->number_of_employees ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        @php
-                                                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
-                                                        @endphp
-                                                        {{$start_date[0] ?? '0' }} years , {{$start_date[1] ?? '0'}} months ago
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->revenue ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->optional_revenuee ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->share_holder ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->percentage_shareholder ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}
-                                                    </td>
-                                                    <td>
-                                                        {{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}
-                                                    </td> --}}
+                                                   
                                                 </tr>
                                             @endforeach
                                             </tbody>

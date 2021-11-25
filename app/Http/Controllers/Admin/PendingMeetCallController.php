@@ -38,7 +38,33 @@ class PendingMeetCallController extends Controller
         $pending_meet_call->fill($data)->save();
         return redirect(route('loan-application-summary',['apply_loan_id'=>$data['apply_loan_id']]))
         ->with('success',"Enquiry is successfully added in you pending meet call list.");
+    }
 
 
+
+    public function pendingMeetCallApplications(Request $request){
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = ApplyLoan::select('*')
+        ->whereHas('loan_lender_details',function($query) use ($partner_id){
+            $query->where('lender_id','=',$partner_id)->where('status',1);
+        })
+        // ->whereHas('assigned_application',function($query) use ($logged_user_id){
+        //     $query->where('user_id','=',$logged_user_id);
+        // })
+        ->whereHas('pending_meet_call',function($query) use($logged_user_id){
+            $query->where('partner_user_id',$logged_user_id);
+        })
+        ->with(
+            [
+                'loan_type:id,sub_type',
+                'loan_user:id,first_name,last_name',
+                'assigned_to_user'
+            ])->paginate(20);
+
+        return view('admin.loan_applications.pending-meet-call',$data);
     }
 }

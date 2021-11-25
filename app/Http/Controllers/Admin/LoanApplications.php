@@ -247,6 +247,8 @@ class LoanApplications extends Controller
             ->whereNull('viewed_at')
             ->update(['viewed_at'=>date("Y-m-d H:i:s")]);
         }
+
+        // return $data;
         
         return view('admin.loan_applications.loan_summary',$data);
     }

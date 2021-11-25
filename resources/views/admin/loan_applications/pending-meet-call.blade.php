@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">Loan enquires</h4>
+                                <h4 class="page-title">Pending meet call</h4>
                             </div>
                         </div>
                     </div>
@@ -21,6 +21,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+
                                 <div class="table-rep-plugin">
                                     <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
                                         <table id="loan_application_table" class="table table-hover table-striped text-center">

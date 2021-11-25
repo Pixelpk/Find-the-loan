@@ -195,6 +195,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('partner-sales-report');
 
         Route::get('pending-meet-call',[PendingMeetCallController::class,'pendingMeetCall'])->name('pending-meet-call');
+        Route::get('pending-meet-applications',[PendingMeetCallController::class,'pendingMeetCallApplications'])->name('pending-meet-applications');
 
 
     }); 

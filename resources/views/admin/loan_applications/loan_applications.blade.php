@@ -18,7 +18,8 @@
                                 <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-filter"></i>
                                 </button>
-                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style=";margin-top: 10px !important;width: 30%;">
+                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4"
+                                 style="margin-top: 10px !important;width: 30%;transform:none">
                                     <input type="hidden" id="application_profile_tab" name="profile" value="{{$profile}}">
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10"> From:</label>
@@ -57,6 +58,9 @@
                                     <button type="submit" class="btn btn-primary">Apply</button>
                                 </form>
                             </div>
+                            {{-- //filter div ends --}}
+
+
                             <div class="float-right d-none d-md-block ml-2">
                                 <button type="button" id="" data-toggle="modal" data-target="#AssignApplicationsUser" data-dismiss="modal" title="Assign" class="btn btn-primary">
                                     Assign
@@ -248,7 +252,7 @@
             <!-- container-fluid -->
 
         </div>
-        @include('admin.pages.footer')
+        {{-- @include('admin.pages.footer') --}}
     </div>
 
 @endsection

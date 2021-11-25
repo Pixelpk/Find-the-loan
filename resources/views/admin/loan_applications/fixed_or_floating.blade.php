@@ -46,7 +46,7 @@
     @foreach($reference_rates as $key => $rate)
     <div class="col-md-3">
         <div class="form-group custom-switch">
-            <input type="radio" @if ($key == 0) checked @endif class="custom-control-input" name="reference_rate" id="reference_rate{{$key}}">
+            <input type="radio" @if ($key == 0) checked @endif class="custom-control-input" value="{{$rate}}" name="reference_rate" id="reference_rate{{$key}}">
             <label class="custom-control-label" for="reference_rate{{$key}}">{{$rate}}</label>
         </div>
     </div>
