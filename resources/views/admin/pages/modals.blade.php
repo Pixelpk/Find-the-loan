@@ -62,7 +62,7 @@
 @if(Route::currentRouteName() == 'finance-partners')
 <div class="modal fade bs-example-modal-center" id="FinancePartnerModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title mt-0" id="partner_modal_heading">Add Finance partner</h5>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Company structure:</label>
-                        <select required class="form-control" name="company_structure_id" id="partner_company_structure">
+                        <select class="form-control select2" style="width: 100%;" required multiple name="company_structure_id[]" id="partner_company_structure">
                             @foreach($structures as $structure)
                             <option value="{{$structure->id}}">{{ $structure->structure_type }}</option>
                             @endforeach
@@ -126,41 +126,42 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10 select2">Type of properties:</label>
-                        <select multiple style="width: 100%;" class="form-control select2" name="property_types[]" id="property_types">
-                                <option value="1">Commercial Vehicle – Cars, lorries, trucks etc</option>
-                                <option value="2">Industry Vehicle – Cranes, forklift, Tractors etc</option>
-                                <option value="3">Other Commercial & Industrial Equipment</option>
+                        <label for="" class="control-label mb-10 ">Type of properties:</label>
+                        <select required style="width: 100%;" multiple class="form-control select2" name="property_types[]" id="property_types">
+                                <option value="3">Commercial Vehicle – Cars, lorries, trucks etc</option>
+                                <option value="4">Industry Vehicle – Cranes, forklift, Tractors etc</option>
+                                <option value="5">Other Commercial & Industrial Equipment</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10 select2">Type of equipments:</label>
-                        <select multiple style="width: 100%;" class="form-control select2" name="equipment_types[]" id="equipment_types">
+                        <label for="" class="control-label mb-10 ">Type of equipments:</label>
+                        <select required style="width: 100%;" multiple class="form-control select2" name="equipment_types[]" id="equipment_types">
                             <option value="1">Office Equipment</option>
                             <option value="2">Other Commercial & Industrial Equipment</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">Length of incorporation</label>
+                        <label for="" class="control-label mb-10">Minimum Length of incorporation</label>
                         <input required type="number" min="0" class="form-control" name="length_of_incorporation" id="length_of_incorporation">
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">% of local shareholding required</label>
+                        <label for="" class="control-label mb-10">Minimum % of local shareholding required</label>
                         <input required type="number" min="0" class="form-control" name="local_shareholding" id="local_shareholding">
                     </div>
-                    <div class="form-group">
-                        <label for="" class="control-label mb-10">Subsidiaries</label>
-                        <input required type="number" min="0" class="form-control" name="subsidiaries" id="subsidiaries">
-                    </div>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="cbs_member" id="cbs_member">
-                        <label class="custom-control-label" for="cbs_member">CBS member</label>
+                        <input type="checkbox" class="custom-control-input" name="subsidiaries" id="subsidiaries">
+                        <label class="custom-control-label" for="subsidiaries">Subsidiaries</label>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label mb-10">Terms & Conditions</label>
                         <textarea name="terms_condition" class="form-control ckeditor" id="partner_terms_condition"
                                   required></textarea>
+                    </div>
+
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" name="cbs_member" id="cbs_member">
+                        <label class="custom-control-label" for="cbs_member">CBS member</label>
                     </div>
 
                     <div class="form-group">
@@ -187,7 +188,7 @@
 </div>
 <div class="modal fade bs-example-modal-center" id="EditFinancePartnerModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title mt-0" id="partner_modal_heading">Edit Finance partner</h5>
@@ -196,7 +197,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="partner-form" method="post" action="{{ route('update-partner') }}"
+                <form id="edit-partner-form" method="post" action="{{ route('update-partner') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="update_partner_id">
@@ -234,7 +235,7 @@
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Company structure:</label>
-                        <select class="form-control" name="company_structure_id" id="edit_partner_company_structure">
+                        <select style="width: 100%;" class="form-control select2" required multiple name="company_structure_id[]" id="edit_partner_company_structure">
                             @foreach($structures as $structure)
                                 <option value="{{$structure->id}}">{{ $structure->structure_type }}</option>
                             @endforeach
@@ -252,9 +253,9 @@
                     <div class="form-group">
                         <label>Type of properties:</label>
                         <select required style="width: 100%;" multiple class="form-control mb-10 select2" name="property_types[]" id="edit_property_types">
-                                <option value="1">Commercial Vehicle – Cars, lorries, trucks etc</option>
-                                <option value="2">Industry Vehicle – Cranes, forklift, Tractors etc</option>
-                                <option value="3">Other Commercial & Industrial Equipment</option>
+                                <option value="3">Commercial Vehicle – Cars, lorries, trucks etc</option>
+                                <option value="4">Industry Vehicle – Cranes, forklift, Tractors etc</option>
+                                <option value="5">Other Commercial & Industrial Equipment</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -265,16 +266,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">Length of incorporation</label>
+                        <label for="" class="control-label mb-10">Minimum Length of incorporation</label>
                         <input type="number" min="0" class="form-control" name="length_of_incorporation" id="edit_length_of_incorporation">
                     </div>
                     <div class="form-group">
-                        <label for="" class="control-label mb-10">% of local shareholding required</label>
+                        <label for="" class="control-label mb-10">Minimum % of local shareholding required</label>
                         <input type="number" min="0" class="form-control" name="local_shareholding" id="edit_local_shareholding">
                     </div>
-                    <div class="form-group">
-                        <label for="" class="control-label mb-10">Subsidiaries</label>
-                        <input type="number" min="0" class="form-control" name="subsidiaries" id="edit_subsidiaries">
+                    
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" name="subsidiaries" id="edit_subsidiaries">
+                        <label class="custom-control-label" for="edit_subsidiaries">Subsidiaries</label>
                     </div>
                     <div class="form-group">
                         <label class="control-label mb-10">Terms & Conditions</label>
@@ -293,12 +295,12 @@
                                 src="{{ asset('assets/images/no_image.png') }}" alt="avatar"
                                 style="width: 120px;height: auto;cursor: pointer;">
                             <input type="file" onchange="showImage(this)" class="sr-only img-crop" input-id="1"
-                                id="partner-image-file" name="image" value="" accept="image/*">
+                                id="" name="image" value="" accept="image/*">
                         </label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
-                        <button type="submit" id="partner_modal_btn" class="btn admin-btn">Update</button>
+                        <button type="submit" id="" class="btn admin-btn">Update</button>
                     </div>
                 </form>
             </div>

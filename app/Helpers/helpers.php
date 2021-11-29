@@ -134,3 +134,26 @@ function getFixedFloating($type)
     return $all[$type];
 }
 
+function isNotified($value)
+{
+    $all = ['No',"Yes"];
+    return $all[$value];
+}
+
+function interestCalculatedByList()
+{
+    return ['','Per year','Per month','Per week','Per day'];
+}
+
+function getInterestCalculatedBy($value): string
+{
+    $all = interestCalculatedByList();
+    return $all[$value] ?? '';
+}
+
+function isJointAccountRequired($value)
+{
+    $all = ['No',"Yes"];
+    return $all[$value];
+}
+

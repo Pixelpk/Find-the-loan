@@ -49,10 +49,8 @@ class ApplyLoan extends Model
         return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->with(['user']);
     }
 
-    public function assigned_by_application(){
-        $loggedin_user = Auth::user();
-        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')
-            ->where('assigned_by','=',$loggedin_user->id)->with('user');
+    public function assigned_to_user(){
+        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->with('user');
     }
 
     public function parentCompany(){
@@ -83,8 +81,17 @@ class ApplyLoan extends Model
         return $this->hasOne(LoanLenderDetail::class,'apply_loan_id','id');
     }
 
+    public function loan_all_lender_details(){
+        return $this->hasMany(LoanLenderDetail::class,'apply_loan_id','id')
+        ->with(['application_rejected','application_quote','application_more_doc']);
+    }
+
     public function application_more_doc(){
         return $this->hasMany(MoreDocRequireRequest::class,'apply_loan_id','id')->with('more_doc_msg_desc');
+    }
+
+    public function pending_meet_call(){
+        return $this->hasOne(PendingMeetCall::class,'apply_loan_id','id');
     }
 
 }

@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">Dashboard</h4>
+                                <h4 class="page-title">Overview</h4>
 {{--                                <ol class="breadcrumb">--}}
 {{--                                    <li class="breadcrumb-item active">Welcome to Admin dashboard</li>--}}
 {{--                                </ol>--}}
@@ -155,7 +155,7 @@
                                     <div class="row align-items-center p-1">
                                         <div class="col-lg-9">
                                             <h5 class="font-16">Partner users</h5>
-                                            <h4 class="text-info pt-1 mb-0">0</h4>
+                                            <h4 class="text-info pt-1 mb-0">{{$partner_count}}</h4>
                                         </div>
                                         <div class="col-lg-3">
                                             <i class="fa fa-2x fa-user-circle"></i>
@@ -169,8 +169,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center p-1">
                                         <div class="col-lg-9">
-                                            <h5 class="font-16">Loan applications</h5>
-                                            <h4 class="text-info pt-1 mb-0">0</h4>
+                                            <h5 class="font-16">Loan enquires</h5>
+                                            <h4 class="text-info pt-1 mb-0">{{ $partner_enquires_count }}</h4>
                                         </div>
                                         <div class="col-lg-3">
                                             <i class="fa fa-2x fa-list"></i>

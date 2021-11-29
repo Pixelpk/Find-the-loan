@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-6">
            <div class="mb-3">
-            <label for="bank" class="form-label">Banks
+            <label for="bank" class="form-label">Company purchased from
             </label>
             <select class="form-select" wire:model="bank">
                 <option value="">Select Bank</option>
@@ -105,10 +105,8 @@
             @enderror
            </div>
         </div>
-    </div>
-
-    <div class="row">
-        @if($tab == 8)
+        @endif
+        @if($tab == 8 || $tab == 6)
         <div class="col-md-6">
            <div class="mb-3">
             <label for="fd_sd" class="form-label">
@@ -125,9 +123,13 @@
             @enderror
            </div>
         </div>
-        @endif
+        
         @endif
     </div>
+
+    
+        
+    
 
     <div class="row mt-2">
         <div class="col-md-12">

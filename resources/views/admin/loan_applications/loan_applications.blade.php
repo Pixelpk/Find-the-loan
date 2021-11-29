@@ -13,18 +13,13 @@
                                 <h4 class="page-title">Loan enquires</h4>
                             </div>
                         </div>
-{{--                        <div class="col-md-3 float-right">--}}
-{{--                            <div class="input-group no-border">--}}
-{{--                                <input class="form-control search-user" name="search" type="text" autocomplete="off" value="" id="product-search" placeholder="Search by EnquiryID" >--}}
-{{--                            </div>--}}
-{{--                            <div id="search_list" style="" class="autocomplete-items"></div>--}}
-{{--                        </div>--}}
                         <div class="col-md-10">
                             <div class="float-right d-none d-md-block ml-2">
                                 <button type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-filter"></i>
                                 </button>
-                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4" style=";margin-top: 10px !important;width: 30%;">
+                                <form method="get" action="{{ route('loan-applications') }}" id="application_filter_form" class="dropdown-menu  dropdown-menu-left p-4"
+                                 style="margin-top: 10px !important;width: 30%;transform:none">
                                     <input type="hidden" id="application_profile_tab" name="profile" value="{{$profile}}">
                                     <div class="form-group">
                                         <label for="" class="control-label mb-10"> From:</label>
@@ -63,6 +58,9 @@
                                     <button type="submit" class="btn btn-primary">Apply</button>
                                 </form>
                             </div>
+                            {{-- //filter div ends --}}
+
+
                             <div class="float-right d-none d-md-block ml-2">
                                 <button type="button" id="" data-toggle="modal" data-target="#AssignApplicationsUser" data-dismiss="modal" title="Assign" class="btn btn-primary">
                                     Assign
@@ -87,39 +85,64 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                @if ($profile == '1')
                                 <div class="table-rep-plugin">
                                     <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
-                                        <table id="loan_application_table" class="table table-hover table-striped text-center  w-100">
+                                        <table id="loan_application_table" class="table table-hover table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
-                                                <th>Action Done</th>
-                                                <th>Market Status</th>
-                                                <th>Assigned to</th>
-                                                <th>Applied at</th>
-                                                <th>User</th>
-                                                <th>Loan type</th>
-                                                <th>Amount</th>
-                                                <th>Company name</th>
-                                                <th>Company website</th>
-                                                <th>Company structure</th>
-                                                <th>Sector</th>
-                                                <th>No. of employees</th>
-                                                <th>Incorporated for</th>
-                                                <th>Revenue</th>
-                                                <th>Optional revenue</th>
-                                                <th>Share holders</th>
-                                                <th>% Shareholder</th>
+                                                <th>Enquiry ID</th>
+                                                <th>Date Received</th>
+                                                <th>Name</th>
                                                 <th>Profitable latest year</th>
                                                 <th>Profitable year before</th>
+                                                <th>Incorporated for</th>
+                                                <th>Loan type</th>
+                                                <th>Assigned to</th>
+                                                <th>Date Assigned</th>
+                                                <th>Action Done</th>
+                                                <th>Market Status</th>
                                             </tr>
-                                            </thead>
-                                            <tbody>
+                                        </thead>
+                                        <tbody>
                                             @foreach($applications as $application)
-                                                <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
-                                                    <td class="selected_application">
-                                                        @if($application->assigned_by_application == null && $application->application_quote == null && $application->application_rejected == null)
-                                                            <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                            <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                                <td class="selected_application">
+                                                        @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
+                                                        <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $application->enquiry_id }}</td>
+                                                    <td>
+                                                        {{ $application->created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}
+                                                    </td>
+                                                    <td>
+                                                        {{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}
+                                                    </td>
+                                                    <td>
+                                                        @php
+                                                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
+                                                        @endphp
+                                                        {{$start_date[0] ?? '0' }} years , {{$start_date[1] ?? '0'}} months ago
+                                                    </td>
+                                                    <td>
+                                                        {{ $application->loan_type->sub_type }}
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->user->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->created_at }}
                                                         @endif
                                                     </td>
                                                     <td>
@@ -130,62 +153,9 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
-                                                    <td>
-                                                        @if($application->assigned_by_application != null)
-                                                            {{ $application->assigned_by_application->user->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->created_at }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_type->sub_type }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->amount }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->company_name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->website ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->loan_company_structure->structure_type ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->loan_company_sector->name ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->number_of_employees ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        @php
-                                                            $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
-                                                        @endphp
-                                                        {{$start_date[0] ?? '0' }} years , {{$start_date[1] ?? '0'}} months ago
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->revenue ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->optional_revenuee ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->share_holder ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_company_detail->percentage_shareholder ?? '' }}
-                                                    </td>
-                                                    <td>
-                                                        {{ getYesNo($application->loan_company_detail->profitable_latest_year ?? '') }}
-                                                    </td>
-                                                    <td>
-                                                        {{ getYesNo($application->loan_company_detail->profitable_before_year ?? '') }}
-                                                    </td>
+                                                    
+                                                    
+                                                    
                                                 </tr>
 
                                             @endforeach
@@ -194,6 +164,82 @@
                                     </div>
                                     {{ $applications->links() }}
                                 </div>
+
+
+                                @else
+
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
+                                        <table id="loan_application_table" class="table table-hover table-striped text-center">
+                                            <thead>
+                                            <tr>
+                                                <th>Select</th>
+                                                <th>Enquiry ID</th>
+                                                <th>Date Received</th>
+                                                <th>User</th>
+                                                <th>NRIC</th>
+                                                <th>Nationality</th>
+                                                <th>Age</th>
+                                                <th>Estimated monthly income</th>
+                                                <th>Loan type</th>
+                                                <th>Assigned to</th>
+                                                <th>Date Assigned</th>
+                                                <th>Action Done</th>
+                                                <th>Market Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($applications as $application)
+                                            <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                                <td class="selected_application">
+                                                        @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
+                                                        <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $application->enquiry_id }}</td>
+                                                    <td>
+                                                        {{ $application->created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        {{ $application->loan_type->sub_type }}
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->user->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->created_at }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->application_rejected)
+                                                        <span class="badge badge-info">Rejected</span>
+                                                        @elseif($application->application_quote)
+                                                        <span class="badge badge-info">Quoted</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
+                                                    
+                                                    
+                                                    
+                                                </tr>
+
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {{ $applications->links() }}
+                                </div>
+                                @endif
 
                             </div>
                         </div>
@@ -206,7 +252,7 @@
             <!-- container-fluid -->
 
         </div>
-        @include('admin.pages.footer')
+        {{-- @include('admin.pages.footer') --}}
     </div>
 
 @endsection

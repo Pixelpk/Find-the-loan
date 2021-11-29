@@ -93,7 +93,7 @@
          </div>
         </div>
         <div wire:ignore.self class="col-md-2 text-center">
-            <p><b>OR</b></p>
+            <p><b>or</b></p>
         </div>
         <div class="col-md-5">
 <div class="mb-3">
@@ -285,7 +285,7 @@
  </div>
     </div>
     <div wire:ignore.self class="col-md-2 text-center">
-        <p><b>OR</b></p>
+        <p><b>or</b></p>
     </div> 
     <div class="col-md-5">
         <div class="mb-3">
@@ -524,7 +524,7 @@
 <!-- /4TH SECTION -->
   
 <!-- BUTTON -->
-     <div class="mt-3">
+     <div class="mt-3 text-end">
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>

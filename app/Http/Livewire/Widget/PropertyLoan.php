@@ -95,7 +95,7 @@ class PropertyLoan extends Component
 
     public function store()
     {
-       
+   
        $this->validate([
            'amount' => 'required|integer|min:1',
         //    'agreement' =>  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
@@ -107,11 +107,12 @@ class PropertyLoan extends Component
            'useable_area' => 'required|integer|min:1',
            'preferred_tenure_year' => 'required|integer|min:1',
            'preferred_tenure_month' => 'required|integer|min:1',
-           'property_land_advanced_property_type' => 'required',
-           'property_land_advanced_graphical_location' => 'required',
+        //    'property_land_advanced_property_type' => 'required',
+        //    'property_land_advanced_graphical_location' => 'required',
           
            
        ]);
+        //    dd('asd');
        $data = [
             //  ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
             //  ['type' => 'file', 'value' => $this->tmonth_statement, 'key' => 'tmonth_statement'], 

@@ -49,8 +49,8 @@
         </div>
     </div>
 
-        <div class="mt-2">
-            <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">
+        <div class="mt-2 text-end">
+            <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
                 Save &amp; Continue

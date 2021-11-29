@@ -59,12 +59,12 @@ class BusinessDebtConsolidation extends Component
       
        $this->validate([
            'amount' => 'required|integer|min:1',
-           'documents' =>  $this->settlement_notice   ? '' : 'required',
-           'settlement_notice' =>  $this->documents  ? '' : 'required',
+        //    'documents' =>  $this->settlement_notice   ? '' : 'required',
+        //    'settlement_notice' =>  $this->documents  ? '' : 'required',
        ],[
            'amount.integer'=>'Amount must be number',
-           'documents.required'=>'The documents is required.',
-           'settlement_notice.required'=>'The settlement notice  is required.',
+        //    'documents.required'=>'The documents is required.',
+        //    'settlement_notice.required'=>'The settlement notice  is required.',
        ]);
        $data = [
             //  ['type' => 'file', 'value' => $this->document, 'key' => 'document'], 

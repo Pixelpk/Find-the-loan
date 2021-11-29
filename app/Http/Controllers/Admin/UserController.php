@@ -3,37 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplyLoan;
 use App\Models\Blog;
-use App\Models\Company;
 use App\Models\CompanyStructure;
 use App\Models\Faq;
 use App\Models\FinancePartner;
-use App\Models\Horse;
-use App\Models\Jockey;
 use App\Models\LoanReason;
 use App\Models\LoanType;
-use App\Models\Location;
-use App\Models\Notification;
-use App\Models\Race;
 use App\Models\Sector;
-use App\Models\Shift;
-use App\Models\Signal;
 use App\Models\Testimonial;
 use App\Models\User;
 use App\Models\UserDetail;
-use App\Models\UserLog;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
-use SimpleXLSX;
-use Vtiful\Kernel\Excel;
-use function PHPUnit\Framework\isEmpty;
 
 class UserController extends Controller
 {
@@ -106,11 +91,22 @@ class UserController extends Controller
 
     public function dashboard(Request $request)
     {
-//        dd(Auth::user());exit();
+    //    dd(Auth::user());exit();
+        $loggedin_user = $request->user();
+        $user_id = $loggedin_user->id;
+
         $data['user_count'] = User::where('role_id','!=','1')->whereIn('status',[0,1])->count();
         $data['faq_count'] = Faq::whereIn('status',[0,1])->count();
         $data['blog_count'] = Blog::whereIn('status',[0,1])->count();
-        $data['partner_count'] = FinancePartner::whereIn('status',[0,1])->count();
+        $partner_count_query = FinancePartner::whereIn('status',[0,1]);
+        if ($loggedin_user->parent_id != 0){
+            $loggedin_user->where('parent_id','=',$loggedin_user->id);
+        }
+        $data['partner_enquires_count'] = ApplyLoan::select('*')
+        ->whereHas('loan_lender_details',function($query) use ($user_id){
+            $query->where('lender_id','=',$user_id)->where('status',1);
+        })->count() ?? 0;
+        $data['partner_count'] = $partner_count_query->where('parent_id',$user_id)->count();
         $data['loan_type_count'] = LoanType::whereIn('status',[0,1])->count();
         $data['loan_reason_count'] = LoanReason::whereIn('status',[0,1])->count();
         $data['company_struct_count'] = CompanyStructure::whereIn('status',[0,1])->count();
@@ -257,45 +253,45 @@ class UserController extends Controller
         }
     }
 
-    public function addUser(Request $request){
-        $data = $request->all();
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'role_id' => 'required',
-            'email' => 'required',
-            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'password' => 'required'
-        ]);
+    // public function addUser(Request $request){
+    //     $data = $request->all();
+    //     $request->validate([
+    //         'first_name' => 'required',
+    //         'last_name' => 'required',
+    //         'role_id' => 'required',
+    //         'email' => 'required',
+    //         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+    //         'password' => 'required'
+    //     ]);
 
-        $data['password'] = Hash::make($data['password']);
-        $dup = User::where(function ($query) use($data){
-            $query->where('email','=',$data['email']);
-            $query->orwhere('phone','=',$data['phone']);
-        })->where('status','!=','2')->first();
+    //     $data['password'] = Hash::make($data['password']);
+    //     $dup = User::where(function ($query) use($data){
+    //         $query->where('email','=',$data['email']);
+    //         $query->orwhere('phone','=',$data['phone']);
+    //     })->where('status','!=','2')->first();
 
-        if ($dup){
-            return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',  "User already exists!")->withInput();
-        }
+    //     if ($dup){
+    //         return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',  "User already exists!")->withInput();
+    //     }
 
-        $user = new User();
-        try {
-            $user->fill($data)->save();
-        }catch (\Exception $exception){
-            return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',$exception->getMessage());
-        }
-        return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('success',"User added successfully!");
+    //     $user = new User();
+    //     try {
+    //         $user->fill($data)->save();
+    //     }catch (\Exception $exception){
+    //         return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('error',$exception->getMessage());
+    //     }
+    //     return redirect(route('support-users',['support_role_id'=>$data['role_id']]))->with('success',"User added successfully!");
 
-    }
+    // }
 
     public function logout(Request $request)
     {
-//        dd(Auth::user());exit();
+        // return Auth::user();
         if (Auth::guard('users')->check()){
-            Auth::logout();
+            Auth::guard('users')->logout();
             return redirect(route('admin-login'));
         }else{
-            Auth::logout();
+            Auth::guard('partners')->logout();
             return redirect(route('partner-login'));
         }
     }

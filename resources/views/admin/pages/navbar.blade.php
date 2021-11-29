@@ -9,7 +9,7 @@
                 <li class="menu-title">Menu</li>
                 <li>
                     <a href="{{ route('admin-dashboard') }}" class="waves-effect @if(Route::CurrentRouteName() == 'admin-dashboard') mm-active @endif">
-                        <i class="dripicons-meter"></i><span> Dashboard </span>
+                        <i class="dripicons-meter"></i><span> Overview </span>
                     </a>
                 </li>
                 @if(Auth::guard('partners')->check())
@@ -19,6 +19,41 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('loan-applications',['profile'=>'1']) }}" class="@if((Route::CurrentRouteName() == 'loan-applications') && ($_GET['profile'] == 1)) mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Business enquiries</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('loan-applications',['profile'=>'2']) }}" class="@if((Route::CurrentRouteName() == 'loan-applications') && ($_GET['profile'] == 2)) mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Consumer enquiries </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('quoted-customer') }}" class="@if(Route::CurrentRouteName() == 'quoted-customer') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Quoted customer </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('rejected-applications') }}" class="@if(Route::CurrentRouteName() == 'rejected-applications') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Rejected </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('assigned-out') }}" class="@if(Route::CurrentRouteName() == 'assigned-out') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Assigned out </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('ask-more-docs-applications') }}" class="@if(Route::CurrentRouteName() == 'ask-more-docs-applications') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Ask for more docs </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('pending-meet-applications') }}" class="@if(Route::CurrentRouteName() == 'pending-meet-applications') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Pending meet call </span>
+                        </a>
+                    </li>
+                    {{-- <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan enquiries <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
                             <li>
@@ -53,13 +88,13 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> --}}
 
-{{--                    <li>--}}
-{{--                        <a href="{{ route('enquiry-color') }}" class="waves-effect">--}}
-{{--                            <i class="fa fa-list"></i><span> Edit enquiry color </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                   <li>
+                       <a href="{{ route('partner-sales-report') }}" class="waves-effect">
+                           <i class="fa fa-list"></i><span> Sales report </span>
+                       </a>
+                   </li>
                     <li>
                         <a href="{{ route('partner-terms-conditions') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span class="@if(bankUserTermsRequest() == 1) blinking @endif"> Terms & Conditions </span>
@@ -132,6 +167,12 @@
                     <li>
                         <a href="{{ route('conditions-approval-requests') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span> Terms&Conditions requests </span><span style="color: #27b34d">@if(adminTermsRequests() > 0) ({{adminTermsRequests()}}) @endif</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin-sales-report') }}" class="waves-effect">
+                            <i class="fa fa-list"></i><span> Sales report </span>
                         </a>
                     </li>
                 @endif

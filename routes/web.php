@@ -15,7 +15,10 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\Admin\MoreDocController;
+use App\Http\Controllers\Admin\PendingMeetCallController;
+use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\CronJobController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\GlossaryComponenet;
 use App\Http\Livewire\Cms\FaqComponent;
@@ -29,6 +32,8 @@ use App\Http\Livewire\Cms\ContactUs;
 use App\Http\Livewire\Cms\Home;
 use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
+use App\Http\Livewire\Customer\Dashboard;
+use App\Http\Livewire\Customer\Enquiry;
 use App\Models\LoanCompanyDetail;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +47,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('fourteen-day-cronjob',[LoanApplications::class,'fourteenDayNoActionCronJob']);
+Route::get('application-no-action-cronjob',[CronJobController::class,'applicationsNoActionCronJob']);
+Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
+
+Route::get('ocr-results',[OCRController::class,'ocrResults'])->name('ocr-results');
+
+
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
 Route::get('staple-create-group',[OCRController::class,'createGroup'])->name('staple-create-group');
 Route::get('staple-create-queue',[OCRController::class,'createQueue'])->name('staple-create-queue');
@@ -106,6 +116,16 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
         Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
 
+        Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
+        Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
+        Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
+        Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
+    
+        Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
+        Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
+        Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
+        Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
+
         Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
         Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
         Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
@@ -113,15 +133,25 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
         Route::get('conditions-approval-requests', [FinancePartnerController::class,'conditionsApprovalRequests'])->name('conditions-approval-requests');
         Route::get('approve-request', [FinancePartnerController::class,'approveTermsConditions'])->name('approve-request'); //by super admin
+    
 
         Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
         Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
         Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
         Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
         Route::get('loan-type-status', [LoanTypeController::class,'changeStatus'])->name('loan-type-status');
-
         Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
         Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
+
+
+        Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+        Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
+        Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
+        Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
+        Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
+
+        Route::get('admin-sales-report',[SalesReportController::class,'getAdminSalesReport'])->name('admin-sales-report');
+
 
     });
 
@@ -162,60 +192,58 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation'); 
         Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating'); 
 
+        Route::get('partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('partner-sales-report');
+
+        Route::get('pending-meet-call',[PendingMeetCallController::class,'pendingMeetCall'])->name('pending-meet-call');
+        Route::get('pending-meet-applications',[PendingMeetCallController::class,'pendingMeetCallApplications'])->name('pending-meet-applications');
+
+
     }); 
 
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
-    Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
-    Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
+    // Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
+    // Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
-
-    Route::get('/faq', [FaqController::class,'faq'])->name('faq');
-    Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
-    Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
-    Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
-
-    Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
-    Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
-    Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
-    Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
-
-    Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
-    Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
-    Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
-    Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
-
-    Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
-    Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
-    Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
-    Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
-    Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
-
-    Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
-    Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
-    Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
-    Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
-    Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
-    Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
-
-    Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
-    Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
-    Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
-    Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
-    Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
-
-    Route::get('/company-structure-type', [CompanyStructureController::class,'structureTypes'])->name('company-structure-type');
-    Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
-    Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
-    Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
-
-    Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
-    Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
-    Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
-    Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
+
+    // Route::get('/faq', [FaqController::class,'faq'])->name('faq');
+    // Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
+    // Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
+    // Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
+
+    // Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
+    // Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
+    // Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
+    // Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
+
+    // Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
+    // Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
+    // Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
+    // Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
+
+    // Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
+    // Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
+    // Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
+    // Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
+    // Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
+
+    // Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
+    // Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
+    // Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
+    // Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
+    // Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
+    // Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
+
+    // Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
+    // Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
+    // Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
+    // Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
+    // Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
+
+
 
 
 });
@@ -225,7 +253,10 @@ Route::get('/login', Login::class)->name('login');
 Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
-
+    // custoemr dashboard
+  
+    Route::get('/customer/dashboard', Dashboard::class)->name('customer-dashboard');
+    Route::get('/customer/enquiry', Enquiry::class)->name('customer-enquiry');
 });
 Route::get('test', function (){
     $date = "10-10-2021";

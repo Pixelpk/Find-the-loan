@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Cms;
 
 use App\Mail\EmailVerify;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -63,9 +64,9 @@ class RegisterComponent extends Component
         {
             Mail::to($this->email)->send(new EmailVerify(['data' => $user]));
         }
-        catch(Swift_TransportException $ex)
+        catch(Exception $ex)
         {
-           
+        
         }
         $this->message = 'We have sent confirmation link to your email please verify';
         $this->first_name = '';

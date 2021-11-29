@@ -81,4 +81,8 @@
 #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 15px; height: 45px;color: white;background-color: #27b34d;border-radius: 5px; }
 #sortable li span { position: absolute; margin-left: -1.3em; }
 
+.content-page{
+    min-height: 100vh; 
+}
+
 </style>

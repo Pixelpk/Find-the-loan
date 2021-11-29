@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RequestMoreDoc;
 use App\Models\ApplyLoan;
+use App\Models\FinancePartner;
 use App\Models\MoreDocMsgDesc;
 use App\Models\MoreDocRequireRequest;
 use App\Models\QuoteAdditionalDocs;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class MoreDocController extends Controller
@@ -20,7 +24,7 @@ class MoreDocController extends Controller
         $data['apply_loan_id'] = $request->apply_loan_id ?? null;
         $apply_loan = ApplyLoan::where('id','=',$data['apply_loan_id'])
         ->whereHas('loan_lender_details',function($query) use ($partner_id){
-            $query->where('lender_id','=',$partner_id);
+            $query->where('lender_id','=',$partner_id)->where('status',1);
         })
         ->first();
         if(!$apply_loan || ($data['apply_loan_id'] == null)){
@@ -54,6 +58,20 @@ class MoreDocController extends Controller
             $more_doc_msg->document_of = $msg['document_of'];
             $more_doc_msg->quote_additional_doc_id = $msg['quote_additional_doc_id'];
             $more_doc_msg->save();
+        }
+
+        $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();
+        $apply_loan = ApplyLoan::where("id", "=", $request->apply_loan_id)
+        ->with('loan_user:id,first_name,last_name,email')
+        ->first();
+        
+        try
+        {
+            Mail::to($apply_loan->loan_user->email)->send(new RequestMoreDoc(['user'=>$apply_loan->loan_user, 'apply_loan'=>$apply_loan,'finance_partner'=>$finance_partner]));
+        }
+        catch(Exception $ex)
+        {
+            // dd($ex->getMessage());
         }
 
         $request->session()->flash('success', "Request for more doc is submitted");

@@ -14,7 +14,7 @@ class Home extends Component
     public $is_cookie = 0;
     public function mount()
     {
-        $this->partners= FinancePartner::where('status','=',1)->get();
+        $this->partners= FinancePartner::where('status','=',1)->where('type',1)->get();
         $this->loan_types = LoanType::query()
         ->orderBy('id','desc')
         ->where('status','!=',2)
@@ -29,7 +29,7 @@ class Home extends Component
     }
 
     public function setCookie() {
-        Cookie::queue('is_cookie', 1, 60); //for testing purpose
+        Cookie::queue('is_cookie', 1, 600); //for testing purpose
         $this->is_cookie = 1;
     
      }

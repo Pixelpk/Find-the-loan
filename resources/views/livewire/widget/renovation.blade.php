@@ -91,7 +91,7 @@
             </div>
         </div>
      
-        <div class="">
+        <div class="text-end">
             <br>
             <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
