@@ -543,7 +543,19 @@
             </div>
          </div>
         @endif
-    </div>
+        <div class="col-md-12">
+            <b> Details of premise where equipment/machinery will be kept and used
+            </b>
+        </div>
+        <div wire:ignore.self class="col-md-12" style="margin-top: 30px;">
+            <label for="hirePurchase.address" class="form-label">Address</label>
+            <input onkeyup="dddd()" wire:model.defer="hirePurchase.address" type="text" class="form-control"
+                id="ship-address1">
+            @error("hirePurchase.address")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
 
        <div class="row">
         <div class="col-md-4">

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Loan;
 
 use App\Models\LoanCompanyDetail;
 use Livewire\Component;
+use Monarobase\CountryList\CountryListFacade;
 
 class CompanyDocuments extends Component
 {
@@ -27,6 +28,8 @@ class CompanyDocuments extends Component
 
     public $share_holder;
 
+    public $countries;
+
 
     public function mount()
     {
@@ -46,6 +49,7 @@ class CompanyDocuments extends Component
 
             $this->optional_revenuee = $companyDetail->optional_revenuee;
         }
+        $this->countries = CountryListFacade::getList('en');
     }
     
     public function render()

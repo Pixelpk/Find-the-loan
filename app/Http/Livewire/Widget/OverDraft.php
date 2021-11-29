@@ -166,6 +166,9 @@ class OverDraft extends Component
     }
     public function changeType()
     {
+        if(!$this->overdraft['unsecured']){
+            $this->enableButtons = true;
+        }
         // dd($this->overdraft['unsecured']);
         $this->overdraft['security_type'] = ["1" => true];
         $this->overdraft['secure'] = '';
