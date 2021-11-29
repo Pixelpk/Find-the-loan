@@ -72,6 +72,8 @@
     </div>
 
     <div class="row mt-2">
+        <p class="mb-0">Quote for <i class="fa fa-info-circle"></i></p>
+        <p>(You can select both)</p>
     <div class="col-md-5 col-lg-2">
         <div class="col-md-12">
            <b> Quote for</b>
@@ -128,6 +130,7 @@
             @enderror
             </div>
         </div>
+        <div class="col-md-6"></div>
     </div>
         <div class="mt-3 text-end">
             <button class="btn" type="button" wire:target="store" wire:click.prevent="store">

@@ -13,14 +13,14 @@
     <div class="carousel-item">
       <img class="d-block" src="{{asset('assets/cms/img/Home/image3.jpg')}}" alt="Second slide">
       <div class="carousel-caption d-none d-md-block">
-        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We believe no hardworking entrepreneurs should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to finanacing.</h4>
+        <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We believe no hardworking entrepreneurs should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to financing.</h4>
   </div>
     </div>
     <div class="carousel-item">
       <img class="d-block" src="{{asset('assets/cms/img/Home/image2.jpg')}}" alt="Third slide">
       <div class="carousel-caption d-none d-md-block">
         <h3 class="fw-bold mb-0 animated slideInUp" style="animation-delay: 1s;">Getting a loan should <br> be easier</h3>
-        <button class="btn animated bounceInRight" style="animation-delay: 3s;">Apply Now</button>
+        <button class="btn animated bounceInRight btn-custom" style="animation-delay: 3s;">Apply Now</button>
   </div>
     </div>
   </div>
@@ -54,8 +54,8 @@
                 </p>
             </div>
             <div class="cookie-buttons text-center">
-              <button  wire:click="setCookie" class="btn" data-bs-dismiss="modal">Yes to cookies!</button>
-              <button type="button" class="btn btn-cookie" data-bs-dismiss="modal">No I hate cookies</button>
+              <button  wire:click="setCookie" class="btn btn-custom" data-bs-dismiss="modal">Yes to cookies!</button>
+              <button type="button" class="btn btn-cookie btn-secondary" data-bs-dismiss="modal">No I hate cookies</button>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
 <!-- MAIN CONTENT -->
             <div class="container">
             <div class="row text-center">
-                <h2 class="fw-bold display-6">Still approaching the bank one by one <br> when you need a loan?</h2>
+                <h2 class="fw-bold display-6">Still approaching the banks one by one <br> when you need a loan?</h2>
             </div>
         
             <!-- CARDS -->
