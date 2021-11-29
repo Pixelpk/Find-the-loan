@@ -178,8 +178,10 @@ class SalesReportController extends Controller
         ->where('status','!=',2)
         ->get();
 
+
         $partner_id = $request->partner_id ?? null;
-        if($partner_id != null){
+        $profile = $request->profile ?? null;
+        if($partner_id != null && $profile != null){
             $if_partner = FinancePartner::where('id',$partner_id)
             ->where('parent_id','=',0)
             ->where('status','!=',2)->first();
@@ -187,11 +189,10 @@ class SalesReportController extends Controller
             if(!$if_partner){
                 return redirect(route('admin-sales-report'))->with('error',"Oops. something went wrong.");
             }
+
         }
 
         $month_list = $this->lastThreeMonths();
-
-        
         foreach($month_list as $key=>$month){
 
             $month_filter = function($query) use($month){
@@ -201,6 +202,11 @@ class SalesReportController extends Controller
 
             $month_report = FinancePartner::select('id','name')->where('id',$partner_id)
             ->whereHas('partner_applications',$month_filter)
+            ->whereHas('partner_applications',function($query) use($profile){
+                $query->whereHas('apply_loan',function($query) use($profile){
+                    $query->where('profile',$profile);
+                });
+            })
             ->with('partner_quoted_applications',$month_filter)
             ->withCount([
                 'partner_applications'=>$month_filter,
@@ -223,18 +229,21 @@ class SalesReportController extends Controller
             }
             $partner_quoted_applications_count = $month_report ? $month_report->partner_quoted_applications_count : 0;
             $partner_applications_count = $month_report ? $month_report->partner_applications_count : 0;
+
+            
+            $month_list[$key]['partner_applications_count'] = $partner_applications_count;
+            $month_list[$key]['partner_quoted_applications_count'] = $partner_quoted_applications_count;
             $month_list[$key]['avg_quoted_applications'] = $avg_quoted_applications;
             $month_list[$key]['amount_quoted'] = $month_amount_quoted;
             $month_list[$key]['amount_quoted_average'] = ($partner_quoted_applications_count > 0) ? ($month_amount_quoted/$partner_quoted_applications_count) : 0;
-            $month_list[$key]['partner_applications_count'] = $partner_applications_count;
-            $month_list[$key]['partner_quoted_applications_count'] = $partner_quoted_applications_count;
         
         }
 
         $data['finance_partners'] = $finance_partners;
         $data['selected_partner'] = $partner_id;
+        $data['selected_profile'] = $profile;
         $data['month_list'] = $month_list;
-        return $data;
+        // return $data;
 
         return view('admin.sales_report.admin-sales-report',$data);
 

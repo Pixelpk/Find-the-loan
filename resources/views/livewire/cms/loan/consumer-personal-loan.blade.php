@@ -13,8 +13,7 @@
     </div>
     <div class="row text-end">
         <div class="col-md-12">
-            <button class="btn" wire:click="store">Save & Continue</button>
-          
+            <button class="btn btn-custom" wire:click="store">Save & Continue</button>
         </div>
     </div>
 </section>

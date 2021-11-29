@@ -18,6 +18,8 @@ class Enquiry extends Component
     {
         $this->user = Auth::user();
         $this->getLoan();
+        dd($this->getLoan());
+
     }
 
     public function getLoan()
@@ -25,8 +27,8 @@ class Enquiry extends Component
         if($this->profile == 1 || $this->profile == 2){
 
             $this->getLoans = ApplyLoan::where('user_id', $this->user->id)->where('profile', $this->profile)->get();
-
         }
+        
 
     }
 

@@ -21,4 +21,9 @@ class LoanLenderDetail extends Model
         return $this->belongsTo(MoreDocRequireRequest::class,'lender_id','partner_id');
     }
 
+    public  function apply_loan()
+    {
+        return $this->belongsTo(ApplyLoan::class,'apply_loan_id','id');
+    }
+
 }

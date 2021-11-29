@@ -262,7 +262,7 @@
                     <div class="row">
                         <div class="col-12">
                             <br>
-                            <button wire:loading.attr='disabled' class="btn" type="button" wire:target='companyDetail'
+                            <button wire:loading.attr='disabled' class="btn btn-custom" type="button" wire:target='companyDetail'
                                 wire:click.prevent='companyDetail'>
                                 <div wire:loading wire:target="companyDetail">
                                     <span class="spinner-border spinner-border-sm" role="status"

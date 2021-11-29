@@ -72,7 +72,10 @@ class FinancePartnerController extends Controller
             if (!$partner){
                 return $this->resp(0,'not found',['partner'=>null],401);
             }
+            $partner->company_structure_id = explode(',',$partner->company_structure_id);
             $partner->loan_type_id = explode(',',$partner->loan_type_id);
+            $partner->property_types = explode(',',$partner->property_types);
+            $partner->equipment_types = explode(',',$partner->equipment_types);
             return $this->resp(1,'partner details found',['partner'=>$partner],200);
         } catch (\Exception $exception) {
             return $this->resp(0,'error',['error'=>$exception->getMessage()],401);
@@ -95,7 +98,7 @@ class FinancePartnerController extends Controller
             'equipment_types' => 'required',
             'length_of_incorporation' => 'required|min:0',
             'local_shareholding' => 'required|min:0',
-            'subsidiaries' => 'required|min:0',
+            // 'subsidiaries' => 'required|min:0',
             // 'cbs_member' => 'required',
             'terms_condition' => 'required',
             'image' => 'required|image',
@@ -109,8 +112,10 @@ class FinancePartnerController extends Controller
         $data['parent_id'] = 0;
         $data['role_id'] = 1;
         $data['loan_type_id'] = implode(',',$data['loan_type_id']);
-        $data['cbs_member'] = $data['cbs_member'] ? 1 : 0;
+        $data['subsidiaries'] = isset($data['subsidiaries']) ? 1 : 0;
+        $data['cbs_member'] = isset($data['cbs_member']) ? 1 : 0;
         $data['password'] = Hash::make($data['password']);
+        $data['company_structure_id'] = implode(',',$data['company_structure_id']);
         $data['property_types'] = implode(',',$data['property_types']);
         $data['equipment_types'] = implode(',',$data['equipment_types']);
 
@@ -164,7 +169,7 @@ class FinancePartnerController extends Controller
             'equipment_types' => 'required',
             'length_of_incorporation' => 'required|min:0',
             'local_shareholding' => 'required|min:0',
-            'subsidiaries' => 'required|min:0',
+            // 'subsidiaries' => 'required|min:0',
             'terms_condition' => 'required'
         ]);
 
@@ -182,8 +187,11 @@ class FinancePartnerController extends Controller
         }
         $data['loan_type_id'] = implode(',',$data['loan_type_id']);
         $data['property_types'] = implode(',',$data['property_types']);
+        $data['company_structure_id'] = implode(',',$data['company_structure_id']);
         $data['equipment_types'] = implode(',',$data['equipment_types']);
-        $data['cbs_member'] = $data['cbs_member'] ? 1 : 0;
+        $data['cbs_member'] = isset($data['cbs_member']) ? 1 : 0;
+        $data['subsidiaries'] = isset($data['subsidiaries']) ? 1 : 0;
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'partner' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();

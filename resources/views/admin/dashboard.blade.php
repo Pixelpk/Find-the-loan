@@ -1,7 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="content-page">
-        <!-- Start content -->
         <div class="content">
 
             <div class="container-fluid">
@@ -11,9 +10,7 @@
                         <div class="col-md-12">
                             <div class="page-title-box">
                                 <h4 class="page-title">Overview</h4>
-{{--                                <ol class="breadcrumb">--}}
-{{--                                    <li class="breadcrumb-item active">Welcome to Admin dashboard</li>--}}
-{{--                                </ol>--}}
+
                             </div>
                         </div>
 

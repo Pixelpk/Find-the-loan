@@ -28,16 +28,16 @@ class LoanQuotationController extends Controller
         return view('admin.loan_applications.fixed_or_floating',$data);
     }
     
-    public function putQuotation(Request $request){
-        $data['apply_loan_id'] = $request->apply_loan_id ?? '';
-        $data['apply_loan'] = ApplyLoan::where("id", "=", $data['apply_loan_id'])
-            ->first();
-        if (!$data['apply_loan']){
-            return redirect()->back()->with('error','Oops something went wrong');
-        }
+    // public function putQuotation(Request $request){
+    //     $data['apply_loan_id'] = $request->apply_loan_id ?? '';
+    //     $data['apply_loan'] = ApplyLoan::where("id", "=", $data['apply_loan_id'])
+    //         ->first();
+    //     if (!$data['apply_loan']){
+    //         return redirect()->back()->with('error','Oops something went wrong');
+    //     }
 
-        return view('admin.loan_applications.put_quotation',$data);
-    }
+    //     return view('admin.loan_applications.put_quotation',$data);
+    // }
 
     public function quotedCustomer(Request $request)
     {
@@ -54,6 +54,7 @@ class LoanQuotationController extends Controller
     public function submitQuotation(Request $request)
     {
         $data = $request->all();
+        // return $data;
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
         ->with('loan_user:id,first_name,last_name,email')
         ->first();
@@ -192,31 +193,32 @@ class LoanQuotationController extends Controller
         }
 
         $one_time_fee = [
-            'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
+            // 'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
             'flat_value'=> $data['one_time_fee_value'] ?? "",
             'percentage'=> $data['one_time_fee_percent'] ?? "",
         ];
         $monthly_fee = [
-            'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
+            // 'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
             'flat_value'=> $data['monthly_fee_value'] ?? "",
             'percentage'=> $data['monthly_fee_percent'] ?? "",'which_higher'=>1
         ];
         $annual_fee = [
-            'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
+            // 'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
             'flat_value'=> $data['annual_fee_value'] ?? "",
-            'percentage'=> $data['annual_fee_percent'] ?? "",'which_higher'=>1
+            'percentage'=> $data['annual_fee_percent'] ?? "",
+            // 'which_higher'=>1
         ];
 
         $legal_fee = ['range_from'=> $data['legal_fee_start_range'] ?? "",'range_to'=> $data['legal_fee_end_range'] ?? ""];
 
         $if_insurance_required = [
-            'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
+            // 'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
             'range_value_from'=> $data['if_insurance_start_value'] ?? "",'range_value_from'=> $data['if_insurance_end_value'] ?? "",
             'range_percentage_from'=> $data['if_insurance_start_percent'] ?? "",'range_percentage_from'=> $data['if_insurance_end_value'] ?? "",
-            'which_higher'=>1
+            // 'which_higher'=>1
         ];
         $eir = [
-            'value_type'=>1, //1 for p_a_percentage, 2 for p_a_percentage
+            // 'value_type'=>1, //1 for p_a_percentage, 2 for p_a_percentage
             'pa_percentage'=> $data['eir_pa'] ?? "",'pm_percentage'=> $data['eir_pm'] ?? ""
         ];
 

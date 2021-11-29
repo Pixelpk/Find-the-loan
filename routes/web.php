@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\LoanQuotationController;
 use App\Http\Controllers\Admin\MoreDocController;
+use App\Http\Controllers\Admin\PendingMeetCallController;
 use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\CronJobController;
@@ -122,7 +123,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     
         Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
         Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
-        Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
         Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
         Route::post('sector-detail', [SectorController::class,'sectorDetail'])->name('sector-detail');
 
@@ -192,8 +192,11 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation'); 
         Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating'); 
 
-
         Route::get('partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('partner-sales-report');
+
+        Route::get('pending-meet-call',[PendingMeetCallController::class,'pendingMeetCall'])->name('pending-meet-call');
+        Route::get('pending-meet-applications',[PendingMeetCallController::class,'pendingMeetCallApplications'])->name('pending-meet-applications');
+
 
     }); 
 
@@ -204,6 +207,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     // Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
+    Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
 
     // Route::get('/faq', [FaqController::class,'faq'])->name('faq');
     // Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
