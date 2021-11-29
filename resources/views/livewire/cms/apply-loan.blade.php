@@ -43,7 +43,7 @@
                         @elseif($main_type == 2)
                         <li class="nav-item">
                             <a wire:click="$set('tab', '10')" style="padding: .1rem 1rem;"
-                                class="nav-link {{ $tab == '10' ? 'active' : '' }}" href="#">Consumer Detail</a>
+                                class="nav-link {{ $tab == '10' ? 'active' : '' }}" href="#">CONSUMER DETAIL</a>
                         </li>
                         @endif
                         @if(!$lenderflag)
@@ -243,7 +243,7 @@
                         <div>
                             <br>
                             <br>
-                            <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                            <button class="btn btn-custom" wire:click="storeReasonLoanType">Save & Continue</button>
                         </div>
                     </div>
                     @endif
@@ -333,7 +333,7 @@
                     </div>
 
                     <div class="text-center">
-                        <button class="btn">Send Enquiry</button>
+                        <button class="btn btn-custom">Send Enquiry</button>
                     </div>
 
                     <div class="row mt-3 d-flex">
@@ -504,7 +504,7 @@
                     <div class="row">
                         <div class="col-12">
                             <br>
-                            <button wire:loading.attr='disabled' class="btn" type="button" wire:target='companyDetail'
+                            <button wire:loading.attr='disabled' class="btn btn-custom" type="button" wire:target='companyDetail'
                                 wire:click.prevent='companyDetail'>
                                 <div wire:loading wire:target="companyDetail">
                                     <span class="spinner-border spinner-border-sm" role="status"
@@ -537,7 +537,7 @@
                                 <p> When was the company incorporated?</p>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="input-group mb-2">
+                                        <div class="input-group mb-3">
                                             {{-- <label for="">Year</label> --}}
                                             <select wire:model="company_years" class="form-select"
                                                 aria-label="Default select example" wire:change="getnoofYear()">
@@ -555,7 +555,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group mb-2">
+                                        <div class="input-group mb-3">
                                             <select wire:model="company_months" class="form-select"
                                                 aria-label="Default select example" wire:change="getnoofYear()">
                                                 <option value="" hidden>Select</option>
@@ -582,7 +582,7 @@
                                     business?</p>
                                 <div class="row ">
                                     <div class="col-md-6">
-                                        <div class="input-group mb-2">
+                                        <div class="input-group mb-3">
                                             <input wire:keyup="resetComapny" placeholder="No of years"
                                                 wire:model="company_year" type="number" class="form-control"
                                                 aria-label="Text input with dropdown button">
@@ -595,7 +595,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="input-group mb-2">
+                                        <div class="input-group mb-3">
                                             <input wire:keyup="resetComapny" placeholder="No of months"
                                                 wire:model="company_month" type="number" class="form-control"
                                                 aria-label="Text input with dropdown button">
@@ -611,29 +611,31 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3">
+                        <div class="row mt-2">
                             <div class="col-md-6">
-                                <label for="percentage_shareholder" class="form-label">% of local shareholding
-                                </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
+                          <div class="mb-3">
+                            <label for="percentage_shareholder" class="form-label">% of local shareholding
+                            </label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
 
-                                    </div>
-                                    <input wire:model="percentage_shareholder" type="number" class="form-control"
-                                        id="percentage_shareholder">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">%</span>
-                                    </div>
                                 </div>
-
-                                @error('percentage_shareholder')
-                                <div style="color: red;">
-                                    {{ $message }}
+                                <input wire:model="percentage_shareholder" type="number" class="form-control"
+                                    id="percentage_shareholder">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
                                 </div>
-                                @enderror
                             </div>
 
+                            @error('percentage_shareholder')
+                            <div style="color: red;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                          </div>
+                            </div>
                             <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="number_of_share_holder" class="form-label">Number of shareholder including
                                     parent
                                     company if any
@@ -646,54 +648,61 @@
                                 </div>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Company structure type</label>
-                                <select wire:model="company_structure_type_id" class="form-select"
-                                    aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    @foreach($company_structure_types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->structure_type }}</option>
-                                    @endforeach
-                                </select>
-                                @error('company_structure_type_id')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label" for="">Sector</label>
-                                <select wire:model="sector_id" class="form-select" aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    @foreach($sectors as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('sector_id')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
                             </div>
                         </div>
 
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <label for="number_of_employees" class="form-label">Number of full-time employee
-                                </label>
-                                <input wire:model="number_of_employees" type="number" class="form-control"
-                                    id="number_of_employees">
-                                @error('number_of_employees')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                          <div class="mb-3">
+                            <label class="form-label">Company structure type</label>
+                            <select wire:model="company_structure_type_id" class="form-select"
+                                aria-label="Default select example">
+                                <option value="" hidden>Select</option>
+                                @foreach($company_structure_types as $item)
+                                <option value="{{ $item->id }}">{{ $item->structure_type }}</option>
+                                @endforeach
+                            </select>
+                            @error('company_structure_type_id')
+                            <div style="color: red;">
+                                {{ $message }}
                             </div>
-                            <div class="col-md-6">
+                            @enderror
+                          </div>
+                            </div>
+                            <div class="col-md-4">
+                         <div class="mb-3">
+                            <label class="form-label" for="">Sector</label>
+                            <select wire:model="sector_id" class="form-select" aria-label="Default select example">
+                                <option value="" hidden>Select</option>
+                                @foreach($sectors as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('sector_id')
+                            <div style="color: red;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                         </div>
+                            </div>
+                            <div class="col-md-4">
+                          <div class="mb-3">
+                            <label for="number_of_employees" class="form-label">Number of full-time employee
+                            </label>
+                            <input wire:model="number_of_employees" type="number" class="form-control"
+                                id="number_of_employees">
+                            @error('number_of_employees')
+                            <div style="color: red;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                          </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                            <div class="mb-3">
                                 <label for="revenue" class="form-label">Revenue (rounded up is fine)</label>
                                 <div class="input-group">
                                     <input placeholder="$" wire:model="revenue" type="number" class="form-control"
@@ -706,10 +715,9 @@
                                 </div>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-4">
+                             <div class="mb-3">
                                 <label for="company_name" class="form-label">Company name</label>
                                 <input wire:model="company_name" type="text" class="form-control" id="company_name">
                                 @error('company_name')
@@ -717,16 +725,19 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
+                             </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="website" class="form-label">Company website (if available)</label>
-                                <input wire:model="website" type="text" class="form-control" id="website">
-                                @error('website')
-                                <div style="color: red;">
-                                    {{ $message }}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                 <label for="website" class="form-label">Company website (if available)</label>
+                                 <input wire:model="website" type="text" class="form-control" id="website">
+                                 @error('website')
+                                 <div style="color: red;">
+                                     {{ $message }}
+                                 </div>
+                                 @enderror
                                 </div>
-                                @enderror
-                            </div>
+                                 </div>
                         </div>
                         <!-- /OVERDRAFT UNSECURED COMPANY DETAILS-->
 
@@ -796,9 +807,8 @@
                     </div>
 
                     <!-- SAVE & CONTINUE BUTTON -->
-                    <div class="ro">
-                        <br>
-                        <button class="btn" type="button" wire:target='confirmationMessage'
+                    <div class="mt-3">
+                        <button class="btn btn-custom" type="button" wire:target='confirmationMessage'
                             wire:click.prevent='confirmationMessage'>
                             <div wire:loading wire:target="confirmationMessage">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -812,6 +822,8 @@
                     @elseif($tab == 5)
                     @if(!$listed_company_check)
                     <div class="row">
+                        <!-- 1ST SECTION -->
+                        <div class="border rounded p-3">
                         <div class="row">
                             <b>6 months latest bank statement</b>
                             <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You Would Need To
@@ -839,7 +851,7 @@
                     <div class="row">
                         <p><b>OR</b></p>
                         <p><b>Consolidated Statement.</b></p>
-                        <p>If Your Statement Is Not Spilt Between Months But One</p>
+                        <p class="mb-0">If Your Statement Is Not Spilt Between Months But One</p>
                     </div>
 
                     <div class="row">
@@ -850,130 +862,136 @@
                                 :keyvalue="'parent_company_combine_statement'" />
                         </div>
                     </div>
+                    </div>
                     <!-- /COMPANY DOCUMENTS__Consolidated Statement -->
-                    <hr class="mt-3">
+<!-- /1ST SECTION -->
 
-                    <!-- COMPANY DOCUMENTS__LATEST YEAR -->
-                    <div class="row">
-                        <p> <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
-                        <p>
-                            (Income Statement also known as Profit & Loss
-                            + Statement of financial position also known as Balance Sheet)
-                        </p>
-                    </div>
+<!-- 2ND SECTION -->
+<div class="border rounded p-3 mt-3">
+   <!-- COMPANY DOCUMENTS__LATEST YEAR -->
+   <div class="row">
+    <p> <b>Latest {{ $getNumberOfCompanyYears >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
+    <p>
+        (Income Statement also known as Profit & Loss
+        + Statement of financial position also known as Balance Sheet)
+    </p>
+</div>
 
-                    <div class="row mt-2">
-                        <div class="col-md-4">
-                            <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_latest_year_statement'" />
-                        </div>
-                        @if($getNumberOfCompanyYears >= 3)
-                        <div class="col-md-4">
-                            <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_before_year_statement'" />
+<div class="row mt-1">
+    <div class="col-md-4">
+        <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
+            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+            :modell="'App\Models\LoanCompanyDetail'"
+            :keyvalue="'parent_company_latest_year_statement'" />
+    </div>
+    @if($getNumberOfCompanyYears >= 3)
+    <div class="col-md-4">
+        <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
+            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+            :modell="'App\Models\LoanCompanyDetail'"
+            :keyvalue="'parent_company_before_year_statement'" />
 
-                        </div>
-                        @endif
-                    </div>
-                    <!-- /COMPANY DOCUMENTS__LATEST YEAR -->
-                    <hr class="mt-3">
+    </div>
+    @endif
+</div>
+<!-- /COMPANY DOCUMENTS__LATEST YEAR -->
 
-                    <!-- COMPANY DOCUMENTS__PROFITABLE -->
-                    <div class="row mt-2">
-                        <div class="col-md-4">
-                            <p> <b>Profitable for the last 2 accounting years</b></p>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Before Years</label>
-                                <select wire:model="profitable_latest_year" class="form-select"
-                                    aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('profitable_latest_year')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>After Years</label>
-                                <select wire:model="profitable_before_year" class="form-select"
-                                    aria-label="Default select example">
-                                    <option value="" hidden>Select</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                                @error('profitable_before_year')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /COMPANY DOCUMENTS__PROFITABLE -->
-                    <hr class="mt-3">
+<!-- COMPANY DOCUMENTS__PROFITABLE -->
+<div class="row mt-4">
+    <div class="col-md-4">
+        <p> <b>Profitable for the last 2 accounting years</b></p>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Before Years</label>
+            <select wire:model="profitable_latest_year" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error('profitable_latest_year')
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>After Years</label>
+            <select wire:model="profitable_before_year" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error('profitable_before_year')
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+</div>
+<!-- /COMPANY DOCUMENTS__PROFITABLE -->
+</div>
+<!-- /2ND SECTION -->
+             
+<!-- 3RD SECTION -->
+<div class="border rounded p-3 mt-3">
+  <!-- COMPANY DOCUMENTS__OPTIONOL INFO -->
+  <div class="row">
+    <P class="text-muted"><b>Optional info</b></P>
+</div>
 
-                    <!-- COMPANY DOCUMENTS__OPTIONOL INFO -->
-                    <div class="row">
-                        <P class="text-muted"><b>Optional info</b></P>
-                    </div>
+<div class="row">
+    <p><b>Current Year</b></p>
+    <p class="mb-0">If you are <b>more than 3-6 months into your current accounting year,</b> and if your
+        management account(drafts/unaudited) pulls up the average, providing them may be helpful
+    </p>
+</div>
 
-                    <div class="row">
-                        <p><b>Current Year</b></p>
-                        <p>If you are <b>more than 3-6 months into your current accounting year,</b> and if your
-                            management account(drafts/unaudited) pulls up the average, providing them may be helpful
-                        </p>
-                    </div>
+<div class="row">
+    <div class="col-md-4">
+        <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+            :modell="'App\Models\LoanCompanyDetail'"
+            :keyvalue="'parent_company_current_year_statement'" />
+    </div>
+</div>
+<!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'parent_company_current_year_statement'" />
-                        </div>
-                    </div>
-                    <!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
+<!-- COMPANY DOCUMENTS__REVENUE -->
+<div class="row mt-3">
+    <b>Revenue (rounded up is fine)</b>
+</div>
 
-                    <!-- COMPANY DOCUMENTS__REVENUE -->
-                    <div class="row mt-3">
-                        <b>Revenue (rounded up is fine)</b>
-                    </div>
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="number" class="form-control" wire:model="optional_revenuee">
+            @error('optional_revenuee')
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+</div>
+<!-- /COMPANY DOCUMENTS__REVENUE -->
+</div>
+<!-- /3RD SECTION -->
 
-                    <div class="row mt-3">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="number" class="form-control" wire:model="optional_revenuee">
-                                @error('optional_revenuee')
-                                <div style="color: red;">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /COMPANY DOCUMENTS__REVENUE -->
-                    <hr class="mt-3">
-
-
-                    <div class="ro">
-                        <br>
-                        <button class="btn" type="button" wire:target='saveCompanyDocuments'
+                    <div class="mt-3">
+                        <button class="btn btn-custom" type="button" wire:target='saveCompanyDocuments'
                             wire:click.prevent='saveCompanyDocuments'>
                             <span wire:loading wire:target="saveCompanyDocuments"
                                 class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Save & Continue
                         </button>
+                        <a href="{{ route('faqs') }}" target="_blank" class="btn btn-outline-dark">Why these documents
+                            <i class="fa fa-info-circle"></i></a>
                     </div>
                 </div>
                 @endif
@@ -984,7 +1002,7 @@
                 <!-- SHAREHOLDER__SELECT -->
                 <div class="row">
                     @foreach($get_share_holder_type as $key => $item)
-                    <div class="col-md-4 col-lg-2 mb-3">
+                    <div class="col-md-6 col-lg-3 mb-3">
                         <div class="form-check form-switch">
                             <label class="form-check-label" for="flexSwitchCheckDefault">Shareholder
                                 @if($key++ == 0)
@@ -995,7 +1013,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-3 mb-3">
+                    <div class="col-md-6 col-lg-3 mb-3">
                         <div class="form-check">
                             <select class="form-select" wire:model="checkShareHolder.{{ $item['id'] }}"
                                 wire:change="getShareholderTypeId({{ $item['id'] }})">
@@ -1011,11 +1029,11 @@
                 <div id="accordion" style="margin-top: 30px;">
                     @foreach($get_share_holder_type as $key => $item)
                     @if($item['share_holder_type'] == 1)
-                    <div class="card">
+                    <div class="card mt-3">
                         @php $shreholder = $item['id'] @endphp
                         <div class="card-header" id="{{ $shreholder }}">
                             <h5 class="mb-0">
-                                <button class="btn" data-toggle="collapse" data-target="#collapseOne{{ $shreholder }}"
+                                <button class="btn btn-custom" data-toggle="collapse" data-target="#collapseOne{{ $shreholder }}"
                                     aria-expanded="true" aria-controls="collapseOne{{ $shreholder }}">
                                     Shareholder Person
                                     @if($key++ == 0)
@@ -1035,164 +1053,171 @@
                                 <div class="row">
                                     <p class="mb-1"> <b>NRIC</b> or <b>Passport/Identity Card</b> ( Foreigner)</p>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-4">
-                                        <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="">NRIC Front</label>
-                                                <input wire:model="nric_front.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("nric_front.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div>
+                               <div class="mb-3">
+                                <div x-data="{ isUploading: false, progress: 0 }"
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false"
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                <div class="form-group">
+                                    <label for="">NRIC Front</label>
+                                    <input wire:model="nric_front.{{ $shreholder }}"
+                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                        type="file" class="form-control" id="vehicleimage" name="" id="">
+                                    </label>
+                                 </div>
+                                @error("nric_front.$shreholder")
+                                <div style="color: red;">
+                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <div x-show="isUploading">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+                            </div>
+                               </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="">NRIC Back</label>
-                                                <input wire:model="nric_back.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("nric_back.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div>
+                             <div class="mb-3">
+                                <div x-data="{ isUploading: false, progress: 0 }"
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false"
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                <div class="form-group">
+                                    <label for="">NRIC Back</label>
+                                    <input wire:model="nric_back.{{ $shreholder }}"
+                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                        type="file" class="form-control" id="vehicleimage" name="" id="">
+                                    </label>
+                                </div>
+                                @error("nric_back.$shreholder")
+                                <div style="color: red;">
+                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                <div x-show="isUploading">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+                            </div>
+                             </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="">Passport</label>
-                                                <input wire:model="passport.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("passport.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div>
+                                 <div class="mb-3">
+                                    <div x-data="{ isUploading: false, progress: 0 }"
+                                    x-on:livewire-upload-start="isUploading = true"
+                                    x-on:livewire-upload-finish="isUploading = false"
+                                    x-on:livewire-upload-error="isUploading = false"
+                                    x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <div class="form-group">
+                                        <label for="">Passport</label>
+                                        <input wire:model="passport.{{ $shreholder }}"
+                                            accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                            type="file" class="form-control" id="vehicleimage" name="" id="">
+                                        </label>
+                                    </div>
+                                    @error("passport.$shreholder")
+                                    <div style="color: red;">
+                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    <div x-show="isUploading">
+                                        <progress max="100" x-bind:value="progress"></progress>
                                     </div>
                                 </div>
-                                <div class="row mt-4">
+                                 </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
                                     <p class="mb-1"> <b>Personal NOA</b></p>
                                     <p class="mb-1">(Notice of Assessment) 2 Years</p>
                                 </div>
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-md-4">
-                                        <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="">Latest</label>
-                                                <input wire:model="nao_latest.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("nao_latest.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
+                                   <div class="mb-3">
+                                    <div x-data="{ isUploading: false, progress: 0 }"
+                                    x-on:livewire-upload-start="isUploading = true"
+                                    x-on:livewire-upload-finish="isUploading = false"
+                                    x-on:livewire-upload-error="isUploading = false"
+                                    x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <div class="form-group">
+                                    <label for="">Latest</label>
+                                    <input wire:model="nao_latest.{{ $shreholder }}"
+                                        accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                        type="file" class="form-control" id="vehicleimage" name="" id="">
+                                    </label>
+                                  </div>
+                                    @error("nao_latest.$shreholder")
+                                    <div style="color: red;">
+                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                        <div x-show="isUploading">
+                                            <progress max="100" x-bind:value="progress"></progress>
                                         </div>
                                     </div>
+                                   </div>
+                                    </div>
                                     <div class="col-md-4">
-                                        <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <br>
-                                                <label for="">Older</label>
-                                                <input wire:model="nao_older.{{ $shreholder }}"
-                                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                                    type="file" class="form-control" id="vehicleimage" name="" id="">
-                                                </label>
-                                            </div>
-                                            @error("nao_older.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                            <div x-show="isUploading">
-                                                <progress max="100" x-bind:value="progress"></progress>
-                                            </div>
-                                        </div>
+                                <div class="mb-3">
+                                    <div x-data="{ isUploading: false, progress: 0 }"
+                                    x-on:livewire-upload-start="isUploading = true"
+                                    x-on:livewire-upload-finish="isUploading = false"
+                                    x-on:livewire-upload-error="isUploading = false"
+                                    x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <div class="form-group">
+                                        <label for="">Older</label>
+                                        <input wire:model="nao_older.{{ $shreholder }}"
+                                            accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
+                                            type="file" class="form-control" id="vehicleimage" name="" id="">
+                                        </label>
+                                      </div>
+                                    @error("nao_older.$shreholder")
+                                    <div style="color: red;">
+                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    <div x-show="isUploading">
+                                        <progress max="100" x-bind:value="progress"></progress>
                                     </div>
                                 </div>
+                                </div>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
 
-                                <div class="row mt-4">
+                                <div class="row mt-2">
                                     <p> <b>I don't have income proof because i am</b></p>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-4">
-                                        <select class="form-select" name="" id=""
-                                            wire:model.defer="not_proof.{{ $shreholder }}">
-                                            <option value="" hidden>Select</option>
-                                            <option value="1">Student</option>
-                                            <option value="2">Homemaker</option>
-                                            <option value="3">Retired</option>
-                                            <option value="4">Unemployed</option>
-                                        </select>
-                                        @error("not_proof.$shreholder")
-                                        <div style="color: red;">
-                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
+                                  <div class="mb-3">
+                                    <select class="form-select" name="" id=""
+                                    wire:model.defer="not_proof.{{ $shreholder }}">
+                                    <option value="" hidden>Select</option>
+                                    <option value="1">Student</option>
+                                    <option value="2">Homemaker</option>
+                                    <option value="3">Retired</option>
+                                    <option value="4">Unemployed</option>
+                                </select>
+                                @error("not_proof.$shreholder")
+                                <div style="color: red;">
+                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                                  </div>
                                     </div>
                                 </div>
-                                <div class="ro">
-                                    <br>
-                                    <button class="btn" type="button" wire:target='share_holder_document_store'
+                                <div class="mt-3">
+                                    <button class="btn btn-custom" type="button" wire:target='share_holder_document_store'
                                         wire:click.prevent='share_holder_document_store({{ $item['id'] }})'>
                                         <span wire:loading wire:target="share_holder_document_store"
                                             class="spinner-border spinner-border-sm" role="status"
@@ -1205,11 +1230,11 @@
                         </div>
                     </div>
                     @else
-                    <div class="card">
+                    <div class="card mt-3">
                         @php $shreholder = $item['id'] @endphp
                         <div class="card-header" id="{{ $shreholder }}">
                             <h5 class="mb-0">
-                                <button class="btn" data-toggle="collapse" data-target="#collapseOne{{ $shreholder }}"
+                                <button class="btn btn-custom" data-toggle="collapse" data-target="#collapseOne{{ $shreholder }}"
                                     aria-expanded="true" aria-controls="collapseOne{{ $shreholder }}">
                                     Shareholder Company 
                                     @if($key++ == 0)
@@ -1242,10 +1267,8 @@
                                     @endif
                                 </ul>
                                 @if($subtab == 1)
-                                <div class="row">
+                                <div class="row mt-4">
                                     <div class="col-md-12">
-                                        <br>
-                                        <br>
                                         <div class="form-check form-switch">
                                             <input wire:change="get_company_listed({{ $shreholder }})"
                                                 wire:model="share_holder_listed_company_check.{{ $shreholder }}"
@@ -1265,47 +1288,51 @@
                                             <div class="row">
                                                 <p>When was the company incorporated?</p>
                                                 <div class="col-md-6">
-                                                    <div class="input-group">
-                                                        {{-- <label for="">Year</label> --}}
-                                                        <select
-                                                            {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
-                                                            wire:model="share_holder_company_years.{{ $shreholder }}"
-                                                            class="form-select" aria-label="Default select example">
-                                                            <option value="" hidden>Select</option>
-                                                            @for ($x = 1990; $x <= date('Y'); $x++) <option
-                                                                value="{{ $x }}">
-                                                                {{ $x }}</option>
-                                                                @endfor
-                                                        </select>
-                                                        <label class="input-group-text">Year</label>
-                                                    </div>
-                                                    @error("share_holder_company_years.$shreholder")
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    {{-- <label for="">Year</label> --}}
+                                                    <select
+                                                        {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
+                                                        wire:model="share_holder_company_years.{{ $shreholder }}"
+                                                        class="form-select" aria-label="Default select example">
+                                                        <option value="" hidden>Select</option>
+                                                        @for ($x = 1990; $x <= date('Y'); $x++) <option
+                                                            value="{{ $x }}">
+                                                            {{ $x }}</option>
+                                                            @endfor
+                                                    </select>
+                                                    <label class="input-group-text">Year</label>
+                                                </div>
+                                                @error("share_holder_company_years.$shreholder")
+                                                <div style="color: red;">
+                                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <select
+                                                        {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
+                                                        wire:model="share_holder_company_months.{{ $shreholder }}"
+                                                        class="form-select" aria-label="Default select example">
+                                                        <option value="" hidden>Select</option>
+                                                        @for ($x = 01; $x <= 12; $x++) <option value="1">{{ $x }}
+                                                            </option>
+                                                            @endfor
+                                                    </select>
+                                                    <label class="input-group-text">Month</label>
+                                                </div>
+                                                    @error("share_holder_company_months.$shreholder")
                                                     <div style="color: red;">
-                                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                        @php $message = preg_replace('/[0-9]+/', '', $message);
+                                                        @endphp
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="input-group">
-                                                        <select
-                                                            {{ isset($share_holder_company_year[$shreholder]) || isset( $share_holder_company_month[$shreholder]) ? 'disabled' : '' }}
-                                                            wire:model="share_holder_company_months.{{ $shreholder }}"
-                                                            class="form-select" aria-label="Default select example">
-                                                            <option value="" hidden>Select</option>
-                                                            @for ($x = 01; $x <= 12; $x++) <option value="1">{{ $x }}
-                                                                </option>
-                                                                @endfor
-                                                        </select>
-                                                        <label class="input-group-text">Month</label>
-                                                        @error("share_holder_company_months.$shreholder")
-                                                        <div style="color: red;">
-                                                            @php $message = preg_replace('/[0-9]+/', '', $message);
-                                                            @endphp
-                                                            {{ $message }}
-                                                        </div>
-                                                        @enderror
-                                                    </div>
+                                            </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1317,173 +1344,190 @@
                                             <div class="row">
                                                 <p>How long has the company been in business?</p>
                                                 <div class="col-md-6">
-                                                    <div class="input-group">
-                                                        <input wire:click="shareHolderResetComapny({{ $shreholder }})"
-                                                            placeholder="Number of years"
-                                                            wire:model="share_holder_company_year.{{ $shreholder }}"
-                                                            type="number" class="form-control"
-                                                            aria-label="Text input with dropdown button">
-                                                        <label class="input-group-text">Years</label>
-                                                    </div>
-                                                    @error("share_holder_company_year.$shreholder")
-                                                    <div style="color: red;">
-                                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
+                                              <div class="mb-3">
+                                                <div class="input-group">
+                                                    <input wire:click="shareHolderResetComapny({{ $shreholder }})"
+                                                        placeholder="Number of years"
+                                                        wire:model="share_holder_company_year.{{ $shreholder }}"
+                                                        type="number" class="form-control"
+                                                        aria-label="Text input with dropdown button">
+                                                    <label class="input-group-text">Years</label>
+                                                </div>
+                                                @error("share_holder_company_year.$shreholder")
+                                                <div style="color: red;">
+                                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                              </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="input-group">
-                                                        <input wire:click="shareHolderResetComapny({{ $shreholder }})"
-                                                            placeholder="Number of month"
-                                                            wire:model="share_holder_company_month.{{ $shreholder }}"
-                                                            type="number" class="form-control"
-                                                            aria-label="Text input with dropdown button">
-                                                        <label class="input-group-text">Months</label>
-                                                    </div>
-                                                    @error("share_holder_company_month.$shreholder")
-                                                    <div style="color: red;">
-                                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
+                                          <div class="mb-3">
+                                            <div class="input-group">
+                                                <input wire:click="shareHolderResetComapny({{ $shreholder }})"
+                                                    placeholder="Number of month"
+                                                    wire:model="share_holder_company_month.{{ $shreholder }}"
+                                                    type="number" class="form-control"
+                                                    aria-label="Text input with dropdown button">
+                                                <label class="input-group-text">Months</label>
+                                            </div>
+                                            @error("share_holder_company_month.$shreholder")
+                                            <div style="color: red;">
+                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                          </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <label for="share_holder_percentage_shareholder.{{ $shreholder }}"
-                                                class="form-label">% of
-                                                local
-                                                shareholding
-                                            </label>
-                                            <input wire:model="share_holder_percentage_shareholder.{{ $shreholder }}"
-                                                type="number" class="form-control"
-                                                id="share_holder_percentage_shareholder.{{ $shreholder }}">
-                                            @error("share_holder_percentage_shareholder.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                    <div class="mb-3">
+                                        <label for="share_holder_percentage_shareholder.{{ $shreholder }}"
+                                        class="form-label">% of
+                                        local
+                                        shareholding
+                                    </label>
+                                    <input wire:model="share_holder_percentage_shareholder.{{ $shreholder }}"
+                                        type="number" class="form-control"
+                                        id="share_holder_percentage_shareholder.{{ $shreholder }}">
+                                    @error("share_holder_percentage_shareholder.$shreholder")
+                                    <div style="color: red;">
+                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="share_holder_number_of_share_holder" class="form-label">Number
-                                                of
-                                                shareholder including
-                                                parent
-                                                company if any
-                                            </label>
-                                            <input wire:model="share_holder_number_of_share_holder.{{ $shreholder }}"
-                                                type="number" class="form-control"
-                                                id="share_holder_number_of_share_holder.{{ $shreholder }}">
-                                            @error("share_holder_number_of_share_holder.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                      <div class="mb-3">
+                                        <label for="share_holder_number_of_share_holder" class="form-label">Number
+                                            of
+                                            shareholder including
+                                            parent
+                                            company if any
+                                        </label>
+                                        <input wire:model="share_holder_number_of_share_holder.{{ $shreholder }}"
+                                            type="number" class="form-control"
+                                            id="share_holder_number_of_share_holder.{{ $shreholder }}">
+                                        @error("share_holder_number_of_share_holder.$shreholder")
+                                        <div style="color: red;">
+                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                      </div>
                                         </div>
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Company structure type</label>
-                                            <select
-                                                wire:model="share_holder_company_structure_type_id.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                @foreach($company_structure_types as $item)
-                                                <option value="{{ $item->id }}">{{ $item->structure_type }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error("share_holder_company_structure_type_id.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                      <div class="mb-3">
+                                        <label class="form-label">Company structure type</label>
+                                        <select
+                                            wire:model="share_holder_company_structure_type_id.{{ $shreholder }}"
+                                            class="form-select" aria-label="Default select example">
+                                            <option value="" hidden>Select</option>
+                                            @foreach($company_structure_types as $item)
+                                            <option value="{{ $item->id }}">{{ $item->structure_type }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error("share_holder_company_structure_type_id.$shreholder")
+                                        <div style="color: red;">
+                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                            {{ $message }}
                                         </div>
-                                        <div class="col-md-6"">
+                                        @enderror
+                                      </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                    <div class="mb-3">
                                         <label class=" form-label" for="">Sector</label>
-                                            <select wire:model="share_holder_sector_id.{{ $shreholder }}"
-                                                class="form-select" aria-label="Default select example">
-                                                <option value="" hidden>Select</option>
-                                                @foreach($sectors as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error("share_holder_sector_id.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                        <select wire:model="share_holder_sector_id.{{ $shreholder }}"
+                                            class="form-select" aria-label="Default select example">
+                                            <option value="" hidden>Select</option>
+                                            @foreach($sectors as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error("share_holder_sector_id.$shreholder")
+                                        <div style="color: red;">
+                                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                            {{ $message }}
                                         </div>
+                                        @enderror
+                                    </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                              <label for="share_holder_number_of_employees" class="form-label">Number of
+                                                  full-time
+                                                  employee
+                                              </label>
+                                              <input wire:model="share_holder_number_of_employees.{{ $shreholder }}"
+                                                  type="number" class="form-control"
+                                                  id="share_holder_number_of_employees.{{ $shreholder }}">
+                                              @error("share_holder_number_of_employees.$shreholder")
+                                              <div style="color: red;">
+                                                  @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                  {{ $message }}
+                                              </div>
+                                              @enderror
+                                            </div>
+                                              </div>
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="share_holder_number_of_employees" class="form-label">Number of
-                                                full-time
-                                                employee
-                                            </label>
-                                            <input wire:model="share_holder_number_of_employees.{{ $shreholder }}"
-                                                type="number" class="form-control"
-                                                id="share_holder_number_of_employees.{{ $shreholder }}">
-                                            @error("share_holder_number_of_employees.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="share_holder_revenue.{{ $shreholder }}"
-                                                class="form-label">Revenue
-                                                (rounded up is fine)</label>
-                                            <div class="input-group">
-                                                <input placeholder="$"
-                                                    wire:model="share_holder_revenue.{{ $shreholder }}" type="number"
-                                                    class="form-control" aria-label="Text input with dropdown button">
-                                            </div>
-                                            @error("share_holder_revenue.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                       <div class="mb-3">
+                                        <label for="share_holder_revenue.{{ $shreholder }}"
+                                        class="form-label">Revenue
+                                        (rounded up is fine)</label>
+                                    <div class="input-group">
+                                        <input placeholder="$"
+                                            wire:model="share_holder_revenue.{{ $shreholder }}" type="number"
+                                            class="form-control" aria-label="Text input with dropdown button">
                                     </div>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-6">
-                                            <label for="share_holder_company_name" class="form-label">Company
-                                                name</label>
-                                            <input wire:model="share_holder_company_name.{{ $shreholder }}" type="text"
-                                                class="form-control" id="share_holder_company_name.{{ $shreholder }}">
-                                            @error("share_holder_company_name.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
+                                    @error("share_holder_revenue.$shreholder")
+                                    <div style="color: red;">
+                                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                       </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="share_holder_website.{{ $shreholder }}"
-                                                class="form-label">Company
-                                                website (if available)</label>
-                                            <input wire:model="share_holder_website.{{ $shreholder }}" type="text"
-                                                class="form-control" id="share_holder_website.{{ $shreholder }}">
-                                            @error("share_holder_website.$shreholder")
-                                            <div style="color: red;">
-                                                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                                {{ $message }}
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                               <label for="share_holder_company_name" class="form-label">Company
+                                                   name</label>
+                                               <input wire:model="share_holder_company_name.{{ $shreholder }}" type="text"
+                                                   class="form-control" id="share_holder_company_name.{{ $shreholder }}">
+                                               @error("share_holder_company_name.$shreholder")
+                                               <div style="color: red;">
+                                                   @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                                   {{ $message }}
+                                               </div>
+                                               @enderror
                                             </div>
-                                            @enderror
-                                        </div>
+                                               </div>
+                                               <div class="col-md-4">
+                                            <div class="mb-3">
+                                               <label for="share_holder_website.{{ $shreholder }}"
+                                               class="form-label">Company
+                                               website (if available)</label>
+                                           <input wire:model="share_holder_website.{{ $shreholder }}" type="text"
+                                               class="form-control" id="share_holder_website.{{ $shreholder }}">
+                                           @error("share_holder_website.$shreholder")
+                                           <div style="color: red;">
+                                               @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                                               {{ $message }}
+                                           </div>
+                                           @enderror
+                                            </div>
+                                               </div>
                                     </div>
                                     <!-- /SHAREHOLDER__COMPANY DETAIL -->
                                 </div>
@@ -1535,243 +1579,128 @@
                                 </div>
 
                                 @endif
-                                <div class="row">
-                                    <div class="col-12">
-                                        <br>
-                                        <button class="btn" type="button" wire:target='share_holder_document_store'
+                                <div class="mt-3">
+                                        <button class="btn btn-custom" type="button" wire:target='share_holder_document_store'
                                             wire:click.prevent='share_holder_document_store({{ $shreholder  }})'>
                                             <span wire:loading wire:target="share_holder_document_store"
                                                 class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             Save & Continue
                                         </button>
-                                    </div>
                                 </div>
                                 @elseif($subtab == 2)
 
 
-
-                                <div class="row mt-4">
-                                    <b>6 months latest bank statement</b>
-                                    <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You
-                                        Would
-                                        Need To
-                                        Submit
-                                        from Dec And Not Nov As The Latest Months. For companies less than 6 months
-                                        old
-                                        or
-                                        unprofitable do check out our FAQ here.</p>
-                                </div>
-
-                                <!-- SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
-                                <div class="row mt-3">
-                                    @for ($x = 1; $x < 8; $x++) <div class="col-md-6 col-lg-4 mb-3">
-                                        @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
-
-                                        <livewire:widget.upload-component :label="$montName" :keyvalue="$montName"
-                                            :key="$montName" :getImages="$images" :apply_loan="$apply_loan"
-                                            :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                            :modell="'App\Models\LoanStatement'" />
-                                </div>
-                                @endfor
-                            </div>
-                            <!-- /SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
-
-
-                            <!-- SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
-                            <div class="row mt-1">
-                                <p><b>OR</b></p>
-                                <p><b>Consolidated Statement.</b></p>
-                                <p>If Your Statement Is Not Spilt Between Months But One</p>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
-                                        :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                                        :modell="'App\Models\LoanCompanyDetail'"
-                                        :keyvalue="'parent_company_combine_statement'" />
-                                </div>
-                            </div>
-                            <!-- /SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
-                            <hr class="mt-3">
-                            <!-- SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
-                            <div class="row mt-4">
-                                <p><b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
-                                <p>
-                                    (Income Statement also known as Profit & Loss
-                                    + Statement of financial position also known as Balance Sheet)
-                                </p>
-                            </div>
-
-                            <div class="row mt-2">
-                                <div class="col-md-4">
-                                    <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
-                                        :main_type="$main_type" :loan_type_id="$loan_type_id"
-                                        :share_holder="$shreholder" :modell="'App\Models\LoanCompanyDetail'"
-                                        :keyvalue="'share_company_latest_year_statement'" />
-                                    {{-- <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <label class="control-label mb-10">
-                                                    <label for="">Latest year</label>
-                                                </label>
-                                                <br>
-                                                <input wire:model="share_holder_latest_year.{{ $shreholder }}"
-                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                    type="file" id="vehicleimage" name="" id="">
-                                </div>
-                                @error("share_holder_latest_year.$shreholder")
-                                <div style="color:red;">
-                                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <div x-show="isUploading">
-                                    <progress max="100" x-bind:value="progress"></progress>
-                                </div>
-                            </div> --}}
-                        </div>
-                        @if(isset($share_holder_company_year[$shreholder]) &&
-                        $share_holder_company_year[$shreholder] >= 3)
-                        <div class="col-md-4">
-                            <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
-                                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                                :modell="'App\Models\LoanCompanyDetail'"
-                                :keyvalue="'share_company_before_year_statement'" />
-                            {{-- <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <label class="control-label mb-10">
-                                                    <label for="">Before year</label>
-                                                </label>
-                                                <br>
-                                                <input wire:model="share_holder_year_before.{{ $shreholder }}"
-                            accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                            type="file" id="vehicleimage" name="" id="">
-                        </div>
-                        @error("share_holder_year_before.$shreholder")
-                        <div style="color:red;">
-                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                            {{ $message }}
-                        </div>
-                        @enderror
-                        <div x-show="isUploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
-                    </div> --}}
-                </div>
-                @endif
-            </div>
-            <!-- /SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
-            <hr class="mt-3">
-
-            <!-- SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
-            <div class="row mt-4">
-                <div class="col-md-4">
-                    <p> <b>Profitable for the last 2 accounting years</b></p>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Before year</label>
-                        <select wire:model="share_holder_profitable_latest_year.{{ $shreholder }}" class="form-select"
-                            aria-label="Default select example">
-                            <option value="" hidden>Select</option>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                        @error("share_holder_profitable_latest_year.$shreholder")
-                        <div style="color:red;">
-                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Before year</label>
-                        <select wire:model="share_holder_profitable_before_year.{{ $shreholder }}" class="form-select"
-                            aria-label="Default select example">
-                            <option value="" hidden>Select</option>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                        @error("share_holder_profitable_before_year.$shreholder")
-                        <div style="color:red;">
-                            @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            <!-- /SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
-            <hr class="mt-3">
-            <!-- SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
-            <div class="row mt-4">
-                <p class="text-muted"><b>Optional info</b></p>
-            </div>
-
-
-            <div class="row">
-                <p> <b>Current Year</b></p>
-                <p>If you are <b>more than 3-6 months into your current accounting year,</b> and
-                    if
-                    your
-                    management account(drafts/unaudited) pulls up the average, providing them
-                    may be
-                    helpful
-                </p>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
-                        :loan_type_id="$loan_type_id" :share_holder="$shreholder"
-                        :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'share_company_current_year_statement'" />
-                    {{-- <div x-data="{ isUploading: false, progress: 0 }"
-                                            x-on:livewire-upload-start="isUploading = true"
-                                            x-on:livewire-upload-finish="isUploading = false"
-                                            x-on:livewire-upload-error="isUploading = false"
-                                            x-on:livewire-upload-progress="progress = $event.detail.progress">
-                                            <div class="form-group">
-                                                <label class="control-label mb-10">
-                                                </label>
-                                                <br>
-                                                <input wire:model="share_holder_current_year.{{ $shreholder }}"
-                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                    type="file" id="vehicleimage" name="" id="">
-                </div>
-                @error("share_holder_current_year.$shreholder")
-                <div style="color:red;">
-                    @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
-                    {{ $message }}
-                </div>
-                @enderror
-                <div x-show="isUploading">
-                    <progress max="100" x-bind:value="progress"></progress>
-                </div>
-            </div> --}}
-        </div>
+<!-- SHAREHOLDER COMPANY DOCUMENTS 1ST SECTION -->
+<div class="border rounded p-3 mt-4">
+    <div class="row mt-2">
+        <p>  <b>6 months latest bank statement</b></p>
+          <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You
+              Would
+              Need To
+              Submit
+              from Dec And Not Nov As The Latest Months. For companies less than 6 months
+              old
+              or
+              unprofitable do check out our FAQ here.</p>
+      </div>
+    
+      <!-- SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
+      <div class="row mt-2">
+          @for ($x = 1; $x < 8; $x++) <div class="col-md-6 col-lg-4 mb-3">
+              @php $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months")) @endphp
+    
+              <livewire:widget.upload-component :label="$montName" :keyvalue="$montName"
+                  :key="$montName" :getImages="$images" :apply_loan="$apply_loan"
+                  :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                  :modell="'App\Models\LoanStatement'" />
+      </div>
+      @endfor
+    </div>
+    <!-- /SHAREHOLDER COMPANY DOCUMENTS__FILE FEILD -->
+    
+    <!-- SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
+    <div class="row mt-2">
+      <p><b>OR</b></p>
+      <p><b>Consolidated Statement.</b></p>
+      <p class="mb-0">If Your Statement Is Not Spilt Between Months But One</p>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4">
+          <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan"
+              :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+              :modell="'App\Models\LoanCompanyDetail'"
+              :keyvalue="'parent_company_combine_statement'" />
+      </div>
+    </div>
+    <!-- /SHAREHOLDER COMPANY DOCUMENTS__Consolidated Statement -->
 </div>
-<!-- /SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
-<hr class="mt-3">
+<!-- /SHAREHOLDER COMPANY DOCUMENTS 1ST SECTION -->
 
-<!-- SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+   <!-- SHAREHOLDER COMPANY DOCUMENTS 2ND SECTION -->
+    <div class="border rounded p-3 mt-4">
+                  <!-- SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
+                  <div class="row mt-2">
+                    <p><b>Latest {{ $company_year >= 3 ? '2' : '1' }} Years Financial Statement</b></p>
+                    <p class="mb-1">
+                        (Income Statement also known as Profit & Loss
+                        + Statement of financial position also known as Balance Sheet)
+                    </p>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <livewire:widget.upload-component :label="'Latest year'" :apply_loan="$apply_loan"
+                            :main_type="$main_type" :loan_type_id="$loan_type_id"
+                            :share_holder="$shreholder" :modell="'App\Models\LoanCompanyDetail'"
+                            :keyvalue="'share_company_latest_year_statement'" />
+            </div>
+            @if(isset($share_holder_company_year[$shreholder]) &&
+            $share_holder_company_year[$shreholder] >= 3)
+            <div class="col-md-4">
+                <livewire:widget.upload-component :label="'Before year'" :apply_loan="$apply_loan"
+                    :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$shreholder"
+                    :modell="'App\Models\LoanCompanyDetail'"
+                    :keyvalue="'share_company_before_year_statement'" />
+    </div>
+    <div class="col-md-4"></div>
+    @endif
+</div>
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__LATEST YEAR -->
+
+<!-- SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
 <div class="row mt-4">
-    <p> <b>Revenue (rounded up is fine)</b></p>
-</div>
-<div class="row">
     <div class="col-md-4">
-        <div class="form-group">
-            <input type="number" class="form-control" wire:model="share_holder_optional_revenuee">
-            @error("share_holder_optional_revenuee.$shreholder")
+        <p> <b>Profitable for the last 2 accounting years</b></p>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="">Before year</label>
+            <select wire:model="share_holder_profitable_latest_year.{{ $shreholder }}" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error("share_holder_profitable_latest_year.$shreholder")
+            <div style="color:red;">
+                @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group mb-3">
+            <label for="">Before year</label>
+            <select wire:model="share_holder_profitable_before_year.{{ $shreholder }}" class="form-select"
+                aria-label="Default select example">
+                <option value="" hidden>Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            @error("share_holder_profitable_before_year.$shreholder")
             <div style="color:red;">
                 @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
                 {{ $message }}
@@ -1780,17 +1709,68 @@
         </div>
     </div>
 </div>
-<!-- /SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+<!-- /SHAREHOLDER COMPANY DOCUMENTS__PROFITABLE -->
+    </div>
+    <!-- /SHAREHOLDER COMPANY DOCUMENTS 2ND SECTION -->
+    
+    <!-- SHAREHOLDER COMPANY DOCUMENTS 3RD SECTION -->
+    <div class="border rounded p-3 mt-4">
+                    <!-- SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
+                    <div class="row mt-2">
+                        <p class="text-muted"><b>Optional info</b></p>
+                    </div>
+        
+                    <div class="row">
+                        <p> <b>Current Year</b></p>
+                        <p class="mb-0">If you are <b>more than 3-6 months into your current accounting year,</b> and
+                            if
+                            your
+                            management account(drafts/unaudited) pulls up the average, providing them
+                            may be
+                            helpful
+                        </p>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
+                                :loan_type_id="$loan_type_id" :share_holder="$shreholder"
+                                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'share_company_current_year_statement'" />
+                </div>
+                <div class="col-md-8"></div>
+        </div>
+        <!-- /SHAREHOLDER COMPANY DOCUMENTS__OPTIONAL INFO -->
+        
+        <!-- SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+        <div class="row mt-4">
+            <p> <b>Revenue (rounded up is fine)</b></p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group mb-3">
+                    <input type="number" class="form-control" wire:model="share_holder_optional_revenuee">
+                    @error("share_holder_optional_revenuee.$shreholder")
+                    <div style="color:red;">
+                        @php $message = preg_replace('/[0-9]+/', '', $message); @endphp
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <!-- /SHAREHOLDER COMPANY DOCUMENTS__REVENUE -->
+    </div>
+    <!-- /SHAREHOLDER COMPANY DOCUMENTS 3RD SECTION -->
 
-<div class="row mt-4">
-    <div class="col-md-12">
-        <button class="btn" type="button" wire:target='share_holder_document_store'
+
+
+<div class="mt-3">
+        <button class="btn btn-custom" type="button" wire:target='share_holder_document_store'
             wire:click.prevent='company_share_holder_documents_store({{ $shreholder  }})'>
             <span wire:loading wire:target="share_holder_document_store" class="spinner-border spinner-border-sm"
                 role="status" aria-hidden="true"></span>
             Save & Continue
         </button>
-    </div>
 </div>
 
 {{-- @endif --}}

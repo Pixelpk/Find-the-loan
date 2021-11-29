@@ -108,8 +108,8 @@
         /* margin-left: 0; */
     }
     .btn{
-        background: #3EBB60;
-color: #fff !important;
+        /* background: #3EBB60;
+color: #fff !important; */
 font-family: 'Poppins', sans-serif;
     }
     .btn:hover{

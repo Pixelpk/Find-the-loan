@@ -1,4 +1,12 @@
 @import url(./animate.css);
+/* button */
+.btn-custom{
+    background-color: #3EBB60;
+    color: #fff !important;
+}
+.text-custom{
+    color: #3EBB60;
+}
 /* NAVBAR */
 .mob-nav{
     display: none;

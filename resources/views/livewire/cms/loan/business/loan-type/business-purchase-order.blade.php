@@ -72,6 +72,8 @@
     </div>
 
     <div class="row mt-2">
+        <p class="mb-0">Quote for <i class="fa fa-info-circle"></i></p>
+        <p>(You can select both)</p>
     <div class="col-md-5 col-lg-2">
   <div class="mb-3">
     <div class="form-check form-switch">
@@ -114,9 +116,11 @@
             @enderror
             </div>
         </div>
+        <div class="col-md-6"></div>
     </div>
+
         <div class="mt-3">
-            <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
+            <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
                 Save &amp; Continue
