@@ -1,8 +1,11 @@
 <section>
     @if(!$listed_company_check)
     <div class="row">
-        <div class="row">
-            <b>6 months latest bank statement</b>
+        <div class="row mt-4">
+
+            <b>
+
+                6 months latest bank statement</b>
             <p>If It’s on or Over The 8th Of The Current Month For Example 8th Jan, You Would
                 Need To
                 Submit
@@ -115,30 +118,23 @@
     </div>
 
     <div class="row">
-        <p><b>Current Year</b></p>
+        {{-- <p><b>Current Year</b></p> --}}
         <p>If you are <b>more than 3-6 months into your current accounting year,</b> and if your
             management account(drafts/unaudited) pulls up the average, providing them may be
             helpful
         </p>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-md-4">
-            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
+            <livewire:widget.upload-component :label="'Curent Years'" :apply_loan="$apply_loan" :main_type="$main_type"
                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
                 :keyvalue="'parent_company_current_year_statement'" />
         </div>
-    </div>
-    <!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
-
-    <!-- COMPANY DOCUMENTS__REVENUE -->
-    <div class="row mt-3">
-        <b>Revenue (rounded up is fine)</b>
-    </div>
-
-    <div class="row mt-3">
         <div class="col-md-4">
+
             <div class="form-group">
+                <label for="" class="form-label">Revenue (rounded up is fine)</label>
                 <input type="number" class="form-control" wire:model="optional_revenuee">
                 @error('optional_revenuee')
                 <div style="color: red;">
@@ -147,7 +143,58 @@
                 @enderror
             </div>
         </div>
+        @if($share_holder > 0)
+        <div class="col-md-12 mt-3">
+            <p>For companies with multiple layers, please take note that many lenders especially banks or especially
+                when going for the enterprise financing scheme, for compliance purposes, may require documents of all
+                shareholders at all layers at signing the loan letter of offer. But to get a quote it may not be
+                required if the borrowing company is deemed to have a strong repayment ability etc. You may however wish
+                to still furnish them if you have them readily on hand instead of waiting for them to ask and delay your
+                getting of a loan quote. Or especially if you have been rejected by a bank due to multiple layers, to do
+                so, please attach the same range of documents you have just provided such as bank statements, NRIC, NOA
+                etc for all shareholders at all layers with the choose file button beside.
+            </p>
+        </div>
+        @endif
+        <div class="col-md-12 mt-3">
+            <b>If the parent company is based overseas, please provide the following
+            </b>
+        </div>
+        <div class="col-md-4">
+            <livewire:widget.upload-component :label="'Cert of incorporation'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incarpuration'" />
+        </div>
+        <div class="col-md-4">
+            <livewire:widget.upload-component :label="'Cert of incumbency'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incumbency'" />
+        </div>
+        <div class="col-md-4">
+            <p ><label for="company_name" class="form-label">Select
+                    country</label></p>
+            <div class="form-group d-flex align-items-end">
+                <select wire:model="country" class="form-select" aria-label="Default select example">
+                    <option value="" hidden>Select</option>
+                    @foreach($countries as $country)
+                    <option value="{{ $country }}">{{ $country }}</option>
+                    @endforeach
+                </select>
+                @error('country')
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+        </div>
     </div>
+    <!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
+
+    <!-- COMPANY DOCUMENTS__REVENUE -->
+    {{-- <div class="row mt-3">
+        <b>Revenue (rounded up is fine)</b>
+    </div> --}}
+
     <!-- /COMPANY DOCUMENTS__REVENUE -->
     <hr class="mt-3">
 

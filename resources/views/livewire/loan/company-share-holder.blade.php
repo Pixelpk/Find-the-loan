@@ -218,13 +218,13 @@
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a wire:click="$set('subtab', '1')"
-                            style="padding: .1rem 1rem;padding-left: 0px; {{ $subtab == 1 ? 'color: green;' : '' }}"
-                            class="nav-link" aria-current="page" href="#"><b>Shareholder company detail</b></a>
+                            style="padding: .1rem 1rem;"
+                            class="nav-link {{ $subtab == 1 ? 'active' : '' }}" aria-current="page" href="#"><b>Shareholder company detail</b></a>
                     </li>
                     @if(!$hideCompanyDocuments)
                     <li class="nav-item">
                         <a wire:click="$set('subtab', '2')"
-                            style="padding: .1rem 1rem; {{ $subtab == 2 ? 'color: green;' : '' }}" class="nav-link"
+                            style="padding: .1rem 1rem;" class="nav-link {{ $subtab == 2 ? 'active' : '' }}"
                             aria-current="page" href="#"><b>Shareholder company documents</b></a>
                     </li>
                     @endif

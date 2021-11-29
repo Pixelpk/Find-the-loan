@@ -148,7 +148,7 @@ class PersonalDetail extends Component
                 'employee_type' => $this->employee_type,
             ]);   
        }
-    //    $this->emit('changeTab',$this->apply_loan->id, 4);
+       $this->emit('changeTab',$this->apply_loan->id, 9);
        Media::where('model', 'App\Models\PersonalDetail')
     //    ->where('key', 'over_draft_benifit_illustration')
        ->where('share_holder', 0)

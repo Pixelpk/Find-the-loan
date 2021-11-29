@@ -456,7 +456,7 @@ class CompanyShareHolder extends Component
         }
 
         if(sizeof($error) > 0){
-            $this->emit('danger', ['type' => 'success', 'message' => 'All shareholder required.']);
+            $this->emit('danger', ['type' => 'success', 'message' => 'Details of all shareholders required']);
             return;
         }
         $this->emit('changeTab',$this->apply_loan->id, 9);

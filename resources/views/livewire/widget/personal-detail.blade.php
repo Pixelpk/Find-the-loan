@@ -37,14 +37,20 @@
             </div>
             @endif
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
             <br>
-            <p>Proof of address</p>
+            <p>Proof of address <br>(Required if you uploaded the Passport)</p>
+            {{-- <br> --}}
         </div>
         <div class="col-md-6 text-left">
             <br>
-            <livewire:widget.upload-component :label="'Phone/Electrical/Water Bill'"
-                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+            <br>
+            Employment pass of at least 6 months validity
+        </div>
+        <div class="col-md-4 text-left">
+
+            <livewire:widget.upload-component :label="'Phone/Electrical/Water Bill'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
                 :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_proof_of_address'" />
             @if(isset($customValidation['personal_document_proof_of_address']))
             <div style="color:red;">
@@ -52,28 +58,20 @@
             </div>
             @endif
         </div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6 text-left">
-            <br>
-            <label for="">employment pass of at least 6 months validity 
-            </label>
 
-            <br>
-            <br>
+        <div class="col-md-4 text-left">
+
             <livewire:widget.upload-component :label="'Front'" :apply_loan="$apply_loan" :main_type="$main_type"
                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
                 :keyvalue="'personal_document_employement_pass_front'" />
-           
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
 
-            <br>
-            <br>
-            <br>
+
             <livewire:widget.upload-component :label="'Back'" :apply_loan="$apply_loan" :main_type="$main_type"
                 :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\PersonalDetail'"
                 :keyvalue="'personal_document_employement_pass_back'" />
-           
+
         </div>
         <div class="col-md-12">
             <br>
@@ -87,10 +85,10 @@
         <div class="col-md-12">
             <br>
             <hr>
-           <br>
+            <br>
         </div>
         <div class="col-md-6">
-            
+
             <div class="form-check">
                 <input value="self_employee" wire:model="employee_type" class="form-check-input" type="radio"
                     id="flexRadioDefault2">
@@ -101,7 +99,7 @@
             <br>
         </div>
         <div class="col-md-6">
-           
+
 
             <b>
             </b>
@@ -288,20 +286,22 @@
             {{ $message }}
         </div>
         @enderror
-        <div class="col-12">
-            <br>
-            <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
-                <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
-                    aria-hidden="true"></span>
-                Add Detail
-            </button>
-        </div>
         @endif
+
+
     </div>
     <div class="row mt-3 text-end">
+
         <div class="col-md-12">
-            <button wire:loading.attr='disabled' class="btn" type="button" wire:target='goTolender'
-                wire:click.prevent='goTolender'>
+            <button  wire:loading.attr='disabled' class="btn"
+                type="button" wire:target='' wire:click.prevent=''>
+                <div wire:loading wire:target="">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+                Save & Add joint applicant
+            </button>
+            <button  wire:loading.attr='disabled' class="btn"
+                type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
                 <div wire:loading wire:target="goTolender">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </div>
