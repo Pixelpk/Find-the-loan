@@ -20,13 +20,17 @@
                                         <table id="tech-companies-1" class="table  table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th data-priority="1">Enquiry ID</th>
-                                                    {{-- <th data-priority="1">Borrower Profile</th> --}}
-                                                    <th data-priority="1">Loan Type</th>
-                                                    <th data-priority="1">Company</th>
-                                                    <th data-priority="3">% of local shareholder</th>
-                                                    <th data-priority="1">Number of shareholder</th>
-                                                    <th data-priority="3">Amount</th>
+                                                    <th>Enquiry ID</th>
+                                                    <th>Enquiry Date</th>
+                                                    <th>Company name</th>
+                                                    <th>Profitable latest year</th>
+                                                    <th>Profitable year before</th>
+                                                    <th>Incorporated for</th>
+                                                    <th>Loan type</th>
+                                                    <th>Assigned to</th>
+                                                    <th>Date Assigned</th>
+                                                    <th>Action Done</th>
+                                                    <th>Market Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -35,7 +39,7 @@
                                                     <td>{{ $item->enquiry_id }}</td>
                                                     {{-- <td>{{ $item->loan_type->profile == 1 ? 'Business' : 'Consumer' }}</td> --}}
                                                     <td>{{ $item->loan_type->sub_type }}</td>
-                                                    <td>{{ $item->loan_company_detail->company_name }}</td>
+                                                    <td>{{ $item->loan_company_detail->company_name ?? " " }}</td>
                                                     <td>{{ $item->loan_company_detail->percentage_shareholder }}</td>
                                                     <td>{{ $item->loan_company_detail->number_of_share_holder }}</td>
                                                     <td>{{ $item->amount }}</td>
