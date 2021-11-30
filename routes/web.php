@@ -34,6 +34,10 @@ use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
 use App\Http\Livewire\Customer\Dashboard;
 use App\Http\Livewire\Customer\Enquiry;
+use App\Http\Livewire\Customer\MoreDocRequestDetails;
+use App\Http\Livewire\Customer\MoreDocRequests;
+use App\Http\Livewire\Customer\Quotations;
+use App\Http\Livewire\Customer\RejectedEnquiries;
 use App\Models\LoanCompanyDetail;
 use Illuminate\Support\Facades\Route;
 
@@ -257,6 +261,12 @@ Route::group(['middleware'=>['customer']],function (){
   
     Route::get('/customer/dashboard', Dashboard::class)->name('customer-dashboard');
     Route::get('/customer/enquiry', Enquiry::class)->name('customer-enquiry');
+    Route::get('/customer/quotations', Quotations::class)->name('customer-quotations');
+    Route::get('/customer/rejected-enquiries', RejectedEnquiries::class)->name('customer-reject-enquiries');
+    Route::get('/customer/more-doc-requests', MoreDocRequests::class)->name('customer-more-doc-requests');
+    Route::get('/customer/more-doc-request-details', MoreDocRequestDetails::class)->name('more-doc-request-details');
+
+    
 });
 Route::get('test', function (){
     $date = "10-10-2021";

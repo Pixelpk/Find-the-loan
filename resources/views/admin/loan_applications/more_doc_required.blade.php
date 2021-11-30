@@ -10,7 +10,7 @@
                     <div class="row align-items-center ">
                         <div class="col-md-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">More document required</h4>
+                                <h4 class="page-title">Request for More doc/Info</h4>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,8 @@
                                     <span style="color: red" id="more_doc_error"></span>
 
                                     <input class="form-control" type="hidden" name="apply_loan_id" value="{{$apply_loan_id}}" id="apply_loan_id">
-                                    <h6>Point to any specific document/applicant?</h6>
+                                    <h6>Additional Information/Documents required for quotation.</h6>
+                                    <p>Please reserve information/documents required for application until later if possible. Grouping name is only for ease of use and is not shown to borrower</p>
 
                                         @foreach($additional_docs as $key=>$items)
                                         <h6>{{ getAdditionDocInfoType($key) }}</h6>

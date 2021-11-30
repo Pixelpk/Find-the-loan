@@ -39,7 +39,7 @@
         </tbody>
     </table>
     <div class="pagination">
-        {!! $users->links() !!}
+        {!! $users->links('pagination::bootstrap-4') !!}
     </div>
 
 </div>

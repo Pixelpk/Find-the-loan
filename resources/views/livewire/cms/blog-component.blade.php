@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 @endforeach
-                {{ $blogs->links() }}
+                {{ $blogs->links('pagination::bootstrap-4') }}
             </div>
  
             <div class="col-sm-4 margin-top-20">

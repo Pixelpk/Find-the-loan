@@ -9,7 +9,7 @@ use Livewire\Component;
 class Enquiry extends Component
 {
     public $user;
-    public $getLoans;
+    // public $getLoans;
     public $profile;
 
     protected $queryString = ['profile'];
@@ -17,26 +17,22 @@ class Enquiry extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        $this->getLoan();
-        dd($this->getLoans);
-
-    }
-
-    public function getLoan()
-    {
-        if($this->profile == 1 || $this->profile == 2){
-
-            $this->getLoans = ApplyLoan::where('user_id', $this->user->id)
-            ->with(['loan_type','loan_company_detail','loan_reason'])
-            ->where('profile', $this->profile)->get();
+        if($this->profile != 1 && $this->profile != 2){
+            return redirect(route('customer-dashboard'));
         }
-        
 
     }
+
 
     public function render()
     {
-        return view('livewire.customer.enquiry')->layout('customer.layouts.master');;
+        $getLoans = ApplyLoan::where('user_id', $this->user->id)
+        ->with(['loan_type','loan_company_detail','loan_reason'])
+        ->where('profile', $this->profile)
+        ->orderBy('id','desc')
+        ->paginate(20);
+
+        return view('livewire.customer.enquiry',['getLoans' => $getLoans])->layout('customer.layouts.master');;
     }
 
 }
