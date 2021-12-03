@@ -187,6 +187,27 @@ class ApplyLoan extends Component
     public function storeReasonLoanType()
     {
         // dd($this->values);
+        $consumerarray = [20,21,22,23,24];
+        if (in_array($this->loan_type_id, $consumerarray)) {
+            if($this->apply_loan){
+                $this->apply_loan->profile = $this->main_type;
+                $this->apply_loan->loan_type_id = $this->loan_type_id;
+                $this->apply_loan->reason_id = 0;
+                $this->apply_loan->update();
+             }
+             else{
+                 $this->apply_loan= ModelsApplyLoan::forceCreate([
+                     'profile' =>  $this->main_type,
+                     'user_id' => Auth::user()->id,
+                     'loan_type_id' =>  $this->loan_type_id,
+                     'reason_id' =>  0,
+                 ]);
+                 $this->apply_loan->enquiry_id = date('Y').date('m').$this->apply_loan->id;
+                 $this->apply_loan->update();
+             }
+             $this->tab = 8;
+             return;
+        }
         if(sizeof($this->reasonValue) == 0 || sizeof($this->values) == 0){
             $this->emit('danger', ['type' => 'success', 'message' => 'Loan reason required.']);
             return;
@@ -213,11 +234,7 @@ class ApplyLoan extends Component
          }
          $this->tab = 8;
     }
-   
-    
-   
-    
-   
+
     public function render()
     {
         return view('livewire.cms.apply-loan')->layout('cms.layouts.master');
@@ -226,12 +243,10 @@ class ApplyLoan extends Component
     public function getMainType()
     {
         $this->reasonValue = [];
+        $this->loan_type_id = '';
+        $this->loanReasons = [];
         $this->mainTypes = MainType::where('profile_id', $this->main_type)->get();
-       
     }
-
-    
-
     public function goToReasons()
     {
         $this->errorMessage = '';

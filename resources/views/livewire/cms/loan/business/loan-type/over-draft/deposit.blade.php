@@ -69,6 +69,9 @@
 
     <div class="row mt-2">
         @if($bank == 'other')
+        <div class="col-md 6">
+            
+        </div>
         <div class="col-md-6">
            <div class="mb-3">
             <label for="other_bank_name" class="form-label">

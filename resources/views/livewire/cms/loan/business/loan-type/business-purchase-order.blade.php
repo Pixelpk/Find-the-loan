@@ -72,8 +72,7 @@
     </div>
 
     <div class="row mt-2">
-        <p class="mb-0">Quote for <i class="fa fa-info-circle"></i></p>
-        <p>(You can select both)</p>
+       
     <div class="col-md-5 col-lg-2">
         <div class="col-md-12">
            <b> Quote for</b>
