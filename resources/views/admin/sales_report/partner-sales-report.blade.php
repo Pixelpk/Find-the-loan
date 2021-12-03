@@ -56,7 +56,7 @@
                                             Total leads received = @isset($sales_report) {{$total_applications}} @endisset 
                                         </h6>
                                         
-                                        <table id="" class="table">
+                                        <table id="" class="table js-exportable">
                                             @isset($sales_report)
                                             <thead>
                                                 <th style="min-width:130px;">Period</th>
@@ -80,10 +80,10 @@
                                                         <tr>
                                                             <td>{{$item['lable']}}</td>
                                                             <td>{{$item['total_viewed_applications']}} 
-                                                                @if($item['total_viewed_applications'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_viewed_applications']*100)/$total_applications}} %) @endif
+                                                                @if($item['total_viewed_applications'] >0 && $item['total_viewed_applications'] > 0) ({{ round(($item['total_viewed_applications']*100)/$total_applications, 2) }} %) @endif
                                                             </td>
                                                             <td>{{$item['total_rejected_applications']}} 
-                                                                @if($item['total_rejected_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_viewed_applications']*100)/$item['total_viewed_applications']}} %) @endif
+                                                                @if($item['total_rejected_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{round(($item['total_rejected_applications']*100)/$item['total_viewed_applications'], 2)}} %) @endif
                                                             </td>
                                                             <td>{{$item['total_more_doc_requests']}} 
                                                                 @if($item['total_more_doc_requests'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_more_doc_requests']*100)/$item['total_viewed_applications']}} %) @endif

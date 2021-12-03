@@ -53,6 +53,21 @@
                             <i class="fa fa-money-bill-alt"></i><span> Pending meet call </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('customer-applied') }}" class="@if(Route::CurrentRouteName() == 'customer-applied') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Customer applied </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('loan-offer-sign-list') }}" class="@if(Route::CurrentRouteName() == 'loan-offer-sign-list') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Loan offer signed </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('loan-offer-disburse-list') }}" class="@if(Route::CurrentRouteName() == 'loan-offer-disburse-list') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Loan offer disbursed </span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-list"></i><span> Loan enquiries <span class="float-right menu-arrow"><i class="mdi mdi-chevron-right"></i></span> </span></a>
                         <ul class="submenu">
@@ -66,27 +81,6 @@
                                     <i class="fa fa-money-bill-alt"></i><span> Consumer </span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ route('quoted-customer') }}" class="@if(Route::CurrentRouteName() == 'quoted-customer') mm-active @endif">
-                                    <i class="fa fa-money-bill-alt"></i><span> Quoted customer </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('rejected-applications') }}" class="@if(Route::CurrentRouteName() == 'rejected-applications') mm-active @endif">
-                                    <i class="fa fa-money-bill-alt"></i><span> Rejected </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('assigned-out') }}" class="@if(Route::CurrentRouteName() == 'assigned-out') mm-active @endif">
-                                    <i class="fa fa-money-bill-alt"></i><span> Assigned out </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('ask-more-docs-applications') }}" class="@if(Route::CurrentRouteName() == 'ask-more-docs-applications') mm-active @endif">
-                                    <i class="fa fa-money-bill-alt"></i><span> Ask for more docs </span>
-                                </a>
-                            </li>
-
                         </ul>
                     </li> --}}
 

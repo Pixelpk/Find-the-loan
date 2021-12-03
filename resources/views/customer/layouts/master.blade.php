@@ -21,5 +21,26 @@
 @include('admin.pages.modals')
 @include('admin.pages.footer-js')
 @livewireScripts
+<script>
+    window.livewire.on('alert', param => {
+        toastr.options = {
+        "positionClass": "toast-top-right",
+        }
+        toastr.success(param['message'])
+    });
+    window.livewire.on('danger', param => {
+        toastr.options = {
+        "positionClass": "toast-top-right",
+        }
+        toastr.error(param['message'])
+    });
+
+    // window.livewire.on('clearInput', param => {
+    //     let field_class = param['class'];
+    //     alert(field_class);
+    //     document.getElementsByClassName("replied_docs").val() = "";
+
+    // });
+</script>
 </body>
 </html>

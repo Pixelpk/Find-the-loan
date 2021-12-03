@@ -240,8 +240,8 @@
                 </label>
                 <select required name="repayment_terms" class="form-control">
                     <option value="P+I">P+I</option>
-                    <option value="P+I">I only</option>
-                    <option value="P+I">Front end</option>
+                    <option value="I only">I only</option>
+                    <option value="Front end">Front end</option>
                 </select>
             </div>
             <div class="col-md-3">

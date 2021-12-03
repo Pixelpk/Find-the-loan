@@ -8,7 +8,7 @@
                 <li class="menu-title">Menu</li>
                 <li>
                     <a href="{{ route('customer-dashboard') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-dashboard')  mm-active @endif">
-                        <i class="dripicons-meter"></i><span> Dashboard </span>
+                        <i class="dripicons-meter"></i><span> Overview </span>
                     </a>
                 </li>
                 <li>
@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <a href="{{ route('customer-reject-enquiries') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-reject-enquiries' ) mm-active  @endif">
-                        <i class="dripicons-meter"></i><span> Rejected Enqiry </span>
+                        <i class="dripicons-meter"></i><span> Rejected Enquiry </span>
                     </a>
                 </li>
                 <li>
