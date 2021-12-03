@@ -29,9 +29,7 @@
     </div>
     
     
-    <div class="row mt-2">
-        <p><b>or</b></p>
-    </div>
+    
 
         <div class="row mt-2">
             <p><b>OR</b></p>
@@ -41,7 +39,7 @@
             <p><b>DCP refinancing </b></p>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <livewire:widget.upload-component :label="'Or upload your Benefit illustration'"
+                    <livewire:widget.upload-component :label="'Settlement Notice From The Original Bank'"
                         :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
                         :share_holder="0" :modell="'App\Models\LoanGernalInfo'"
                         :keyvalue="'debt_consolidation_settlement_notice'" />
