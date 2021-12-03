@@ -797,8 +797,8 @@
             </div>
             <div class="modal-body" style="max-height:350px;overflow:auto">
                 @foreach ($application->application_more_doc as $item)
+                @foreach ($item->more_doc_msg_desc as $item2)
                 <div class="row">
-                    @foreach ($item->more_doc_msg_desc as $item2)
                     <div class="col-md-3">
                         <h6>Document:</h6>
                         <span>{{ $item2->quote_additional_doc->info }}</span>
@@ -840,9 +840,10 @@
                             @endforeach
                         </span>
                     </div>
-                    @endforeach
                 </div>
                 <hr>
+                    @endforeach
+            
                 @endforeach
 
             </div>

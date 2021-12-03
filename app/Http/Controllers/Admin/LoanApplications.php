@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoanApplications extends Controller
 {
+    
     public function loanApplications(Request $request){
         $data = $request->all();
         $request->validate(['profile'=>'required']);

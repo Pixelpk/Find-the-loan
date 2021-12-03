@@ -29,4 +29,10 @@ class Quotations extends Component
 
         return view('livewire.customer.quotations',['quotations'=>$quotations])->layout('customer.layouts.master');
     }
+
+    public function quoteDetails($quote_id)
+    {
+        $route = route('quotation-details',['quote_id'=>$quote_id]);
+        return redirect($route);
+    }
 }

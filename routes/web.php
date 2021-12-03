@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CompanyStructureController;
+use App\Http\Controllers\Admin\CustomerAppliedController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
 use App\Http\Controllers\Admin\LoanApplications;
@@ -36,6 +37,7 @@ use App\Http\Livewire\Customer\Dashboard;
 use App\Http\Livewire\Customer\Enquiry;
 use App\Http\Livewire\Customer\MoreDocRequestDetails;
 use App\Http\Livewire\Customer\MoreDocRequests;
+use App\Http\Livewire\Customer\QuotationDetails;
 use App\Http\Livewire\Customer\Quotations;
 use App\Http\Livewire\Customer\RejectedEnquiries;
 use App\Models\LoanCompanyDetail;
@@ -55,6 +57,7 @@ Route::get('application-no-action-cronjob',[CronJobController::class,'applicatio
 Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
 
 Route::get('ocr-results',[OCRController::class,'ocrResults'])->name('ocr-results');
+Route::get('additional-doc-key',[OCRController::class,'additionalDoc']);
 
 
 Route::get('staple-login',[OCRController::class,'login'])->name('staple-login');
@@ -201,6 +204,12 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('pending-meet-call',[PendingMeetCallController::class,'pendingMeetCall'])->name('pending-meet-call');
         Route::get('pending-meet-applications',[PendingMeetCallController::class,'pendingMeetCallApplications'])->name('pending-meet-applications');
 
+        
+        Route::get('customer-applied',[CustomerAppliedController::class,'customerApplied'])->name('customer-applied');
+        Route::get('loan-offer-sign',[CustomerAppliedController::class,'loanOfferSignAndDisbursed'])->name('loan-offer-sign');
+        Route::get('loan-offer-disburse-list',[CustomerAppliedController::class,'loanOfferDisbursed'])->name('loan-offer-disburse-list');
+        Route::get('loan-offer-sign-list',[CustomerAppliedController::class,'loanOfferSigned'])->name('loan-offer-sign-list');
+
 
     }); 
 
@@ -212,43 +221,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
-
-    // Route::get('/faq', [FaqController::class,'faq'])->name('faq');
-    // Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
-    // Route::post('add-faq', [FaqController::class,'addFaq'])->name('add-faq');
-    // Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
-
-    // Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
-    // Route::get('change-blog-status', [BlogController::class,'changeStatus'])->name('change-blog-status');
-    // Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');
-    // Route::post('blog-detail', [BlogController::class,'blogDetail'])->name('blog-detail');
-
-    // Route::get('/testimonials', [TestimonialController::class,'testimonials'])->name('testimonials');
-    // Route::get('change-testimonial-status', [TestimonialController::class,'changeStatus'])->name('change-testimonial-status');
-    // Route::post('add-testimonial', [TestimonialController::class,'addTestimonial'])->name('add-testimonial');
-    // Route::post('testimonial-detail', [TestimonialController::class,'testimonialDetail'])->name('testimonial-detail');
-
-    // Route::get('/finance-partners', [FinancePartnerController::class,'financePartners'])->name('finance-partners');
-    // Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
-    // Route::post('add-partner', [FinancePartnerController::class,'addPartner'])->name('add-partner');
-    // Route::post('update-partner', [FinancePartnerController::class,'updatePartner'])->name('update-partner');
-    // Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
-
-    // Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
-    // Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
-    // Route::post('add-loan-type', [LoanTypeController::class,'addLoanType'])->name('add-loan-type');
-    // Route::post('loan-type-detail', [LoanTypeController::class,'loanTypeDetail'])->name('loan-type-detail');
-    // Route::get('/loan-subtypes', [LoanTypeController::class,'loanSubTypes'])->name('loan-subtypes');
-    // Route::post('add-loan-subtype', [LoanTypeController::class,'addLoanSubType'])->name('add-loan-subtype');
-
-    // Route::get('/loan-reasons', [LoanReasonController::class,'loanReasons'])->name('loan-reasons');
-    // Route::get('/get-loan-types', [LoanReasonController::class,'getLoanType'])->name('get-loan-types');
-    // Route::get('loan-reason-status', [LoanReasonController::class,'changeStatus'])->name('loan-reason-status');
-    // Route::post('add-loan-reason', [LoanReasonController::class,'addReason'])->name('add-loan-reason');
-    // Route::post('loan-reason-detail', [LoanReasonController::class,'reasonDetail'])->name('loan-reason-detail');
-
-
-
 
 });
 
@@ -265,6 +237,7 @@ Route::group(['middleware'=>['customer']],function (){
     Route::get('/customer/rejected-enquiries', RejectedEnquiries::class)->name('customer-reject-enquiries');
     Route::get('/customer/more-doc-requests', MoreDocRequests::class)->name('customer-more-doc-requests');
     Route::get('/customer/more-doc-request-details', MoreDocRequestDetails::class)->name('more-doc-request-details');
+    Route::get('/customer/quotation-details', QuotationDetails::class)->name('quotation-details');
 
     
 });

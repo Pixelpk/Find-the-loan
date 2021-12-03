@@ -41,7 +41,7 @@
                                                 </thead>
                                                 <tbody>
                                                 @foreach($quotations as $quote)
-                                                <tr>
+                                                <tr wire:click="quoteDetails({{$quote->id}})" title="Show Quotation details" style="cursor: pointer;">
                                                     <td>{{ $quote->loan_application->enquiry_id ?? ""}}</td>
                                                     <td>{{ getProfile($quote->loan_application->profile) }}</td>
                                                     <td>{{ $quote->loan_application->loan_type->sub_type }}</td>
