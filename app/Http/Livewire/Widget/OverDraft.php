@@ -168,15 +168,16 @@ class OverDraft extends Component
     {
         if(!$this->overdraft['unsecured']){
             $this->enableButtons = true;
+            return;
         }
-        // dd($this->overdraft['unsecured']);
+       
         $this->overdraft['security_type'] = ["1" => true];
         $this->overdraft['secure'] = '';
-        // && $this->overdraft['unsecured']
-        // dd($this->overdraft);
+       
         $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
         if($overDraftType)
         {
+            
             $this->enableButtons = false;
             if(isset($this->overdraft['unsecured']) && $this->overdraft['unsecured'])
             {

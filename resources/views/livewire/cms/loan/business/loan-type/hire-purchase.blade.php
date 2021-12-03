@@ -235,7 +235,7 @@
                 @enderror
              </div>
             </div>
-            <div class="col-md-6 mt-5">
+            <div class="col-md-6">
                 <label for="hirePurchase.current_estimate_value" class="form-label">Current estimated value
 
                 </label>
@@ -557,7 +557,7 @@
             </div>
             @enderror
 
-       <div class="row">
+       <div class="row mt-3">
         <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.sale_mane" class="form-label">Salesman names </label>
@@ -644,7 +644,11 @@
             <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
+            @if(sizeof($hirePurchaseGet) > 0)
                 Add Another
+            @else
+            Submit
+            @endif
             </button>
         </div>
 

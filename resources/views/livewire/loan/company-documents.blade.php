@@ -109,6 +109,53 @@
             </div>
         </div>
     </div>
+    @if($share_holder > 0)
+    <div class="row mt-3">
+        <div class="col-md-3 mt-3">
+            <livewire:widget.upload-component :label="'M&AA/ company constitution or equivalent'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'child_company_constitution_equivalent'" />
+        </div>
+        <div class="col-md-9 mt-3">
+            <livewire:widget.upload-component :label="'Ultimate beneficial owner/ main director’s proof of identity at the top corporate level e.g there is another parent company'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'child_company_ultimate_beneficial'" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12 mt-3">
+            <b>If the parent company is based overseas, please provide the following
+            </b>
+        </div>
+        <div class="col-md-4 mt-3">
+            <livewire:widget.upload-component :label="'Cert of incorporation'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incarpuration'" />
+        </div>
+        <div class="col-md-4 mt-3">
+            <livewire:widget.upload-component :label="'Cert of incumbency'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incumbency'" />
+        </div>
+        <div class="col-md-4 mt-3">
+           
+            <label class="form-label">Country incorporated</label>
+                <select wire:model="country" class="form-select" aria-label="Default select example">
+                    <option value="" hidden>Select</option>
+                    @foreach($countries as $country)
+                    <option value="{{ $country }}">{{ $country }}</option>
+                    @endforeach
+                </select>
+                @error('country')
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
+            
+        </div>
+        
+    </div>
+    @endif
     <!-- /COMPANY DOCUMENTS__PROFITABLE -->
     <hr class="mt-3">
 
@@ -145,7 +192,7 @@
         </div>
         @if($share_holder > 0)
         <div class="col-md-12 mt-3">
-            <p>For companies with multiple layers, please take note that many lenders especially banks or especially
+            For companies with multiple layers, please take note that many lenders especially banks or especially
                 when going for the enterprise financing scheme, for compliance purposes, may require documents of all
                 shareholders at all layers at signing the loan letter of offer. But to get a quote it may not be
                 required if the borrowing company is deemed to have a strong repayment ability etc. You may however wish
@@ -153,40 +200,15 @@
                 getting of a loan quote. Or especially if you have been rejected by a bank due to multiple layers, to do
                 so, please attach the same range of documents you have just provided such as bank statements, NRIC, NOA
                 etc for all shareholders at all layers with the choose file button beside.
-            </p>
+            
+        </div>
+        <div class="col-md-4">
+            <livewire:widget.upload-component :label="''" :apply_loan="$apply_loan" :main_type="$main_type"
+                :loan_type_id="$loan_type_id" :share_holder="0" :modell="'App\Models\LoanCompanyDetail'"
+                :keyvalue="'parent_company_multiple_layer'" />
         </div>
         @endif
-        <div class="col-md-12 mt-3">
-            <b>If the parent company is based overseas, please provide the following
-            </b>
-        </div>
-        <div class="col-md-4">
-            <livewire:widget.upload-component :label="'Cert of incorporation'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incarpuration'" />
-        </div>
-        <div class="col-md-4">
-            <livewire:widget.upload-component :label="'Cert of incumbency'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'company_documents_cert_of_incumbency'" />
-        </div>
-        <div class="col-md-4">
-            <p ><label for="company_name" class="form-label">Select
-                    country</label></p>
-            <div class="form-group d-flex align-items-end">
-                <select wire:model="country" class="form-select" aria-label="Default select example">
-                    <option value="" hidden>Select</option>
-                    @foreach($countries as $country)
-                    <option value="{{ $country }}">{{ $country }}</option>
-                    @endforeach
-                </select>
-                @error('country')
-                <div style="color: red;">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
+       
     </div>
     <!-- /COMPANY DOCUMENTS__OPTIONOL INFO -->
 

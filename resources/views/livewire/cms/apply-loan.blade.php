@@ -50,12 +50,12 @@
                     @if(!$lenderflag)
                     <li class="nav-item">
                         <a wire:click="$set('tab', '9')" style="padding: .1rem 1rem;" class="{{ isset($enable['lender']) ? '' : 'disabled' }} nav-link {{ $tab == '9' ? 'active' : '' }}"
-                            href="#">LENDER</a>
+                            href="#">FINANCING PARTNERS</a>
                     </li>
                     @elseif($lenderflag)
                     <li class="nav-item">
                         <a wire:click="$set('tab', '9')" style="padding: .1rem 1rem;"
-                            class=" nav-link {{ $tab == '9' ? 'active' : '' }}" href="#">LENDER</a>
+                            class=" nav-link {{ $tab == '9' ? 'active' : '' }}" href="#">FINANCING PARTNERS</a>
                     </li>
                     @endif
                     {{-- @endif --}}
@@ -74,7 +74,7 @@
                 @livewire('widget.personal-detail', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
                 @endif
-                @if($tab == 8 && $loan_type_id == 15)
+                @if($tab == 8 && $loan_type_id == 15 || $loan_type_id == 27)
                 @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
 
@@ -106,7 +106,7 @@
                 'apply_loan' => $apply_loan,
                 'loan_type_id' => $loan_type_id
                 ])
-                @elseif($tab == 8 && $loan_type_id == 14)
+                @elseif($tab == 8 && $loan_type_id == 14 || $loan_type_id == 28)
 
                 @livewire('widget.property-land-refinancing', ['loan_type_id' => $loan_type_id, "main_type" =>
                 $main_type,
@@ -133,7 +133,7 @@
                 $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
 
-                @elseif($tab == 8 && $loan_type_id == 25)
+                @elseif($loan_type_id == 25 || $loan_type_id == 2)
 
                 @livewire('cms.loan.consumer-personal-loan', ['loan_type_id' =>
                 $loan_type_id, "main_type" => $main_type,
@@ -213,15 +213,16 @@
                     @endif
                     @endforeach
                 </div>
-                <!-- /LOAN TYPE CARDS -->
-                @if(sizeof($loanReasons) > 0)
+                
+                @if(sizeof($loanReasons) > 0 && $main_type == 1)
+
                 <div class="row">
                     <br>
                     <br>
                     <hr>
-                    <h5>Loan Reasons</h5>
+                    <h5>Reason For Loan</h5>
                 </div>
-                <!-- LOAN REASONS -->
+              
                 <div class="row mt-3">
                     @foreach($loanReasons as $key => $item)
                     <div class="col-md-4 mb-2">
@@ -233,7 +234,7 @@
                     </div>
                     @endforeach
                 </div>
-                <!-- /LOAN REASONS -->
+               
                 <div class="row text-end">
                     <div>
                         <br>
@@ -241,6 +242,43 @@
                         <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
                     </div>
                 </div>
+                @else
+                @if($loan_type_id == 19 || $loan_type_id == 25)
+                <div class="row">
+                    <br>
+                    <br>
+                    <hr>
+                    <h5>Reason For Loan</h5>
+                </div>
+              
+                <div class="row mt-3">
+                    @foreach($loanReasons as $key => $item)
+                    <div class="col-md-4 mb-2">
+                        <div class="form-check form-switch">
+                            <input wire:click="pushReason({{ $item->id }})" wire:model="reasonValue.{{ $item->id }}"
+                                class="form-check-input reasonCheck" type="checkbox" id="{{ $item->id }}" />
+                            <label class="form-check-label" for="{{ $item->id }}">{{ $item->reason }}</label>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+               
+                <div class="row text-end">
+                    <div>
+                        <br>
+                        <br>
+                        <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                    </div>
+                </div>
+                @else
+                <div class="row text-end">
+                    <div>
+                        <br>
+                        <br>
+                        <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                    </div>
+                </div>
+                @endif
                 @endif
                 @endif
                 {{-- get lender --}}
