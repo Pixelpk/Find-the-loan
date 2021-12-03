@@ -70,7 +70,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{ $items->links() }}
+                                    {{ $items->links('pagination::bootstrap-4') }}
                                 </div>
 
                             </div>

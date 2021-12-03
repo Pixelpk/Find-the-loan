@@ -134,7 +134,17 @@ class OCRController extends Controller
         //     // }
         // }
         // exit;
-        return $lineItems;
+        $results = (json_decode(file_get_contents($path), 1));
+        $results = $results['scanDocuments']['data']['LineItems'];
+        foreach($results as $result) {
+            foreach($result as $item){
+                $fArray = $item;
+                return $fArray['Bank Ref/ '];
+            }
+        }
+        // $heads = [
+        //     'Bank Ref/ ',
+        // ]
     }
 
 

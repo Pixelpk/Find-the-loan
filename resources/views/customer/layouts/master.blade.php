@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="wrapper">
-    @include('admin.pages.header')
+    @include('customer.layouts.header')
     @include('customer.layouts.navbar')
     {{ $slot }}
 </div>

@@ -800,6 +800,14 @@
                 <div class="row">
                     @foreach ($item->more_doc_msg_desc as $item2)
                     <div class="col-md-3">
+                        <h6>Document:</h6>
+                        <span>{{ $item2->quote_additional_doc->info }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Document of:</h6>
+                        <span>{{ getDocumentOf($item2->document_of) }}</span>
+                    </div>
+                    <div class="col-md-3">
                         <h6>If any:</h6>
                         <span>{{ getYesNo($item2->if_any) }}</span>
                     </div>
@@ -823,14 +831,7 @@
                         <h6>Valid for:</h6>
                         <span>{{ $item2->valid_for }}</span>
                     </div>
-                    <div class="col-md-3">
-                        <h6>Document:</h6>
-                        <span>{{ $item2->quote_additional_doc->info }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Document of:</h6>
-                        <span>{{ getDocumentOf($item2->document_of) }}</span>
-                    </div>
+                    
                     <div class="col-md-3">
                         <h6>Reasons:</h6>
                         <span>
