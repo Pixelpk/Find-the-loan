@@ -104,7 +104,7 @@
                 <div class="row mt-3">
             @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
             $hirePurchase['hire_purchase_type'] == 3 ?? '')
-            <div class="col-md-6">
+            <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.distributer" class="form-label">Distributer</label>
                 <input wire:model="hirePurchase.distributer" type="text" class="form-control">
@@ -116,7 +116,7 @@
             </div>
             </div>
             @endif
-            <div class="col-md-6">
+            <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.manufacturer" class="form-label">Manufacturer (brand)
                 </label>
@@ -128,7 +128,7 @@
                 @enderror
             </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
              <div class="mb-3">
                 <label for="hirePurchase.model" class="form-label">Model
                 </label>
@@ -235,7 +235,7 @@
                 @enderror
              </div>
             </div>
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
                 <label for="hirePurchase.current_estimate_value" class="form-label">Current estimated value
 
                 </label>
@@ -245,7 +245,7 @@
                     {{ $message }}
                 </div>
                 @enderror
-            </div>
+            </div> --}}
             @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
             <div class="col-md-6">
                <div class="mb-3">
