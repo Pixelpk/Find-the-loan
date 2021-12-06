@@ -235,9 +235,9 @@
                 @enderror
              </div>
             </div>
-            {{-- <div class="col-md-6">
+            @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 || $main_type == 3)
+            <div class="col-md-6">
                 <label for="hirePurchase.current_estimate_value" class="form-label">Current estimated value
-
                 </label>
                 <input wire:model="hirePurchase.current_estimate_value" type="text" class="form-control">
                 @error("hirePurchase.current_estimate_value")
@@ -245,7 +245,8 @@
                     {{ $message }}
                 </div>
                 @enderror
-            </div> --}}
+            </div>
+            @endif
             @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
             <div class="col-md-6">
                <div class="mb-3">
