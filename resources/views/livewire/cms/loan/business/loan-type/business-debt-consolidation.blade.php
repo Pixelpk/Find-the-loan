@@ -27,41 +27,32 @@
             </div>
         </div>
     </div>
-    
-    
+
+
+
+
     <div class="row mt-2">
-        <p><b>or</b></p>
+        <p><b>OR</b></p>
     </div>
 
-        <div class="row mt-2">
-            <p><b>OR</b></p>
-        </div>
-
-        <div class="row mt-1">
-            <p><b>DCP refinancing </b></p>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <livewire:widget.upload-component :label="'Or upload your Benefit illustration'"
-                        :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id"
-                        :share_holder="0" :modell="'App\Models\LoanGernalInfo'"
-                        :keyvalue="'debt_consolidation_settlement_notice'" />
-                    @error("settlement_notice")
-                    <div style="color: red;">
-                        {{ $message }}
-                    </div>
-                    @enderror
+    <div class="row mt-1">
+        <p><b>DCP refinancing </b></p>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <livewire:widget.upload-component :label="'Settlement Notice From The Original Bank'"
+                    :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                    :modell="'App\Models\LoanGernalInfo'" :keyvalue="'debt_consolidation_settlement_notice'" />
+                @error("settlement_notice")
+                <div style="color: red;">
+                    {{ $message }}
                 </div>
+                @enderror
             </div>
         </div>
-    </div>
-    <!-- /DEBT 1ST SECTION -->
-
-
-    <div class="row mt-3">
         <div class="col-md-6">
             <div class="mb-3">
                 <label for="amount" class="form-label">Amount required</label>
-                <input wire:model="amount" type="number" class="form-control" id="amount">
+                <input wire:model.defer="amount" type="number" class="form-control" id="amount">
                 @error("amount")
                 <div style="color: red;">
                     {{ $message }}
@@ -70,12 +61,17 @@
             </div>
         </div>
     </div>
+</div>
+<!-- /DEBT 1ST SECTION -->
 
-            <div class="mt-3 text-end">
-                <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
-                    <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
-                        aria-hidden="true"></span>
-                    Save &amp; Continue
-                </button>
-            </div>
-        </div>
+
+
+
+<div class="mt-3 text-end">
+    <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
+        <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
+            aria-hidden="true"></span>
+        Save &amp; Continue
+    </button>
+</div>
+</div>

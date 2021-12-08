@@ -218,12 +218,11 @@ class OverDraft extends Component
     public function changeType2()
     {
         // && $this->overdraft['unsecured']
-        $this->enableButtons  = true;
+        
         $overDraftType = BusinessOverDraft::where('apply_loan_id', $this->apply_loan->id)->first();
         if($overDraftType)
         {
-           
-           
+            $this->enableButtons  = false;
             if(isset($this->overdraft['secure']) && $this->overdraft['secure'])
             {
                 $this->overdraft['unsecured'] = '';
@@ -236,7 +235,7 @@ class OverDraft extends Component
             $overDraftType->update();
            
         }else{
-            
+            $this->enableButtons  = true;
             $overDraftType = new BusinessOverDraft();
            
             if(isset($this->overdraft['secure']) && $this->overdraft['secure'])

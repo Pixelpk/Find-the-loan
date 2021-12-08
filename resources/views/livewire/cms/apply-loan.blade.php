@@ -49,7 +49,8 @@
                     @endif
                     @if(!$lenderflag)
                     <li class="nav-item">
-                        <a wire:click="$set('tab', '9')" style="padding: .1rem 1rem;" class="{{ isset($enable['lender']) ? '' : 'disabled' }} nav-link {{ $tab == '9' ? 'active' : '' }}"
+                        <a wire:click="$set('tab', '9')" style="padding: .1rem 1rem;"
+                            class="{{ isset($enable['lender']) ? '' : 'disabled' }} nav-link {{ $tab == '9' ? 'active' : '' }}"
                             href="#">FINANCING PARTNERS</a>
                     </li>
                     @elseif($lenderflag)
@@ -128,16 +129,23 @@
                 'apply_loan' => $apply_loan])
 
                 @elseif($tab == 8 && $loan_type_id == 7)
-
+                
                 @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
                 $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
 
-                @elseif($loan_type_id == 25 || $loan_type_id == 2)
+                @elseif($tab == 8 && $loan_type_id == 25)
 
                 @livewire('cms.loan.consumer-personal-loan', ['loan_type_id' =>
                 $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
+
+                @elseif($tab == 8 && $loan_type_id == 2)
+
+                @livewire('cms.loan.consumer-personal-loan', ['loan_type_id' =>
+                $loan_type_id, "main_type" => $main_type,
+                'apply_loan' => $apply_loan])
+
                 @elseif($tab == 8 && $loan_type_id == 20)
 
                 @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
@@ -213,7 +221,7 @@
                     @endif
                     @endforeach
                 </div>
-                
+
                 @if(sizeof($loanReasons) > 0 && $main_type == 1)
 
                 <div class="row">
@@ -222,7 +230,7 @@
                     <hr>
                     <h5>Reason For Loan</h5>
                 </div>
-              
+
                 <div class="row mt-3">
                     @foreach($loanReasons as $key => $item)
                     <div class="col-md-4 mb-2">
@@ -234,7 +242,7 @@
                     </div>
                     @endforeach
                 </div>
-               
+
                 <div class="row text-end">
                     <div>
                         <br>
@@ -250,7 +258,7 @@
                     <hr>
                     <h5>Reason For Loan</h5>
                 </div>
-              
+
                 <div class="row mt-3">
                     @foreach($loanReasons as $key => $item)
                     <div class="col-md-4 mb-2">
@@ -262,7 +270,7 @@
                     </div>
                     @endforeach
                 </div>
-               
+
                 <div class="row text-end">
                     <div>
                         <br>
@@ -300,8 +308,8 @@
                     <div class="row">
                         <div class="col-12">
                             <br>
-                            <button wire:loading.attr='disabled' class="btn btn-custom" type="button" wire:target='companyDetail'
-                                wire:click.prevent='companyDetail'>
+                            <button wire:loading.attr='disabled' class="btn btn-custom" type="button"
+                                wire:target='companyDetail' wire:click.prevent='companyDetail'>
                                 <div wire:loading wire:target="companyDetail">
                                     <span class="spinner-border spinner-border-sm" role="status"
                                         aria-hidden="true"></span>
