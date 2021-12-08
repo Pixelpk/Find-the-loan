@@ -20,6 +20,7 @@ class Insurance extends Component
     public $type_of_policy;
     public $policy_start_date;
     public $name_of_policy_owner;
+    public $company_purchased_from;
     public $insurer;
     public $surrender_value;
     public $currency = "SGD";
@@ -68,6 +69,7 @@ class Insurance extends Component
            'insurer' => 'required',
            'surrender_value' => 'required',
            'currency' => 'required',
+           'name_of_policy_owner' => 'required',
        ]);
      
        $overDraft = OverDraftInsurance::forceCreate([
@@ -75,6 +77,7 @@ class Insurance extends Component
            'insurance' => $this->insurance,
            'type_of_policy' => $this->type_of_policy,
            'policy_start_date' => $this->policy_start_date,
+           'company_purchased_from' => $this->company_purchased_from,
            'name_of_policy_owner' => $this->name_of_policy_owner,
            'above' => $this->above,
            'insurer' => $this->insurer,

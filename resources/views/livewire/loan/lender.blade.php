@@ -5,9 +5,12 @@
     <!-- LENDERS -->
     <div class="row mb-4 text-center">
         <p class="lead fw-bold">Select Lenders</p>
-        <p>The following lenders offer the loan type you chose, factoring the information you have
-            entered.</p>
-        <p>Please select which of our following Financing Partners you wish to send your enquiry to.</p>
+        <p style="color:grey;font-size:13px;">The following lenders offer the loan type you chose, factoring the information you have
+            entered.
+            <br>
+            Please select which of our following Financing Partners you wish to send your enquiry to.
+        </p>
+       
     </div>
 
     <div class="row mb-3">
@@ -83,10 +86,10 @@
     </div>
     @endforeach
 
-    <div class="row mb-3 mt-2">
+    <div class="row mb-3 mt-2 p-2" style="border: 1px solid;">
         <div class="form-check">
             <input wire:model="policy" class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-            <label class="form-check-label" for="flexCheckIndeterminate" style="{{ $policy ? '' : 'color:red;' }}">
+            <label class="form-check-label" for="flexCheckIndeterminate" style="">
                 I/we agree the information. I/we provided is true to the best of my knowledge and I/we
                 give consent to these Financing Partners to verify them and those that are CBS members
                 to access my credit reports instead of furnishing it myself. I/we also agree to
@@ -101,7 +104,7 @@
 
     <div class="row mt-3 d-flex">
 
-        <p><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
+        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
             doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
             risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
             check with more lenders to compare with.</p>

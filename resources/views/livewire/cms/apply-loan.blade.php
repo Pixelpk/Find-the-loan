@@ -129,7 +129,7 @@
                 'apply_loan' => $apply_loan])
 
                 @elseif($tab == 8 && $loan_type_id == 7)
-
+                
                 @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
                 $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])

@@ -52,7 +52,7 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-md-4">
+        <div class="col-md-3">
            <div class="mb-3">
             <label for="name_of_policy_owner" class="form-label">
                 Name of policyowner
@@ -72,7 +72,7 @@
             @enderror
            </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
            <div class="mb-3">
             <label for="insurer" class="form-label">
                 Insurer
@@ -85,7 +85,7 @@
             @enderror
            </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="mb-3">
             <livewire:widget.currency/>
             @error("currency")
@@ -95,6 +95,33 @@
             @enderror
           </div>
         </div>
+        <div class="col-md-3">
+            <div class="mb-3">
+             <label for="bank" class="form-label">Company purchased from
+             </label>
+             <select class="form-select" wire:model="company_purchased_from">
+                 <option value="">Select Bank</option>
+                 <optgroup label="Local Banks">
+                     @foreach(Config::get('gernalinfo.bank.local_bank') as $item)
+                     <option value="{{ $item }}">{{ $item }}</option>
+                     @endforeach
+                 </optgroup>
+                 <optgroup label="Local/Foreign Banks">
+                     @foreach(Config::get('gernalinfo.bank.foreign_bank') as $item)
+                     <option value="{{ $item }}">{{ $item }}</option>
+                     @endforeach
+                 </optgroup>
+                 <optgroup label="Other Bank">
+                     <option value="other">Other</option>
+                 </optgroup>
+             </select>
+             @error("bank")
+             <div style="color: red;">
+                 {{ $message }}
+             </div>
+             @enderror
+            </div>
+         </div>
     </div>
 
     <div class="row mt-3">
@@ -118,7 +145,7 @@
         <div class="col-md-5">
            <div class="mb-3">
             <livewire:widget.upload-component 
-            :label="'upload your benefit illustration'" 
+            :label="'Upload your benefit illustration'" 
             :apply_loan="$apply_loan"
             :main_type="$main_type" 
             :loan_type_id="$loan_type_id" 
