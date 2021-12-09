@@ -26,11 +26,11 @@
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
                     <div class="form-group">
                         <label class="control-label mb-10">
-    
+
                             loan statement showing past 12 months repayment history if any(please ensure address is
                             visible,
                             if not kindly include the main page where address is visible)
-    
+
                         </label>
                         <br>
                         <br>
@@ -160,7 +160,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="row mt-2">
         <div class="col-md-3">
@@ -223,7 +223,7 @@
         </div>
     </div>
 
-    
+
 </div>
 <!-- /2ND SECTION -->
 
@@ -382,14 +382,14 @@
         </div>
     </div>
 
-    
+
 
     <div class="row mt-3 text-center">
         <p> <b>If applicable</b></p>
     </div>
 
     <div class="row mt-2">
-        
+
         <div class="col-md-12 col-lg-12">
             <p style="margin: 0px;"> Under Construction -Expected date of completion</p>
         </div>
@@ -505,6 +505,41 @@
     </div>
 </div>
 <!-- /4TH SECTION -->
+
+<div class="">
+    <div class="col-md-12">
+        <hr>
+    </div>
+</div>
+<!-- Optional Documents -->
+<div class="row mt-2">
+    <div class="col-md-12">
+        <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+        <br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <p class="mt-4">Optional Documents</p>
+    </div>
+    <div class="col-md-4">
+        <div class="mb-3">
+            <livewire:widget.upload-component
+            :apply_loan="$apply_loan"
+            :main_type="$main_type"
+            :loan_type_id="$loan_type_id"
+            :share_holder="0"
+            :modell="'App\Models\LoanGernalInfo'"
+            :keyvalue="'property_bridge_optional_documents'"/>
+            @error("document")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+</div>
 
 <!-- BUTTON -->
 <div class="mt-3 text-end">

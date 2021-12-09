@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Loan;
 
 use App\Models\LoanCompanyDetail;
+use App\Models\Media;
 use Livewire\Component;
 use Monarobase\CountryList\CountryListFacade;
 
@@ -59,9 +60,45 @@ class CompanyDocuments extends Component
     
     }
 
+
+    public function confirmationMessage()
+    {
+        $combine_statement = Media::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->where('key', 'parent_company_combine_statement')->first();
+
+        $current_year = Media::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->where('key', 'parent_company_current_year_statement')->first();
+        
+        $latest_year = Media::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->where('key', 'parent_company_latest_year_statement')->first();
+        
+        $before_year = Media::where('share_holder', 0)->where('apply_loan_id', $this->apply_loan->id)->where('key', 'parent_company_before_year_statement')->first();
+
+
+        for ($x = 1; $x < 8; $x++){
+             $montName = date("M", strtotime( date( 'Y-m-01' )." -$x months"));
+
+             $this->getImages = Media::where('apply_loan_id', $this->apply_loan->id)
+            ->where('key', $montName)
+            ->where('share_holder', $this->share_holder)
+            ->first();
+
+            // dd($this->getImages);
+            if(empty($this->getImages)){
+                $this->dispatchBrowserEvent('confirmation', ['message' => 'Please note you have uploaded less than the standard set of documents required. Unless yours is a new company, and therefore you are unable to produce these documents yet,  the Financing Partner will be contacting you for the missing documents', "function" => "saveCompanyDocuments"]);
+                return;
+            }
+        }
+
+        if(empty($combine_statement) || empty($current_year) || empty($latest_year) || empty($before_year)){
+            $this->dispatchBrowserEvent('confirmation', ['message' => 'Please note you have uploaded less than the standard set of documents required. Unless yours is a new company, and therefore you are unable to produce these documents yet,  the Financing Partner will be contacting you for the missing documents', "function" => "saveCompanyDocuments"]);
+            return;
+        }else{
+            $this->saveCompanyDocuments();
+        }
+
+       
+    }
+
     public function saveCompanyDocuments()
     {
-       
         $loanComanyDetaol = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0 )->first();
         $loanComanyDetaol->profitable_latest_year  = $this->profitable_latest_year ?? '';
         $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year ?? '';

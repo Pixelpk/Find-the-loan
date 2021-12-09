@@ -174,6 +174,17 @@ class Lender extends Component
                 ]);
             }
         }
+
+        if($LL){
+            $this->dispatchBrowserEvent('enquiry_submit', ['title' => 'Thank You!','message' => 'Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.', 'function' => 'redirectAfterSuccess']);
+            return;
+        }
+
+
+        // return redirect()->route('home');
+    }
+
+    public function redirectAfterSuccess(){
         return redirect()->route('home');
     }
 }

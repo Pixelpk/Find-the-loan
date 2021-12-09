@@ -30,9 +30,9 @@
 
     <!-- COMPANY DOCUMENTS__Consolidated Statement -->
     <div class="row">
-        <p><b>OR</b></p>
-        <p><b>Consolidated Statement.</b></p>
-        <p>If Your Statement Is Not Spilt Between Months But One</p>
+      <p><b>OR</b></p>
+         <!--  <p><b>Consolidated Statement.</b></p> -->
+        <p class="mb-0">If Your Statement Is Not Spilt Between Months But One <b>Consolidated Statement.</b></p>
     </div>
 
     <div class="row">
@@ -223,8 +223,8 @@
 
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
-        <button class="btn" type="button" wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
-            <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm" role="status"
+        <button class="btn" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
+            <span wire:loading wire:target="confirmationMessage" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>
             Save @if($share_holder == 0) & Continue @endif
         </button>
@@ -232,3 +232,34 @@
     </div>
     @endif
 </section>
+<style type="text/css">
+    .swal2-popup{
+        padding: 2em 3em !important;
+    }
+
+    .swal2-styled.swal2-confirm{
+        background-color: #3EBB60 !important;
+    }
+</style>
+ <script>
+        window.addEventListener('confirmation', event => {
+            Swal.fire({
+                text: event.detail.message,
+                width: 750,
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    // calling destroy method to delete
+                    @this.call(event.detail.function)
+                    // success response
+
+                } else {
+
+                }
+            })
+        })
+
+    </script>
