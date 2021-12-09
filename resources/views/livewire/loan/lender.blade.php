@@ -3,7 +3,7 @@
     @endphp
 
     <!-- LENDERS -->
-    <div class="row mb-4 text-center">
+    <div class="row mb-4">
         <p class="lead fw-bold">Select Lenders</p>
         <p style="color:grey;font-size:13px;">The following lenders offer the loan type you chose, factoring the information you have
             entered.
@@ -86,6 +86,15 @@
     </div>
     @endforeach
 
+    <div class="row mt-3 d-flex">
+
+        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
+            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
+            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
+            check with more lenders to compare with.</p>
+
+    </div>
+
     <div class="row mb-3 mt-2 p-2" style="border: 1px solid;">
         <div class="form-check">
             <input wire:model="policy" class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
@@ -98,16 +107,41 @@
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="mt-4 mb-3" style="text-align: end;">
         <button class="btn" wire:click="storeLender">Send Enquiry</button>
     </div>
-
-    <div class="row mt-3 d-flex">
-
-        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
-            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
-            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
-            check with more lenders to compare with.</p>
-
-    </div>
+    
 </section>
+
+<style type="text/css">
+    .swal2-popup{
+        padding: 2em 3em !important;
+    }
+
+    .swal2-styled.swal2-confirm{
+        background-color: #3EBB60 !important;
+    }
+</style>
+
+ <script>
+        window.addEventListener('enquiry_submit', event => {
+            Swal.fire({
+                text: event.detail.message,
+                width: 750,
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    // calling destroy method to delete
+                    @this.call(event.detail.function)
+                    // success response
+
+                } else {
+
+                }
+            })
+        })
+
+</script>

@@ -38,7 +38,7 @@
         </div>
 
         @if($hirePurchase['hire_purchase_type'] || $main_type == 2  ?? '')
-        
+
         <div class="row mt-2">
             @if($hirePurchase['hire_purchase_type']  == 4 || $hirePurchase['hire_purchase_type']  == 5 || $main_type == 2 ?? '')
             <div class="col-md-6">
@@ -299,7 +299,7 @@
             </div>
             @endif
         </div>
-        
+
         <hr>
 
         @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
@@ -445,7 +445,7 @@
     @endif
 </div>
 
-  
+
     @if($loan_type_id == 10 || $loan_type_id == 11)
     <div class="row mt-2">
    <div class="mb-3">
@@ -701,7 +701,7 @@
             @else
                 <button disabled class="btn btn-custom">Save & Continue</button>
             @endif
-            
+
         </div>
     </div>
 
