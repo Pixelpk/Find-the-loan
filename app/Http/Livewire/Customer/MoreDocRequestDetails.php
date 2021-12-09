@@ -15,6 +15,7 @@ class MoreDocRequestDetails extends Component
     public $form = [];
     public $more_doc_request_id;
     public $more_doc_request_detail;
+    public $checkbox;
     protected $queryString = ['more_doc_request_id'];
 
     public function mount()
@@ -59,6 +60,12 @@ class MoreDocRequestDetails extends Component
         // dd($this->more_doc_request_detail);
 
         return view('livewire.customer.more-doc-request-details')->layout('customer.layouts.master');
+    }
+    public function chk($id)
+    {
+        if($this->checkbox[$id] == false){
+            unset($this->checkbox[$id]);
+        }
     }
 
     public function submitMoreDocRequestReply()
