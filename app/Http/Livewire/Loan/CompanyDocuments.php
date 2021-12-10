@@ -10,15 +10,15 @@ use Monarobase\CountryList\CountryListFacade;
 class CompanyDocuments extends Component
 {
     public $apply_loan;
-    
+
     public $main_type;
-    
+
     public $loan_type_id;
-    
+
     public $listed_company_check  = 0;
-    
+
     public $images;
-    
+
     public $getNumberOfCompanyYears;
 
     public $profitable_latest_year;
@@ -30,19 +30,20 @@ class CompanyDocuments extends Component
     public $share_holder;
 
     public $countries;
+    public $country;
 
 
     public function mount()
     {
-        
 
-        $this->main_type = $this->apply_loan->main_type; 
-        
+
+        $this->main_type = $this->apply_loan->main_type;
+
         $this->loan_type_id = $this->apply_loan->loan_type_id;
-        
+
         $companyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->first();
 
-        if($companyDetail){
+        if ($companyDetail) {
 
             $this->profitable_latest_year = $companyDetail->profitable_latest_year;
 
@@ -52,12 +53,11 @@ class CompanyDocuments extends Component
         }
         $this->countries = CountryListFacade::getList('en');
     }
-    
+
     public function render()
     {
 
         return view('livewire.loan.company-documents');
-    
     }
 
 
@@ -104,10 +104,8 @@ class CompanyDocuments extends Component
         $loanComanyDetaol->profitable_before_year  = $this->profitable_before_year ?? '';
         $loanComanyDetaol->optional_revenuee  = $this->optional_revenuee;
         $loanComanyDetaol->update();
-        $this->emit('changeTab',$this->apply_loan->id, 7);
+        $this->emit('changeTab', $this->apply_loan->id, 7);
         // $this->shareDisable = true;
         $this->emit('alert', ['type' => 'success', 'message' => 'Company documents added successfully.']);
-        
     }
-    
 }

@@ -120,9 +120,26 @@
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
                         <select required style="width: 100%;" multiple class="form-control select2" name="loan_type_id[]" id="partner_loan_type">
-                            @foreach($loan_types as $type)
-                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
-                            @endforeach
+                            <optgroup label="Business Loan">
+                                @foreach ($business_main_types as $item)
+                                    <optgroup style="font-size: 1.1em !important;" label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Consumer Loan">
+                                @foreach ($consumer_main_types as $item)
+                                    <optgroup style="font-size: 1.1em !important;" label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+                            
                         </select>
                     </div>
                     <div class="form-group">
@@ -244,9 +261,25 @@
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
                         <select multiple style="width: 100%;" class="form-control select2" name="loan_type_id[]" id="edit_partner_loan_type">
-                            @foreach($loan_types as $type)
-                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
-                            @endforeach
+                            <optgroup label="Business Loan">
+                                @foreach ($business_main_types as $item)
+                                    <optgroup label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Consumer Loan">
+                                @foreach ($consumer_main_types as $item)
+                                    <optgroup label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
                         </select>
                     </div>
                     
