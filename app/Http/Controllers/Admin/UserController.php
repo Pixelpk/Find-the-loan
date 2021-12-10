@@ -26,9 +26,8 @@ class UserController extends Controller
     {
 //        dd(Auth::guard('partners')->user());
 //        dd(Auth::guard('users')->user());
-        if (!Auth::guard('users')->check()){
+        if (!Auth::guard('partners')->user() && !Auth::guard('users')->user()){
             $data['login_url'] = route('admin-login');
-
             return view('admin.user.signin',$data);
         }else{
             return redirect(route('admin-dashboard'));
@@ -39,7 +38,7 @@ class UserController extends Controller
     {
 //        dd(Auth::guard('partners')->user());
 //        dd(Auth::guard('users')->user());
-        if (!Auth::guard('partners')->check()){
+        if (!Auth::guard('partners')->user() && !Auth::guard('users')->user()){
             $data['login_url'] = route('partner-login-submit');
             return view('admin.user.signin',$data);
         }else{

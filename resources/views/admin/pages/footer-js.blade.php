@@ -14,11 +14,19 @@
 
 <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/jquery-datatable/buttons/jszip.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
+<script src="{{ asset('toastr.min.js') }}"></script>
+
 <script>
     let todayDate = new Date();
     let quoteEndDate= new Date(new Date().setDate(todayDate.getDate() + 29));
@@ -688,11 +696,29 @@
             
         });
 
+        // $('.js-exportable').DataTable({
+        //     dom: 'Bfrtip',
+        //     buttons: [
+        //         'copy', 'excel'
+        //     ]
+        // });
+        
+
+        // $('#partner_sales_report').DataTable({
+        //     paging: false,
+        //     searching: false,
+        //     "info": false,
+        //     buttons: [
+        //     'copy', 'csv', 'excel', 'pdf', 'print'
+        // ]
+        // });
+
         $('#loan_application_table').DataTable({
             paging: false,
             searching: false,
             "info": false,
             order: [[4, 'desc'],[5,'desc']],
+            
             columnDefs: [
                 {
                     "orderable": false,

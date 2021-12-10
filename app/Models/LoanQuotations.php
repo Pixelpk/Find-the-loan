@@ -111,6 +111,11 @@ class LoanQuotations extends Model
 
     public function loan_application()
     {
-        return $this->belongsTo(ApplyLoan::class,'apply_loan_id')->with('loan_user','loan_type');
+        return $this->belongsTo(ApplyLoan::class,'apply_loan_id')->with('loan_type');
+    }
+
+    public function quotation_finance_partner()
+    {
+        return $this->belongsTo(FinancePartner::class,'partner_id');
     }
 }

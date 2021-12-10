@@ -134,8 +134,28 @@ class OCRController extends Controller
         //     // }
         // }
         // exit;
-        return $lineItems;
+        $results = (json_decode(file_get_contents($path), 1));
+        $results = $results['scanDocuments']['data']['LineItems'];
+        foreach($results as $result) {
+            foreach($result as $item){
+                $fArray = $item;
+                return $fArray['Bank Ref/ '];
+            }
+        }
+        // $heads = [
+        //     'Bank Ref/ ',
+        // ]
     }
 
+
+    public function additionalDoc()
+    {
+        $all =  QuoteAdditionalDocs::all();
+        foreach($all as $one){
+            // $filetype = $one->doc_type == 0 ? "file" : "input";
+            echo "<lable>".$one->info."</lable><br><input type='{$one->doc_type}' name='document[{$one->id}]['']'/>"."<br><br>";
+            // echo preg_replace('/[^A-Za-z0-9\-]/', '', $one->info)."<br>";
+        }
+    }
 
 }

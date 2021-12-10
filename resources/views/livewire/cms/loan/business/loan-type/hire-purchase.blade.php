@@ -38,7 +38,7 @@
         </div>
 
         @if($hirePurchase['hire_purchase_type'] || $main_type == 2  ?? '')
-        
+
         <div class="row mt-2">
             @if($hirePurchase['hire_purchase_type']  == 4 || $hirePurchase['hire_purchase_type']  == 5 || $main_type == 2 ?? '')
             <div class="col-md-6">
@@ -104,7 +104,7 @@
                 <div class="row mt-3">
             @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 ||
             $hirePurchase['hire_purchase_type'] == 3 ?? '')
-            <div class="col-md-6">
+            <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.distributer" class="form-label">Distributer</label>
                 <input wire:model="hirePurchase.distributer" type="text" class="form-control">
@@ -116,7 +116,7 @@
             </div>
             </div>
             @endif
-            <div class="col-md-6">
+            <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.manufacturer" class="form-label">Manufacturer (brand)
                 </label>
@@ -128,7 +128,7 @@
                 @enderror
             </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
              <div class="mb-3">
                 <label for="hirePurchase.model" class="form-label">Model
                 </label>
@@ -235,9 +235,9 @@
                 @enderror
              </div>
             </div>
-            <div class="col-md-6 mt-5">
+            @if($hirePurchase['hire_purchase_type'] == 1 || $hirePurchase['hire_purchase_type'] == 2 || $main_type == 3)
+            <div class="col-md-6">
                 <label for="hirePurchase.current_estimate_value" class="form-label">Current estimated value
-
                 </label>
                 <input wire:model="hirePurchase.current_estimate_value" type="text" class="form-control">
                 @error("hirePurchase.current_estimate_value")
@@ -246,6 +246,7 @@
                 </div>
                 @enderror
             </div>
+            @endif
             @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
             <div class="col-md-6">
                <div class="mb-3">
@@ -298,7 +299,7 @@
             </div>
             @endif
         </div>
-        
+
         <hr>
 
         @if($hirePurchase['hire_purchase_type'] == 4 || $hirePurchase['hire_purchase_type'] == 5 || $main_type == 2)
@@ -444,7 +445,7 @@
     @endif
 </div>
 
-  
+
     @if($loan_type_id == 10 || $loan_type_id == 11)
     <div class="row mt-2">
    <div class="mb-3">
@@ -543,9 +544,21 @@
             </div>
          </div>
         @endif
-    </div>
+        <div class="col-md-12">
+            <b> Details of premise where equipment/machinery will be kept and used
+            </b>
+        </div>
+        <div wire:ignore.self class="col-md-12" style="margin-top: 30px;">
+            <label for="hirePurchase.address" class="form-label">Address</label>
+            <input onkeyup="dddd()" wire:model.defer="hirePurchase.address" type="text" class="form-control"
+                id="ship-address1">
+            @error("hirePurchase.address")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
 
-       <div class="row">
+       <div class="row mt-3">
         <div class="col-md-4">
             <div class="mb-3">
                 <label for="hirePurchase.sale_mane" class="form-label">Salesman names </label>
@@ -632,7 +645,11 @@
             <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">
                 <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
+            @if(sizeof($hirePurchaseGet) > 0)
                 Add Another
+            @else
+            Submit
+            @endif
             </button>
         </div>
 
@@ -684,7 +701,7 @@
             @else
                 <button disabled class="btn btn-custom">Save & Continue</button>
             @endif
-            
+
         </div>
     </div>
 

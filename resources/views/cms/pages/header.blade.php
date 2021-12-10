@@ -148,10 +148,10 @@
                                 <img height="40" src="{{ asset('assets/cms/img/Home/user.svg') }}" alt="user">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <li><a class="dropdown-item" href="{{ route('customer-dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
                             </ul>
                         </div>
-                        <!-- <a href="{{ route('customer-logout') }}" class="btn log-btn btnnew1">Logout </a> -->
                         @endif
                     </a>
                 </li>

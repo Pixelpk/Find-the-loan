@@ -8,6 +8,7 @@ use App\Models\CompanyStructure;
 use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
+use App\Models\MainType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,10 @@ class FinancePartnerController extends Controller
             ->paginate(50);
         $data['structures'] = CompanyStructure::where('status','=','1')
             ->get();
-        $data['loan_types'] = LoanType::where('status','=',1)->get();
+        $data['business_main_types'] = MainType::with('subTypes')->where('profile_id',1)->get();
+        $data['consumer_main_types'] = MainType::with('subTypes')->where('profile_id',2)->get();
+        // $data['loan_types'] = LoanType::where('status','=',1)->get();
+        // return $data['loan_main_types'];
         return view('admin.finance_partners.partners',$data);
     }
 

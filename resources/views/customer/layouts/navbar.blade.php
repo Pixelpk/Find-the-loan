@@ -8,7 +8,7 @@
                 <li class="menu-title">Menu</li>
                 <li>
                     <a href="{{ route('customer-dashboard') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-dashboard')  mm-active @endif">
-                        <i class="dripicons-meter"></i><span> Dashboard </span>
+                        <i class="dripicons-meter"></i><span> Overview </span>
                     </a>
                 </li>
                 <li>
@@ -19,6 +19,21 @@
                 <li>
                     <a href="{{ route('customer-enquiry', ['profile' => 2]) }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-enquiry' && Request::get('profile') == '2' )) mm-active  @endif">
                         <i class="dripicons-meter"></i><span> Consumer Enquiry </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('customer-quotations') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-quotations' ) mm-active  @endif">
+                        <i class="dripicons-meter"></i><span> Quotations </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('customer-reject-enquiries') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-reject-enquiries' ) mm-active  @endif">
+                        <i class="dripicons-meter"></i><span> Rejected Enquiry </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('customer-more-doc-requests') }}" class="waves-effect @if(Route::CurrentRouteName() == 'customer-more-doc-requests' ) mm-active  @endif">
+                        <i class="dripicons-meter"></i><span>More Doc Requests</span>
                     </a>
                 </li>
             </ul>

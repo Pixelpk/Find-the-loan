@@ -30,7 +30,8 @@ class Login extends Component
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $approve = User::where('email', $this->email)->where('status', '!=',2)->where('role_id', 2)->first();
+        $approve = User::where('email', $this->email)->where('status', '!=',2)
+        ->where('role_id', 2)->first();
         if(!$approve){
            
             $this->errorMessage = 'User not exists';

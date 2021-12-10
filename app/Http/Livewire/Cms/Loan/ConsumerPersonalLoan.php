@@ -16,16 +16,9 @@ class ConsumerPersonalLoan extends Component
     public $loan_type_id;
   
     public $amount;
-  
-  
-
-    
     public function mount()
     {
-     
-       
         if($this->apply_loan){
-
             $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? ''; 
         }
     }

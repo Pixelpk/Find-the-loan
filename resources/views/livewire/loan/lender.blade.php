@@ -3,11 +3,14 @@
     @endphp
 
     <!-- LENDERS -->
-    <div class="row mb-4 text-center">
-        <p class="lead fw-bold">Select Lenders</p>
-        <p>The following lenders offer the loan type you chose, factoring the information you have
-            entered.</p>
-        <p>Please select which of our following Financing Partners you wish to send your enquiry to.</p>
+    <div class="row mb-4">
+        <p class="lead fw-bold">Select Financing Partners</p>
+        <p style="color:grey;font-size:13px;">The following lenders offer the loan type you chose, factoring the information you have
+            entered.
+            <br>
+            Please select which of our following Financing Partners you wish to send your enquiry to.
+        </p>
+       
     </div>
 
     <div class="row mb-3">
@@ -53,8 +56,8 @@
                 <div class="row">
                     @foreach($financePartners as $financePartner)
                     @if($financePartner->type == 1 && $item == 1)
-                    <div class="col-md-6 col-lg-3">
-                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
+                    <div class="col-md-6 col-lg-2">
+                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-3">
                             <div class="lender-bank__img">
                                 <img for="{{ $financePartner->id }}"
                                     src="{{ asset('uploads/financePartnerImages/'.$financePartner->image) }}" alt=""
@@ -64,8 +67,8 @@
                         </div>
                     </div>
                     @elseif($financePartner->type == 2 && $item == 2)
-                    <div class="col-md-6 col-lg-3">
-                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
+                    <div class="col-md-6 col-lg-2">
+                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-3">
                             <div class="lender-bank__img">
                                 <img for="{{ $financePartner->id }}"
                                     src="{{ asset('uploads/financePartnerImages/'.$financePartner->image) }}" alt=""
@@ -83,10 +86,19 @@
     </div>
     @endforeach
 
-    <div class="row mb-3 mt-2">
+    <div class="row mt-3 d-flex">
+
+        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
+            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
+            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
+            check with more lenders to compare with.</p>
+
+    </div>
+
+    <div class="row mb-3 mt-2 p-2" style="border: 1px solid;">
         <div class="form-check">
             <input wire:model="policy" class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-            <label class="form-check-label" for="flexCheckIndeterminate" style="{{ $policy ? '' : 'color:red;' }}">
+            <label class="form-check-label" for="flexCheckIndeterminate" style="">
                 I/we agree the information. I/we provided is true to the best of my knowledge and I/we
                 give consent to these Financing Partners to verify them and those that are CBS members
                 to access my credit reports instead of furnishing it myself. I/we also agree to
@@ -98,13 +110,38 @@
     <div class="text-center">
         <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
-
-    <div class="row mt-3 d-flex">
-
-        <p><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
-            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
-            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
-            check with more lenders to compare with.</p>
-
-    </div>
+    
 </section>
+
+<style type="text/css">
+    .swal2-popup{
+        padding: 2em 3em !important;
+    }
+
+    .swal2-styled.swal2-confirm{
+        background-color: #3EBB60 !important;
+    }
+</style>
+
+ <script>
+        window.addEventListener('enquiry_submit', event => {
+            Swal.fire({
+                text: event.detail.message,
+                width: 750,
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    // calling destroy method to delete
+                    @this.call(event.detail.function)
+                    // success response
+
+                } else {
+
+                }
+            })
+        })
+
+</script>

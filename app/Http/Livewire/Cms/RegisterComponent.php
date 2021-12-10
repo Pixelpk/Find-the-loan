@@ -36,14 +36,14 @@ class RegisterComponent extends Component
     public function store()
     {
        
-       $alreadrUser=User::where('email', $this->email)->first();
+       $alreadrUser=User::where('email', $this->email)->where('status','!=',2)->first();
        if($alreadrUser){
         return redirect()->route('registration')->with('error', 'Email already taken');
        }
        $this->validate([
            'first_name' => 'required',
            'last_name' => 'required',
-           'email' => 'required|email|unique:users,email',
+           'email' => 'required|email', //|unique:users,email
            'phone' => 'required',
            'password' => 'required|min:8',
            'confirm_password' => 'required|same:password',

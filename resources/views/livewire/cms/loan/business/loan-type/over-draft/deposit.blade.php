@@ -44,12 +44,12 @@
             </label>
             <select class="form-select" wire:model="bank">
                 <option value="">Select Bank</option>
-                <optgroup label="Local Bank">
+                <optgroup label="Local Banks">
                     @foreach(Config::get('gernalinfo.bank.local_bank') as $item)
                     <option value="{{ $item }}">{{ $item }}</option>
                     @endforeach
                 </optgroup>
-                <optgroup label="Foreign Bank">
+                <optgroup label="Local/Foreign Banks">
                     @foreach(Config::get('gernalinfo.bank.foreign_bank') as $item)
                     <option value="{{ $item }}">{{ $item }}</option>
                     @endforeach
@@ -69,6 +69,9 @@
 
     <div class="row mt-2">
         @if($bank == 'other')
+        <div class="col-md 6">
+            
+        </div>
         <div class="col-md-6">
            <div class="mb-3">
             <label for="other_bank_name" class="form-label">

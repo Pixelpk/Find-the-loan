@@ -8,13 +8,13 @@
 <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/css/style.css?v1') }}" rel="stylesheet" type="text/css">
 <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-{{--<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />--}}
+<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
-
+<link rel="stylesheet" href="{{ asset('toastr.min.css') }}">
 
 <style>
     .select2-results__group{

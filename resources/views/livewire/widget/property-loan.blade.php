@@ -2,29 +2,29 @@
     <div class="row d-flex align-items-end">
         <div class="col-md-6">
        <div class="mb-3">
-        <livewire:widget.upload-component 
-        :label="' OTP or Sale/Purchase Agreement of property/land being sold'" 
+        <livewire:widget.upload-component
+        :label="' OTP or Sale/Purchase Agreement of property/land being sold'"
         :apply_loan="$apply_loan"
-        :main_type="$main_type" 
-        :loan_type_id="$loan_type_id" 
+        :main_type="$main_type"
+        :loan_type_id="$loan_type_id"
         :share_holder="0"
-        :modell="'App\Models\LoanGernalInfo'" 
-        :keyvalue="'property_advance_loan_sale_purchase_agreement'" 
+        :modell="'App\Models\LoanGernalInfo'"
+        :keyvalue="'property_advance_loan_sale_purchase_agreement'"
     />
        </div>
         </div>
         <div class="col-md-6">
            <div class="mb-3">
-            <livewire:widget.upload-component 
+            <livewire:widget.upload-component
             :label="' Loan statement showing past 12 months repayment history if any(please ensure address is
             visible,
-            if not kindly include the main page where address is visible)'" 
+            if not kindly include the main page where address is visible)'"
             :apply_loan="$apply_loan"
-            :main_type="$main_type" 
-            :loan_type_id="$loan_type_id" 
+            :main_type="$main_type"
+            :loan_type_id="$loan_type_id"
             :share_holder="0"
-            :modell="'App\Models\LoanGernalInfo'" 
-            :keyvalue="'property_advance_loan_statement'" 
+            :modell="'App\Models\LoanGernalInfo'"
+            :keyvalue="'property_advance_loan_statement'"
         />
            </div>
         </div>
@@ -33,15 +33,15 @@
         <div class="row mt-2">
         <div class="col-md-6">
      <div class="mb-3">
-        <livewire:widget.upload-component 
+        <livewire:widget.upload-component
         :label="'Loan statement reflecting current Outstanding loan amount if it is not reflected in your
-        repayment history statement'" 
+        repayment history statement'"
         :apply_loan="$apply_loan"
-        :main_type="$main_type" 
-        :loan_type_id="$loan_type_id" 
+        :main_type="$main_type"
+        :loan_type_id="$loan_type_id"
         :share_holder="0"
-        :modell="'App\Models\LoanGernalInfo'" 
-        :keyvalue="'property_advance_loan_current_statement'" 
+        :modell="'App\Models\LoanGernalInfo'"
+        :keyvalue="'property_advance_loan_current_statement'"
     />
      </div>
         </div>
@@ -248,6 +248,41 @@
                 @enderror
             </div>
         </div>
+        </div>
+
+        <div class="">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <!-- Optional Documents -->
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <p class="mt-4">Optional Documents</p>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <livewire:widget.upload-component
+                    :apply_loan="$apply_loan"
+                    :main_type="$main_type"
+                    :loan_type_id="$loan_type_id"
+                    :share_holder="0"
+                    :modell="'App\Models\LoanGernalInfo'"
+                    :keyvalue="'property_land_sale_optional_documents'"/>
+                    <!-- @error("document")
+                    <div style="color: red;">
+                        {{ $message }}
+                    </div>
+                    @enderror -->
+                </div>
+            </div>
         </div>
 
         <div class="mt-3 text-end">

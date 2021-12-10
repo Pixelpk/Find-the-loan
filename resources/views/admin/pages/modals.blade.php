@@ -120,9 +120,26 @@
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
                         <select required style="width: 100%;" multiple class="form-control select2" name="loan_type_id[]" id="partner_loan_type">
-                            @foreach($loan_types as $type)
-                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
-                            @endforeach
+                            <optgroup label="Business Loan">
+                                @foreach ($business_main_types as $item)
+                                    <optgroup style="font-size: 1.1em !important;" label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Consumer Loan">
+                                @foreach ($consumer_main_types as $item)
+                                    <optgroup style="font-size: 1.1em !important;" label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+                            
                         </select>
                     </div>
                     <div class="form-group">
@@ -244,9 +261,25 @@
                     <div class="form-group">
                         <label for="" class="control-label mb-10">Loan type:</label>
                         <select multiple style="width: 100%;" class="form-control select2" name="loan_type_id[]" id="edit_partner_loan_type">
-                            @foreach($loan_types as $type)
-                                <option value="{{$type->id}}">{{ $type->sub_type }}</option>
-                            @endforeach
+                            <optgroup label="Business Loan">
+                                @foreach ($business_main_types as $item)
+                                    <optgroup label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
+
+                            <optgroup label="Consumer Loan">
+                                @foreach ($consumer_main_types as $item)
+                                    <optgroup label="&nbsp;&nbsp;&nbsp;{{$item->main_type}}">
+                                            @foreach ($item->subTypes as $sub_type)
+                                                <option value="{{$sub_type->id}}">&nbsp;&nbsp;&nbsp;{{$sub_type->sub_type}}</option>
+                                            @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </optgroup>
                         </select>
                     </div>
                     
@@ -797,8 +830,16 @@
             </div>
             <div class="modal-body" style="max-height:350px;overflow:auto">
                 @foreach ($application->application_more_doc as $item)
+                @foreach ($item->more_doc_msg_desc as $item2)
                 <div class="row">
-                    @foreach ($item->more_doc_msg_desc as $item2)
+                    <div class="col-md-3">
+                        <h6>Document:</h6>
+                        <span>{{ $item2->quote_additional_doc->info }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Document of:</h6>
+                        <span>{{ getDocumentOf($item2->document_of) }}</span>
+                    </div>
                     <div class="col-md-3">
                         <h6>If any:</h6>
                         <span>{{ getYesNo($item2->if_any) }}</span>
@@ -823,14 +864,7 @@
                         <h6>Valid for:</h6>
                         <span>{{ $item2->valid_for }}</span>
                     </div>
-                    <div class="col-md-3">
-                        <h6>Document:</h6>
-                        <span>{{ $item2->quote_additional_doc->info }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Document of:</h6>
-                        <span>{{ getDocumentOf($item2->document_of) }}</span>
-                    </div>
+                    
                     <div class="col-md-3">
                         <h6>Reasons:</h6>
                         <span>
@@ -839,9 +873,10 @@
                             @endforeach
                         </span>
                     </div>
-                    @endforeach
                 </div>
                 <hr>
+                    @endforeach
+            
                 @endforeach
 
             </div>

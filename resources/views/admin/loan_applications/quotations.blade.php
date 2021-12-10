@@ -103,7 +103,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{ $quotations->links() }}
+                                    {{ $quotations->links('pagination::bootstrap-4') }}
                                 </div>
 
                             </div>

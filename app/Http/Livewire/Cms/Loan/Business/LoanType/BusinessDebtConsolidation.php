@@ -56,7 +56,7 @@ class BusinessDebtConsolidation extends Component
 
     public function store()
     {
-      
+        // dd('asd');
        $this->validate([
            'amount' => 'required|integer|min:1',
         //    'documents' =>  $this->settlement_notice   ? '' : 'required',

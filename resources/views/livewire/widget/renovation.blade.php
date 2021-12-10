@@ -1,27 +1,27 @@
 <div>
-    
+
        <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
-                <livewire:widget.upload-component 
-                :label="'Tenancy Agreement'" 
+                <livewire:widget.upload-component
+                :label="'Tenancy Agreement'"
                 :apply_loan="$apply_loan"
-                :main_type="$main_type" 
-                :loan_type_id="$loan_type_id" 
+                :main_type="$main_type"
+                :loan_type_id="$loan_type_id"
                 :share_holder="0"
-                :modell="'App\Models\LoanGernalInfo'" 
-                :keyvalue="'property_renovation_tenancy_agreement'" 
+                :modell="'App\Models\LoanGernalInfo'"
+                :keyvalue="'property_renovation_tenancy_agreement'"
                 />
             </div>
             <div class="mb-3">
-                <livewire:widget.upload-component 
-            :label="'Renovation Quotation'" 
+                <livewire:widget.upload-component
+            :label="'Renovation Quotation'"
             :apply_loan="$apply_loan"
-            :main_type="$main_type" 
-            :loan_type_id="$loan_type_id" 
+            :main_type="$main_type"
+            :loan_type_id="$loan_type_id"
             :share_holder="0"
-            :modell="'App\Models\LoanGernalInfo'" 
-            :keyvalue="'property_renovation_quotation'" 
+            :modell="'App\Models\LoanGernalInfo'"
+            :keyvalue="'property_renovation_quotation'"
             />
             </div>
                   <div class="mb-3">
@@ -35,7 +35,7 @@
                 </div>
                 </div>
 
-                
+
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-2 col-lg-1">
@@ -85,12 +85,47 @@
 
                     </div>
                 </div>
-              
-               
-                
+
+
+
             </div>
         </div>
-     
+
+        <div class="">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+        <!-- Optional Documents -->
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+                <br>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <p class="mt-4">Optional Documents</p>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <livewire:widget.upload-component
+                    :apply_loan="$apply_loan"
+                    :main_type="$main_type"
+                    :loan_type_id="$loan_type_id"
+                    :share_holder="0"
+                    :modell="'App\Models\LoanGernalInfo'"
+                    :keyvalue="'property_renovation_optional_documents'"/>
+                    <!-- @error("document")
+                    <div style="color: red;">
+                        {{ $message }}
+                    </div>
+                    @enderror -->
+                </div>
+            </div>
+        </div>
+
         <div class="text-end">
             <br>
             <button class="btn btn-custom" type="button" wire:target="store" wire:click.prevent="store">

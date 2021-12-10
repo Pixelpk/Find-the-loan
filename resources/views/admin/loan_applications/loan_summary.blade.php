@@ -26,7 +26,16 @@
                             @if ($application->application_rejected)
                                 <b style="color: #27B34D">(Rejected)</b>
                             @elseif($application->application_quote)
-                                <b style="color: #27B34D">(Quoted)</b>
+                                @if ($application->application_quote->status == null)
+                                    <b style="color: #27B34D">(Quoted)</b>
+                                @elseif($application->application_quote->status == '1')
+                                    <b style="color: #27B34D">(Customer Applied)</b>
+                                @elseif($application->application_quote->status == '3')
+                                    <b style="color: #27B34D">(Loan offer signed)</b>
+                                @elseif($application->application_quote->status == '4')
+                                    <b style="color: #27B34D">(Loan offer disbursed)</b>
+                                @endif
+                                
                             @endif
                         </span>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -51,7 +60,14 @@
                                                         <a href="{{ route('pending-meet-call',['apply_loan_id'=>$application->id]) }}" type="button" class="dropdown-item change_status" msg="Are you sure to keep it in Pending Meet Call List?">Pending Meet Call</a>
                                                     @endif
                                                 @endif
-                                                <a href="javascript:void(0)" type="button" class="dropdown-item" >Loan Disbursed</a>
+
+                                                @if ($application->application_quote)
+                                                    @if ($application->application_quote->status == '1') 
+                                                    <a href="{{ route('loan-offer-sign',['quote_id'=>$application->application_quote->id, 'status'=>'3']) }}" type="button" class="dropdown-item change_status" msg="Are you sure to sign loan offer?" >Loan Offer sign</a>
+                                                    @elseif($application->application_quote->status == '3')
+                                                    <a href="{{ route('loan-offer-sign',['quote_id'=>$application->application_quote->id, 'status'=>'4']) }}" type="button" class="dropdown-item change_status" msg="Are you sure to change status to loan offer disbursed?">Loan Disbursed</a>
+                                                    @endif
+                                                @endif
                                             </div>
                                         </div>
                                     </li>
@@ -65,7 +81,7 @@
                                         <li class="nav-item">
                                             <a class="btn btn-primary" aria-current="page"
                                                 href="{{ route('more-doc-required',['apply_loan_id'=>$application->id]) }}">
-                                                More doc required
+                                                Request for More doc/Info
                                             </a>
                                         </li>
 
@@ -73,7 +89,7 @@
                                         <li class="nav-item">
                                             <a class="btn btn-primary" id="view_more_doc_detail_btn" data-toggle="modal" data-target="#ViewMoreDocDetails" data-dismiss="modal" aria-label="Close" 
                                                 href="javascript:void(0)">
-                                                View more doc request
+                                                View requested doc
                                             </a>
                                         </li>
                                         @endif

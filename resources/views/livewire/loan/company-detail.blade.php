@@ -249,7 +249,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 mt-4">
-                <livewire:widget.upload-component :label="'subsidairy'" :apply_loan="$apply_loan"
+                <livewire:widget.upload-component :label="'Subsidiary'" :apply_loan="$apply_loan"
                     :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$share_holder"
                     :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'parent_company_subsidairy'" />
             </div>
