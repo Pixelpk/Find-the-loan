@@ -46,5 +46,23 @@
               </div>
           </div> -->
       </div>
-  </section>
+
+    </section>
+    <div class="about-grid mt-2 justify-content-lg-center">
+        <div class="about--img_box">
+            <img class="img-fluid " src="{{ asset('assets/cms/img/about/about-1st.jpg') }}" alt="about img">
+        </div>
+        <div class="about--img_box">
+            <img class="img-fluid " src="{{ asset('assets/cms/img/about/about-2nd.jpg') }}" alt="about img">
+        </div>
+        <div class="about--img_box">
+            <img class="img-fluid " src="{{ asset('assets/cms/img/about/about-3rd.jpg') }}" alt="about img">
+        </div>
+        <div class="about--img_box">
+            <img class="img-fluid " src="{{ asset('assets/cms/img/about/about-4th.jpg') }}" alt="about img">
+        </div>
+        <div class="about--img_box">
+            <img class="img-fluid " src="{{ asset('assets/cms/img/about/about-5th.jpg') }}" alt="about img">
+        </div>
+    </div>
 </div>

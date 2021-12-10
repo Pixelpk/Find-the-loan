@@ -73,16 +73,16 @@
                             <textarea class="contact-input white-input" id="exampleInputbody" placeholder="Message" wire:model="contact_message"></textarea>
                         </div>
 
-                        <button type="submit" class="btn">Send Message</button>
+                        <button type="submit" class="btn btn-custom">Send Message</button>
                     </form>
 
-                </div>
+                </div> <div class="f"></div>
                 <!--end col-sm-6-->
 
                 <!--begin col-sm-6 -->
                 <div class="col-sm-6">
 
-                    <h3>How to find us</h3>
+                    <h3 class="just">How to find us</h3>
 
                     <iframe class="contact-maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13266.458192764883!2d-118.12220140228776!3d33.770625036103965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dd31d82982f643%3A0x1fdc7f26cec72dab!2sCalifornia+State+University+Long+Beach!5e0!3m2!1sro!2sro!4v1496928645987" width="600" height="450" style="border:0" allowfullscreen></iframe>
 

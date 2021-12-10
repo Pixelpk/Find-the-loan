@@ -171,7 +171,7 @@
         </div>
         <div class="col-md-2">
             <div class="mb-3">
-                <label for="useable_area" class="form-label">Quater</label>
+                <label for="useable_area" class="form-label">Quarter</label>
                 <select wire:model="construction_year_time" class="form-select">
                     <option value="">Select</option>
                     <option value="1">Q1</option>
@@ -294,6 +294,41 @@
         </div>
         </div>
         <div class="col-md-6"></div>
+    </div>
+
+    <div class="">
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+    <!-- Optional Documents -->
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <p class="mt-4">Optional Documents</p>
+        </div>
+        <div class="col-md-4">
+            <div class="mb-3">
+                <livewire:widget.upload-component
+                :apply_loan="$apply_loan"
+                :main_type="$main_type"
+                :loan_type_id="$loan_type_id"
+                :share_holder="0"
+                :modell="'App\Models\LoanGernalInfo'"
+                :keyvalue="'property_new_loan_optional_documents'"/>
+               <!--  @error("document")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror -->
+            </div>
+        </div>
     </div>
 
     <div class="mt-3 text-end">

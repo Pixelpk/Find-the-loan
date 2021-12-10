@@ -190,7 +190,7 @@
         </div>
         <div class="col-md-2">
            <div class="mb-3">
-            <label for="useable_area" class="form-label">Quater</label>
+            <label for="useable_area" class="form-label">Quarter</label>
             <select wire:model="construction_year_time" class="form-select">
                 <option value="">Select</option>
                 <option value="1">Q1</option>

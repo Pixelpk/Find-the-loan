@@ -121,9 +121,9 @@
                     <a href="#" class="nav-link">
                         @if(!Auth::guard('web')->check())
                         <!-- LOGIN BUTTON -->
-                        <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
+                        <a href="{{ route('login') }}" class="btnnew1 btn">Login </a>
                         <!-- REGISTER BUTTON -->
-                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
+                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> Register</a>
                         @endif
                     </a>
                 </li>

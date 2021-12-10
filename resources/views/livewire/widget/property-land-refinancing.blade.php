@@ -17,7 +17,7 @@
                </div>
             </div>
             </div>
-    
+
             <div class="row mt-2">
             <div class="col-md-6">
              <div class="mb-3">
@@ -34,9 +34,9 @@
                </div>
             </div>
     </div>
-    
+
     <hr>
-    
+
     <div class="row d-flex align-items-center mt-4">
             <div class="col-md-5">
             <div class="mb-3">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-    
+
             <div class="row mt-2">
             <div class="col-md-6">
              <div class="mb-3">
@@ -91,8 +91,8 @@
              </div>
             </div>
         </div>
-            
-        <div class="row mt-2">  
+
+        <div class="row mt-2">
             <div class="col-md-6">
           <div class="mb-3">
             <label for="lease_remaining" class="form-label">
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-    
+
             <div class="row mt-2">
             <div class="col-md-6">
              <div class="mb-3">
@@ -150,7 +150,7 @@
           </div>
             </div>
         </div>
-            
+
             <div class="row mt-2">
             <div class="col-md-3 col-lg-2">
                 <div class="form-check form-switch mb-3">
@@ -169,12 +169,12 @@
                 </div>
             </div>
         </div>
-            
+
         <div class="row mt-3 text-center">
             <p><b>If applicable </b></p>
         </div>
-    
-        <div class="row mt-2">   
+
+        <div class="row mt-2">
             <div class="col-md-3 col-lg-2">
                 <div class="form-check form-switch mb-3">
                     <input wire:model="completed" class="form-check-input" type="checkbox" id="flexSwitchCheckDefaul3">
@@ -196,7 +196,7 @@
             </div>
             <div class="col-md-2">
              <div class="mb-3">
-                <label for="useable_area" class="form-label">Quater</label>
+                <label for="useable_area" class="form-label">Quarter</label>
                 <select wire:model="construction_year_time" class="form-select">
                     <option value="">Select</option>
                     <option value="1">Q1</option>
@@ -207,10 +207,10 @@
              </div>
             </div>
         </div>
-           
+
         <hr>
-    
-        <div class="row mt-3">   
+
+        <div class="row mt-3">
             <div class="col-md-4">
          <div class="mb-3">
             <div class="form-check form-switch">
@@ -241,14 +241,14 @@
             </div>
             <div class="col-md-4"></div>
         </div>
-            
-        
+
+
             @error("check_offer")
             <div class="row text-danger">
                 {{ $message }}
             </div>
             @enderror
-    
+
             <div class="row mt-3">
                 <label for="preferred_tenure_month" class="form-label">
                     Preferred Tenure
@@ -304,11 +304,11 @@
                 </div>
             </div>
         </div>
-    
+
             <div class="row mt-3">
                 <p><b> Property type</b></p>
             </div>
-    
+
             <div class="row">
             <div class="col-md-2">
                 <div class="form-check mb-3">
@@ -316,7 +316,7 @@
                         id="flexRadioDefault101">
                     <label class="form-check-label" for="flexRadioDefault101">
                         Commercial
-    
+
                     </label>
                 </div>
             </div>
@@ -335,12 +335,12 @@
                         id="flexRadioDefault303">
                     <label class="form-check-label" for="flexRadioDefault303">
                         industrial
-    
+
                     </label>
                 </div>
             </div>
         </div>
-    
+
         <div class="row">
             @error("property_land_property_type")
             <div style="color: red;">
@@ -348,11 +348,11 @@
             </div>
             @enderror
         </div>
-    
+
         <div class="row mt-3">
             <p><b> Geographical location</b></p>
         </div>
-    
+
         <div class="row">
             <div class="col-md-2">
                 <div class="form-check mb-3">
@@ -373,7 +373,7 @@
                 </div>
             </div>
         </div>
-            
+
         <div class="row">
                 @error("property_land_geographical")
                 <div style="color: red;">
@@ -381,14 +381,14 @@
                 </div>
                 @enderror
             </div>
-    
+
             @if($loan_type_id == 14)
             <div class="row mt-3">
                 <p><b>Property/Land is under
                 </b></p>
             </div>
-    
-            <div class="row">   
+
+            <div class="row">
             <div class="col-md-2">
                 <div class="form-check mb-2">
                     <input value="Company name" value="Company name" wire:model="property_land_under" class="form-check-input"
@@ -408,7 +408,7 @@
                 </div>
             </div>
         </div>
-        
+
             <div class="row">
                 @error("property_land_under")
                 <div style="color: red;">
@@ -430,6 +430,42 @@
        </div>
                 </div>
             </div>
+
+            <div class="">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+            <!-- Optional Documents -->
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p class="mt-4">Optional Documents</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <livewire:widget.upload-component
+                        :apply_loan="$apply_loan"
+                        :main_type="$main_type"
+                        :loan_type_id="$loan_type_id"
+                        :share_holder="0"
+                        :modell="'App\Models\LoanGernalInfo'"
+                        :keyvalue="'property_land_refinancing_optional_documents'"/>
+                        <!-- @error("document")
+                        <div style="color: red;">
+                            {{ $message }}
+                        </div>
+                        @enderror -->
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-3 text-end">
                 <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
                     <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
@@ -437,6 +473,6 @@
                     Save &amp; Continue
                 </button>
             </div>
-      
-    
+
+
 </div>

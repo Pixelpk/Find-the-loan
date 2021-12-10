@@ -50,13 +50,13 @@ class ApplyLoan extends Component
     public $amount;
     public $tab = '1';
     public $all_share_holder;
-    
+
     public $listed_company_check = 0;
-   
-   
-    
-    
-    
+
+
+
+
+
     public $apply_loan;
     public $statement;
     public $latest_year;
@@ -68,7 +68,7 @@ class ApplyLoan extends Component
     public $errorMessage;
     public $photo;
     public $errorArray = [];
-    
+
     public $nric_front;
     public $nric_back;
     public $passport;
@@ -76,20 +76,20 @@ class ApplyLoan extends Component
     public $nao_older;
     public $not_proof;
     public $subtab = '1';
-    
+
     public $country;
-    
+
     public $subsidiary;
     public $get_share_holder_type = [];
-    
+
     public $share_holder_optional_revenuee;
     public $getNumberOfCompanyYears;
     public $reason_id;
     public $checkShareHolder;
-    
-   
+
+
     public $lender = [];
-    
+
     public $financial_institute = false;
     public $cbs_member = false;
     public $cbs_member_image;
@@ -109,7 +109,7 @@ class ApplyLoan extends Component
         {
             $this->enable['companyDetail'] = true;
         }
-        
+
         if($this->tab == 5)
         {
             $this->enable['companyDocuments'] = true;
@@ -124,7 +124,7 @@ class ApplyLoan extends Component
         {
             $this->enable['lender'] = true;
         }
-        
+
     }
     public function mount()
     {
@@ -132,7 +132,7 @@ class ApplyLoan extends Component
         $this->mainTypes = [];
         $this->loanReasons = [];
     }
-    
+
     public function pushReason($id)
     {
         $this->reasonValue = [];
@@ -150,9 +150,9 @@ class ApplyLoan extends Component
         //         return;
         //     }
         // }else{
-           
+
         // }
-         
+
     }
     public function getLoanReason($loan_type_id, $key)
     {
@@ -169,7 +169,7 @@ class ApplyLoan extends Component
         if($test){
             $this->loan_type_id = $loan_type_id;
             $this->values = [$loan_type_id => true];
-            
+
         }else{
             $this->loan_type_id = null;
         }
@@ -178,9 +178,9 @@ class ApplyLoan extends Component
         }else{
             $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('loan_type_id', $this->loan_type_id)->where('status', 1)->get();
         }
-        
+
         // dd($this->values);
-       
+
         // $this->goToReasons();
     }
 
@@ -215,7 +215,7 @@ class ApplyLoan extends Component
         foreach($this->reasonValue as $item){
             $reason = $item;
         }
-      
+
         if($this->apply_loan){
             $this->apply_loan->profile = $this->main_type;
             $this->apply_loan->loan_type_id = $this->loan_type_id;
@@ -253,8 +253,8 @@ class ApplyLoan extends Component
         $this->loanReasons = LoanReason::where('profile', $this->main_type)->where('status', 1)->get();
         $this->tab = 2;
     }
-    
-    
+
+
 
     public function storeReason()
     {
@@ -293,12 +293,12 @@ class ApplyLoan extends Component
 
     public function companyDetail()
     {
-       
+
         if(!$this->amount){
            session()->flash('sessionMessage', 'Please select amnount');
-            return;     
+            return;
         }
-        
+
         if($this->apply_loan){
             $this->apply_loan->amount = $this->amount;
             $this->apply_loan->loan_type_id = $this->loan_type_id;
@@ -316,9 +316,9 @@ class ApplyLoan extends Component
         }
 
     }
-    
-    
-    
+
+
+
 
     // public function share_holder_detail()
     // {
@@ -342,13 +342,13 @@ class ApplyLoan extends Component
     //         $this->tab = 7;
     //     }else{
     //         $this->errorMessage  = 'Share holder type required';
-    //         return;  
+    //         return;
     //     }
     // }
 
-   
 
-   
+
+
     ///////gernalinfo
     public function store()
     {
@@ -377,7 +377,7 @@ class ApplyLoan extends Component
         $AL->enquiry_id = date('Y').date('m').$AL->id;
         $AL->update();
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
-            $name = $item['key']; 
+            $name = $item['key'];
             $gernalInfo = new LoanGernalInfo();
             $gernalInfo->key = $item['key'];
             $gernalInfo->type = $item['type'];
@@ -398,17 +398,17 @@ class ApplyLoan extends Component
             $gernalInfo->save();
         }
         $this->apply_loan = $AL;
-       
-      
+
+
         // $this->goToReasons();
         $this->tab = 4;
         $this->comDisable = true;
-      
+
     }
 
     public function updateGernalInfo()
     {
-       
+
         $udpateapply_loan  = ModelsApplyLoan::where('id', $this->apply_loan->id)->first();
         $udpateapply_loan->profile = $this->main_type;
         $udpateapply_loan->reason_id = $this->reason_id;
@@ -427,7 +427,7 @@ class ApplyLoan extends Component
             LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
         }
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
-            $name = $item['key']; 
+            $name = $item['key'];
             $gernalInfo = new LoanGernalInfo();
             $gernalInfo->key = $item['key'];
             $gernalInfo->type = $item['type'];
@@ -447,25 +447,25 @@ class ApplyLoan extends Component
             }
             $gernalInfo->save();
         }
-        
+
         $this->tab = 4;
-        
+
     }
 
-    
 
-    
 
-    
 
-   
+
+
+
+
 
     public function getMap()
     {
         dd('asd');
     }
 
-    
 
-   
+
+
 }
