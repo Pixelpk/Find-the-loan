@@ -75,9 +75,14 @@
                 @livewire('widget.personal-detail', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
                 @endif
-                @if($tab == 8 && $loan_type_id == 15 || $loan_type_id == 27)
+                @if($tab == 8 && $loan_type_id == 15)
                 @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
+
+                @elseif($tab == 8 && $loan_type_id == 27)
+                @livewire('widget.renovation', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
+                'apply_loan' => $apply_loan])
+
 
                 @elseif($tab == 8 && $loan_type_id == 16)
                 @livewire('widget.property-loan', ['loan_type_id' => $loan_type_id, "main_type" => $main_type,
@@ -129,7 +134,7 @@
                 'apply_loan' => $apply_loan])
 
                 @elseif($tab == 8 && $loan_type_id == 7)
-                
+
                 @livewire('cms.loan.business.loan-type.business-debt-consolidation', ['loan_type_id' =>
                 $loan_type_id, "main_type" => $main_type,
                 'apply_loan' => $apply_loan])
@@ -247,7 +252,7 @@
                     <div>
                         <br>
                         <br>
-                        <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                        <button class="btn btn-custom" wire:click="storeReasonLoanType">Save & Continue</button>
                     </div>
                 </div>
                 @else
@@ -255,7 +260,7 @@
                 <div class="row">
                     <br>
                     <br>
-                    <hr>
+                    <hr class="mt-4">
                     <h5>Reason For Loan</h5>
                 </div>
 

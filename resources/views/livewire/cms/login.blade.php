@@ -34,7 +34,7 @@
                                 <span class="customspan">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn mt-3 w-100"
+                            <button type="submit" class="btn btn-custom mt-3 w-100"
                                 type="button" wire:loading.attr='disabled' wire:target='loginAttemp'
                                 wire:click.prevent='loginAttemp'>
                                 Login

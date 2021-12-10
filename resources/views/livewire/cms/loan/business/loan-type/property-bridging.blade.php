@@ -405,7 +405,7 @@
         </div>
         <div class="col-md-2">
             <div class="mb-3">
-                <label for="useable_area" class="form-label">Quater</label>
+                <label for="useable_area" class="form-label">Quarter</label>
                 <select wire:model="construction_year_time" class="form-select">
                     <option value="">Select</option>
                     <option value="1">Q1</option>
@@ -532,11 +532,11 @@
             :share_holder="0"
             :modell="'App\Models\LoanGernalInfo'"
             :keyvalue="'property_bridge_optional_documents'"/>
-            @error("document")
+<!--             @error("document")
             <div style="color: red;">
                 {{ $message }}
             </div>
-            @enderror
+            @enderror -->
         </div>
     </div>
 </div>

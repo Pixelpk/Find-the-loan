@@ -144,11 +144,11 @@
                 :share_holder="0"
                 :modell="'App\Models\LoanGernalInfo'"
                 :keyvalue="'business_purchase_order_optional'"/>
-                @error("document")
+                <!-- @error("document")
                 <div style="color: red;">
                     {{ $message }}
                 </div>
-                @enderror
+                @enderror -->
             </div>
         </div>
     </div>

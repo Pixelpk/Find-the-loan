@@ -276,11 +276,11 @@
                     :share_holder="0"
                     :modell="'App\Models\LoanGernalInfo'"
                     :keyvalue="'property_land_sale_optional_documents'"/>
-                    @error("document")
+                    <!-- @error("document")
                     <div style="color: red;">
                         {{ $message }}
                     </div>
-                    @enderror
+                    @enderror -->
                 </div>
             </div>
         </div>

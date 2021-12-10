@@ -4,7 +4,7 @@
 
     <!-- LENDERS -->
     <div class="row mb-4">
-        <p class="lead fw-bold">Select Lenders</p>
+        <p class="lead fw-bold">Select Financing Partners</p>
         <p style="color:grey;font-size:13px;">The following lenders offer the loan type you chose, factoring the information you have
             entered.
             <br>
@@ -56,8 +56,8 @@
                 <div class="row">
                     @foreach($financePartners as $financePartner)
                     @if($financePartner->type == 1 && $item == 1)
-                    <div class="col-md-6 col-lg-3">
-                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
+                    <div class="col-md-6 col-lg-2">
+                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-3">
                             <div class="lender-bank__img">
                                 <img for="{{ $financePartner->id }}"
                                     src="{{ asset('uploads/financePartnerImages/'.$financePartner->image) }}" alt=""
@@ -67,8 +67,8 @@
                         </div>
                     </div>
                     @elseif($financePartner->type == 2 && $item == 2)
-                    <div class="col-md-6 col-lg-3">
-                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-2">
+                    <div class="col-md-6 col-lg-2">
+                        <div class="lender-bank d-flex justify-content-between align-items-center px-3 py-3">
                             <div class="lender-bank__img">
                                 <img for="{{ $financePartner->id }}"
                                     src="{{ asset('uploads/financePartnerImages/'.$financePartner->image) }}" alt=""
@@ -107,8 +107,8 @@
         </div>
     </div>
 
-    <div class="mt-4 mb-3" style="text-align: end;">
-        <button class="btn" wire:click="storeLender">Send Enquiry</button>
+    <div class="text-center">
+        <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
     
 </section>

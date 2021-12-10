@@ -223,8 +223,8 @@
 
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
-        <button class="btn" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
-            <span wire:loading wire:target="confirmationMessage" class="spinner-border spinner-border-sm" role="status"
+        <button class="btn btn-custom" type="button" wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
+            <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>
             Save @if($share_holder == 0) & Continue @endif
         </button>
