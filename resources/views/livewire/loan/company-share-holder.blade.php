@@ -209,7 +209,7 @@
                     <input wire:change="getShareholderTypeId({{ $item['id'] }})"
                         wire:model="company_share_holder.{{ $share_holder }}" class="form-check-input" type="checkbox"
                         id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">This shareholder is a comapny</label>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">This shareholder is a company</label>
                     <br>
                     <br>
                 </div>

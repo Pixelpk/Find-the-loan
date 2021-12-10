@@ -49,14 +49,19 @@ class ProjectFinance extends Component
     
    
     public function store()
-    {
-       $this->validate([
-           'amount' => 'required|integer|min:1',
-           'tenure' => 'required|integer|min:1',
-           'document' => 'required',
-       ],[
-           'document.required' => "The document is required.",
-       ]);
+    {  
+
+        $exist =  Media::where('apply_loan_id', $this->apply_loan->id)->first();
+       
+        if(!$exist){
+            $this->validate([
+               'amount' => 'required|integer|min:1',
+               'tenure' => 'required|integer|min:1',
+               'document' => 'required',
+           ],[
+               'document.required' => "The document is required.",
+           ]);
+        }
 
        $data = [
              ['type' => 'number', 'value' => $this->tenure, 'key' => 'tenure'], 
