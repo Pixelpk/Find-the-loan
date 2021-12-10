@@ -238,7 +238,7 @@
                     <div>
                         <br>
                         <br>
-                        <button class="btn" wire:click="storeReasonLoanType">Save & Continue</button>
+                        <button class="btn btn-custom" wire:click="storeReasonLoanType">Save & Continue</button>
                     </div>
                 </div>
                 @endif

@@ -191,7 +191,7 @@
                 </div>
                 <div class="ro">
                     <br>
-                    <button class="btn" type="button" wire:target='share_holder_document_store'
+                    <button class="btn btn-custom" type="button" wire:target='share_holder_document_store'
                         wire:click.prevent='share_holder_document_store({{ $item['id'] }})'>
                         <span wire:loading wire:target="share_holder_document_store"
                             class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -249,7 +249,7 @@
     </div>
     <div class="ro text-end">
 
-        <button class="btn" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
+        <button class="btn btn-custom" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
             <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>
             Save Continue

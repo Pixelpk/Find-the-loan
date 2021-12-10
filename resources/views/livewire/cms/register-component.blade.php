@@ -75,10 +75,10 @@
         
                         </div>
         
-                      <button class="btn mt-3 w-100" type="button" wire:loading.attr='disabled'
+                      <button class="btn btn-custom mt-3 w-100" type="button" wire:loading.attr='disabled'
                             wire:target='store' wire:click.prevent='store'>
                             Register
-                            <div wire:loading wire:target="store">
+                            <div wire:loading wire:target="store"> 
                                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true">
                                 </span>
                             </div>

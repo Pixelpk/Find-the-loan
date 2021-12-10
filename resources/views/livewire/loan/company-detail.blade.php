@@ -259,7 +259,7 @@
     <!-- SAVE & CONTINUE BUTTON -->
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
-        <button class="btn" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
+        <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
             <div wire:loading wire:target="confirmationMessage">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             </div>

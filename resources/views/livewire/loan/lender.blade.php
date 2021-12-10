@@ -96,7 +96,7 @@
     </div>
 
     <div class="text-center">
-        <button class="btn" wire:click="storeLender">Send Enquiry</button>
+        <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
 
     <div class="row mt-3 d-flex">
