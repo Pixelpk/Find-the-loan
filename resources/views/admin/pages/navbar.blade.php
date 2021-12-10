@@ -49,6 +49,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('replied-with-docs') }}" class="@if(Route::CurrentRouteName() == 'replied-with-docs') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Replied with docs </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('pending-meet-applications') }}" class="@if(Route::CurrentRouteName() == 'pending-meet-applications') mm-active @endif">
                             <i class="fa fa-money-bill-alt"></i><span> Pending meet call </span>
                         </a>

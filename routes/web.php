@@ -24,7 +24,6 @@ use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\GlossaryComponenet;
 use App\Http\Livewire\Cms\FaqComponent;
 use App\Http\Livewire\Cms\PrivacyPolicyComponent;
-use App\Http\Livewire\Cms\FinancialInclusionComponent;
 use App\Http\Livewire\Cms\TermsConditionsComponent;
 use App\Http\Livewire\Cms\ApplyLoan;
 use App\Http\Livewire\Cms\BlogComponent;
@@ -40,7 +39,6 @@ use App\Http\Livewire\Customer\MoreDocRequests;
 use App\Http\Livewire\Customer\QuotationDetails;
 use App\Http\Livewire\Customer\Quotations;
 use App\Http\Livewire\Customer\RejectedEnquiries;
-use App\Models\LoanCompanyDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +51,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('application-no-action-cronjob',[CronJobController::class,'applicationsNoActionCronJob']);
 Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
 
@@ -95,6 +94,7 @@ Route::group(['middleware'=>['auth:partners','partner']],function (){
 
 });
 Route::group(['middleware'=>['auth:users,partners']],function (){
+
     Route::group(['middleware'=>['admin']],function (){
         Route::get('/site-data', [SiteController::class,'siteData'])->name('site-data');
         Route::post('/submit-site-data', [SiteController::class,'submitSiteData'])->name('submit-site-data');
@@ -167,7 +167,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
         
         Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required'); 
+        Route::get('replied-with-docs', [MoreDocController::class,'repliedWithDocs'])->name('replied-with-docs'); 
+        Route::get('replied-doc-details', [MoreDocController::class,'repliedDocDetails'])->name('replied-doc-details'); 
         Route::post('more-doc-request', [MoreDocController::class,'moreDocRequest'])->name('more-doc-request'); 
+        Route::get('ask-more-docs-applications',[MoreDocController::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
 
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
@@ -190,7 +193,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
         Route::get('rejected-applications',[LoanApplications::class,'rejectedApplications'])->name('rejected-applications');
         Route::get('assigned-out',[LoanApplications::class,'assginedOutApplications'])->name('assigned-out');
-        Route::get('ask-more-docs-applications',[LoanApplications::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
         
         
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
@@ -216,8 +218,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
-    // Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
-    // Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
@@ -241,11 +241,4 @@ Route::group(['middleware'=>['customer']],function (){
 
     
 });
-Route::get('test', function (){
-    $date = "10-10-2021";
-    $day = "30";
-    $cout = date('Y-m-d', strtotime($date. ' - 30 day'));
-    // return $cout;
-    $currentDate = date('Y-m-d');
-    
-});
+

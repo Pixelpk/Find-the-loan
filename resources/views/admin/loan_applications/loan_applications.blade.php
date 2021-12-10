@@ -87,20 +87,20 @@
                             <div class="card-body">
                                 @if ($profile == '1')
                                 <div class="table-rep-plugin">
-                                    <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
                                         <table id="loan_application_table" class="table table-hover table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
                                                 <th>Enquiry ID</th>
-                                                <th>Date Received</th>
+                                                <th>Assigned to</th>
+                                                <th>Date Assigned</th>
                                                 <th>Name</th>
                                                 <th>Profitable latest year</th>
                                                 <th>Profitable year before</th>
                                                 <th>Incorporated for</th>
                                                 <th>Loan type</th>
-                                                <th>Assigned to</th>
-                                                <th>Date Assigned</th>
+                                                <th>Date Received</th>
                                                 <th>Action Done</th>
                                                 <th>Market Status</th>
                                             </tr>
@@ -115,7 +115,14 @@
                                                     </td>
                                                     <td>{{ $application->enquiry_id }}</td>
                                                     <td>
-                                                        {{ $application->created_at }}
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->user->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
@@ -129,21 +136,14 @@
                                                     <td>
                                                         @php
                                                             $start_date = explode('/',$application->loan_company_detail->company_start_date ?? '');
-                                                        @endphp
+                                                            @endphp
                                                         {{$start_date[0] ?? '0' }} years , {{$start_date[1] ?? '0'}} months ago
                                                     </td>
                                                     <td>
                                                         {{ $application->loan_type->sub_type }}
                                                     </td>
                                                     <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->user->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->created_at }}
-                                                        @endif
+                                                        {{ date('Y-m-d',strtotime($application->created_at)) }}
                                                     </td>
                                                     <td>
                                                         @if($application->application_rejected)
@@ -169,21 +169,21 @@
                                 @else
 
                                 <div class="table-rep-plugin">
-                                    <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
                                         <table id="loan_application_table" class="table table-hover table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
                                                 <th>Enquiry ID</th>
-                                                <th>Date Received</th>
+                                                <th>Assigned to</th>
+                                                <th>Date Assigned</th>
                                                 <th>User</th>
                                                 <th>NRIC</th>
                                                 <th>Nationality</th>
                                                 <th>Age</th>
                                                 <th>Estimated monthly income</th>
                                                 <th>Loan type</th>
-                                                <th>Assigned to</th>
-                                                <th>Date Assigned</th>
+                                                <th>Date Received</th>
                                                 <th>Action Done</th>
                                                 <th>Market Status</th>
                                             </tr>
@@ -198,7 +198,14 @@
                                                     </td>
                                                     <td>{{ $application->enquiry_id }}</td>
                                                     <td>
-                                                        {{ $application->created_at }}
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ $application->assigned_to_user->user->name }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($application->assigned_to_user != null)
+                                                            {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
@@ -211,14 +218,8 @@
                                                         {{ $application->loan_type->sub_type }}
                                                     </td>
                                                     <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->user->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->created_at }}
-                                                        @endif
+                                                        
+                                                        {{ date('Y-m-d',strtotime($application->created_at)) }}
                                                     </td>
                                                     <td>
                                                         @if($application->application_rejected)
