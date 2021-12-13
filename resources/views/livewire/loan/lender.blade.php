@@ -106,8 +106,8 @@
         </div>
     </div>
 
-    <div class="mt-4 mb-3" style="text-align: end;">
-        <button class="btn" wire:click="storeLender">Send Enquiry</button>
+    <div class="text-center">
+        <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
     
 </section>

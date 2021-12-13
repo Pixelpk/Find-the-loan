@@ -158,33 +158,6 @@ class LoanApplications extends Controller
         return view('admin.loan_applications.rejected-loan-applications', $data);
     }
 
-    public function askMoreDocsApplications(Request $request)
-    {
-        $loggedin_user = $request->user();
-        $logged_user_id = $loggedin_user->id;
-        $partner_id = Session::get('partner_id');
-        $parent_id = $loggedin_user->parent_id;
-
-        $data['applications'] = ApplyLoan::select('*')
-            ->whereHas('loan_lender_details', function ($query) use ($partner_id) {
-                $query->where('lender_id', '=', $partner_id)->where('status', 1);
-            })
-            ->whereHas('application_more_doc', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
-                $query->where('partner_id', '=', $partner_id);
-                //checking if finance partner admin is not loggedIn then only get assigned applications of user
-                if ($parent_id != 0) {
-                    $query->where('user_id', '=', $logged_user_id);
-                }
-            })->with([
-                'loan_company_detail', 'loan_reason',
-                'assigned_application',
-                'loan_type:id,sub_type',
-                'loan_user:id,first_name,last_name',
-            ])->paginate(20);
-        // return $data; 
-        return view('admin.loan_applications.more-doc-request-list', $data);
-    }
-
 
     public function assginedOutApplications(Request $request)
     {

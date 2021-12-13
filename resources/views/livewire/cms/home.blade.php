@@ -1,17 +1,17 @@
 <main id="hero">
 <!-- HOME SLIDER -->
-<div class="about-slider sec-container">
+<div class="about-slider sec-container pt-4">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block" src="{{asset('assets/cms/img/Home/image1.jpg')}}" alt="First slide">
+      <img class="d-block" src="{{asset('assets/cms/img/Home/img12.jpg')}}" alt="First slide">
       <div class="carousel-caption d-none d-md-block">
       <h3 class="fw-bold mb-0 animated bounceInLeft" style="animation-delay: 1s;">Be it for your business</h3>
       <h4 class="animated bounceInRight" style="animation-delay: 2s;">Or an investment for your future.</h4>
 </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block" src="{{asset('assets/cms/img/Home/image3.jpg')}}" alt="Second slide">
+      <img class="d-block" src="{{asset('assets/cms/img/Home/_image3.jpg')}}" alt="Second slide">
       <div class="carousel-caption d-none d-md-block">
         <h4 class="mb-0 animated slideInDown" style="animation-delay: 1s;">We believe no hardworking entrepreneurs should be allowed to fail due to disruption in cash flow and no individuals should be denied the opportunity to fulfil their dreams from poor access to financing.</h4>
   </div>

@@ -22,7 +22,7 @@
                 </div>
 
                 @endif
-               
+
                 <div class="card">
                     <div class="card-body">
                         <h3 class="text-center">Signup</h3>
@@ -43,24 +43,24 @@
                             <span class="customspan">{{ $message }}</span>
                             @enderror
                         </div>
-        
+
                         <div>
                             <input style="margin-top:15px;" class="contact-input white-input custominput" wire:model="email"
                                 placeholder="Email *" type="email">
                             @error('email')
                             <span class="customspan">{{ $message }}</span>
                             @enderror
-                            
+
 
                         </div>
-        
+
                         <div>
                             <input style="margin-top:15px;" class="contact-input white-input custominput" wire:model="phone"
                                 placeholder="Phone *" type="tel">
                             @error('phone')
                             <span class="customspan">{{ $message }}</span>
                             @enderror
-        
+
                         </div>
                         <div>
                             <input style="margin-top:15px;" class="contact-input white-input custominput" wire:model="password"
@@ -68,11 +68,11 @@
 
                             <span>Please include at least one letter one number and one special character.</span>
                             <br>
-                            
+
                             @error('password')
                             <span class="customspan">{{ $message }}</span>
                             @enderror
-                            
+
                         </div>
                         <div>
                             <input style="margin-top:15px;" class="contact-input white-input custominput"
@@ -80,10 +80,10 @@
                             @error('confirm_password')
                             <span class="customspan">{{ $message }}</span>
                             @enderror
-        
+
                         </div>
-        
-                      <button class="btn mt-3 w-100" type="button" wire:loading.attr='disabled'
+
+                      <button class="btn btn-custom mt-3 w-100" type="button" wire:loading.attr='disabled'
                             wire:target='store' wire:click.prevent='store'>
                             Signup
                             <div wire:loading wire:target="store">
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-               
+
 
 
                 <!--end contact form -->

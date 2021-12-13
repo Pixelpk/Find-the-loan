@@ -30,4 +30,9 @@ class MoreDocRequireRequest extends Model
         return $this->belongsTo(FinancePartner::class,'partner_id','id');
     }
 
+    public function replied_doc_details()
+    {
+        return $this->hasOne(RepliedWithDocs::class,'more_doc_request_id','id');
+    }
+
 }

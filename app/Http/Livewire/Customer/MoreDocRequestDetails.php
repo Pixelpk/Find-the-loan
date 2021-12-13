@@ -84,21 +84,34 @@ class MoreDocRequestDetails extends Component
 
             foreach ($value as $key2 => $value2) {
                 // dd($value2);
-                $replied_docs[$i]['quote_additional_docs_id'] = $key1;
-                $replied_docs[$i]['lable'] = $key2;
                 if (isset($value2['text'])) {
+                    $replied_docs[$i]['quote_additional_docs_id'] = $key1;
+                    $replied_docs[$i]['lable'] = $key2;
+
                     $empty = false;
                     $replied_docs[$i]['doc_type'] = "text";
                     $replied_docs[$i]['value'] = $value2['text'];
                 } elseif (isset($value2['file'])) {
+                    $replied_docs[$i]['quote_additional_docs_id'] = $key1;
+                    $replied_docs[$i]['lable'] = $key2;
+
                     $empty = false;
                     $replied_docs[$i]['doc_type'] = "file";
-                    $replied_docs[$i]['value'] = $value2['file']->store('replied_with_doc/' . date("Ymd-his"));
-                } elseif (isset($value2['number'])) {
+                    $replied_docs[$i]['value'] = $value2['file']->store('public/replied_with_doc');
+                } elseif (isset($value2['number']) && ($value2['number'] != "")) {
+                    $replied_docs[$i]['quote_additional_docs_id'] = $key1;
+                    $replied_docs[$i]['lable'] = $key2;
+
                     $empty = false;
                     $replied_docs[$i]['doc_type'] = "number";
                     $replied_docs[$i]['value'] = $value2['number'];
+                    if(isset($value2['area_parameter'])){
+                        $replied_docs[$i]['area_parameter'] = $value2['area_parameter'];
+                    }
                 } elseif (isset($value2['dropdown'])) {
+                    $replied_docs[$i]['quote_additional_docs_id'] = $key1;
+                    $replied_docs[$i]['lable'] = $key2;
+
                     $empty = false;
                     $replied_docs[$i]['doc_type'] = "dropdown";
                     $replied_docs[$i]['value'] = $value2['dropdown'];
@@ -112,8 +125,11 @@ class MoreDocRequestDetails extends Component
             return;
         }
 
+        // dd($replied_docs);
+
         $reply = new RepliedWithDocs();
         $reply->more_doc_request_id = $this->more_doc_request_id;
+        $reply->apply_loan_id = $this->more_doc_request_detail->apply_loan_id;
         $reply->replied_docs = $replied_docs;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
