@@ -123,7 +123,7 @@
                         <!-- LOGIN BUTTON -->
                         <a href="{{ route('login') }}" class="btnnew1 btn">LOGIN </a>
                         <!-- REGISTER BUTTON -->
-                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> REGISTER</a>
+                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> Signup</a>
                         @endif
                     </a>
                 </li>

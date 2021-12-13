@@ -2741,3 +2741,12 @@ E. Template Specific Elements
     text-overflow: ellipsis;
     /* width: 150px; */
 }
+
+.tooltip-c .custom-tooltip-text::after{
+    left: 2%;
+}
+.tooltip-c .custom-tooltip-text{
+    width: 500px !important;
+    left: 105%;
+    margin-left: -15px;
+}

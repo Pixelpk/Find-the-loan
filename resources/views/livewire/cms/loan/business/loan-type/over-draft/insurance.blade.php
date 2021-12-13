@@ -125,6 +125,30 @@
     </div>
 
     <div class="row mt-3">
+
+        @if($company_purchased_from == 'other')
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6">
+           <div class="mb-3">
+            <label for="other_purchased_from" class="form-label">
+                Other Company Purchased From
+            </label>
+            <div class="input-form mb-3">
+                <input wire:model="other_purchased_from" type="text" class="form-control" aria-label="other_purchased_from"
+                    aria-describedby="basic-addon2">
+
+            </div>
+            @error("other_purchased_from")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+           </div>
+        </div>
+        @endif
+
         <div class="col-md-5">
           <div class="mb-3">
             <label for="surrender_value" class="form-label">
