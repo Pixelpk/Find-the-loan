@@ -2350,6 +2350,10 @@ E. Template Specific Elements
     }
 }
 
+.pt_20p{
+    padding-top: 20px;
+}
+
 @media (min-width: 75rem) {
     html {
         font-size: 100%;
@@ -2540,6 +2544,10 @@ E. Template Specific Elements
     .ts-carousel-centered .owl-nav .owl-prev {
         left: 2.5rem;
     }
+}
+
+.pt-20p{
+    padding-top: 20px;
 }
 /**----footer----**/
 /* .site-footer

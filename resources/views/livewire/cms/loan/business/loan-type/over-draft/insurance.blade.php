@@ -106,7 +106,7 @@
                      <option value="{{ $item }}">{{ $item }}</option>
                      @endforeach
                  </optgroup>
-                 <optgroup label="Local/Foreign Banks">
+                 <optgroup label="Foreign Banks">
                      @foreach(Config::get('gernalinfo.bank.foreign_bank') as $item)
                      <option value="{{ $item }}">{{ $item }}</option>
                      @endforeach
@@ -124,13 +124,13 @@
          </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row">
 
         @if($company_purchased_from == 'other')
-        <div class="col-md-6">
+        <div class="col-md-9">
             
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
            <div class="mb-3">
             <label for="other_purchased_from" class="form-label">
                 Other Company Purchased From
