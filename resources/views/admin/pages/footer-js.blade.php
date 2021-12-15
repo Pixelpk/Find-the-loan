@@ -216,7 +216,7 @@
                     'selected_list':SelectedList
                 }
             }).done(function (data) {
-                window.location.href = "{{ route('loan-applications',['profile'=>$_GET['profile']]) }}";
+                window.location.href = "{{ route('loan-applications',['profile'=>$_GET['profile'] ?? 1]) }}";
             });
         });
         // $('#application_filter_btn').click(function (){

@@ -268,12 +268,12 @@ class FinancePartnerController extends Controller
         $partner->fill($data)->save();
 
         //update meta details of finance partner
-        $update_details =  FinancePartnerMeta::where('partner_id',$if_partner->id)
+        $update_details =  FinancePartnerMeta::where('partner_id',$partner->id)
         ->where('key_name','terms_condition')->first();
         if(!$update_details){
             $update_details = new FinancePartnerMeta();
             $update_details->key_name = "terms_condition";
-            $update_details->partner_id = $if_partner->id;
+            $update_details->partner_id = $partner->id;
         }
         $update_details->value = $data['terms_condition'];
         $update_details->save();
@@ -346,12 +346,12 @@ class FinancePartnerController extends Controller
         $partner->fill($data)->save();
 
         //update meta details of finance partner
-        $update_details =  FinancePartnerMeta::where('partner_id',$partner->id)
+        $update_details =  FinancePartnerMeta::where('partner_id',$data['id'])
         ->where('key_name','terms_condition')->first();
         if(!$update_details){
             $update_details = new FinancePartnerMeta();
             $update_details->key_name = "terms_condition";
-            $update_details->partner_id = $partner->id;
+            $update_details->partner_id = $data['id'];
         }
         $update_details->value = $data['terms_condition'];
         $update_details->save();

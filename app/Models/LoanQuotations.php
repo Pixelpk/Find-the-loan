@@ -106,7 +106,7 @@ class LoanQuotations extends Model
     protected $fillable = [
         'apply_loan_id','partner_id','quoted_by','quantum_interest','one_time_fee',
         'monthly_fee','annual_fee','legal_fee','if_insurance_required','eir',
-        'repayment','quote_validity'
+        'repayment','quote_validity','status'
     ];
 
     public function loan_application()

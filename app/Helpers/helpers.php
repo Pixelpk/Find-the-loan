@@ -157,3 +157,10 @@ function isJointAccountRequired($value)
     return $all[$value];
 }
 
+function loan_quotation_status($status)
+{
+    //0=quoted, 1=proceeded, 2=loan no longer required, 3=offer signed, 4=loan_disbursed
+    $all = ['Quoted',"Proceeded","Loan no longer required",'Letter of offer Signed','Loan Disbursed'];
+    return $all[$status];
+}
+

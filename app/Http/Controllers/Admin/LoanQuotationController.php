@@ -69,6 +69,7 @@ class LoanQuotationController extends Controller
         $fill['apply_loan_id'] = $request->apply_loan_id;
         $fill['partner_id'] = Session::get('partner_id'); // id of finance partner
         $fill['quoted_by'] = Auth::user()->id; // id of loggedin finance partner user
+        $fill['status'] = 0; // 0=quoted, 1=proceeded, 2=loan no longer required, 3=offer signed, 4=loan_disbursed
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
         $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();

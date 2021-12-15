@@ -89,20 +89,29 @@
                                                                 @if($item['total_more_doc_requests'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_more_doc_requests']*100)/$item['total_viewed_applications']}} %) @endif
                                                             </td>
                                                             <td>0</td>
-                                                            <td>0</td>
+                                                            <td>
+                                                                {{$item['total_replied_with_docs_applications']}} 
+                                                                @if($item['total_replied_with_docs_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_replied_with_docs_applications']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
                                                             <td>{{$item['total_assigned_out_application']}} 
                                                                 @if($item['total_assigned_out_application'] >0 && $item['total_viewed_applications'] > 0) ({{($item['total_assigned_out_application']*100)/$item['total_viewed_applications']}} %) @endif
                                                             </td>
                                                             <td>{{$item['total_quoted_application']}} 
                                                                 @if($item['total_quoted_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_quoted_application']*100)/$item['total_viewed_applications']}} %) @endif
                                                             </td>
-                                                            <td>0</td>
+                                                            <td>
+                                                                {{$item['total_customer_applied_applications']}} 
+                                                                @if($item['total_customer_applied_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_customer_applied_applications']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
                                                             <td>
                                                                 {{$item['total_meet_call_application']}} 
                                                                 @if($item['total_meet_call_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_meet_call_application']*100)/$item['total_viewed_applications']}} %) @endif
                                                             </td>
                                                             <td>0</td>
-                                                            <td>0</td>
+                                                            <td>
+                                                                {{$item['total_loan_not_required_applications']}} 
+                                                                @if($item['total_loan_not_required_applications'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_loan_not_required_applications']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
                                                             <td>
                                                                 {{$item['total_offer_signed_application']}} 
                                                                 @if($item['total_offer_signed_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_offer_signed_application']*100)/$item['total_viewed_applications']}} %) @endif
@@ -160,7 +169,13 @@
                                                                 Among xx cases: {{$month['quoted']['quoted_count']}}<br>
                                                                 Disbursed to quoted ratio: <br>
                                                             </td>
-                                                            <td></td>
+                                                            <td>
+                                                                Total loan disbursed: {{ $month['disbursed']['total_loan_disbursed'] }}<br>
+                                                                Average loan size: {{ $month['disbursed']['disbursed_average_loan_size'] }}<br>
+                                                                Average interest: {{ $month['disbursed']['disbursed_average_interest'] }}<br>
+                                                                Average tenure: {{ $month['disbursed']['disbursed_average_tenure'] }}<br>
+                                                                Among xx cases: {{$month['disbursed']['disubursed_count']}}
+                                                            </td>
                                                         </tr>
                                                 @endforeach
                                             </tbody>

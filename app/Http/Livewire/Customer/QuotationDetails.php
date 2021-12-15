@@ -37,20 +37,33 @@ class QuotationDetails extends Component
         return view('livewire.customer.quotation-details')->layout('customer.layouts.master');
     }
 
-    public function proceedAlert(){
+    public function proceedAlert($message,$function,$confirmBtnText){
 
-        $this->dispatchBrowserEvent('proceed_with_quotation', ['message' => "I give consent to selected financing partner to contact me to complete the loan application.", "function" => "proceedWithQuotation"]);
+        $this->dispatchBrowserEvent('proceed_with_quotation', ['message' =>$message, "function" => $function,'confirmButtonText'=>$confirmBtnText]);
 
     }
 
     public function proceedWithQuotation()
     {
         try{
-            LoanQuotations::where('id',$this->quote_id)->whereNull('status')->update(['status'=>1,'proceeded_at'=>date('Y-m-d H:i')]); //status=>1=Customer Applied
+            LoanQuotations::where('id',$this->quote_id)->where('status',0)->update(['status'=>1,'proceeded_at'=>date('Y-m-d H:i')]); //status=>1=Customer Applied
             $this->emit('alert', ['type' => 'success', 'message' => 'Quotation is accepted successfully.']);
             $this->mount();
         }catch(Exception $exception){
-            $this->emit('alert', ['type' => 'success', 'message' => 'Oops. something went wrong.']);
+            $this->emit('danger', ['type' => 'error', 'message' => 'Oops. something went wrong.']);
+
+            $this->mount();
+        }
+    }
+
+    public function loanNoLongerRequired()
+    {
+        try{
+            LoanQuotations::where('id',$this->quote_id)->where('status',0)->update(['status'=>2,'loan_not_required_at'=>date('Y-m-d H:i')]); //status=>2=Loan no longer required
+            $this->emit('alert', ['type' => 'success', 'message' => 'Loan no longer required is successfully done.']);
+            $this->mount();
+        }catch(Exception $exception){
+            $this->emit('danger', ['type' => 'error', 'message' => 'Oops. something went wrong.']);
 
             $this->mount();
         }
