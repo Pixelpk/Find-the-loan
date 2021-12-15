@@ -16,7 +16,7 @@ class PersonalDetail extends Component
     public $personalDetail = [];
     public $income_proof;
     public $relation;
-    public $other_relation;
+    // public $other_relation;
     public $customValidation;
     public $employee_type = "self_employee";
     public function mount()
@@ -141,7 +141,7 @@ class PersonalDetail extends Component
             $this->validate([
                 'income_proof' => 'required',
                 'relation' => 'required',
-                'other_relation' => $this->relation == "other" ?  'required' : '',
+                // 'other_relation' => $this->relation == "other" ?  'required' : '',
             ]);
 
             $PD = ModelsPersonalDetail::forceCreate([

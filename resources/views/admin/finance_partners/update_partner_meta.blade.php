@@ -26,15 +26,15 @@
                                     @csrf
                                     <div class="form-group">
                                         <h5>Terms & conditions(such as fees for late payment, early termination, how is it calculated etc)</h5>
-                                        <textarea type="text" class="form-control ckeditor"  name="terms_condition" ></textarea>
+                                        <textarea type="text" class="form-control"  name="terms_condition" ></textarea>
                                     </div>
                                     <div class="form-group">
                                         <h5>Promo</h5>
-                                        <textarea type="text" class="form-control ckeditor"  name="promo" ></textarea>
+                                        <textarea type="text" class="form-control"  name="promo" ></textarea>
                                     </div>
                                     <div class="form-group">
                                         <h5>Subsidy & Features</h5>
-                                        <textarea type="text" class="form-control ckeditor"  name="subsidy_features" ></textarea>
+                                        <textarea type="text" class="form-control"  name="subsidy_features" ></textarea>
                                     </div>
 
                                     <div class="add_board_rate_div">

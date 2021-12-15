@@ -57,6 +57,11 @@ class FinancePartner extends Authenticatable
     {
         return $this->hasMany(LoanQuotations::class, 'partner_id', 'id');
     }
+    
+    public function partner_disbursed_applications()
+    {
+        return $this->hasMany(LoanQuotations::class, 'partner_id', 'id');
+    }
 
     //getting id of apply_loan against partner
     public function partner_applications()
@@ -65,15 +70,28 @@ class FinancePartner extends Authenticatable
     }
 
     public function user_all_disbursed_application(){
-        return $this->hasMany(LoanQuotations::class,'quoted_by','id');
+        return $this->hasMany(LoanQuotations::class,'quoted_by','id'); //where offer_disbursed_at not null
     }
 
     public function user_all_offer_signed_application(){
-        return $this->hasMany(LoanQuotations::class,'quoted_by','id');
+        return $this->hasMany(LoanQuotations::class,'quoted_by','id'); //where offer_disbursed_at not null
     }
 
     public function user_all_call_meet_application(){
         return $this->hasMany(PendingMeetCall::class,'partner_user_id','id');
+    }
+
+    public function requested_more_doc_replied_applications(){
+        return $this->hasMany(MoreDocRequireRequest::class,'user_id','id');
+    }
+
+    
+    public function customer_applied_quoted_applications(){
+        return $this->hasMany(LoanQuotations::class,'quoted_by','id')->whereNotNull('proceeded_at');
+    }
+
+    public function loan_no_longer_required_applications(){
+        return $this->hasMany(LoanQuotations::class,'quoted_by','id')->whereNotNull('loan_not_required_at');
     }
 
 }

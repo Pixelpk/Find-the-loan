@@ -137,7 +137,12 @@
                     if(detail.subsidiaries ==  1){
                         $('#edit_subsidiaries').prop('checked', true);
                     }
-                    CKEDITOR.instances['edit_partner_terms_condition'].setData(detail.partner_terms_condition.value);
+                    if(detail.partner_terms_condition && detail.partner_terms_condition.value){
+                        console.log('i am hereeee')
+                        CKEDITOR.instances['edit_partner_terms_condition'].setData(detail.partner_terms_condition.value);
+                    }else{
+                        CKEDITOR.instances['edit_partner_terms_condition'].setData("");
+                    }
                     if (detail.image != "") {
                         var imgsrc = detail.image;
                         var src = "{{ asset('uploads/financePartnerImages/') }}" + "/" + imgsrc;
