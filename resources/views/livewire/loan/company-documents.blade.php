@@ -199,7 +199,7 @@
                 to still furnish them if you have them readily on hand instead of waiting for them to ask and delay your
                 getting of a loan quote. Or especially if you have been rejected by a bank due to multiple layers, to do
                 so, please attach the same range of documents you have just provided such as bank statements, NRIC, NOA
-                etc for all shareholders at all layers with the choose file button beside.
+                etc for all shareholders at all layers with the choose file button below.
             
         </div>
         <div class="col-md-4">

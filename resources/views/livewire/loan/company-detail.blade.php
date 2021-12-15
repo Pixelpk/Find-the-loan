@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1 d-flex align-items-end justify-content-center">
+            <div class="col-md-1 d-flex justify-content-center pt-5">
                 <p class="fw-bold">or</p>
             </div>
             <div class="col-md-6">

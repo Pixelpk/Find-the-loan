@@ -65,7 +65,12 @@
         </div>
         <div class="col-md-4 ">
             <div class="mb-3">
-                <label for="amount" >Amount required</label>
+                <label for="amount" >Amount required
+                    <div class="tooltip-c">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="tooltip-text custom-tooltip-text">Amount required is the amount you are aiming to borrow for that loan type. You may still reduce it prior to signing Loan Offer Letter.</span>
+                    </div>
+                </label>
                 <br>
                 <span style="font-size:12px;"> (It should not be more than outstanding value of invoice)
                 </span>

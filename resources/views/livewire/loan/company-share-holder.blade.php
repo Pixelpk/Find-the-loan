@@ -110,8 +110,23 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <p class="mb-1"> <b>Personal NOA</b></p>
+                    
+                    <span class="d-flex">
+                        <p class="mb-1"> 
+
+                        <b>Personal NOA</b>
+                        
+                        &nbsp;&nbsp;
+                        <div class="tooltip-c" style="font-size: 16px; color: #ff0000c4;">
+                            <i class="fa fa-info-circle"></i>
+                            <span class="tooltip-text">Hello World</span>
+                        </div>
+                    </p>
+
+                    </span>
                     <p class="mb-1">(Notice of Assessment) 2 Years</p>
+
+                  
                 </div>
 
                 <div class="row">
