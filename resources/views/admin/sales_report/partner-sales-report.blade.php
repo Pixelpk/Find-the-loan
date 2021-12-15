@@ -97,11 +97,20 @@
                                                                 @if($item['total_quoted_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_quoted_application']*100)/$item['total_viewed_applications']}} %) @endif
                                                             </td>
                                                             <td>0</td>
+                                                            <td>
+                                                                {{$item['total_meet_call_application']}} 
+                                                                @if($item['total_meet_call_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_meet_call_application']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
                                                             <td>0</td>
                                                             <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
-                                                            <td>0</td>
+                                                            <td>
+                                                                {{$item['total_offer_signed_application']}} 
+                                                                @if($item['total_offer_signed_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_offer_signed_application']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
+                                                            <td>
+                                                                {{$item['total_disbursed_application']}} 
+                                                                @if($item['total_disbursed_application'] > 0 && $item['total_viewed_applications'] > 0) ({{($item['total_disbursed_application']*100)/$item['total_viewed_applications']}} %) @endif
+                                                            </td>
                                                         </tr>
                                                         
                                                     

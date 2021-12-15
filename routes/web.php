@@ -70,6 +70,7 @@ Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('config:cache');
    \Illuminate\Support\Facades\Artisan::call('cache:clear');
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+   \Illuminate\Support\Facades\Artisan::call('storage:link');
 });
 //CMS routes
 Route::get('/',Home::class)->name('home');
@@ -139,6 +140,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
         Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
         Route::get('conditions-approval-requests', [FinancePartnerController::class,'conditionsApprovalRequests'])->name('conditions-approval-requests');
+        // Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
         Route::get('approve-request', [FinancePartnerController::class,'approveTermsConditions'])->name('approve-request'); //by super admin
     
 
@@ -183,7 +185,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
         Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
         Route::get('enquiry-color',[FinancePartnerController::class,'enquiryColor'])->name('enquiry-color');
-        Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
+        Route::get('partner-meta',[FinancePartnerController::class,'partnerMeta'])->name('partner-meta');
+        Route::get('update-partner-meta',[FinancePartnerController::class,'updatePartnerMeta'])->name('update-partner-meta');
+        Route::post('submit-partner-meta-request',[FinancePartnerController::class,'submitPartnerMetaRequest'])->name('submit-partner-meta-request');
+        // Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
@@ -221,6 +226,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
+
+    Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
+    Route::get('accept-meta-request', [FinancePartnerController::class,'acceptMetaRequest'])->name('accept-meta-request');
+
 
 });
 
