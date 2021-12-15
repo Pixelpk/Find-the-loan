@@ -10,4 +10,5 @@ class FinancePartnerMeta extends Model
     use HasFactory;
 
     protected $table = 'finance_partner_meta';
+    protected $casts = ['value'=>'array'];
 }

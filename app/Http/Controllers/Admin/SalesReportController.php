@@ -129,13 +129,15 @@ class SalesReportController extends Controller
                         $sales_report[$key2][$key3]['lable'] = $chunk['lable'];
     
                         $user_report_data = $this->fetchReportOfUser(parent_id: $parent_id, partner_user_id: $partner_user_id, start_date_to : $start_date_to, start_date_from : $start_date_from);
-    
                         $sales_report[$key2][$key3]['user_report_data'] = $user_report_data;
                         $sales_report[$key2][$key3]['total_viewed_applications'] = count($user_report_data->viewed_applications);
                         $sales_report[$key2][$key3]['total_rejected_applications'] = count($user_report_data->user_all_rejected_applications);
                         $sales_report[$key2][$key3]['total_quoted_application'] = count($user_report_data->user_all_quoted_applications);
                         $sales_report[$key2][$key3]['total_more_doc_requests'] = count($user_report_data->user_all_more_doc_requests);
                         $sales_report[$key2][$key3]['total_assigned_out_application'] = count($user_report_data->assigned_out_application);
+                        $sales_report[$key2][$key3]['total_disbursed_application'] = count($user_report_data->user_all_disbursed_application);
+                        $sales_report[$key2][$key3]['total_offer_signed_application'] = count($user_report_data->user_all_offer_signed_application);
+                        $sales_report[$key2][$key3]['total_meet_call_application'] = count($user_report_data->user_all_call_meet_application);
                         $total_applications += count($user_report_data->assigned_application);
                     }
                     
@@ -153,6 +155,7 @@ class SalesReportController extends Controller
             // return $month_vise;
             $data['total_applications'] = $total_applications;
             $data['sales_report'] = $sales_report;
+            // return $sales_report;
             $data['month_vise'] = $month_vise;
 
             $data['selected_user'] = $partner_user_id ?? null;
@@ -307,6 +310,14 @@ class SalesReportController extends Controller
             $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
             ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
         };
+        $disbursed_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('offer_disbursed_at',">=",$start_date_from) //assigned greater then this date
+            ->whereDate('offer_disbursed_at',"<=",$start_date_to); //assigned less then this date                        
+        };
+        $offer_signed_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('offer_signed_at',">=",$start_date_from) //assigned greater then this date
+            ->whereDate('offer_signed_at',"<=",$start_date_to); //assigned less then this date                        
+        };
         return FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
         ->where('parent_id',$parent_id)
         ->with('assigned_application',$range_filter)
@@ -315,6 +326,9 @@ class SalesReportController extends Controller
         ->with('user_all_quoted_applications',$range_filter)
         ->with('user_all_more_doc_requests',$range_filter)
         ->with('assigned_out_application',$range_filter )
+        ->with('user_all_disbursed_application',$disbursed_filter)
+        ->with('user_all_offer_signed_application',$offer_signed_filter)
+        ->with('user_all_call_meet_application',$range_filter)
         ->first();
 
     }

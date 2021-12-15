@@ -55,7 +55,7 @@
                               <a href="{{ route('faqs') }}" class="nav-link">FAQ</a>
                           </li>
                           <li class="nav-item">
-                              <a href="" class="nav-link">Glossarv</a>
+                              <a href="" class="nav-link">Glossary</a>
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('terms-conditions') }}" class="nav-link">Terms Of Use</a>
