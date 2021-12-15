@@ -133,7 +133,7 @@
         <div class="col-md-3">
            <div class="mb-3">
             <label for="other_purchased_from" class="form-label">
-                Other Company Purchased From
+                Bank Name
             </label>
             <div class="input-form mb-3">
                 <input wire:model="other_purchased_from" type="text" class="form-control" aria-label="other_purchased_from"

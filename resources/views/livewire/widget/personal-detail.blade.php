@@ -344,6 +344,9 @@
         @endif
 
         <div class="col-md-12">
+            <button class="btn custom-info-btn" type="button" style="color: #6c6868 !important;">
+                Why these documents ?
+            </button>
             <button  wire:loading.attr='disabled' class="btn"
                 type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
                 <div wire:loading wire:target="goTolender">
