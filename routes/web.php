@@ -32,6 +32,7 @@ use App\Http\Livewire\Cms\ContactUs;
 use App\Http\Livewire\Cms\Home;
 use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
+use App\Http\Livewire\Customer\Profile;
 use App\Http\Livewire\Customer\Dashboard;
 use App\Http\Livewire\Customer\Enquiry;
 use App\Http\Livewire\Customer\MoreDocRequestDetails;
@@ -239,7 +240,8 @@ Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
     // custoemr dashboard
-  
+    
+    Route::get('/customer/profile', Profile::class)->name('customer-profile');
     Route::get('/customer/dashboard', Dashboard::class)->name('customer-dashboard');
     Route::get('/customer/enquiry', Enquiry::class)->name('customer-enquiry');
     Route::get('/customer/quotations', Quotations::class)->name('customer-quotations');
