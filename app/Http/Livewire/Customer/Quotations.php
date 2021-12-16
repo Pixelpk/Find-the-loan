@@ -24,7 +24,7 @@ class Quotations extends Component
         ->whereHas('loan_application',function($query) use($user_id){
             $query->where('user_id',$user_id);
         })
-        ->whereDate('quote_validity','>',date('Y-m-d'))
+        ->whereDate('quote_validity','>=',date('Y-m-d'))
         ->with(['loan_application','quotation_finance_partner:id,name'])->paginate(20);
 
         return view('livewire.customer.quotations',['quotations'=>$quotations])->layout('customer.layouts.master');

@@ -30,7 +30,9 @@ class FinancePartner extends Authenticatable
     }
 
     public function viewed_applications(){
-        return $this->hasMany(AssignedApplication::class,'user_id','id')->whereNotNull('viewed_at');
+        return $this->hasMany(AssignedApplication::class,'user_id','id')
+        // ->whereNotNull('viewed_at')
+        ->where('status','2');
     }
 
     public function assigned_out_application(){

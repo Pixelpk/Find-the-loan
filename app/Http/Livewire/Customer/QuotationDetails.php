@@ -24,7 +24,7 @@ class QuotationDetails extends Component
         ->whereHas('loan_application',function($query) use($user_id){
             $query->where('user_id',$user_id);
         })
-        ->whereDate('quote_validity','>',date('Y-m-d'))
+        ->whereDate('quote_validity','>=',date('Y-m-d'))
         ->with(['loan_application','quotation_finance_partner:id,name'])->first();
         if(!$this->quotation_details){
             return redirect(route('customer-quotations'))->with('error','Oops. Something went wrong.');

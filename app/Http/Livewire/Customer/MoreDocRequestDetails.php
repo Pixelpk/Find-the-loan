@@ -15,7 +15,7 @@ class MoreDocRequestDetails extends Component
     public $form = [];
     public $more_doc_request_id;
     public $more_doc_request_detail;
-    public $checkbox;
+    public $dont_have_doc;
     protected $queryString = ['more_doc_request_id'];
 
     public function mount()
@@ -63,14 +63,14 @@ class MoreDocRequestDetails extends Component
     }
     public function chk($id)
     {
-        if($this->checkbox[$id] == false){
-            unset($this->checkbox[$id]);
+        if($this->dont_have_doc[$id] == false){
+            unset($this->dont_have_doc[$id]);
         }
     }
 
     public function submitMoreDocRequestReply()
     {
-        // dd($this->form);
+        // dd($this->dont_have_doc, $this->form);
         // if (!sizeof($this->form)) {
         //     $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
         //     return;
@@ -131,6 +131,7 @@ class MoreDocRequestDetails extends Component
         $reply->more_doc_request_id = $this->more_doc_request_id;
         $reply->apply_loan_id = $this->more_doc_request_detail->apply_loan_id;
         $reply->replied_docs = $replied_docs;
+        $reply->dont_have_doc = count($this->dont_have_doc) > 0 ? array_keys($this->dont_have_doc) : null;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
         // $this->emit('clearInput', ['class' => 'replied_docs']);

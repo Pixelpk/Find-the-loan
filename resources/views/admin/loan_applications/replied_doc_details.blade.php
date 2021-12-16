@@ -29,10 +29,7 @@
                                 <h6>Document of:</h6>
                                 <span>{{ getDocumentOf($item2->document_of) }}</span>
                             </div>
-                            <div class="col-md-3">
-                                <h6>If any:</h6>
-                                <span>{{ getYesNo($item2->if_any) }}</span>
-                            </div>
+                            
                             <div class="col-md-3">
                                 <h6>From:</h6>
                                 <span>{{ $item2->from }}</span>
@@ -68,7 +65,7 @@
                     </div>
                 </div>
 
-                @if ($more_doc_request_detail->replied_doc_details->replied_docs)
+                @if ($more_doc_request_detail->replied_doc_details->replied_docs || $more_doc_request_detail->replied_doc_details->dont_have_doc)
                 <div class="container py-3 info-container mt-5 info-container">
                     <div class="container">
                         <div class="row">
@@ -90,6 +87,16 @@
                                         @endif
                                     </span>
                                 @endif
+                            </div>
+                            @endforeach                                
+                        </div>
+                        <div class="row">
+                            @foreach ($more_doc_request_detail->replied_doc_details->dont_have_doc_list as $doc)
+                            <div class="col-md-6">
+                                <h6>{{$doc->info}}</h6>
+                                <span>
+                                    Don't have document
+                                </span>
                             </div>
                             @endforeach                                
                         </div>
