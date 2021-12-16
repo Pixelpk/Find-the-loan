@@ -38,7 +38,6 @@ class NewLoan extends Component
     public $construction_year_time;
     public $float_rate;
     public $fix_rate;
-    
     //
     public $amount;
     public $apply_loan;
@@ -56,7 +55,6 @@ class NewLoan extends Component
     public function mount()
     {
         if($this->apply_loan){
-         
             $this->unit = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'unit')->first()->value ?? '';
             $this->free_hold = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'free_hold')->first()->value ?? '';
             $this->amount = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'amount')->first()->value ?? '';
@@ -77,8 +75,7 @@ class NewLoan extends Component
             $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first()->value ?? '';
             $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first()->value ?? '';
             $this->property_land_property_type = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_property_type')->first()->value ?? '';
-            $this->property_land_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_graphical_location')->first()->value ?? '';
-                    
+            $this->property_land_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_graphical_location')->first()->value ?? '';      
         }
     }
     public function render()
@@ -89,22 +86,21 @@ class NewLoan extends Component
     public function store()
     {
        $this->validate([
-           'amount' => 'required|integer|min:1',
+        'amount' => 'required|integer|min:1',
         //    'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
-           'lot_number' => $this->address ?  '' : 'required',
-           'address' => $this->lot_number ?  '' : 'required',
-           'lease_remaining_year' => 'required|integer|min:1',
-           'useable_area' => 'required|integer|min:1',
-           'preferred_tenure_year' => 'required|integer|min:1',
-           'preferred_tenure_month' => 'required|integer|min:1',
-           'float_rate' => $this->fix_rate ? '' :  'required',
-           'fix_rate' => $this->float_rate ? '' :  'required',
-           'property_land_property_type' => 'required',
-           'property_land_graphical_location' =>  'required',
+        'lot_number' => $this->address ?  '' : 'required',
+        'address' => $this->lot_number ?  '' : 'required',
+        'lease_remaining_year' => 'required|integer|min:1',
+        'useable_area' => 'required|integer|min:1',
+        'preferred_tenure_year' => 'required|integer|min:1',
+        'preferred_tenure_month' => 'required|integer|min:1',
+        'float_rate' => $this->fix_rate ? '' :  'required',
+        'fix_rate' => $this->float_rate ? '' :  'required',
+        'property_land_property_type' => 'required',
+        'property_land_graphical_location' =>  'required',
        ]);
        $data = [
              ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
-          
              ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'], 
              ['type' => 'text', 'value' => $this->address, 'key' => 'address'], 
              ['type' => 'text', 'value' => $this->unit, 'key' => 'unit'], 
@@ -126,7 +122,6 @@ class NewLoan extends Component
              ['type' => 'radio', 'value' => $this->property_land_property_type, 'key' => 'property_land_property_type'], 
              ['type' => 'radio', 'value' => $this->property_land_graphical_location, 'key' => 'property_land_graphical_location'], 
        ];
-      
        if($this->apply_loan){
             LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
             $this->apply_loan->profile = $this->main_type;
@@ -146,18 +141,17 @@ class NewLoan extends Component
        
        foreach($data as $key => $item)
        {
+        $LGI = new LoanGernalInfo();
+        $LGI->apply_loan_id = $this->apply_loan->id;
+        $LGI->type = $item['type'];
+        $LGI->key = $item['key'];
+        // if($item['type'] == 'file'){
             
-            $LGI = new LoanGernalInfo();
-            $LGI->apply_loan_id = $this->apply_loan->id;
-            $LGI->type = $item['type'];
-            $LGI->key = $item['key'];
-            // if($item['type'] == 'file'){
-               
-            //     $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : isset($item['value']);
-            // }else{
-                $LGI->value = isset($item['value']) ? $item['value'] : '';
-            // }
-            $LGI->save();
+        //     $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : isset($item['value']);
+        // }else{
+            $LGI->value = isset($item['value']) ? $item['value'] : '';
+        // }
+        $LGI->save();
        }
        $this->gernalInfo = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();
        $this->emit('changeTab',$this->apply_loan->id, 4);
