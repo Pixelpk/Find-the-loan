@@ -119,6 +119,12 @@ class UserController extends Controller
         return view('admin.user.profile');
     }
 
+    // Customer Profile
+     public function customerProfile(Request $request)
+    {
+        return view('admin.user.profile');
+    }
+    
     public function partnerProfile(Request $request)
     {
         $data['structures'] = CompanyStructure::where('status','=','1')

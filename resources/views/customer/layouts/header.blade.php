@@ -1,3 +1,5 @@
+<link href="{{ asset('assets/cms/css/style01.css?v1') }}" rel="stylesheet" type="text/css">
+
 <!-- Top Bar Start -->
 <div class="topbar">
 
@@ -36,7 +38,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                         <!-- item-->
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ route('customer-profile') }}"><i class="mdi mdi-account-circle"></i> Profile</a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="{{ route('customer-logout') }}"><i class="mdi mdi-power text-danger"></i> Logout</a>

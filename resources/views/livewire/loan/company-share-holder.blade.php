@@ -82,7 +82,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <span style="padding: 43px 10px 0px 10px;"><b>or</b></span>
                         <div x-data="{ isUploading: false, progress: 0 }"
                             x-on:livewire-upload-start="isUploading = true"
                             x-on:livewire-upload-finish="isUploading = false"

@@ -149,6 +149,7 @@ class PersonalDetail extends Component
                 'type' => 'Joint Applicant',
                 'income_proof' => $this->income_proof,
                 'relation' => $this->relation,
+                'other_relation' => $this->other_relation,
                 'employee_type' => $this->employee_type
             ]);
             $this->income_proof = '';

@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-end">
         <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
     
