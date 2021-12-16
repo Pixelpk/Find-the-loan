@@ -1375,6 +1375,12 @@ form.ts-labels-inside-input .form-group label.focused,
     font-size: .8125rem;
 }
 
+.custom-info-btn{
+    background-color: transparent;
+    color: #6c6868 !important;
+    border: 1px solid #c1c1c1;
+}
+
 /*-------------------------------------------
   -- HR
 -------------------------------------------*/
@@ -2350,6 +2356,10 @@ E. Template Specific Elements
     }
 }
 
+.pt_20p{
+    padding-top: 20px;
+}
+
 @media (min-width: 75rem) {
     html {
         font-size: 100%;
@@ -2540,6 +2550,10 @@ E. Template Specific Elements
     .ts-carousel-centered .owl-nav .owl-prev {
         left: 2.5rem;
     }
+}
+
+.pt-20p{
+    padding-top: 20px;
 }
 /**----footer----**/
 /* .site-footer
@@ -2741,3 +2755,77 @@ E. Template Specific Elements
     text-overflow: ellipsis;
     /* width: 150px; */
 }
+
+.tooltip-c .custom-tooltip-text::after{
+    left: 2%;
+}
+.tooltip-c .custom-tooltip-text{
+    width: 500px !important;
+    left: 105%;
+    margin-left: -15px;
+}
+
+
+/******************************************
+ *  LOADING CSS
+ * ****************************************/
+
+         @keyframes ldio-8j2236x8qt {
+            0%    { transform: translate(2px,2px) }
+           33.33% { transform: translate(102px,2px) }
+           66.66% { transform: translate(42px,102px) }
+          100%    { transform: translate(2px,2px) }
+        }
+        
+        .magnify-loader{
+            background-color: white;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .ldio-8j2236x8qt > div {
+          transform: scale(0.8);
+          transform-origin: 100px 100px;
+        }
+        
+        .ldio-8j2236x8qt > div > div {
+          animation: ldio-8j2236x8qt 1s linear infinite;
+          position: absolute
+        }
+        
+        .ldio-8j2236x8qt > div > div div:nth-child(1) {
+          width: 55px;
+          height: 55px;
+          border-radius: 50%;
+          border: 10px solid #222863;
+          background: #BBDAF3
+        }
+        
+        .ldio-8j2236x8qt > div > div div:nth-child(2) {
+          width: 15px;
+          height:  51px;
+          transform: rotate(-45deg);
+          background: #222863;
+          border-radius: 0 0 8px 8px;
+          position: absolute;
+          top: 49px;
+          left: 68px
+        }
+        .loadingio-spinner-magnify-hz4ezng7lp {
+          width: 200px;
+          height: 200px;
+          display: inline-block;
+          overflow: hidden;
+          background: transparent
+   
+        }
+        .ldio-8j2236x8qt {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform: translateZ(0) scale(1);
+          backface-visibility: hidden;
+          transform-origin: 0 0;
+        }
+        .ldio-8j2236x8qt div { box-sizing: content-box; }

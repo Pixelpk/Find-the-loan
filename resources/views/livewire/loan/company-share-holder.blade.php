@@ -82,7 +82,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <span style="padding: 43px 10px 0px 10px;"><b>or</b></span>
                         <div x-data="{ isUploading: false, progress: 0 }"
                             x-on:livewire-upload-start="isUploading = true"
                             x-on:livewire-upload-finish="isUploading = false"
@@ -110,8 +111,23 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <p class="mb-1"> <b>Personal NOA</b></p>
+                    
+                    <span class="d-flex">
+                        <p class="mb-1"> 
+
+                        <b>Personal NOA</b>
+                        
+                        &nbsp;&nbsp;
+                        <div class="tooltip-c" style="font-size: 16px; color: #ff0000c4;">
+                            <i class="fa fa-info-circle"></i>
+                            <span class="tooltip-text">Hello World</span>
+                        </div>
+                    </p>
+
+                    </span>
                     <p class="mb-1">(Notice of Assessment) 2 Years</p>
+
+                  
                 </div>
 
                 <div class="row">

@@ -49,7 +49,7 @@
                     <option value="{{ $item }}">{{ $item }}</option>
                     @endforeach
                 </optgroup>
-                <optgroup label="Local/Foreign Banks">
+                <optgroup label="Foreign Banks">
                     @foreach(Config::get('gernalinfo.bank.foreign_bank') as $item)
                     <option value="{{ $item }}">{{ $item }}</option>
                     @endforeach

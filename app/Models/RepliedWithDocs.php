@@ -19,4 +19,13 @@ class RepliedWithDocs extends Model
     public function getRepliedDocsAttribute($value){
         return json_decode($value);
     }
+
+    public function loan_application(){
+        return $this->belongsTo(ApplyLoan::class,'apply_loan_id','id');
+    }
+
+    public function more_doc_request_details()
+    {
+        return $this->belongsTo(MoreDocRequireRequest::class,'more_doc_request_id','id');
+    }
 }

@@ -106,7 +106,7 @@
                      <option value="{{ $item }}">{{ $item }}</option>
                      @endforeach
                  </optgroup>
-                 <optgroup label="Local/Foreign Banks">
+                 <optgroup label="Foreign Banks">
                      @foreach(Config::get('gernalinfo.bank.foreign_bank') as $item)
                      <option value="{{ $item }}">{{ $item }}</option>
                      @endforeach
@@ -124,7 +124,31 @@
          </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row">
+
+        @if($company_purchased_from == 'other')
+        <div class="col-md-9">
+            
+        </div>
+        <div class="col-md-3">
+           <div class="mb-3">
+            <label for="other_purchased_from" class="form-label">
+                Bank Name
+            </label>
+            <div class="input-form mb-3">
+                <input wire:model="other_purchased_from" type="text" class="form-control" aria-label="other_purchased_from"
+                    aria-describedby="basic-addon2">
+
+            </div>
+            @error("other_purchased_from")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+           </div>
+        </div>
+        @endif
+
         <div class="col-md-5">
           <div class="mb-3">
             <label for="surrender_value" class="form-label">

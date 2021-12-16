@@ -30,7 +30,8 @@ class Enquiry extends Component
         ->with(['loan_type','loan_company_detail','loan_reason'])
         ->where('profile', $this->profile)
         ->orderBy('id','desc')
-        ->paginate(20);
+        ->paginate(5);
+        $getLoans->appends(['profile' => $this->profile]);
 
         return view('livewire.customer.enquiry',['getLoans' => $getLoans])->layout('customer.layouts.master');;
     }

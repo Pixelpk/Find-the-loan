@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\CronJobController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +29,11 @@ class Kernel extends ConsoleKernel
         // $schedule->call(function(){
         //     Log::info('Log message', array('context' => 'Other helpful information'));
         // })->everyMinute();
+        $schedule->call(function(){
+            $cronjob = new CronJobController();
+            $cronjob->applicationsNoActionCronJob();
+            $cronjob->incompleteSignupReminder();
+        })->everyMinute();
     }
 
     /**

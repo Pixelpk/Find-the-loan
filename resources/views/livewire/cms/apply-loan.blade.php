@@ -227,6 +227,17 @@
                     @endforeach
                 </div>
 
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pt-4 pb-3">
+                            <p><b>Don’t see a loan type?</b> It could be just a different name your bank has been using. Click on the information button for more or visit our <a href="{{ url('faqs') }}">FAQ</a>/<a href="{{ url('glossary') }}">glossary</a> for help
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
                 @if(sizeof($loanReasons) > 0 && $main_type == 1)
 
                 <div class="row">
@@ -310,6 +321,7 @@
                             @endif
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-12">
                             <br>

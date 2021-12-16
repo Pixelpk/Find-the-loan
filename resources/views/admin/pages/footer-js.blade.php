@@ -70,6 +70,15 @@
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
     let floating_count = 0;
+
+    @if(Route::currentRouteName() == 'update-partner-meta')
+        let board_rate_count = 0;
+
+        @if(isset($partner_meta['board_rate']))
+            board_rate_count = {{count($partner_meta['board_rate'])}}-1;
+        @endif
+    @endif
+    
     $(document).ready(function() {
 
         var pass_array = [];
@@ -207,7 +216,7 @@
                     'selected_list':SelectedList
                 }
             }).done(function (data) {
-                window.location.href = "{{ route('loan-applications') }}";
+                window.location.href = "{{ route('loan-applications',['profile'=>$_GET['profile'] ?? 1]) }}";
             });
         });
         // $('#application_filter_btn').click(function (){
@@ -549,6 +558,38 @@
 
             console.log('afdfadsf')
             $('.month_vise_pa_or_spread').append(append_html);   
+        });
+
+        $(document).on("click", '#add_board_rate_row', function(event) { 
+            board_rate_count ++;
+            event.preventDefault();
+            
+            var append_html = '<div class="row " >'+
+            '    <div class="form-group col-md-4">'+
+            '        <label class="col-form-label">'+
+            '            Date'+
+            '        </label>'+
+            '        <input type="text" class="form-control date-picker" row_index="'+board_rate_count+'" name="board_rate['+board_rate_count+']['+'date'+']" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-4">'+
+            '        <label class="col-form-label">'+
+            '            Rate'+
+            '        </label>'+
+            '        <input type="number" min="1" row_index="'+board_rate_count+'" name="board_rate['+board_rate_count+']['+'rate'+']" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-1">'+
+            '        <label class="col-form-label">'+
+            '            '+
+            '        </label>'+
+            '   <a href="javascript:void(0)"  data-original-title="Remove"><i class="mt-5 remove_board_rate_row fa fa-trash"></i></a>'
+            '    </div>'+
+            '</div>';
+	
+            $('.add_board_rate_div').append(append_html);   
+        });
+
+        $(document).on("click", '.remove_board_rate_row', function(event) { 
+            $(this).closest('div .row').remove();
         });
 
         $('#add_more_message_desc').click(function(e){

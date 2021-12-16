@@ -24,7 +24,6 @@ use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\GlossaryComponenet;
 use App\Http\Livewire\Cms\FaqComponent;
 use App\Http\Livewire\Cms\PrivacyPolicyComponent;
-use App\Http\Livewire\Cms\FinancialInclusionComponent;
 use App\Http\Livewire\Cms\TermsConditionsComponent;
 use App\Http\Livewire\Cms\ApplyLoan;
 use App\Http\Livewire\Cms\BlogComponent;
@@ -40,7 +39,6 @@ use App\Http\Livewire\Customer\MoreDocRequests;
 use App\Http\Livewire\Customer\QuotationDetails;
 use App\Http\Livewire\Customer\Quotations;
 use App\Http\Livewire\Customer\RejectedEnquiries;
-use App\Models\LoanCompanyDetail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +51,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('application-no-action-cronjob',[CronJobController::class,'applicationsNoActionCronJob']);
 Route::get('incomplete-signup-reminder',[CronJobController::class,'incompleteSignupReminder']);
 
@@ -71,6 +70,7 @@ Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('config:cache');
    \Illuminate\Support\Facades\Artisan::call('cache:clear');
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+   \Illuminate\Support\Facades\Artisan::call('storage:link');
 });
 //CMS routes
 Route::get('/',Home::class)->name('home');
@@ -95,6 +95,7 @@ Route::group(['middleware'=>['auth:partners','partner']],function (){
 
 });
 Route::group(['middleware'=>['auth:users,partners']],function (){
+
     Route::group(['middleware'=>['admin']],function (){
         Route::get('/site-data', [SiteController::class,'siteData'])->name('site-data');
         Route::post('/submit-site-data', [SiteController::class,'submitSiteData'])->name('submit-site-data');
@@ -139,6 +140,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('partner-detail', [FinancePartnerController::class,'partnerDetail'])->name('partner-detail');
         Route::get('change-partner-status', [FinancePartnerController::class,'changeStatus'])->name('change-partner-status');
         Route::get('conditions-approval-requests', [FinancePartnerController::class,'conditionsApprovalRequests'])->name('conditions-approval-requests');
+        // Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
         Route::get('approve-request', [FinancePartnerController::class,'approveTermsConditions'])->name('approve-request'); //by super admin
     
 
@@ -167,7 +169,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
         
         Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required'); 
+        Route::get('replied-with-docs', [MoreDocController::class,'repliedWithDocs'])->name('replied-with-docs'); 
+        Route::get('replied-doc-details', [MoreDocController::class,'repliedDocDetails'])->name('replied-doc-details'); 
         Route::post('more-doc-request', [MoreDocController::class,'moreDocRequest'])->name('more-doc-request'); 
+        Route::get('ask-more-docs-applications',[MoreDocController::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
 
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
         Route::post('/partner-profile', [UserController::class,'updatePartnerProfile']);
@@ -180,7 +185,10 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('partner-user-status',[PartnerUserController::class,'changeStatus'])->name('partner-user-status');
         Route::get('approve-request-by-bank', [FinancePartnerController::class,'approveTermsConditionsByBank'])->name('approve-request-by-bank'); //by super admin
         Route::get('enquiry-color',[FinancePartnerController::class,'enquiryColor'])->name('enquiry-color');
-        Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
+        Route::get('partner-meta',[FinancePartnerController::class,'partnerMeta'])->name('partner-meta');
+        Route::get('update-partner-meta',[FinancePartnerController::class,'updatePartnerMeta'])->name('update-partner-meta');
+        Route::post('submit-partner-meta-request',[FinancePartnerController::class,'submitPartnerMetaRequest'])->name('submit-partner-meta-request');
+        // Route::post('submit-partner-meta',[FinancePartnerController::class,'submitPartnerMeta'])->name('submit-partner-meta');
 
         Route::get('loan-applications',[LoanApplications::class,'loanApplications'])->name('loan-applications');
         Route::get('download-loan-doc',[LoanApplications::class,'downloadLoanDoc'])->name('download-loan-doc');
@@ -190,7 +198,6 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
         Route::get('rejected-applications',[LoanApplications::class,'rejectedApplications'])->name('rejected-applications');
         Route::get('assigned-out',[LoanApplications::class,'assginedOutApplications'])->name('assigned-out');
-        Route::get('ask-more-docs-applications',[LoanApplications::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
         
         
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
@@ -216,11 +223,13 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
-    // Route::get('/approval-requests', [UserController::class,'approvalRequests'])->name('approval-requests');
-    // Route::get('/approve-user', [UserController::class,'approveUser'])->name('approve-user');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::post('update-password', [UserController::class,'updatePassword'])->name('update-password');
     Route::get('/admin-logout', [UserController::class,'logout'])->name('admin-logout');
+
+    Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
+    Route::get('accept-meta-request', [FinancePartnerController::class,'acceptMetaRequest'])->name('accept-meta-request');
+
 
 });
 
@@ -241,11 +250,4 @@ Route::group(['middleware'=>['customer']],function (){
 
     
 });
-Route::get('test', function (){
-    $date = "10-10-2021";
-    $day = "30";
-    $cout = date('Y-m-d', strtotime($date. ' - 30 day'));
-    // return $cout;
-    $currentDate = date('Y-m-d');
-    
-});
+

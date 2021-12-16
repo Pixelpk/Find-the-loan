@@ -9,6 +9,7 @@ use App\Models\FinancePartner;
 use App\Models\MoreDocMsgDesc;
 use App\Models\MoreDocRequireRequest;
 use App\Models\QuoteAdditionalDocs;
+use App\Models\RepliedWithDocs;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,5 +77,67 @@ class MoreDocController extends Controller
 
         $request->session()->flash('success', "Request for more doc is submitted");
         return array('success'=>1,'redirect'=>route('loan-applications',['profile'=>1]));
+    }
+
+    public function askMoreDocsApplications(Request $request)
+    {
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = ApplyLoan::select('*')
+            ->whereHas('loan_lender_details', function ($query) use ($partner_id) {
+                $query->where('lender_id', '=', $partner_id)->where('status', 1);
+            })
+            ->whereHas('application_more_doc', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
+                $query->where('partner_id', '=', $partner_id);
+                //checking if finance partner admin is not loggedIn then only get assigned applications of user
+                if ($parent_id != 0) {
+                    $query->where('user_id', '=', $logged_user_id);
+                }
+            })->with([
+                'loan_company_detail', 'loan_reason',
+                'assigned_application',
+                'loan_type:id,sub_type',
+                'loan_user:id,first_name,last_name',
+            ])->paginate(20);
+        // return $data; 
+        return view('admin.loan_applications.more-doc-request-list', $data);
+    }
+
+    public function repliedWithDocs(Request $request)
+    {
+        $loggedin_user = $request->user();
+        $logged_user_id = $loggedin_user->id;
+        $partner_id = Session::get('partner_id');
+        $parent_id = $loggedin_user->parent_id;
+
+        $data['applications'] = RepliedWithDocs::with(['loan_application'=>function($query) use ($partner_id){
+            $query->whereHas('loan_lender_details', function ($query) use ($partner_id) {
+                $query->where('lender_id', '=', $partner_id)->where('status', 1);
+            })->with([
+                'loan_company_detail', 'loan_reason',
+                'loan_type:id,sub_type',
+                'loan_user:id,first_name,last_name',
+            ]);
+        }])
+        ->whereHas('more_doc_request_details',function($query) use($partner_id){
+            $query->where('partner_id',$partner_id);
+        })
+        ->paginate(20);
+        // return $data;
+
+        return view('admin.loan_applications.replied_with_docs',$data);
+
+    }
+
+    public function repliedDocDetails(Request $request){
+        $data['more_doc_request_detail'] = MoreDocRequireRequest::where('id', $request->more_doc_request_id)
+            ->with('more_doc_msg_desc')
+            ->with('replied_doc_details')
+            ->first();
+            // return $data;
+        return view('admin.loan_applications.replied_doc_details',$data);
     }
 }

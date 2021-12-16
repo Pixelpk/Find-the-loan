@@ -11,12 +11,14 @@ use App\Models\LoanLenderDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CronJobController extends Controller
 {
-    public function applicationsNoActionCronJob(Request $request)
+    public function applicationsNoActionCronJob()
     {
+        Log::info('Log message', array('context' => 'application no action cron job'));
         // return Carbon::today()->subDays(14);
         //Lead will be removed after 14 days if no action is taken 
         $fourteen_day_applications = ApplyLoan::whereHas('loan_all_lender_details') //where status is 1
@@ -110,6 +112,8 @@ class CronJobController extends Controller
 
     public function incompleteSignupReminder()
     {
+        Log::info('Log message', array('context' => 'incompleteSignupReminder cron job'));
+
         $users = User::where('status',3)
         ->whereDate('created_at', '<', Carbon::today()->subDays(2))
         ->whereNull('incomplete_registration_mail')
@@ -126,7 +130,7 @@ class CronJobController extends Controller
             }
             catch(Exception $ex)
             {
-                dd($ex->getMessage());
+                // dd($ex->getMessage());
             }
         }
     }

@@ -36,11 +36,13 @@
            </div>
         </div>
     </div>
+
+
     
-<hr class="mt-4 mb-0">
+    <hr class="mt-4 mb-0">
 
     <div class="row mt-4">
-        <div wire:ignore.self class="col-md-4">
+        <div wire:ignore.self class="col-md-2">
            <div class="mb-3">
             <label for="address" class="form-label">Address</label>
             <input onkeyup="dddd()" wire:model.defer="address" type="text" class="form-control" id="ship-address1">
@@ -51,7 +53,7 @@
             @enderror
            </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
           <div class="mb-3">
             <label for="unit" class="form-label">Unit if any
             </label>
@@ -63,7 +65,7 @@
             @enderror
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
         <div class="mb-3">
             <label for="building_name" class="form-label">Building name if any
             </label>
@@ -75,10 +77,8 @@
             @enderror
         </div>
         </div>
-    </div>
 
-        <div class="row mt-2">
-        <div class="col-md-6">
+        <div class="col-md-2">
          <div class="mb-3">
             <label for="lease_remaining" class="form-label">
                 Lease remaining
@@ -97,14 +97,16 @@
             @enderror
          </div>
         </div>
-        <div class="col-md-6 d-flex align-items-center">
-            <div class="form-check form-switch mb-3">
+        <div class="col-md-2 d-flex align-items-center">
+            <div class="form-check form-switch pt-3">
                 <input wire:model="free_hold" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Freehold
                 </label>
             </div>
         </div>
+
     </div>
+
 
         <div class="row mt-2">
         <div class="col-md-4 col-lg-3">
@@ -135,7 +137,7 @@
          </div>
         </div>
         <div class="col-md-2 d-flex align-items-center">
-            <div class="form-check form-switch mb-3">
+            <div class="form-check form-switch mb-1 pt-3">
                 <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox"
                     id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Feet
@@ -149,7 +151,7 @@
             @enderror
         </div>
         <div class="col-md-2 d-flex align-items-center">
-            <div class="form-check form-switch mb-3">
+            <div class="form-check form-switch mb-1 pt-3">
                 <input wire:change="changeAreaType()" wire:model="square_meter" class="form-check-input" type="checkbox"
                     id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Meter
@@ -169,28 +171,27 @@
         <p> <b>Not applicable for land</b></p>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 align-items-center">
         <div class="col-md-2">
-            <div class="form-check form-switch mb-3">
+            <div class="form-check form-switch">
                 <input wire:model="completed" class="form-check-input" type="checkbox" id="flexSwitchCheckDefaul3">
                 <label class="form-check-label" for="flexSwitchCheckDefaul3">Completed</label>
             </div>
         </div>
-        <div class="col-md-6 d-flex justify-content-end align-items-center">
-          <p>Under Construction -Expected date of completion</p>
+        <div class="col-md-4 d-flex justify-content-end align-items-center">
+          <p class="mb-0">Under Construction -Expected date of completion</p>
           
         </div>
-        <div class="col-md-2">
-            <label for="useable_area" class="form-label">Year</label>
+        <div class="col-md-3 justify-content-end d-flex">
+            <label for="useable_area" class="form-label mb-0 pt-2">Year</label>  &nbsp;&nbsp;&nbsp;
             <select wire:model="construction_year" class="form-select">
                 <option value="">Select</option>
                 @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
                     @endfor
             </select>
         </div>
-        <div class="col-md-2">
-           <div class="mb-3">
-            <label for="useable_area" class="form-label">Quarter</label>
+        <div class="col-md-3 justify-content-end d-flex">
+            <label for="useable_area" class="form-label mb-0 pt-2">Quarter</label> &nbsp;&nbsp;&nbsp;
             <select wire:model="construction_year_time" class="form-select">
                 <option value="">Select</option>
                 <option value="1">Q1</option>
@@ -198,16 +199,15 @@
                 <option value="3">Q3</option>
                 <option value="4">Q4</option>
             </select>
-           </div>
         </div>
     </div>
 
       <hr class="mt-4 mb-0">
 
       <div class="row mt-4">
-          If it is under financing, the Financing Partners may require you to refinance with them(not to worry they
+          <p>If it is under financing, the Financing Partners may require you to refinance with them(not to worry they
           will
-          provide you with the refinancing rate for consideration.)
+          provide you with the refinancing rate for consideration.)</p>
         </div>
 
         <div class="row mt-3">
@@ -238,6 +238,38 @@
         </div>
       
     </div>
+
+        <hr class="mt-4 mb-0">
+        <!-- Optional Documents -->
+        <div class="row mt-2">
+            <div class="col-md-12">
+               <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
+               <br>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <p class="mt-4">Optional Documents</p>
+            </div>
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <livewire:widget.upload-component
+                    :apply_loan="$apply_loan"
+                    :main_type="$main_type"
+                    :loan_type_id="$loan_type_id"
+                    :share_holder="0"
+                    :modell="'App\Models\OverDraftPropertyLand'"
+                    :keyvalue="'over_draft_property_optional_statement'"/>
+                    <!-- @error("document")
+                    <div style="color: red;">
+                        {{ $message }}
+                    </div>
+                    @enderror -->
+                </div>
+            </div>
+        </div>
+
 
         <div class="mt-2">
             <button class="btn" wire:click="store">Add Property</button>

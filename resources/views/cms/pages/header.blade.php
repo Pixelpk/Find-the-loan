@@ -96,7 +96,7 @@
                             }
                             @endphp
                             @if($current_route != "applyLoan")
-                            
+
                             <a href="{{$route}}" class="btn btn-h" style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;">{{ getCmsRoute($current_route)}}</a>
                             <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
                                 data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
@@ -123,7 +123,7 @@
                         <!-- LOGIN BUTTON -->
                         <a href="{{ route('login') }}" class="btnnew1 btn">Login </a>
                         <!-- REGISTER BUTTON -->
-                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> Register</a>
+                        <a class="logpad btnnew1 btn" href="{{ route('registration') }}"> Signup</a>
                         @endif
                     </a>
                 </li>

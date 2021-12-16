@@ -49,6 +49,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('replied-with-docs') }}" class="@if(Route::CurrentRouteName() == 'replied-with-docs') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span> Replied with docs </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('pending-meet-applications') }}" class="@if(Route::CurrentRouteName() == 'pending-meet-applications') mm-active @endif">
                             <i class="fa fa-money-bill-alt"></i><span> Pending meet call </span>
                         </a>
@@ -89,9 +94,17 @@
                            <i class="fa fa-list"></i><span> Sales report </span>
                        </a>
                    </li>
+                   <li>
+                    <a href="{{ route('partner-meta') }}" class="waves-effect">
+                        <i class="dripicons-document"></i><span> Update details </span>
+                    </a>
+                </li>
                     <li>
-                        <a href="{{ route('partner-terms-conditions') }}" class="waves-effect">
+                        {{-- <a href="{{ route('partner-terms-conditions') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span class="@if(bankUserTermsRequest() == 1) blinking @endif"> Terms & Conditions </span>
+                        </a> --}}
+                        <a href="{{ route('partner-meta-requests') }}" class="waves-effect">
+                            <i class="dripicons-document"></i><span>Update detail requests</span>
                         </a>
                     </li>
                 @else
@@ -159,8 +172,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('conditions-approval-requests') }}" class="waves-effect">
+                        {{-- <a href="{{ route('conditions-approval-requests') }}" class="waves-effect">
                             <i class="dripicons-document"></i><span> Terms&Conditions requests </span><span style="color: #27b34d">@if(adminTermsRequests() > 0) ({{adminTermsRequests()}}) @endif</span>
+                        </a> --}}
+                        <a href="{{ route('partner-meta-requests') }}" class="waves-effect">
+                            <i class="dripicons-document"></i><span>Update detail requests</span>
                         </a>
                     </li>
 

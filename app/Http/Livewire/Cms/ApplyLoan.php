@@ -353,7 +353,7 @@ class ApplyLoan extends Component
     public function store()
     {
         // dd('asda');
-        // dd($this->gernalinfo['user_owned']);
+        // dd(Config::get("gernalinfo.".$this->loan_type_id));
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
             $this->validate([
                 'gernalinfo.'.$item['key'] =>  $item['required'].$item['regax'].$item['image_formart'],

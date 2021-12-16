@@ -129,13 +129,21 @@ class SalesReportController extends Controller
                         $sales_report[$key2][$key3]['lable'] = $chunk['lable'];
     
                         $user_report_data = $this->fetchReportOfUser(parent_id: $parent_id, partner_user_id: $partner_user_id, start_date_to : $start_date_to, start_date_from : $start_date_from);
-    
+                        
                         $sales_report[$key2][$key3]['user_report_data'] = $user_report_data;
                         $sales_report[$key2][$key3]['total_viewed_applications'] = count($user_report_data->viewed_applications);
                         $sales_report[$key2][$key3]['total_rejected_applications'] = count($user_report_data->user_all_rejected_applications);
                         $sales_report[$key2][$key3]['total_quoted_application'] = count($user_report_data->user_all_quoted_applications);
                         $sales_report[$key2][$key3]['total_more_doc_requests'] = count($user_report_data->user_all_more_doc_requests);
                         $sales_report[$key2][$key3]['total_assigned_out_application'] = count($user_report_data->assigned_out_application);
+                        $sales_report[$key2][$key3]['total_disbursed_application'] = count($user_report_data->user_all_disbursed_application);
+                        $sales_report[$key2][$key3]['total_offer_signed_application'] = count($user_report_data->user_all_offer_signed_application);
+                        $sales_report[$key2][$key3]['total_meet_call_application'] = count($user_report_data->user_all_call_meet_application);
+                        $sales_report[$key2][$key3]['total_replied_with_docs_applications'] = count($user_report_data->requested_more_doc_replied_applications);
+                        $sales_report[$key2][$key3]['total_customer_applied_applications'] = count($user_report_data->customer_applied_quoted_applications);
+                        $sales_report[$key2][$key3]['total_loan_not_required_applications'] = count($user_report_data->loan_no_longer_required_applications);
+                        
+                        
                         $total_applications += count($user_report_data->assigned_application);
                     }
                     
@@ -144,6 +152,7 @@ class SalesReportController extends Controller
                 //month vise report of user quoted and disbursed loan
                 $quoted_and_disbursed = $this->quoted_and_disbursed(parent_id: $parent_id, month_number: $month['month_number'], year_number: $month['year_number'], partner_user_id: $partner_user_id);
                 $month_vise[$key2]['month_name'] = $month['month_name'];
+                $month_vise[$key2]['disbursed'] = $quoted_and_disbursed['disbursed'];
                 $month_vise[$key2]['quoted'] = $quoted_and_disbursed['quoted'];
                 $month_vise[$key2]['rejected'] = $quoted_and_disbursed['rejected'];
                 $month_vise[$key2]['reject_reasons'] = $quoted_and_disbursed['reject_reasons'];
@@ -153,6 +162,8 @@ class SalesReportController extends Controller
             // return $month_vise;
             $data['total_applications'] = $total_applications;
             $data['sales_report'] = $sales_report;
+            // return $sales_report;
+
             $data['month_vise'] = $month_vise;
 
             $data['selected_user'] = $partner_user_id ?? null;
@@ -193,11 +204,18 @@ class SalesReportController extends Controller
         }
 
         $month_list = $this->lastThreeMonths();
+        $total_received_applications = 0;
+
         foreach($month_list as $key=>$month){
 
             $month_filter = function($query) use($month){
                 $query->whereMonth('created_at',$month['month_number'])
                 ->whereYear('created_at',$month['year']);
+            };
+
+            $disbursed_filter = function($query) use($month){
+                $query->whereNotNull('offer_disbursed_at')->whereMonth('offer_disbursed_at',$month['month_number'])
+                ->whereYear('offer_disbursed_at',$month['year']);
             };
 
             $month_report = FinancePartner::select('id','name')->where('id',$partner_id)
@@ -208,16 +226,20 @@ class SalesReportController extends Controller
                 });
             })
             ->with('partner_quoted_applications',$month_filter)
+            ->with('partner_disbursed_applications',$disbursed_filter)
             ->withCount([
                 'partner_applications'=>$month_filter,
                 'partner_quoted_applications'=>$month_filter,
+                'partner_disbursed_applications'=>$disbursed_filter,
                 ])
             ->first();
 
-
+            //------------------------------------------------------------------
+            //quoted part
             $avg_quoted_applications = 0;
             if($month_report && $month_report->partner_applications_count > 0){
                 $avg_quoted_applications = number_format(($month_report->partner_quoted_applications_count/$month_report->partner_applications_count),2);
+                $total_received_applications+=$month_report->partner_applications_count;
             }
             
 
@@ -236,6 +258,33 @@ class SalesReportController extends Controller
             $month_list[$key]['avg_quoted_applications'] = $avg_quoted_applications;
             $month_list[$key]['amount_quoted'] = $month_amount_quoted;
             $month_list[$key]['amount_quoted_average'] = ($partner_quoted_applications_count > 0) ? ($month_amount_quoted/$partner_quoted_applications_count) : 0;
+            //end quotation part
+            //-------------------------------------------------------------------------------------------
+
+            //disbursed part
+            $avg_disbursed_applications = 0;
+            if($month_report && $month_report->partner_applications_count > 0){
+                $avg_disbursed_applications = number_format(($month_report->partner_disbursed_applications_count/$month_report->partner_applications_count),2);
+            }
+            
+
+            $month_amount_disbursed = 0;
+            if($month_report){
+                foreach($month_report->partner_disbursed_applications as $report){
+                    $month_amount_disbursed += $report->quantum_interest->quantum;
+                }
+            }
+            $partner_disbursed_applications_count = $month_report ? $month_report->partner_disbursed_applications_count : 0;
+            $partner_applications_count = $month_report ? $month_report->partner_applications_count : 0;
+
+            
+            // $month_list[$key]['partner_applications_count'] = $partner_applications_count;
+            $month_list[$key]['partner_disbursed_applications_count'] = $partner_disbursed_applications_count;
+            $month_list[$key]['avg_disbursed_applications'] = $avg_disbursed_applications;
+            $month_list[$key]['amount_disbursed'] = $month_amount_disbursed;
+            $month_list[$key]['amount_disbursed_average'] = ($partner_disbursed_applications_count > 0) ? ($month_amount_disbursed/$partner_disbursed_applications_count) : 0;
+            //end disbursed part
+            //---------------------------------------------------------
         
         }
 
@@ -243,7 +292,8 @@ class SalesReportController extends Controller
         $data['selected_partner'] = $partner_id;
         $data['selected_profile'] = $profile;
         $data['month_list'] = $month_list;
-        // return $data;
+        $data['total_received_applications'] = $total_received_applications;
+        // return $data['month_list'];
 
         return view('admin.sales_report.admin-sales-report',$data);
 
@@ -252,12 +302,19 @@ class SalesReportController extends Controller
 
     public function quoted_and_disbursed($partner_user_id,$parent_id,$month_number,$year_number)
     {
-        $quoted_and_disbursed =  FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
-        ->where('parent_id',$parent_id)
-        ->with('user_all_quoted_applications',function($query) use($month_number, $year_number){
+        $disbursed_filter = function($query) use($month_number, $year_number){
+            $query->whereMonth('offer_disbursed_at',$month_number)
+            ->whereYear('offer_disbursed_at',$year_number);                  
+        };
+        $quoted_filter = function($query) use($month_number, $year_number){
             $query->whereMonth('created_at',$month_number)
             ->whereYear('created_at',$year_number);
-        })
+        };
+
+        $quoted_and_disbursed =  FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
+        ->where('parent_id',$parent_id)
+        ->with('user_all_quoted_applications',$quoted_filter)
+        ->with('user_all_disbursed_application',$disbursed_filter)
         // ->with('user_all_rejected_applications',function($query) use($month_number){
         //     $query->whereMonth('created_at',$month_number);         
         // })
@@ -290,12 +347,30 @@ class SalesReportController extends Controller
             'quoted_average_interest'=>($quoted_average_interest * $quoted_count)/100,
             'quoted_average_tenure' => $quoted_average_tenure ? ($quoted_average_tenure * 12) : 0,
         ];
-        //end quotation part
+        //end quotation part calculations
 
-        //reject enquires(loan applications) part
+        //disbursed part
+        $total_loan_disbursed = 0;
+        $disbursed_average_interest = 0;
+        $disbursed_average_tenure = 0;
+        foreach($quoted_and_disbursed->user_all_disbursed_application as $disbursed){
+            $total_loan_disbursed+= $disbursed->quantum_interest->quantum ?? 0;
+            $disbursed_average_interest+= $disbursed->fixed->interest->interest_pa ?? 0;
+            $disbursed_average_tenure+= isset($disbursed->fixed->tenure->years) ? ($disbursed->fixed->tenure->years*12) + $disbursed->fixed->tenure->months  : 0;
+        }
+        $disubursed_count = count($quoted_and_disbursed->user_all_quoted_applications);
+        $disbursed = [
+            'total_loan_disbursed'=>$total_loan_disbursed,
+            'disubursed_count'=>$disubursed_count,
+            'disbursed_average_loan_size'=>$disubursed_count > 0 ? ($total_loan_disbursed / $disubursed_count) : 0,
+            'disbursed_average_interest'=>($disbursed_average_interest * $disubursed_count)/100,
+            'disbursed_average_tenure' => $disbursed_average_tenure ? ($disbursed_average_tenure * 12) : 0,
+        ];
+        //end disbursed part calculations
 
         return array(
             'quoted'=> $quoted,
+            'disbursed'=> $disbursed,
             'rejected'=> [],
             'reject_reasons'=> $reject_reasons,
         );
@@ -303,18 +378,48 @@ class SalesReportController extends Controller
     }
 
     public function fetchReportOfUser($partner_user_id, $parent_id,$start_date_from,$start_date_to){
-        $range_filter = function($query) use($start_date_from,$start_date_to){
+        $date_filter = function($query) use($start_date_from,$start_date_to){
             $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
             ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
         };
+        $disbursed_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('offer_disbursed_at',">=",$start_date_from) //assigned greater then this date
+            ->whereDate('offer_disbursed_at',"<=",$start_date_to); //assigned less then this date                        
+        };
+        $offer_signed_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('offer_signed_at',">=",$start_date_from) //assigned greater then this date
+            ->whereDate('offer_signed_at',"<=",$start_date_to); //assigned less then this date                        
+        };
+
+        $more_doc_replied_filter = function($query) use($date_filter){
+            $query->whereHas('replied_doc_details',$date_filter); 
+        };
+
+        //quotations on which customer proceedes
+        $customer_applied_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('proceeded_at',">=",$start_date_from)
+            ->whereDate('proceeded_at',"<=",$start_date_to);
+        };
+        //quotations on which customer perform action of Loan no longer required
+        $loan_not_required_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('loan_not_required_at',">=",$start_date_from)
+            ->whereDate('loan_not_required_at',"<=",$start_date_to);
+        };
+
         return FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
         ->where('parent_id',$parent_id)
-        ->with('assigned_application',$range_filter)
-        ->with('viewed_applications',$range_filter)
-        ->with('user_all_rejected_applications',$range_filter)
-        ->with('user_all_quoted_applications',$range_filter)
-        ->with('user_all_more_doc_requests',$range_filter)
-        ->with('assigned_out_application',$range_filter )
+        ->with('assigned_application',$date_filter)
+        ->with('viewed_applications',$date_filter)
+        ->with('user_all_rejected_applications',$date_filter)
+        ->with('user_all_quoted_applications',$date_filter)
+        ->with('user_all_more_doc_requests',$date_filter)
+        ->with('assigned_out_application',$date_filter )
+        ->with('user_all_disbursed_application',$disbursed_filter)
+        ->with('user_all_offer_signed_application',$offer_signed_filter)
+        ->with('user_all_call_meet_application',$date_filter)
+        ->with('requested_more_doc_replied_applications',$more_doc_replied_filter)
+        ->with('customer_applied_quoted_applications',$customer_applied_filter)
+        ->with('loan_no_longer_required_applications',$loan_not_required_filter)
         ->first();
 
     }

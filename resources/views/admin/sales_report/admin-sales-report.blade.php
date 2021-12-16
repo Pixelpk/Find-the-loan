@@ -44,24 +44,25 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="">
-                                    <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        <table id="" class="table table-bordered">
+                                <h5>Received: {{$total_received_applications ?? ''}}</h5>
+                                {{-- <div class=""> --}}
+                                    <div class="table-responsive b-0" style="width: 100%;overflow-x:scroll" data-pattern="priority-columns">
+                                        <table id="" class="table table-bordered" style="width:150%">
                                             <thead>
-                                                <th style="min-width:80px;">Month</th>
-                                                <th style="min-width:80px;">Received</th>
-                                                <th style="min-width:180px;border-right:none">Quoted</th>
-                                                <th style="min-width:130px;border-left:none;text-align:center">MoM</th>
-                                                <th style="min-width:180px;border-right:none">Disbursed</th>
-                                                <th style="min-width:130px;border-left:none;text-align:center">MoM</th>
-                                                <th style="min-width:130px;">Disburse to quote ratio by $$</th>
-                                                <th style="min-width:130px;">Disburse to quote ratio by lead count</th>
+                                                <th style="">Month</th>
+                                                {{-- <th style="">Received</th> --}}
+                                                <th style="border-right:none">Quoted</th>
+                                                <th style="border-left:none;text-align:center">MoM</th>
+                                                <th style="border-right:none">Disbursed</th>
+                                                <th style="border-left:none;text-align:center">MoM</th>
+                                                <th style="">Disburse to quote ratio by $$</th>
+                                                <th style="">Disburse to quote ratio by lead count</th>
                                             </thead>
                                             <tbody>
                                                 @foreach ($month_list as $key => $month)
                                                 <tr>
                                                     <td>{{ $month['month_name'] }}</td>
-                                                    <td>{{ $month['partner_applications_count'] }}</td>
+                                                    {{-- <td>{{ $month['partner_applications_count'] }}</td> --}}
                                                     <td style="border-right:none">
                                                         <span style="font-weight:bold">Leads: {{ $month['partner_quoted_applications_count'] }}</span><br>
                                                         <span style="font-weight:bold">Of Leads: {{ $month['avg_quoted_applications'] }}</span><br>
@@ -113,16 +114,65 @@
                                                         </span><br>
                                                         @endif
                                                     </td>
-                                                    <td style="border-right:none"></td>
-                                                    <td style="border-left:none;text-align: center;"></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td style="border-right:none">
+                                                        <span style="font-weight:bold">Leads: {{ $month['partner_disbursed_applications_count'] }}</span><br>
+                                                        <span style="font-weight:bold">Of Leads: {{ $month['avg_disbursed_applications'] }}</span><br>
+                                                        <span style="font-weight:bold">Amount disbursed: {{ $month['amount_disbursed'] }}</span><br>
+                                                        <span style="font-weight:bold">Average disbursed: {{ $month['amount_disbursed_average'] }}</span><br>
+                                                    </td>
+                                                    <td style="border-left:none;text-align: center;">
+                                                        @if($loop->first )
+                                                        <span style="font-weight:bold">{{ $month['partner_disbursed_applications_count'] }}</span><br>
+                                                        <span style="font-weight:bold">{{ $month['avg_disbursed_applications'] }}</span><br>
+                                                        <span style="font-weight:bold">{{ $month['amount_disbursed'] }}</span><br>
+                                                        <span style="font-weight:bold">{{ $month['amount_disbursed_average'] }}</span><br>
+                                                        @else
+                                                        <span style="font-weight:bold">
+                                                            {{ $month['partner_disbursed_applications_count'] - $month_list[$key-1]['partner_disbursed_applications_count'] }}
+                                                            or 
+                                                            @if ($month['partner_disbursed_applications_count'] > 0)
+                                                            {{ $month_list[$key-1]['partner_disbursed_applications_count'] /$month['partner_disbursed_applications_count'] }}%                                                                
+                                                            @else
+                                                                0%
+                                                            @endif
+                                                        </span><br>
+                                                        <span style="font-weight:bold">
+                                                            {{ $month['avg_disbursed_applications'] - $month_list[$key-1]['avg_disbursed_applications'] }}
+                                                            or 
+                                                            @if ($month['avg_disbursed_applications'] > 0)
+                                                            {{ $month_list[$key-1]['avg_disbursed_applications'] /$month['avg_disbursed_applications'] }}%                                                                
+                                                            @else
+                                                                0%
+                                                            @endif
+                                                        </span><br>
+                                                        <span style="font-weight:bold">
+                                                            {{ $month['amount_disbursed'] - $month_list[$key-1]['amount_disbursed'] }}
+                                                            or 
+                                                            @if ($month['amount_disbursed'] > 0)
+                                                            {{ $month_list[$key-1]['amount_disbursed'] /$month['amount_disbursed'] }}%                                                                
+                                                            @else
+                                                                0%
+                                                            @endif
+                                                        </span><br>
+                                                        <span style="font-weight:bold">
+                                                            {{ $month['amount_disbursed_average'] - $month_list[$key-1]['amount_disbursed_average'] }}
+                                                            or 
+                                                            @if ($month['amount_disbursed_average'] > 0)
+                                                            {{ $month_list[$key-1]['amount_disbursed_average'] /$month['amount_disbursed_average'] }}%                                                                
+                                                            @else
+                                                                0%
+                                                            @endif
+                                                        </span><br>
+                                                        @endif
+                                                    </td>
+                                                    <td>@if($month['amount_quoted'] != 0){{ ($month['amount_disbursed'] /$month['amount_quoted'])*100 }}% @endif</td>
+                                                    <td>@if($month['partner_quoted_applications_count'] != 0){{ ($month['partner_disbursed_applications_count'] /$month['partner_quoted_applications_count'])*100 }}% @endif</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>                                            
                                         </table>
                                     </div>
-                                </div>
+                                {{-- </div> --}}
 
                             </div>
                         </div>

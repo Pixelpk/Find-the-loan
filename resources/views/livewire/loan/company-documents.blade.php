@@ -199,7 +199,7 @@
                 to still furnish them if you have them readily on hand instead of waiting for them to ask and delay your
                 getting of a loan quote. Or especially if you have been rejected by a bank due to multiple layers, to do
                 so, please attach the same range of documents you have just provided such as bank statements, NRIC, NOA
-                etc for all shareholders at all layers with the choose file button beside.
+                etc for all shareholders at all layers with the choose file button below.
             
         </div>
         <div class="col-md-4">
@@ -223,8 +223,13 @@
 
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
-        <button class="btn btn-custom" type="button" wire:target='saveCompanyDocuments' wire:click.prevent='saveCompanyDocuments'>
-            <span wire:loading wire:target="saveCompanyDocuments" class="spinner-border spinner-border-sm" role="status"
+        <button class="btn custom-info-btn" type="button" style="color: #6c6868 !important;">
+           
+                Why these documents ?
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
+            <span wire:loading wire:target="confirmationMessage" class="spinner-border spinner-border-sm" role="status"
                 aria-hidden="true"></span>
             Save @if($share_holder == 0) & Continue @endif
         </button>

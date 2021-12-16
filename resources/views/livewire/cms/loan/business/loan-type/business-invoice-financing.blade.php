@@ -18,9 +18,15 @@
                     :keyvalue="'business_invoice_financing_latest_account_report'" />
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="amount" >Amount required</label>
+                <label for="amount" >Amount required
+                    <div class="tooltip-c">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="tooltip-text custom-tooltip-text">Amount required is the amount you are aiming to borrow for that loan type. You may still reduce it prior to signing Loan Offer Letter.</span>
+                    </div>
+                </label>
                 <br>
                 <span style="font-size:12px;"> (It should not be more than outstanding value of PO)
                 </span>
@@ -37,8 +43,8 @@
         <div class="col-md-12 mt-2">
             <ul style="list-style-type:square; list-style-type: none;">
                 <li>
-                    Please ensure the invoice/PO has the following or it may result in delays/decline in/of your
-                    enquiry:
+                    <b>Please ensure the invoice/PO has the following or it may result in delays/decline in/of your
+                        enquiry:</b>
                 </li>
                 <li>
                     Buyer and seller’s company name
@@ -55,7 +61,7 @@
                     note/return policy may be requested later by the Financing Partners
                 </li>
                 <li>
-                    For progressive payment:
+                    <b>For progressive payment:</b>
                 </li>
                 <li>
                     Milestones should each have a start date/end date and payment date even if estimated or a range.

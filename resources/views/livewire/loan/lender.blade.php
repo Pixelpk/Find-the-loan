@@ -13,6 +13,15 @@
        
     </div>
 
+    <div class="row mt-3 d-flex">
+
+        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
+            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
+            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
+            check with more lenders to compare with.</p>
+
+    </div>
+
     <div class="row mb-3">
         <div class="col-md-6">
             <div class="form-check form-switch">
@@ -86,28 +95,18 @@
     </div>
     @endforeach
 
-    <div class="row mt-3 d-flex">
-
-        <p style="color:grey;font-size:12px;"><span class="text-danger">Note:</span> While the lenders above may offer your loan type, it
-            doesn’t not necessarily mean they may offer a loan to you, depending on factors such as your
-            risk profile, their monthly limited to a certain risk bracket etc. It is generally better to
-            check with more lenders to compare with.</p>
-
-    </div>
+    
 
     <div class="row mb-3 mt-2 p-2" style="border: 1px solid;">
         <div class="form-check">
             <input wire:model="policy" class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
             <label class="form-check-label" for="flexCheckIndeterminate" style="">
-                I/we agree the information. I/we provided is true to the best of my knowledge and I/we
-                give consent to these Financing Partners to verify them and those that are CBS members
-                to access my credit reports instead of furnishing it myself. I/we also agree to
-                FindTheLoan.com’s Privacy Policy, Terms of use and any related policies.
+                I/we agree the information. I/we provided is true to the best of my knowledge and I/we give consent to these Financing Partners to verify them and those that are CBS members to access my credit reports instead of furnishing them myself/ourselves. I/we also agree to <a href="{{ url('') }}">FindTheLoan.com</a>’s <a href="{{ url('privacy-policy') }}">Privacy Policy</a>, Terms of use and any related policies.
             </label>
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-end">
         <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
     

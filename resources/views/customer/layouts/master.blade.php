@@ -35,12 +35,6 @@
         toastr.error(param['message'])
     });
 
-    // window.livewire.on('clearInput', param => {
-    //     let field_class = param['class'];
-    //     alert(field_class);
-    //     document.getElementsByClassName("replied_docs").val() = "";
-
-    // });
 </script>
 </body>
 </html>
