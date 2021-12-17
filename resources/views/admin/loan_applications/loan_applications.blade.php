@@ -107,7 +107,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                            <tr class="loan_application_row @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;">
                                                 <td class="selected_application">
                                                         @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
                                                         <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
@@ -170,7 +170,7 @@
 
                                 <div class="table-rep-plugin">
                                     <div class="table-responsive b-0" data-pattern="priority-columns">
-                                        <table id="loan_application_table @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" class="table table-hover table-striped text-center">
+                                        <table id="loan_application_table" class="table table-hover table-striped text-center">
                                             <thead>
                                             <tr>
                                                 <th>Select</th>
@@ -190,7 +190,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row " url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" >
+                                            <tr class="loan_application_row  @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary"  style="cursor: pointer;">
                                                 <td class="selected_application">
                                                     @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
                                                     <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>

@@ -144,7 +144,7 @@ class MoreDocController extends Controller
             ->with('more_doc_msg_desc')
             ->with('replied_doc_details')
             ->first();
-            // return $data;
+        // return $data;
         return view('admin.loan_applications.replied_doc_details',$data);
     }
 }

@@ -5,7 +5,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left bg-white">
-        <a href="{{ route('admin-dashboard') }}" class="logo">
+        <a href="{{ route('home') }}" class="logo">
             <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" style="height: 3rem">
             <img src="{{ asset('assets/images/icon59.png') }}" class="logo-sm" alt="Find the loan" style="height: 2em">
         </a>
@@ -23,7 +23,16 @@
 
     <nav class="navbar-custom">
         <ul class="navbar-right list-inline float-right mb-0">
-
+            <li class="list-inline-item d-none d-md-inline-block">
+                <a href="{{ route('applyLoan') }}" class="btn btn-primary">
+                    Make another loan enquiry
+                </a>
+            </li>
+            <li class="list-inline-item d-none d-md-inline-block">
+                <a href="#" class="btn btn-primary">
+                    View previous enquiry
+                </a>
+            </li>
             <!-- full screen -->
             <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
                 <a class="nav-link waves-effect" href="#" id="btn-fullscreen">

@@ -17,6 +17,20 @@ class MoreDocRequestDetails extends Component
     public $more_doc_request_detail;
     public $dont_have_doc;
     protected $queryString = ['more_doc_request_id'];
+    public $i = 1; 
+
+    //variable for personal_loan_list
+    public $personal_loan_list = [];
+    public $not_have_personal_loan_list = false;
+    public $pl_bank_institution = "";
+    public $pl_facility_type = "";
+    public $pl_original_loan_amount = "";
+    public $pl_interest_per_year = "";
+    public $pl_outstanding_loan_amount = "";
+    public $pl_monthly_installment_amount = "";
+    public $pl_start_date = "";
+    public $pl_duration = "";
+
 
     public function mount()
     {
@@ -61,15 +75,50 @@ class MoreDocRequestDetails extends Component
 
         return view('livewire.customer.more-doc-request-details')->layout('customer.layouts.master');
     }
-    public function chk($id)
-    {
+
+    public function not_have_personal_loan_list(){
+        $this->not_have_personal_loan_list = true;
+    } 
+
+    public function chk($id){
+        
+        if($id == 100){
+            $this->personal_loan_list = [];
+        }
+
         if($this->dont_have_doc[$id] == false){
             unset($this->dont_have_doc[$id]);
+            
         }
+        // dd($this->personal_loan_list);
+    }
+
+
+    public function add($i)
+    {
+        $i = $i + 1;
+        $this->i = $i;
+        $loan_detail = [
+            'bank_institution'=> $this->pl_bank_institution,
+            'facility_type'=> $this->pl_facility_type,
+            'original_loan_amount'=> $this->pl_original_loan_amount,
+            'interest_per_year'=> $this->pl_interest_per_year,
+            'outstanding_loan_amount'=> $this->pl_outstanding_loan_amount,
+            'monthly_installment_amount'=> $this->pl_monthly_installment_amount,
+            'start_date'=> $this->pl_start_date,
+            'duration'=> $this->pl_duration,
+        ];
+        array_push($this->personal_loan_list ,$loan_detail);
+    }
+
+    public function remove($i)
+    {
+        unset($this->personal_loan_list[$i]);
     }
 
     public function submitMoreDocRequestReply()
     {
+        // dd($this->personal_loan_list);
         // dd($this->dont_have_doc, $this->form);
         // if (!sizeof($this->form)) {
         //     $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
@@ -120,22 +169,23 @@ class MoreDocRequestDetails extends Component
             $i++;
         }
 
+        $empty = ($empty == true) && count($this->personal_loan_list) < 1 ? true : false;
         if ( $empty == true) {
             $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
             return;
         }
 
-        // dd($replied_docs);
 
         $reply = new RepliedWithDocs();
         $reply->more_doc_request_id = $this->more_doc_request_id;
         $reply->apply_loan_id = $this->more_doc_request_detail->apply_loan_id;
         $reply->replied_docs = $replied_docs;
-        $reply->dont_have_doc = count($this->dont_have_doc) > 0 ? array_keys($this->dont_have_doc) : null;
+        $reply->dont_have_doc = $this->dont_have_doc;
+        $reply->personal_loan_list = $this->personal_loan_list;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
-        // $this->emit('clearInput', ['class' => 'replied_docs']);
         $this->form = [];
+        $this->personal_loan_list = [];
         $this->reset('form');
         $this->mount();
         return;

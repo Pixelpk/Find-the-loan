@@ -65,10 +65,11 @@
                     </div>
                 </div>
 
-                @if ($more_doc_request_detail->replied_doc_details->replied_docs || $more_doc_request_detail->replied_doc_details->dont_have_doc)
+                @if ($more_doc_request_detail->replied_doc_details->replied_docs || $more_doc_request_detail->replied_doc_details->dont_have_doc || $more_doc_request_detail->replied_doc_details->personal_loan_list)
                 <div class="container py-3 info-container mt-5 info-container">
                     <div class="container">
                         <div class="row">
+                            @isset($more_doc_request_detail->replied_doc_details->replied_docs)
                             @foreach ($more_doc_request_detail->replied_doc_details->replied_docs as $doc)
                             <div class="col-md-6">
                                 <h6>{{$doc->lable}}</h6>
@@ -88,9 +89,11 @@
                                     </span>
                                 @endif
                             </div>
-                            @endforeach                                
+                            @endforeach  
+                            @endisset                              
                         </div>
                         <div class="row">
+                            @isset($more_doc_request_detail->replied_doc_details->dont_have_doc_list)
                             @foreach ($more_doc_request_detail->replied_doc_details->dont_have_doc_list as $doc)
                             <div class="col-md-6">
                                 <h6>{{$doc->info}}</h6>
@@ -98,7 +101,43 @@
                                     Don't have document
                                 </span>
                             </div>
-                            @endforeach                                
+                            @endforeach
+                            @endisset
+                        </div>
+                        <div class="row">
+                            <h6>Personal outstanding loans & borrowing </h6>
+                            @isset($more_doc_request_detail->replied_doc_details->personal_loan_list)
+                            <div class="col-md-12">
+                                <table class="table table-hover table-striped text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bank / Financial Institution</th>
+                                            <th>Type of Facility</th>
+                                            <th>Original Loan amount</th>
+                                            <th>Interest per year</th>
+                                            <th>Outstanding Loan Amount</th>
+                                            <th>Monthly Installment Amount</th>
+                                            <th>Start Date MM/YY</th>
+                                            <th>Duration</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_loan_list as $doc)
+                                        <tr>
+                                            <td>{{$doc['bank_institution']}}</td>
+                                            <td>{{$doc['facility_type']}}</td>
+                                            <td>{{$doc['original_loan_amount']}}</td>
+                                            <td>{{$doc['interest_per_year']}}</td>
+                                            <td>{{$doc['outstanding_loan_amount']}}</td>
+                                            <td>{{$doc['monthly_installment_amount']}}</td>
+                                            <td>{{$doc['start_date']}}</td>
+                                            <td>{{$doc['duration']}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            @endisset
                         </div>
                     </div>
                 </div>

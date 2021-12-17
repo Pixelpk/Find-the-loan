@@ -126,6 +126,7 @@ class LoanApplications extends Controller
             $data['applications']->appends(['to_date' => $to_date]);
         }
         //=================================
+        // return $data;
 
         return view('admin.loan_applications.loan_applications', $data);
     }
