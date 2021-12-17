@@ -44,7 +44,7 @@
                             @if (in_array($quotation_details->loan_application->loan_type_id,[5,6]))
                                 <div class="col-md-3">
                                     <h6>Facility Limit</h6>
-                                    <span>32-12-32132</span>
+                                    <span>{{$quotation_details->quantum_interest->quantum}}</span>
                                 </div>
                                 <div class="col-md-3">
                                     <h6>Advance Percentage</h6>
@@ -201,10 +201,12 @@
                             </div>
                             <div class="col-md-3">
                                 <h6>If Insurance required</h6>
-                                <span>
-                                    ${{ $quotation_details->if_insurance_required->range_value_from }}
-                                    or
-                                    {{ $quotation_details->if_insurance_required->range_percentage_from }}%
+                                <span>                                    
+                                    @if ($quotation_details->if_insurance_required->range_value_from != "")
+                                    ${{ $quotation_details->if_insurance_required->range_value_from."-$".$quotation_details->if_insurance_required->range_value_to }}
+                                    @else
+                                    {{ $quotation_details->if_insurance_required->range_percentage_from."%-".$quotation_details->if_insurance_required->range_value_to."%" }}
+                                    @endif
                                 </span>
                             </div>
                             <div class="col-md-3">

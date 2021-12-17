@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\RequestMoreDoc;
 use App\Models\ApplyLoan;
+use App\Models\AssignedApplication;
 use App\Models\FinancePartner;
 use App\Models\MoreDocMsgDesc;
 use App\Models\MoreDocRequireRequest;
@@ -38,6 +39,7 @@ class MoreDocController extends Controller
 
     public function moreDocRequest(Request $request)
     {
+        $loggedin_user = $request->user();
         $doc_req = new MoreDocRequireRequest();
         $doc_req->apply_loan_id = $request->apply_loan_id;
         $doc_req->partner_id = Session::get('partner_id');
@@ -49,7 +51,6 @@ class MoreDocController extends Controller
             
             $more_doc_msg = new MoreDocMsgDesc();
             $more_doc_msg->more_doc_request_id = $doc_req->id;
-            $more_doc_msg->if_any = intval($msg['if_any']);
             $more_doc_msg->from = $msg['from'] ?? null;
             $more_doc_msg->to = $msg['to'] ?? null;
             $more_doc_msg->within_days = $msg['within_days'] ?? null;
@@ -61,10 +62,16 @@ class MoreDocController extends Controller
             $more_doc_msg->save();
         }
 
+        if ($loggedin_user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($request->apply_loan_id,$loggedin_user->id,1,2);
+        }
+
         $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();
         $apply_loan = ApplyLoan::where("id", "=", $request->apply_loan_id)
         ->with('loan_user:id,first_name,last_name,email')
         ->first();
+        
         
         try
         {

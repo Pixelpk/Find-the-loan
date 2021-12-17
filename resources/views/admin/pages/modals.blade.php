@@ -840,10 +840,7 @@
                         <h6>Document of:</h6>
                         <span>{{ getDocumentOf($item2->document_of) }}</span>
                     </div>
-                    <div class="col-md-3">
-                        <h6>If any:</h6>
-                        <span>{{ getYesNo($item2->if_any) }}</span>
-                    </div>
+                    
                     <div class="col-md-3">
                         <h6>From:</h6>
                         <span>{{ $item2->from }}</span>

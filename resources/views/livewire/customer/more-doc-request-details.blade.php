@@ -27,10 +27,7 @@
                                 <h6>Document of:</h6>
                                 <span>{{ getDocumentOf($item2->document_of) }}</span>
                             </div>
-                            <div class="col-md-3">
-                                <h6>If any:</h6>
-                                <span>{{ getYesNo($item2->if_any) }}</span>
-                            </div>
+                            
                             <div class="col-md-3">
                                 <h6>From:</h6>
                                 <span>{{ $item2->from }}</span>
@@ -83,11 +80,11 @@
                                                         <i class="fa fa-info-circle" data-toggle="tooltip"
                                                         data-original-title="{{$item2->quote_additional_doc->additional_description}}"></i>
                                                     @endif
-                                                    (<input type="checkbox" wire:change="chk({{$item2->quote_additional_doc->id}})" wire:model="checkbox.{{$item2->quote_additional_doc->id}}" class="mr-2">Don't have this?)
+                                                    (<input type="checkbox" wire:change="chk({{$item2->quote_additional_doc->id}})" wire:model="dont_have_doc.{{$item2->quote_additional_doc->id}}" class="mr-2">Don't have this?)
                                                 </label>
                                                 @if ($item2->quote_additional_doc->doc_type == 'text' || $item2->quote_additional_doc->doc_type == 'file' || $item2->quote_additional_doc->doc_type == 'number')
                                                     @if ($item2->quote_additional_doc->id == 131 || $item2->quote_additional_doc->id == 132)
-                                                        <input @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
+                                                        <input @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
                                                         <label >
                                                         
                                                             <input type="radio" value="Square Feet"  wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.area_parameter"> Square Feet
@@ -100,20 +97,20 @@
                                                             {{-- <option value="Square Meter">Square Meter</option> --}}
                                                         {{-- </select>  --}}
                                                     @else
-                                                    <input  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
+                                                    <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
 
                                                             {{-- @if ($item2->quote_additional_doc->doc_type == 'file')
                                                             <label class="label w-100" data-toggle="tooltip" title="Select file">
-                                                                <input  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
+                                                                <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
                                                             </label>
                                                                 @else
-                                                            <input  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
+                                                            <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
 
                                                             @endif --}}
                                                     @endif
                                                 @elseif($item2->quote_additional_doc->doc_type == 'dropdown')
                                                         @if ($item2->quote_additional_doc->id == 101)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 @php
                                                                     $i = 1;
                                                                 @endphp
@@ -125,7 +122,7 @@
                                                                 @endwhile
                                                             </select>
                                                         @elseif($item2->quote_additional_doc->id == 102)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 <option value="Fully paid">Fully paid</option>
                                                                 <option value="Under mortgage">Under mortgage</option>
                                                                 <option value="Rented">Rented</option>
@@ -134,7 +131,7 @@
                                                                 <option value="Other family members">Other family members</option>
                                                             </select>
                                                         @elseif($item2->quote_additional_doc->id == 104)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 <option value="No formal education">No formal education</option>
                                                                 <option value="Primary education">Primary education</option>
                                                                 <option value="Secondary education">Secondary education or high school</option>
@@ -145,13 +142,13 @@
                                                                 <option value="Doctorate or higher">Doctorate or higher</option>
                                                             </select>
                                                         @elseif($item2->quote_additional_doc->id == 105)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 <option value="Single">Single</option>
                                                                 <option value="Married">Married</option>
                                                                 <option value="Divorced">Divorced</option>
                                                             </select>
                                                         @elseif($item2->quote_additional_doc->id == 107)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 @php
                                                                     $i = 1;
                                                                 @endphp
@@ -163,7 +160,7 @@
                                                                 @endwhile
                                                             </select>
                                                         @elseif($item2->quote_additional_doc->id == 108)
-                                                            <select  @if(isset($checkbox[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
+                                                            <select  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif  class="form-control" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}">
                                                                 <option value="Yes">Yes</option>
                                                                 <option value="No">No</option>
                                                             </select>

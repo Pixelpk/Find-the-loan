@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ApplyLoan;
+use App\Models\AssignedApplication;
 use App\Models\PendingMeetCall;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -36,6 +37,12 @@ class PendingMeetCallController extends Controller
         }
         $pending_meet_call = new PendingMeetCall();
         $pending_meet_call->fill($data)->save();
+
+        if ($logged_in_user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($data['apply_loan_id'],$logged_in_user->id,1,2);
+        }
+
         return redirect(route('loan-application-summary',['apply_loan_id'=>$data['apply_loan_id']]))
         ->with('success',"Enquiry is successfully added in you pending meet call list.");
     }

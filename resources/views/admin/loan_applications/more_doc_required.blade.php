@@ -51,14 +51,14 @@
                                     <section id="more_doc_section">
                                     {{-- <h5 class="">Message description</h5> --}}
                                     <h6 class="">You may pick a combination of the following reasons to be displayed along with the info/document asked to the borrower.</h6>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group custom-switch">
                                                 <input type="checkbox" class="custom-control-input" name="if_any" id="if_any">
                                                 <label class="custom-control-label" for="if_any">If any</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">

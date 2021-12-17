@@ -12,7 +12,7 @@
                 {{-- invoice financinng and purchase order financing quantum section details --}}
                 @if (in_array($application->loan_type_id,[5,6]))
                     <span class="info__text">Facility Limit</span>
-                    <span class="info__field">{{ $application->application_quote->quantum_interest->facility_limit }}</span>
+                    <span class="info__field">{{ $application->application_quote->quantum_interest->quantum }}</span>
                     <span class="info__text">Advance Percentage</span>
                     <span class="info__field">{{ $application->application_quote->quantum_interest->advance_percentage }}</span>
                     <span class="info__text">Notified</span>
@@ -117,9 +117,12 @@
 
                 <span class="info__text">If Insurance required</span>
                 <span class="info__field">
-                    ${{ $application->application_quote->if_insurance_required->range_value_from }}
-                    or
-                    {{ $application->application_quote->if_insurance_required->range_percentage_from }}%
+                    @if ($application->application_quote->if_insurance_required->range_value_from != "")
+                        
+                    ${{ $application->application_quote->if_insurance_required->range_value_from."-$".$application->application_quote->if_insurance_required->range_value_to }}
+                    @else
+                    {{ $application->application_quote->if_insurance_required->range_percentage_from."%-".$application->application_quote->if_insurance_required->range_value_to."%" }}
+                    @endif
                 </span>
 
                 <span class="info__text">Eir</span>
