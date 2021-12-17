@@ -16,7 +16,7 @@ class PersonalDetail extends Component
     public $personalDetail = [];
     public $income_proof;
     public $relation;
-    // public $other_relation;
+    public $other_relation;
     public $customValidation;
     public $employee_type = "self_employee";
     public function mount()
