@@ -91,6 +91,7 @@
                         </div>
                     </div>
 
+                    @if($status == 0)
                     <!-- UPDATE PASSWORD -->
                      <div class="col-sm-12 col-md-6">
                         <div class="card">
@@ -147,6 +148,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+
                 </div>
 
                 <!-- end top-Contant -->

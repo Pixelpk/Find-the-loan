@@ -137,6 +137,17 @@
                         @endif
                     </a>
                 </li>
+
+                <li>
+                    <a href="#" class="nav-link">
+                        @if(Auth::guard('web')->check())
+                            @if(Route::currentRouteName() != "draftLoan")
+                            <a href="{{ route('draftLoan') }}" class="btnnew2 btn">Draft </a>
+                            @endif
+                        @endif
+                    </a>
+                </li>
+
                 @if(Auth::guard('web')->check())
                 <li>
                     <a href="#" class="nav-link">

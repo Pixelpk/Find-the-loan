@@ -20,18 +20,19 @@ class Profile extends Component
     public $confirm_password;
     public $errorMessage;
     public $message;
+    public $status;
     public $user;
     public $user_enquiries;
 
     public function mount()
     {   
-
         $this->user = Auth::user();
         $this->user_enquiries = ApplyLoan::where('user_id',$this->user->id)->count();
         $this->first_name = $this->user->first_name;
         $this->last_name = $this->user->last_name;
         $this->email = $this->user->email;
         $this->phone = $this->user->phone;
+        $this->status = $this->user->status;
     }
     public function render()
     {

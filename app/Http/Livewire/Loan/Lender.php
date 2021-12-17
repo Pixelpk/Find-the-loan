@@ -6,6 +6,7 @@ use App\Models\FinancePartner;
 use App\Models\LoanCompanyDetail;
 use App\Models\LoanLender;
 use App\Models\LoanLenderDetail;
+use App\Models\ApplyLoan;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -174,6 +175,10 @@ class Lender extends Component
                 ]);
             }
         }
+
+        $applyloan= ApplyLoan::where('id', $this->apply_loan->id)->first();
+        $applyloan->status = 1;
+        $applyloan->update();
 
         if($LL){
             $this->dispatchBrowserEvent('enquiry_submit', ['title' => 'Thank You!','message' => 'Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.', 'function' => 'redirectAfterSuccess']);

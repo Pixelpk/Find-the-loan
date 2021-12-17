@@ -43,6 +43,14 @@
                                     </span>
                                 </div>
                             </button>
+
+                            <div class="p-4 text-center">
+                                <span><b>or</b></span>
+                            </div>
+                            <div class="pt-3 d-flex justify-content-between align-items-center">
+                               <span>You can also Login through Facebook</span>
+                               <a href="{{ route('facebookRedirect') }}" class="btnnew1 btn fb-btn-bg-clr"> Login with Facebook </a>
+                            </div>
                         </div>
                     </div>
                 </form>
