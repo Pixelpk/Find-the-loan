@@ -17,19 +17,64 @@ class MoreDocRequestDetails extends Component
     public $more_doc_request_detail;
     public $dont_have_doc;
     protected $queryString = ['more_doc_request_id'];
+
+    //personal loan list counter
     public $i = 1; 
+    //company loan list counter
+    public $j = 1;
+    //personal asset list => insurance asset counter
+    public $insurance_counter = 1;
+    public $investment_counter = 1;
+    public $cd_counter = 1;
+    public $p_counter = 1;
+    public $o_counter = 1;
 
     //variable for personal_loan_list
     public $personal_loan_list = [];
-    public $not_have_personal_loan_list = false;
-    public $pl_bank_institution = "";
-    public $pl_facility_type = "";
-    public $pl_original_loan_amount = "";
-    public $pl_interest_per_year = "";
-    public $pl_outstanding_loan_amount = "";
-    public $pl_monthly_installment_amount = "";
-    public $pl_start_date = "";
-    public $pl_duration = "";
+    public $pl_bank_institution;
+    public $pl_facility_type;
+    public $pl_original_loan_amount;
+    public $pl_interest_per_year;
+    public $pl_outstanding_loan_amount;
+    public $pl_monthly_installment_amount;
+    public $pl_start_date;
+    public $pl_duration;
+
+    //variable for company_loan_list
+    public $company_loan_list = [];
+    public $cl_bank_institution;
+    public $cl_facility_type;
+    public $cl_original_loan_amount;
+    public $cl_interest_per_year;
+    public $cl_outstanding_loan_amount;
+    public $cl_monthly_installment_amount;
+    public $cl_start_date;
+    public $cl_duration;
+
+    //variable for Personal asset list
+    public $personal_assets_list = [], $insurance_asset_list = [], $investment_asset_list = [], $cash_and_deposit_asset_list = [], $property_asset_list = [], $others_asset_list = [];
+
+    public $insurance_type = "Regular Premium";
+    public $insurance_details;
+    public $insurance_current_value;
+    public $insurance_maturity_date;
+    public $insurance_year_purchased;
+
+    public $investment_type = "Unit Trust";
+    public $investment_details;
+    public $investment_current_value;
+
+    public $cash_and_deposit_type;
+    public $cash_and_deposit_details;
+    public $cash_and_deposit_current_value;
+
+    public $asset_property_type = "Main resident";
+    public $asset_property_details;
+    public $asset_property_current_value;
+
+    public $asset_others_type;
+    public $asset_others_details;
+    public $asset_others_current_value;
 
 
     public function mount()
@@ -76,14 +121,39 @@ class MoreDocRequestDetails extends Component
         return view('livewire.customer.more-doc-request-details')->layout('customer.layouts.master');
     }
 
-    public function not_have_personal_loan_list(){
-        $this->not_have_personal_loan_list = true;
-    } 
-
     public function chk($id){
         
-        if($id == 100){
+        if($id == 99){
             $this->personal_loan_list = [];
+            $this->pl_bank_institution = "";
+            $this->pl_facility_type = "";
+            $this->pl_original_loan_amount = "";
+            $this->pl_interest_per_year = "";
+            $this->pl_outstanding_loan_amount = "";
+            $this->pl_monthly_installment_amount = "";
+            $this->pl_start_date = "";
+            $this->pl_duration = "";
+        }
+
+        if($id == 4){
+            $this->company_loan_list = [];
+            $this->cl_bank_institution = "";
+            $this->cl_facility_type = "";
+            $this->cl_original_loan_amount = "";
+            $this->cl_interest_per_year = "";
+            $this->cl_outstanding_loan_amount = "";
+            $this->cl_monthly_installment_amount = "";
+            $this->cl_start_date = "";
+            $this->cl_duration = "";
+        }
+
+        if($id == 100){
+            $this->personal_assets_list = [];
+            $this->insurance_asset_list = [];
+            $this->investment_asset_list = [];
+            $this->cash_and_deposit_asset_list = [];
+            $this->property_asset_list = [];
+            $this->others_asset_list = [];
         }
 
         if($this->dont_have_doc[$id] == false){
@@ -94,11 +164,10 @@ class MoreDocRequestDetails extends Component
     }
 
 
-    public function add($i)
+    public function addPersonalLoan($i)
     {
-        $i = $i + 1;
-        $this->i = $i;
-        $loan_detail = [
+       
+        $p_loan_detail = [
             'bank_institution'=> $this->pl_bank_institution,
             'facility_type'=> $this->pl_facility_type,
             'original_loan_amount'=> $this->pl_original_loan_amount,
@@ -108,17 +177,138 @@ class MoreDocRequestDetails extends Component
             'start_date'=> $this->pl_start_date,
             'duration'=> $this->pl_duration,
         ];
-        array_push($this->personal_loan_list ,$loan_detail);
+        array_push($this->personal_loan_list ,$p_loan_detail);
+        $this->pl_bank_institution = "";
+        $this->pl_facility_type = "";
+        $this->pl_original_loan_amount = "";
+        $this->pl_interest_per_year = "";
+        $this->pl_outstanding_loan_amount = "";
+        $this->pl_monthly_installment_amount = "";
+        $this->pl_start_date = "";
+        $this->pl_duration = "";
+        // dd($this->personal_loan_list);
     }
 
-    public function remove($i)
+    public function addCompanyLoan($j)
+    {
+        $this->j = $j + 1;
+        $loan_detail = [
+            'bank_institution'=> $this->cl_bank_institution,
+            'facility_type'=> $this->cl_facility_type,
+            'original_loan_amount'=> $this->cl_original_loan_amount,
+            'interest_per_year'=> $this->cl_interest_per_year,
+            'outstanding_loan_amount'=> $this->cl_outstanding_loan_amount,
+            'monthly_installment_amount'=> $this->cl_monthly_installment_amount,
+            'start_date'=> $this->cl_start_date,
+            'duration'=> $this->cl_duration,
+        ];
+        array_push($this->company_loan_list ,$loan_detail);
+        $this->cl_bank_institution = "";
+        $this->cl_facility_type = "";
+        $this->cl_original_loan_amount = "";
+        $this->cl_interest_per_year = "";
+        $this->cl_outstanding_loan_amount = "";
+        $this->cl_monthly_installment_amount = "";
+        $this->cl_start_date = "";
+        $this->cl_duration = "";
+
+    }
+
+    public function addInsuranceAsset($insurance_counter)
+    {
+        $this->insurance_counter = $insurance_counter + 1;
+        $detail = [
+            'insurance_type'=> $this->insurance_type,
+            'insurance_details'=> $this->insurance_details,
+            'insurance_current_value'=> $this->insurance_current_value,
+            'insurance_maturity_date'=> $this->insurance_maturity_date,
+            'insurance_year_purchased'=> $this->insurance_year_purchased,
+        ];
+        array_push($this->insurance_asset_list ,$detail);
+    }
+
+    public function addInvestmentAsset($investment_counter)
+    {
+        $this->investment_counter = $investment_counter + 1;
+        $detail = [
+            'investment_type'=> $this->investment_type,
+            'investment_details'=> $this->investment_details,
+            'investment_current_value'=> $this->investment_current_value,
+        ];
+        array_push($this->investment_asset_list ,$detail);
+    }
+
+    public function addCashDepositAsset($cd_counter)
+    {
+        $this->cd_counter = $cd_counter + 1;
+        $detail = [
+            'cash_and_deposit_type'=> $this->cash_and_deposit_type,
+            'cash_and_deposit_details'=> $this->cash_and_deposit_details,
+            'cash_and_deposit_current_value'=> $this->cash_and_deposit_current_value,
+        ];
+        array_push($this->cash_and_deposit_asset_list ,$detail);
+    }
+
+    public function addPropertyAsset($p_counter)
+    {
+        $this->p_counter = $p_counter + 1;
+        $detail = [
+            'asset_property_type'=> $this->asset_property_type,
+            'asset_property_details'=> $this->asset_property_details,
+            'asset_property_current_value'=> $this->asset_property_current_value,
+        ];
+        array_push($this->property_asset_list ,$detail);
+    }
+
+    public function addOthersAsset($o_counter)
+    {
+        $this->o_counter = $o_counter + 1;
+        $detail = [
+            'asset_others_type'=> $this->asset_others_type,
+            'asset_others_details'=> $this->asset_others_details,
+            'asset_others_current_value'=> $this->asset_others_current_value,
+        ];
+        array_push($this->others_asset_list ,$detail);
+    }
+
+    public function removePersonalLoan($i)
     {
         unset($this->personal_loan_list[$i]);
     }
 
+    public function removeCompanyLoan($j)
+    {
+        unset($this->company_loan_list[$j]);
+    }
+
+    public function removeInsuranceAsset($j)
+    {
+        unset($this->insurance_asset_list[$j]);
+    }
+
+    public function removeInvestmentAsset($j)
+    {
+        unset($this->investment_asset_list[$j]);
+    }
+
+    public function removeCashDepositAsset($j)
+    {
+        unset($this->cash_and_deposit_asset_list[$j]);
+    }
+
+    public function removePropertyAsset($j)
+    {
+        unset($this->property_asset_list[$j]);
+    }
+
+    public function removeOthersAsset($j)
+    {
+        unset($this->others_asset_list[$j]);
+    }
+
     public function submitMoreDocRequestReply()
     {
-        // dd($this->personal_loan_list);
+        // dd($this->personal_loan_list,$this->company_loan_list);
         // dd($this->dont_have_doc, $this->form);
         // if (!sizeof($this->form)) {
         //     $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
@@ -127,6 +317,13 @@ class MoreDocRequestDetails extends Component
         $empty = true;
         // $file = "replied_with_doc\/20211203-081717\/gQT98FyyYkvWqMSZE5tEK4fh5B2lDLrZIovZyR2o.jpg";
         // dd(storage_path("app/".$file));
+        $personal_assets_list ['insurance_asset_list'] = $this->insurance_asset_list;
+        $personal_assets_list ['investment_asset_list'] = $this->investment_asset_list;
+        $personal_assets_list ['cash_and_deposit_asset_list'] = $this->cash_and_deposit_asset_list;
+        $personal_assets_list ['property_asset_list'] = $this->property_asset_list;
+        $personal_assets_list ['others_asset_list'] = $this->others_asset_list;
+
+        
         $replied_docs = [];
         $i = 0;
         foreach ($this->form as $key1 => $value) {
@@ -170,6 +367,7 @@ class MoreDocRequestDetails extends Component
         }
 
         $empty = ($empty == true) && count($this->personal_loan_list) < 1 ? true : false;
+        $empty = ($empty == true) && count($this->company_loan_list) < 1 ? true : false;
         if ( $empty == true) {
             $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
             return;
@@ -182,10 +380,14 @@ class MoreDocRequestDetails extends Component
         $reply->replied_docs = $replied_docs;
         $reply->dont_have_doc = $this->dont_have_doc;
         $reply->personal_loan_list = $this->personal_loan_list;
+        $reply->company_loan_list = $this->company_loan_list;
+        $reply->personal_assets_list = $personal_assets_list;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
         $this->form = [];
         $this->personal_loan_list = [];
+        $this->i = 1;
+        $this->j = 1;
         $this->reset('form');
         $this->mount();
         return;

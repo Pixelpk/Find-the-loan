@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\FinancePartner as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as FinancePartnerAuth;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class FinancePartner extends Authenticatable
+class FinancePartner extends Model implements FinancePartnerAuth
 {
+    use Authenticatable;
     use HasApiTokens, HasFactory, Notifiable;
     protected $guard = 'partners';
     protected $hidden = [

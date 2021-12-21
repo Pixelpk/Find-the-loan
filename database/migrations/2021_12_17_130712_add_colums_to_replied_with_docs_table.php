@@ -14,8 +14,8 @@ class AddColumsToRepliedWithDocsTable extends Migration
     public function up()
     {
         Schema::table('replied_with_docs', function (Blueprint $table) {
-            $table->string('personal_loan_list')->nullable();
-            $table->string('personal_assets_list')->nullable();
+            $table->text('personal_loan_list')->nullable();
+            $table->text('personal_assets_list')->nullable();
         });
     }
 
