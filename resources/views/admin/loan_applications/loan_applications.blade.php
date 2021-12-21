@@ -107,7 +107,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                            <tr class="loan_application_row @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;">
                                                 <td class="selected_application">
                                                         @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
                                                         <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
@@ -190,49 +190,49 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;background-color: <?php /* @if($application->loan_company_detail !== null && $application->loan_company_detail->profitable_latest_year == 1) {{ $enquiry_data['profitable_color'] ?? '' }} @else {{ $enquiry_data['loss_color'] ?? '' }} @endif */ ?>">
+                                            <tr class="loan_application_row  @if($application->assigned_application != null && $application->assigned_application->status == 1) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary"  style="cursor: pointer;">
                                                 <td class="selected_application">
-                                                        @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
-                                                        <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $application->enquiry_id }}</td>
-                                                    <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->user->name }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        {{ $application->loan_type->sub_type }}
-                                                    </td>
-                                                    <td>
-                                                        
-                                                        {{ date('Y-m-d',strtotime($application->created_at)) }}
-                                                    </td>
-                                                    <td>
-                                                        @if($application->application_rejected)
-                                                        <span class="badge badge-info">Rejected</span>
-                                                        @elseif($application->application_quote)
-                                                        <span class="badge badge-info">Quoted</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
+                                                    @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null)
+                                                    <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $application->enquiry_id }}</td>
+                                                <td>
+                                                    @if($application->assigned_to_user != null)
+                                                        {{ $application->assigned_to_user->user->name }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($application->assigned_to_user != null)
+                                                        {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    {{ $application->loan_type->sub_type }}
+                                                </td>
+                                                <td>
+                                                    
+                                                    {{ date('Y-m-d',strtotime($application->created_at)) }}
+                                                </td>
+                                                <td>
+                                                    @if($application->application_rejected)
+                                                    <span class="badge badge-info">Rejected</span>
+                                                    @elseif($application->application_quote)
+                                                    <span class="badge badge-info">Quoted</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
+                                                
                                                     
                                                     
-                                                    
-                                                </tr>
+                                            </tr>
 
                                             @endforeach
                                             </tbody>

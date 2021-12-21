@@ -208,7 +208,7 @@
                             <a class="list-group-item list-group-item-action d-flex justify-content-between">
                                 <div class="form-check form-switch">
                                     <input wire:model="values.{{ $subType->id }}"
-                                        wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
+                                        wire:click="getLoanReason({{ $subType->id }})"
                                         class="form-check-input singleCheck" type="checkbox" />
                                     <label class="form-check-label">{{ $subType->sub_type }}</label>
                                 </div>

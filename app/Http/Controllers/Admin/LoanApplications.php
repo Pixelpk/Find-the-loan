@@ -126,6 +126,7 @@ class LoanApplications extends Controller
             $data['applications']->appends(['to_date' => $to_date]);
         }
         //=================================
+        // return $data;
 
         return view('admin.loan_applications.loan_applications', $data);
     }
@@ -191,6 +192,7 @@ class LoanApplications extends Controller
         $logged_in_user = $request->user();
         $logged_user_id = $logged_in_user->id;
 
+
         $data['customer_reject_reasons'] = RejectReason::where('type', '=', 2)->get();
         $data['internal_reject_reasons'] = RejectReason::where('type', '=', 1)->get();
 
@@ -202,7 +204,7 @@ class LoanApplications extends Controller
                 $query->where('lender_id', '=', $partner_id)->where('status', 1);
             })
             ->with([
-                'loan_type', 'loan_company_detail', 'loan_reason',
+                'loan_type', 'loan_company_detail', 'loan_reason','assigned_application',
                 'application_rejected' => $partner_filter,
                 'application_quote' => $partner_filter,
                 'application_more_doc' => $partner_filter,
@@ -214,16 +216,25 @@ class LoanApplications extends Controller
                 },
             ])
             ->first();
+            // return $data['application'];
 
         if ($id == null || !$data['application']) {
             return redirect()->back()->with('error', 'Oops. something went wrong.');
         }
+        
+
         if ($logged_in_user->parent_id != 0) {
-            //if partner user have viewed the loan application then update the viewed_at column value.
+            $if_action_not_performed = AssignedApplication::where('user_id', $logged_in_user->id)
+                ->where('status','=',1) //0=not viewed, 1= viewed, 2=action performed
+                ->first();
+            if($if_action_not_performed &&($if_action_not_performed->apply_loan_id != $id) && ($data['application']->assigned_application->status != '2')){
+                return redirect()->back()->with('error','Kindly perform any opertion on previously view application.');
+            }
+
             AssignedApplication::where('apply_loan_id', $id)
                 ->where('user_id', $logged_in_user->id)
-                ->whereNull('viewed_at')
-                ->update(['viewed_at' => date("Y-m-d H:i:s")]);
+                ->where('status','=',0) //0=not viewed, 1= viewed, 2=action performed
+                ->update(['viewed_at' => date("Y-m-d H:i:s"),'status'=>1]);
         }
 
         // return $data;
@@ -468,6 +479,12 @@ class LoanApplications extends Controller
         $reject->customer_reject_reason_id = $request->customer_reject_reason_id;
         $reject->other_reasons = $request->other_reasons ?? null;
         $reject->save();
+
+        if ($user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($apply_loan_id,$user->id,1,2);
+        }
+
 
         return redirect()->back()->with('success', 'Loan application is rejected successfully');
     }

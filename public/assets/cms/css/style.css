@@ -2552,6 +2552,9 @@ E. Template Specific Elements
     }
 }
 
+.lh-1-3{
+    line-height: 1.3 !important;
+}
 .pt-20p{
     padding-top: 20px;
 }
@@ -2829,3 +2832,23 @@ E. Template Specific Elements
           transform-origin: 0 0;
         }
         .ldio-8j2236x8qt div { box-sizing: content-box; }
+
+
+.page-item.active .page-link{
+    background-color: #3ebb60;
+    border-color: #3ebb60;
+}
+
+.page-link{
+    color: black;
+}
+
+.page-link:hover{
+    background-color: #3ebb60;
+    border-color: #3ebb60;
+    color: white;
+}
+
+.fb-btn-bg-clr{
+    background-color: #1093f4 !important;
+} 

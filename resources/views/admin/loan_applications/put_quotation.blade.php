@@ -9,7 +9,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="input1" class="col-form-label">Facility limit($)</label>
-                <input type="number" min="0" id="facility_limit" name="facility_limit" required
+                <input type="number" min="0" id="quantum" name="quantum" required
                     class="form-control">
             </div>
             <div class="form-group col-md-6">

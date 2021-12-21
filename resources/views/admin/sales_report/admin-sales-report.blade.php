@@ -65,9 +65,9 @@
                                                     {{-- <td>{{ $month['partner_applications_count'] }}</td> --}}
                                                     <td style="border-right:none">
                                                         <span style="font-weight:bold">Leads: {{ $month['partner_quoted_applications_count'] }}</span><br>
-                                                        <span style="font-weight:bold">Of Leads: {{ $month['avg_quoted_applications'] }}</span><br>
-                                                        <span style="font-weight:bold">Amount quoted: {{ $month['amount_quoted'] }}</span><br>
-                                                        <span style="font-weight:bold">Average quoted: {{ $month['amount_quoted_average'] }}</span><br>
+                                                        <span style="font-weight:bold">Of Leads: {{ round($month['avg_quoted_applications']) }}</span><br>
+                                                        <span style="font-weight:bold">Amount quoted: {{ round($month['amount_quoted']) }}</span><br>
+                                                        <span style="font-weight:bold">Average quoted: {{ round($month['amount_quoted_average']) }}</span><br>
                                                     </td>
                                                     <td style="border-left:none;text-align: center;">
                                                         @if($loop->first )
@@ -116,22 +116,22 @@
                                                     </td>
                                                     <td style="border-right:none">
                                                         <span style="font-weight:bold">Leads: {{ $month['partner_disbursed_applications_count'] }}</span><br>
-                                                        <span style="font-weight:bold">Of Leads: {{ $month['avg_disbursed_applications'] }}</span><br>
-                                                        <span style="font-weight:bold">Amount disbursed: {{ $month['amount_disbursed'] }}</span><br>
-                                                        <span style="font-weight:bold">Average disbursed: {{ $month['amount_disbursed_average'] }}</span><br>
+                                                        <span style="font-weight:bold">Of Leads: {{ round($month['avg_disbursed_applications']) }}</span><br>
+                                                        <span style="font-weight:bold">Amount disbursed: {{ round($month['amount_disbursed']) }}</span><br>
+                                                        <span style="font-weight:bold">Average disbursed: {{ round($month['amount_disbursed_average']) }}</span><br>
                                                     </td>
                                                     <td style="border-left:none;text-align: center;">
                                                         @if($loop->first )
                                                         <span style="font-weight:bold">{{ $month['partner_disbursed_applications_count'] }}</span><br>
-                                                        <span style="font-weight:bold">{{ $month['avg_disbursed_applications'] }}</span><br>
+                                                        <span style="font-weight:bold">{{ round($month['avg_disbursed_applications']) }}</span><br>
                                                         <span style="font-weight:bold">{{ $month['amount_disbursed'] }}</span><br>
-                                                        <span style="font-weight:bold">{{ $month['amount_disbursed_average'] }}</span><br>
+                                                        <span style="font-weight:bold">{{ round($month['amount_disbursed_average']) }}</span><br>
                                                         @else
                                                         <span style="font-weight:bold">
                                                             {{ $month['partner_disbursed_applications_count'] - $month_list[$key-1]['partner_disbursed_applications_count'] }}
                                                             or 
                                                             @if ($month['partner_disbursed_applications_count'] > 0)
-                                                            {{ $month_list[$key-1]['partner_disbursed_applications_count'] /$month['partner_disbursed_applications_count'] }}%                                                                
+                                                            {{ round(($month_list[$key-1]['partner_disbursed_applications_count'] /$month['partner_disbursed_applications_count'])*100) }}%                                                                
                                                             @else
                                                                 0%
                                                             @endif
@@ -140,7 +140,7 @@
                                                             {{ $month['avg_disbursed_applications'] - $month_list[$key-1]['avg_disbursed_applications'] }}
                                                             or 
                                                             @if ($month['avg_disbursed_applications'] > 0)
-                                                            {{ $month_list[$key-1]['avg_disbursed_applications'] /$month['avg_disbursed_applications'] }}%                                                                
+                                                            {{ round(($month_list[$key-1]['avg_disbursed_applications'] /$month['avg_disbursed_applications'])*100) }}%                                                                
                                                             @else
                                                                 0%
                                                             @endif
@@ -149,7 +149,7 @@
                                                             {{ $month['amount_disbursed'] - $month_list[$key-1]['amount_disbursed'] }}
                                                             or 
                                                             @if ($month['amount_disbursed'] > 0)
-                                                            {{ $month_list[$key-1]['amount_disbursed'] /$month['amount_disbursed'] }}%                                                                
+                                                            {{ round(($month_list[$key-1]['amount_disbursed'] /$month['amount_disbursed'])*100) }}%                                                                
                                                             @else
                                                                 0%
                                                             @endif
@@ -158,15 +158,15 @@
                                                             {{ $month['amount_disbursed_average'] - $month_list[$key-1]['amount_disbursed_average'] }}
                                                             or 
                                                             @if ($month['amount_disbursed_average'] > 0)
-                                                            {{ $month_list[$key-1]['amount_disbursed_average'] /$month['amount_disbursed_average'] }}%                                                                
+                                                            {{ round(($month_list[$key-1]['amount_disbursed_average'] /$month['amount_disbursed_average'])*100) }}%                                                                
                                                             @else
                                                                 0%
                                                             @endif
                                                         </span><br>
                                                         @endif
                                                     </td>
-                                                    <td>@if($month['amount_quoted'] != 0){{ ($month['amount_disbursed'] /$month['amount_quoted'])*100 }}% @endif</td>
-                                                    <td>@if($month['partner_quoted_applications_count'] != 0){{ ($month['partner_disbursed_applications_count'] /$month['partner_quoted_applications_count'])*100 }}% @endif</td>
+                                                    <td>@if($month['amount_quoted'] != 0){{ round(($month['amount_disbursed'] /$month['amount_quoted'])*100 )}}% @endif</td>
+                                                    <td>@if($month['partner_quoted_applications_count'] != 0){{ round(($month['partner_disbursed_applications_count'] /$month['partner_quoted_applications_count'])*100) }}% @endif</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>                                            

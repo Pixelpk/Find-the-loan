@@ -20,6 +20,16 @@
 
             <div class="row mt-2">
             <div class="col-md-6">
+                    <!-- <span class="d-flex">
+                        <p class="mb-1"> 
+                            <b>CPF property withdrawal/utilization statement If CPF was used</b>
+                            &nbsp;&nbsp;
+                            <div class="tooltip-c" style="font-size: 16px; color: #ff0000c4;">
+                                <i class="fa fa-info-circle"></i>
+                                <span class="tooltip-text">Hello World</span>
+                            </div>
+                        </p>
+                    </span> -->
              <div class="mb-3">
                 <livewire:widget.upload-component :label="'CPF property withdrawal/utilization statement If CPF was used'"
                 :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
@@ -49,8 +59,8 @@
                 @enderror
             </div>
             </div>
-            <div class="col-md-2 text-center">
-                <p><b>OR</b></p>
+            <div class="col-md-2 text-center align-items-center pt-4">
+                <p><b>or</b></p>
             </div>
             <div wire:ignore.self class="col-md-5">
                 <div class="mb-3">
@@ -65,8 +75,8 @@
             </div>
         </div>
 
-            <div class="row mt-2">
-            <div class="col-md-6">
+        <div class="row mt-2">
+            <div class="col-md-3">
              <div class="mb-3">
                 <label for="unit" class="form-label">Unit if any
                 </label>
@@ -78,7 +88,7 @@
                 @enderror
              </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
              <div class="mb-3">
                 <label for="building_name" class="form-label">Building name if any
                 </label>
@@ -90,10 +100,8 @@
                 @enderror
              </div>
             </div>
-        </div>
 
-        <div class="row mt-2">
-            <div class="col-md-6">
+            <div class="col-md-3">
           <div class="mb-3">
             <label for="lease_remaining" class="form-label">
                 Lease Remaining
@@ -102,7 +110,7 @@
                 <input wire:model="lease_remaining_year" type="text" class="form-control"
                     aria-label="Recipient's username" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2">Years</span>
+                    <span class="input-group-text lh-1-3" id="basic-addon2">Years</span>
                 </div>
             </div>
             @error("lease_remaining_year")
@@ -112,7 +120,7 @@
             @enderror
           </div>
             </div>
-            <div class="col-md-6 d-flex align-items-center">
+            <div class="col-md-3 d-flex align-items-center pt-4">
                 <div class="form-check form-switch mb-3">
                     <input wire:model="free_hold" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                     <label class="form-check-label" for="flexSwitchCheckDefault">Freehold
@@ -121,8 +129,8 @@
             </div>
         </div>
 
-            <div class="row mt-2">
-            <div class="col-md-6">
+        <div class="row mt-2">
+            <div class="col-md-3">
              <div class="mb-3">
                 <label for="fllor_area" class="form-label">
                     Land/Floor Area
@@ -136,7 +144,7 @@
                 @enderror
              </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
           <div class="mb-3">
             <label for="useable_area" class="form-label">
                 Build-in/Useable Area
@@ -149,10 +157,8 @@
             @enderror
           </div>
             </div>
-        </div>
 
-            <div class="row mt-2">
-            <div class="col-md-3 col-lg-2">
+            <div class="col-md-2 col-lg-2 d-flex align-items-center pt-4">
                 <div class="form-check form-switch mb-3">
                     <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox"
                         id="flexSwitchCheckDefault">
@@ -160,7 +166,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-md-3 col-lg-2">
+            <div class="col-md-2 col-lg-2 d-flex align-items-center pt-4">
                 <div class="form-check form-switch mb-3">
                     <input wire:change="changeAreaType()" wire:model="square_meter" class="form-check-input" type="checkbox"
                         id="flexSwitchCheckDefault">
@@ -175,29 +181,29 @@
         </div>
 
         <div class="row mt-2">
-            <div class="col-md-3 col-lg-2">
+            <div class="col-md-3">
                 <div class="form-check form-switch mb-3">
                     <input wire:model="completed" class="form-check-input" type="checkbox" id="flexSwitchCheckDefaul3">
                     <label class="form-check-label" for="flexSwitchCheckDefaul3">Completed</label>
                 </div>
             </div>
-            <div class="col-md-5 col-lg-6 text-lg-end">
+            <div class="col-md-3 text-lg-start">
                 <p>Under Construction -Expected date of completion</p>
             </div>
-            <div class="col-md-2 ">
-          <div class="mb-3">
-            <label for="useable_area" class="form-label">Year</label>
-            <select wire:model="construction_year" class="form-select">
-                <option value="">Select</option>
-                @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
-                    @endfor
-            </select>
-          </div>
+            <div class="col-md-3">
+                <div class="mb-3 d-flex align-items-center">
+                    <span class="mr-3"><label for="useable_area" class="form-label mb-0">Year</label></span>&nbsp;&nbsp;&nbsp;
+                    <select wire:model="construction_year" class="form-select w-100">
+                        <option value="">Select</option>
+                        @for ($x = 1990; $x <= date('Y'); $x++) <option value="{{ $x }}">{{ $x }}</option>
+                            @endfor
+                    </select>
+                </div>
             </div>
-            <div class="col-md-2">
-             <div class="mb-3">
-                <label for="useable_area" class="form-label">Quarter</label>
-                <select wire:model="construction_year_time" class="form-select">
+            <div class="col-md-3">
+             <div class="mb-3 d-flex align-items-center">
+                <span class="mr-3"><label for="useable_area" class="form-label mb-0">Quarter</label></span>&nbsp;&nbsp;&nbsp;
+                <select wire:model="construction_year_time" class="form-select w-100">
                     <option value="">Select</option>
                     <option value="1">Q1</option>
                     <option value="2">Q2</option>
@@ -211,6 +217,11 @@
         <hr>
 
         <div class="row mt-3">
+                    <div class="col-md-12">
+            <div class="mb-3">
+                <p>You can click both</p>
+            </div>
+        </div>
             <div class="col-md-4">
          <div class="mb-3">
             <div class="form-check form-switch">

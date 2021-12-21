@@ -45,7 +45,7 @@ class RegisterComponent extends Component
            'last_name' => 'required',
            'email' => 'required|email', //|unique:users,email
            'phone' => 'required',
-               'password' => [
+            'password' => [
                 'required',
                 'string',
                 'min:8',             // must be at least 8 characters in length

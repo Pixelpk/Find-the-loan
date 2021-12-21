@@ -69,7 +69,7 @@
 <!-- 2ND SECTION -->
 <div class="border p-2 rounded mt-3">
     <div class="row mt-2 d-flex align-items-center">
-        <p>Please provide details not found in OTP or Sale/Purchase Agreement</p>
+        <p>Please provide details not found in OTP or Sale/Purchase Agreement or if there is not one </p>
         <div class="col-md-5">
             <div class="mb-3">
                 <label for="lot_number" class="form-label">Lot Number</label>

@@ -246,7 +246,7 @@ class SalesReportController extends Controller
             $month_amount_quoted = 0;
             if($month_report){
                 foreach($month_report->partner_quoted_applications as $report){
-                    $month_amount_quoted += $report->quantum_interest->quantum;
+                    $month_amount_quoted += $report->quantum_interest->quantum ?? 0;
                 }
             }
             $partner_quoted_applications_count = $month_report ? $month_report->partner_quoted_applications_count : 0;
@@ -271,7 +271,7 @@ class SalesReportController extends Controller
             $month_amount_disbursed = 0;
             if($month_report){
                 foreach($month_report->partner_disbursed_applications as $report){
-                    $month_amount_disbursed += $report->quantum_interest->quantum;
+                    $month_amount_disbursed += $report->quantum_interest->quantum ?? 0;
                 }
             }
             $partner_disbursed_applications_count = $month_report ? $month_report->partner_disbursed_applications_count : 0;
@@ -379,16 +379,16 @@ class SalesReportController extends Controller
 
     public function fetchReportOfUser($partner_user_id, $parent_id,$start_date_from,$start_date_to){
         $date_filter = function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('created_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('created_at',"<=",$start_date_to); //assigned less then this date                        
+            $query->whereDate('created_at',">=",$start_date_from)
+            ->whereDate('created_at',"<=",$start_date_to);                    
         };
         $disbursed_filter = function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('offer_disbursed_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('offer_disbursed_at',"<=",$start_date_to); //assigned less then this date                        
+            $query->whereDate('offer_disbursed_at',">=",$start_date_from)
+            ->whereDate('offer_disbursed_at',"<=",$start_date_to);                       
         };
         $offer_signed_filter = function($query) use($start_date_from,$start_date_to){
-            $query->whereDate('offer_signed_at',">=",$start_date_from) //assigned greater then this date
-            ->whereDate('offer_signed_at',"<=",$start_date_to); //assigned less then this date                        
+            $query->whereDate('offer_signed_at',">=",$start_date_from)
+            ->whereDate('offer_signed_at',"<=",$start_date_to);
         };
 
         $more_doc_replied_filter = function($query) use($date_filter){

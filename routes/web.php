@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\MoreDocController;
 use App\Http\Controllers\Admin\PendingMeetCallController;
 use App\Http\Controllers\Admin\SalesReportController;
 use App\Http\Controllers\CommonController;
+use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\CronJobController;
 use App\Http\Livewire\Cms\AboutUs;
 use App\Http\Livewire\Cms\GlossaryComponenet;
@@ -26,12 +27,14 @@ use App\Http\Livewire\Cms\FaqComponent;
 use App\Http\Livewire\Cms\PrivacyPolicyComponent;
 use App\Http\Livewire\Cms\TermsConditionsComponent;
 use App\Http\Livewire\Cms\ApplyLoan;
+use App\Http\Livewire\Cms\DraftLoan;
 use App\Http\Livewire\Cms\BlogComponent;
 use App\Http\Livewire\Cms\BlogDetailComponent;
 use App\Http\Livewire\Cms\ContactUs;
 use App\Http\Livewire\Cms\Home;
 use App\Http\Livewire\Cms\Login;
 use App\Http\Livewire\Cms\RegisterComponent;
+use App\Http\Livewire\Customer\Profile;
 use App\Http\Livewire\Customer\Dashboard;
 use App\Http\Livewire\Customer\Enquiry;
 use App\Http\Livewire\Customer\MoreDocRequestDetails;
@@ -128,7 +131,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('company-structure-status', [CompanyStructureController::class,'changeStatus'])->name('company-structure-status');
         Route::post('add-company-structure', [CompanyStructureController::class,'addType'])->name('add-company-structure');
         Route::post('company-structure-detail', [CompanyStructureController::class,'typeDetail'])->name('company-structure-detail');
-    
+
         Route::get('/sectors', [SectorController::class,'sectors'])->name('sectors');
         Route::get('sector-status', [SectorController::class,'changeStatus'])->name('sector-status');
         Route::post('add-sector', [SectorController::class,'addSector'])->name('add-sector');
@@ -142,7 +145,7 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('conditions-approval-requests', [FinancePartnerController::class,'conditionsApprovalRequests'])->name('conditions-approval-requests');
         // Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
         Route::get('approve-request', [FinancePartnerController::class,'approveTermsConditions'])->name('approve-request'); //by super admin
-    
+
 
         Route::get('/loan-types', [LoanTypeController::class,'loanTypes'])->name('loan-types');
         Route::get('/get-main-type/{id}', [LoanTypeController::class,'getMainTypes'])->name('get-main-type');
@@ -166,12 +169,12 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
     Route::group(['middleware'=>['partner']],function (){
         Route::get('additional-doc-info', [OCRController::class,'additionDocInfo'])->name('additional-doc-info');
-        Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']); 
-        
-        Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required'); 
-        Route::get('replied-with-docs', [MoreDocController::class,'repliedWithDocs'])->name('replied-with-docs'); 
-        Route::get('replied-doc-details', [MoreDocController::class,'repliedDocDetails'])->name('replied-doc-details'); 
-        Route::post('more-doc-request', [MoreDocController::class,'moreDocRequest'])->name('more-doc-request'); 
+        Route::post('additional-doc-info', [OCRController::class,'addAdditionDocInfo']);
+
+        Route::get('more-doc-required', [MoreDocController::class,'moreDocRequired'])->name('more-doc-required');
+        Route::get('replied-with-docs', [MoreDocController::class,'repliedWithDocs'])->name('replied-with-docs');
+        Route::get('replied-doc-details', [MoreDocController::class,'repliedDocDetails'])->name('replied-doc-details');
+        Route::post('more-doc-request', [MoreDocController::class,'moreDocRequest'])->name('more-doc-request');
         Route::get('ask-more-docs-applications',[MoreDocController::class,'askMoreDocsApplications'])->name('ask-more-docs-applications');
 
         Route::get('/partner-profile', [UserController::class,'partnerProfile'])->name('partner-profile');
@@ -198,27 +201,27 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::get('loan-application-summary',[LoanApplications::class,'applicationSummary'])->name('loan-application-summary');
         Route::get('rejected-applications',[LoanApplications::class,'rejectedApplications'])->name('rejected-applications');
         Route::get('assigned-out',[LoanApplications::class,'assginedOutApplications'])->name('assigned-out');
-        
-        
+
+
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
-        Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation'); 
-        Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating'); 
+        Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation');
+        Route::post('fixed-or-floating',[LoanQuotationController::class,'fixedOrFloating'])->name('fixed-or-floating');
 
         Route::get('partner-sales-report',[SalesReportController::class,'getPartnerSalesReport'])->name('partner-sales-report');
 
         Route::get('pending-meet-call',[PendingMeetCallController::class,'pendingMeetCall'])->name('pending-meet-call');
         Route::get('pending-meet-applications',[PendingMeetCallController::class,'pendingMeetCallApplications'])->name('pending-meet-applications');
 
-        
+
         Route::get('customer-applied',[CustomerAppliedController::class,'customerApplied'])->name('customer-applied');
         Route::get('loan-offer-sign',[CustomerAppliedController::class,'loanOfferSignAndDisbursed'])->name('loan-offer-sign');
         Route::get('loan-offer-disburse-list',[CustomerAppliedController::class,'loanOfferDisbursed'])->name('loan-offer-disburse-list');
         Route::get('loan-offer-sign-list',[CustomerAppliedController::class,'loanOfferSigned'])->name('loan-offer-sign-list');
 
 
-    }); 
+    });
 
     Route::get('/dashboard', [UserController::class,'dashboard'])->name('admin-dashboard');
     Route::get('change-user-status', [UserController::class,'changeStatus'])->name('change-user-status');
@@ -230,16 +233,20 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
     Route::get('partner-meta-requests', [FinancePartnerController::class,'partnerMetaRequests'])->name('partner-meta-requests');
     Route::get('accept-meta-request', [FinancePartnerController::class,'acceptMetaRequest'])->name('accept-meta-request');
 
-
 });
 
 
 Route::get('/login', Login::class)->name('login');
+Route::get('auth/facebook', [SocialLoginController::class, 'facebookRedirect'])->name('facebookRedirect');
+Route::get('auth/facebook/callback', [SocialLoginController::class, 'loginWithFacebook'])->name('loginWithFacebook');
+
 Route::group(['middleware'=>['customer']],function (){
     Route::get('/apply-loan', ApplyLoan::class)->name('applyLoan');
+    Route::get('/draft-loan', DraftLoan::class)->name('draftLoan');
     Route::get('/logout', [UserController::class,'customerLogout'])->name('customer-logout');
     // custoemr dashboard
-  
+
+    Route::get('/customer/profile', Profile::class)->name('customer-profile');
     Route::get('/customer/dashboard', Dashboard::class)->name('customer-dashboard');
     Route::get('/customer/enquiry', Enquiry::class)->name('customer-enquiry');
     Route::get('/customer/quotations', Quotations::class)->name('customer-quotations');
@@ -248,6 +255,6 @@ Route::group(['middleware'=>['customer']],function (){
     Route::get('/customer/more-doc-request-details', MoreDocRequestDetails::class)->name('more-doc-request-details');
     Route::get('/customer/quotation-details', QuotationDetails::class)->name('quotation-details');
 
-    
+
 });
 

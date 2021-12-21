@@ -30,4 +30,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'facebook' => [
+        'client_id' => '439559130908011',
+        'client_secret' => '9a7647f65559d1c38a70afc077fa0712',
+        'redirect' => 'http://localhost/Find-the-loan/public/auth/facebook/callback',
+        // 'redirect' => 'http://localhost:8000/auth/facebook/callback',
+    ],
+
 ];

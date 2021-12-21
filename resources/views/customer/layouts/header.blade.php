@@ -1,9 +1,11 @@
+<link href="{{ asset('assets/cms/css/style01.css?v1') }}" rel="stylesheet" type="text/css">
+
 <!-- Top Bar Start -->
 <div class="topbar">
 
     <!-- LOGO -->
     <div class="topbar-left bg-white">
-        <a href="{{ route('admin-dashboard') }}" class="logo">
+        <a href="{{ route('home') }}" class="logo">
             <img src="{{ asset('assets/images/logo.png') }}" class="logo-lg" alt="Find the loan" style="height: 3rem">
             <img src="{{ asset('assets/images/icon59.png') }}" class="logo-sm" alt="Find the loan" style="height: 2em">
         </a>
@@ -21,7 +23,16 @@
 
     <nav class="navbar-custom">
         <ul class="navbar-right list-inline float-right mb-0">
-
+            <li class="list-inline-item d-none d-md-inline-block">
+                <a href="{{ route('applyLoan') }}" class="btn btn-primary">
+                    Make another loan enquiry
+                </a>
+            </li>
+            <li class="list-inline-item d-none d-md-inline-block">
+                <a href="#" class="btn btn-primary">
+                    View previous enquiry
+                </a>
+            </li>
             <!-- full screen -->
             <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
                 <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
@@ -36,7 +47,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
                         <!-- item-->
-                            <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ route('customer-profile') }}"><i class="mdi mdi-account-circle"></i> Profile</a>
 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="{{ route('customer-logout') }}"><i class="mdi mdi-power text-danger"></i> Logout</a>
