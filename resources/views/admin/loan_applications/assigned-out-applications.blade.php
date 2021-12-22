@@ -34,7 +34,7 @@
                                                 <th>Amount</th>
                                                 <th>Assigned to</th>
                                                 <th>Date Assigned</th>
-                                                <th>Action Done</th>
+                                                {{-- <th>Action Done</th> --}}
                                                 <th>Market Status</th>
                                             </tr>
                                         </thead>
@@ -61,13 +61,13 @@
                                                             {{ $application->assigned_to_user->created_at }}
                                                         @endif
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>
                                                         @elseif($application->application_quote)
                                                         <span class="badge badge-info">Quoted</span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                     
                                                 </tr>

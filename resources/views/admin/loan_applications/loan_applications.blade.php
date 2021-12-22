@@ -93,15 +93,15 @@
                                             <tr>
                                                 <th>Select</th>
                                                 <th>Enquiry ID</th>
-                                                <th>Assigned to</th>
-                                                <th>Date Assigned</th>
+                                                {{-- <th>Assigned to</th>
+                                                <th>Date Assigned</th> --}}
                                                 <th>Name</th>
                                                 <th>Profitable latest year</th>
                                                 <th>Profitable year before</th>
                                                 <th>Incorporated for</th>
                                                 <th>Loan type</th>
                                                 <th>Date Received</th>
-                                                <th>Action Done</th>
+                                                {{-- <th>Action Done</th> --}}
                                                 <th>Market Status</th>
                                             </tr>
                                         </thead>
@@ -114,7 +114,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $application->enquiry_id }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if($application->assigned_to_user != null)
                                                             {{ $application->assigned_to_user->user->name }}
                                                         @endif
@@ -123,7 +123,7 @@
                                                         @if($application->assigned_to_user != null)
                                                             {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
                                                     </td>
@@ -145,13 +145,13 @@
                                                     <td>
                                                         {{ date('Y-m-d',strtotime($application->created_at)) }}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if($application->application_rejected)
                                                         <span class="badge badge-info">Rejected</span>
                                                         @elseif($application->application_quote)
                                                         <span class="badge badge-info">Quoted</span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                     
                                                     
@@ -175,8 +175,8 @@
                                             <tr>
                                                 <th>Select</th>
                                                 <th>Enquiry ID</th>
-                                                <th>Assigned to</th>
-                                                <th>Date Assigned</th>
+                                                {{-- <th>Assigned to</th>
+                                                <th>Date Assigned</th> --}}
                                                 <th>User</th>
                                                 <th>NRIC</th>
                                                 <th>Nationality</th>
@@ -184,7 +184,7 @@
                                                 <th>Estimated monthly income</th>
                                                 <th>Loan type</th>
                                                 <th>Date Received</th>
-                                                <th>Action Done</th>
+                                                {{-- <th>Action Done</th> --}}
                                                 <th>Market Status</th>
                                             </tr>
                                         </thead>
@@ -197,7 +197,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $application->enquiry_id }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     @if($application->assigned_to_user != null)
                                                         {{ $application->assigned_to_user->user->name }}
                                                     @endif
@@ -206,7 +206,7 @@
                                                     @if($application->assigned_to_user != null)
                                                         {{ date('Y-m-d',strtotime($application->assigned_to_user->created_at)) }}
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $application->loan_user->first_name." ".$application->loan_user->last_name }}
                                                 </td>
@@ -221,13 +221,13 @@
                                                     
                                                     {{ date('Y-m-d',strtotime($application->created_at)) }}
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if($application->application_rejected)
                                                     <span class="badge badge-info">Rejected</span>
                                                     @elseif($application->application_quote)
                                                     <span class="badge badge-info">Quoted</span>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                 
                                                     

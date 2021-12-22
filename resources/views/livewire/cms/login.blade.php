@@ -34,9 +34,9 @@
                                 <span class="customspan">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-custom mt-3 w-100"
-                                type="button" wire:loading.attr='disabled' wire:target='loginAttemp'
-                                wire:click.prevent='loginAttemp'>
+                            {{-- <div id="g-recaptcha" class="g-recaptcha"></div> --}}
+                            <button type="submit" data-sitekey="{{env('CAPTCHA_SITE_KEY')}}" data-callback='verifyCallBack' class="btn btn-custom g-recaptcha mt-3 w-100"
+                                type="button" wire:loading.attr='disabled'>
                                 Login
                                 <div wire:loading wire:target="loginAttemp">
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true">
@@ -65,3 +65,25 @@
     </div>
     <!--end container-->
 </section>
+<script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
+
+<script>
+    var verifyCallBack = function(response) {
+        console.log(response)
+        grecaptcha.ready(function () {
+            // @this.set('captcha_token', response);
+            console.log("i am in ready block");
+            grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'submit'})
+                .then(function (token) {
+                    @this.set('captcha', token);
+                });
+        });
+      };
+      var onloadCallback = function() {
+        grecaptcha.render('g-recaptcha', {
+            'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
+            'callback' : verifyCallback,
+            });
+      }
+
+</script>
