@@ -3,6 +3,9 @@
     <div class="container">
         <div class="card" style="margin-top:30px;">
             <div class="card-body">
+
+
+            @if($hideTabs == false)
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a wire:click="$set('tab', '1')" style="padding: .1rem 1rem;"
@@ -61,6 +64,9 @@
                     @endif
                     {{-- @endif --}}
                 </ul>
+
+                @endif
+
                 <br>
                 <br>
                 @if(session('gernalMessage'))

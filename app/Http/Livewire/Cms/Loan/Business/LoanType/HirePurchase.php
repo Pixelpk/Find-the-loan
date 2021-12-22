@@ -100,14 +100,35 @@ class HirePurchase extends Component
             ->delete();
         }
         
-        $this->validate($this->rules, [
-            'hirePurchase.address.required_if' => 'The address is required',
-            'hirePurchase.property_type.required_if' => 'The property type is required',
-        ]);
+        try{
+            
+            $this->validate($this->rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($this->rules);
+        }
+
+        try{
+            $rules = [
+                'hirePurchase.address.required_if' => 'The address is required',
+                'hirePurchase.property_type.required_if' => 'The property type is required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
+
+        // $this->validate($this->rules, [
+        //     'hirePurchase.address.required_if' => 'The address is required',
+        //     'hirePurchase.property_type.required_if' => 'The property type is required',
+        // ]);
        
         $this->hirePurchase['apply_loan_id'] = $this->apply_loan->id;
         $oldValue = $this->hirePurchase['hire_purchase_type'];
-         dd( $this->hirePurchase);
+         // dd( $this->hirePurchase);
+
         $this->hirePurchase->save();
         // dd( $this->hirePurchase);
         Media::where('model', '\App\Models\BusinessHirePurchase')

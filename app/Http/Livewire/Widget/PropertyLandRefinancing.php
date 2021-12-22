@@ -92,22 +92,29 @@ class PropertyLandRefinancing extends Component
     public function store()
     {
         // dd($this->property_land_geographical);
-       $this->validate([
-           'amount' => 'required|integer|min:1',
-           'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
-           'lot_number' => $this->address ?  '' : 'required',
-           'address' => $this->lot_number ?  '' : 'required',
-           'lease_remaining_year' => 'required|integer|min:1',
-           'useable_area' => 'required|integer|min:1',
-           'preferred_tenure_year' => 'required|integer|min:1',
-           'preferred_tenure_month' => 'required|integer|min:1',
-           'float_rate' => $this->fix_rate ? '' :  'required',
-           'fix_rate' => $this->float_rate ? '' :  'required',
-           'property_land_property_type' => 'required',
-           'property_land_geographical' => 'required',
-           'property_land_under' => $this->loan_type_id == 14 ?  'required' : '',
 
-       ]);
+        try{
+            $rules = [
+               'amount' => 'required|integer|min:1',
+               'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
+               'lot_number' => $this->address ?  '' : 'required',
+               'address' => $this->lot_number ?  '' : 'required',
+               'lease_remaining_year' => 'required|integer|min:1',
+               'useable_area' => 'required|integer|min:1',
+               'preferred_tenure_year' => 'required|integer|min:1',
+               'preferred_tenure_month' => 'required|integer|min:1',
+               'float_rate' => $this->fix_rate ? '' :  'required',
+               'fix_rate' => $this->float_rate ? '' :  'required',
+               'property_land_property_type' => 'required',
+               'property_land_geographical' => 'required',
+               'property_land_under' => $this->loan_type_id == 14 ?  'required' : '',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
        $data = [
             //  ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
              ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'], 

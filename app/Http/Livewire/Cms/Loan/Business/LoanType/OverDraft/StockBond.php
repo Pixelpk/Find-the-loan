@@ -49,15 +49,21 @@ class StockBond extends Component
     }
 
     public function store()
-    {
+    {   
 
-       $this->validate([
-           'currency' => 'required',
-           'total_indicative_value' => 'required',
-           'name' => 'required',
-           'company_purchased' => 'required',
-           'indicative_bid_price' => 'required',  
-       ]);
+        try{
+            $rules = [
+                'currency' => 'required',
+                'total_indicative_value' => 'required',
+                'name' => 'required',
+                'company_purchased' => 'required',
+                'indicative_bid_price' => 'required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
        
        OverDraftStockBond::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,

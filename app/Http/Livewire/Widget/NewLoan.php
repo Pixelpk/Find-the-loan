@@ -14,7 +14,7 @@ use Livewire\WithFileUploads;
 
 class NewLoan extends Component
 {
-    
+
     use WithFileUploads;
     public $main_type;
     public $loan_type_id;
@@ -75,7 +75,7 @@ class NewLoan extends Component
             $this->fix_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'fix_rate')->first()->value ?? '';
             $this->float_rate = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'float_rate')->first()->value ?? '';
             $this->property_land_property_type = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_property_type')->first()->value ?? '';
-            $this->property_land_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_graphical_location')->first()->value ?? '';      
+            $this->property_land_graphical_location = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->where('key', 'property_land_graphical_location')->first()->value ?? '';
         }
     }
     public function render()
@@ -85,42 +85,52 @@ class NewLoan extends Component
 
     public function store()
     {
-       $this->validate([
-        'amount' => 'required|integer|min:1',
-        //    'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
-        'lot_number' => $this->address ?  '' : 'required',
-        'address' => $this->lot_number ?  '' : 'required',
-        'lease_remaining_year' => 'required|integer|min:1',
-        'useable_area' => 'required|integer|min:1',
-        'preferred_tenure_year' => 'required|integer|min:1',
-        'preferred_tenure_month' => 'required|integer|min:1',
-        'float_rate' => $this->fix_rate ? '' :  'required',
-        'fix_rate' => $this->float_rate ? '' :  'required',
-        'property_land_property_type' => 'required',
-        'property_land_graphical_location' =>  'required',
-       ]);
+
+        $rules = [
+                'amount' => 'required|integer|min:1',
+                //    'agreement' =>  $this->agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
+                'lot_number' => $this->address ?  '' : 'required',
+                'address' => $this->lot_number ?  '' : 'required',
+                'lease_remaining_year' => 'required|integer|min:1',
+                'useable_area' => 'required|integer|min:1',
+                'preferred_tenure_year' => 'required|integer|min:1',
+                'preferred_tenure_month' => 'required|integer|min:1',
+                'float_rate' => $this->fix_rate ? '' :  'required',
+                'fix_rate' => $this->float_rate ? '' :  'required',
+                // 'property_land_property_type' => 'required',
+                // 'property_land_graphical_location' =>  'required',
+             ];
+
+       try{
+
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
        $data = [
-             ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
-             ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'], 
-             ['type' => 'text', 'value' => $this->address, 'key' => 'address'], 
-             ['type' => 'text', 'value' => $this->unit, 'key' => 'unit'], 
-             ['type' => 'text', 'value' => $this->building_name, 'key' => 'building_name'], 
-             ['type' => 'number', 'value' => $this->lease_remaining_year, 'key' => 'lease_remaining_year'], 
-             ['type' => 'checkbox', 'value' => $this->free_hold, 'key' => 'free_hold'], 
-             ['type' => 'text', 'value' => $this->fllor_area, 'key' => 'fllor_area'], 
-             ['type' => 'text', 'value' => $this->useable_area, 'key' => 'useable_area'], 
-             ['type' => 'checkbox', 'value' => $this->square_feet, 'key' => 'square_feet'], 
-             ['type' => 'checkbox', 'value' => $this->square_meter, 'key' => 'square_meter'], 
-             ['type' => 'number', 'value' => $this->preferred_tenure_year, 'key' => 'preferred_tenure_year'], 
-             ['type' => 'number', 'value' => $this->preferred_tenure_month, 'key' => 'preferred_tenure_month'], 
-             ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
-             ['type' => 'checkbox', 'value' => $this->completed, 'key' => 'completed'], 
-             ['type' => 'option', 'value' => $this->construction_year, 'key' => 'construction_year'], 
-             ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'], 
-             ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'], 
-             ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'], 
-             ['type' => 'radio', 'value' => $this->property_land_property_type, 'key' => 'property_land_property_type'], 
-             ['type' => 'radio', 'value' => $this->property_land_graphical_location, 'key' => 'property_land_graphical_location'], 
+             ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'],
+             ['type' => 'number', 'value' => $this->lot_number, 'key' => 'lot_number'],
+             ['type' => 'text', 'value' => $this->address, 'key' => 'address'],
+             ['type' => 'text', 'value' => $this->unit, 'key' => 'unit'],
+             ['type' => 'text', 'value' => $this->building_name, 'key' => 'building_name'],
+             ['type' => 'number', 'value' => $this->lease_remaining_year, 'key' => 'lease_remaining_year'],
+             ['type' => 'checkbox', 'value' => $this->free_hold, 'key' => 'free_hold'],
+             ['type' => 'text', 'value' => $this->fllor_area, 'key' => 'fllor_area'],
+             ['type' => 'text', 'value' => $this->useable_area, 'key' => 'useable_area'],
+             ['type' => 'checkbox', 'value' => $this->square_feet, 'key' => 'square_feet'],
+             ['type' => 'checkbox', 'value' => $this->square_meter, 'key' => 'square_meter'],
+             ['type' => 'number', 'value' => $this->preferred_tenure_year, 'key' => 'preferred_tenure_year'],
+             ['type' => 'number', 'value' => $this->preferred_tenure_month, 'key' => 'preferred_tenure_month'],
+             ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'],
+             ['type' => 'checkbox', 'value' => $this->completed, 'key' => 'completed'],
+             ['type' => 'option', 'value' => $this->construction_year, 'key' => 'construction_year'],
+             ['type' => 'option', 'value' => $this->construction_year_time, 'key' => 'construction_year_time'],
+             ['type' => 'checkbox', 'value' => $this->float_rate, 'key' => 'float_rate'],
+             ['type' => 'checkbox', 'value' => $this->fix_rate, 'key' => 'fix_rate'],
+             ['type' => 'radio', 'value' => $this->property_land_property_type, 'key' => 'property_land_property_type'],
+             ['type' => 'radio', 'value' => $this->property_land_graphical_location, 'key' => 'property_land_graphical_location'],
        ];
        if($this->apply_loan){
             LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -138,7 +148,7 @@ class NewLoan extends Component
             'user_id' => Auth::guard('web')->user()->id,
             ]);
         }
-       
+
        foreach($data as $key => $item)
        {
         $LGI = new LoanGernalInfo();
@@ -146,7 +156,7 @@ class NewLoan extends Component
         $LGI->type = $item['type'];
         $LGI->key = $item['key'];
         // if($item['type'] == 'file'){
-            
+
         //     $LGI->value = isset($item['value']) && \File::extension($item['value']) == 'tmp' ? $item['value']->store('documents') : isset($item['value']);
         // }else{
             $LGI->value = isset($item['value']) ? $item['value'] : '';

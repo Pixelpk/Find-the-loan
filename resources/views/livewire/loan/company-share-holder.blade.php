@@ -111,12 +111,12 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    
+
                     <span class="d-flex">
-                        <p class="mb-1"> 
+                        <p class="mb-1">
 
                         <b>Personal NOA</b>
-                        
+
                         &nbsp;&nbsp;
                         <div class="tooltip-c" style="font-size: 16px; color: #ff0000c4;">
                             <i class="fa fa-info-circle"></i>
@@ -127,7 +127,7 @@
                     </span>
                     <p class="mb-1">(Notice of Assessment) 2 Years</p>
 
-                  
+
                 </div>
 
                 <div class="row">
@@ -265,20 +265,20 @@
     </div>
     <div class="ro text-end">
 
-       
-        @if($enableButtons == false)
+
+        {{-- @if($enableButtons == false) --}}
             <button class="btn btn-custom" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
                 <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
                 Save Continue
             </button>
-        @else
+        {{-- @else
             <button class="btn btn-custom" disabled>
                 <span class="spinner-border-sm" role="status"
                     aria-hidden="true"></span>
                 Save Continue
             </button>
-        @endif
+        @endif --}}
 
     </div>
 </section>

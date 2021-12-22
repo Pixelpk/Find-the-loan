@@ -259,13 +259,18 @@
     <!-- SAVE & CONTINUE BUTTON -->
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
-        <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
-          <!--   <div wire:loading wire:target="confirmationMessage">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            </div> -->
 
-            <div class="magnify-loader-background  d-none" wire:loading.longest wire:target="confirmationMessage" wire:loading.class.remove="d-none">
-                 <div class="magnify-loader" >
+        @if($listed_company_check == false)
+        <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
+           <div wire:loading wire:target="confirmationMessage">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+           </div>
+              Save @if($share_holder == 0) & Continue @endif
+          </button>
+        @else
+        <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
+            <div class="magnify-loader-background d-none" wire:loading.longest wire:target="confirmationMessage" wire:loading.class.remove="d-none">
+                 <div class="magnify-loader">
                         <div class="loadingio-spinner-magnify-hz4ezng7lp">
                             <div class="ldio-8j2236x8qt">
                                 <div><div>
@@ -277,10 +282,10 @@
                     <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
                 </div>
             </div>
-
-
             Save @if($share_holder == 0) & Continue @endif
         </button>
+        @endif
+
     </div>
     <!-- /SAVE & CONTINUE BUTTON -->
     <script>
@@ -315,7 +320,8 @@
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {
                     // calling destroy method to delete
-                    @this.call(event.detail.function)
+                    @this.call(event.detail.function);
+
                     // success response
 
                 } else {
