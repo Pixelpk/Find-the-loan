@@ -12,6 +12,7 @@ class MoreDocRequestDetails extends Component
 {
     use WithFileUploads;
     public $user;
+    public $quote_additional_doc_idz;
     public $form = [];
     public $more_doc_request_id;
     public $more_doc_request_detail;
@@ -83,6 +84,7 @@ class MoreDocRequestDetails extends Component
         $this->more_doc_request_detail = MoreDocRequireRequest::where('id', $this->more_doc_request_id)
             ->with('more_doc_msg_desc')
             ->first();
+        $this->quote_additional_doc_idz = $this->more_doc_request_detail->more_doc_msg_desc->pluck('quote_additional_doc_id')->toArray();
         if (!$this->more_doc_request_detail) {
             return redirect(route('customer-more-doc-requests'))->with('error', 'Oops. something went wrong');
         }
@@ -166,7 +168,18 @@ class MoreDocRequestDetails extends Component
 
     public function addPersonalLoan($i)
     {
-       
+        $this->validate([
+            'pl_bank_institution'=>'required',
+            'pl_facility_type'=>'required',
+            'pl_original_loan_amount'=>'required',
+            'pl_interest_per_year'=>'required',
+            'pl_outstanding_loan_amount'=>'required',
+            'pl_monthly_installment_amount'=>'required',
+            'pl_start_date'=>'required',
+            'pl_duration'=>'required',
+        ]);
+        $this->i = $i + 1;
+
         $p_loan_detail = [
             'bank_institution'=> $this->pl_bank_institution,
             'facility_type'=> $this->pl_facility_type,
@@ -191,6 +204,17 @@ class MoreDocRequestDetails extends Component
 
     public function addCompanyLoan($j)
     {
+        $this->validate([
+            'cl_bank_institution'=>'required',
+            'cl_facility_type'=>'required',
+            'cl_original_loan_amount'=>'required',
+            'cl_interest_per_year'=>'required',
+            'cl_outstanding_loan_amount'=>'required',
+            'cl_monthly_installment_amount'=>'required',
+            'cl_start_date'=>'required',
+            'cl_duration'=>'required',
+        ]);
+
         $this->j = $j + 1;
         $loan_detail = [
             'bank_institution'=> $this->cl_bank_institution,
@@ -216,6 +240,14 @@ class MoreDocRequestDetails extends Component
 
     public function addInsuranceAsset($insurance_counter)
     {
+        $this->validate([
+            'insurance_type'=>'required',
+            'insurance_details'=>'required',
+            'insurance_current_value'=>'required',
+            'insurance_maturity_date'=>'required',
+            'insurance_year_purchased'=>'required',
+        ]);
+
         $this->insurance_counter = $insurance_counter + 1;
         $detail = [
             'insurance_type'=> $this->insurance_type,
@@ -229,6 +261,11 @@ class MoreDocRequestDetails extends Component
 
     public function addInvestmentAsset($investment_counter)
     {
+        $this->validate([
+            'investment_type'=>'required',
+            'investment_details'=>'required',
+            'investment_current_value'=>'required',
+        ]);
         $this->investment_counter = $investment_counter + 1;
         $detail = [
             'investment_type'=> $this->investment_type,
@@ -240,6 +277,11 @@ class MoreDocRequestDetails extends Component
 
     public function addCashDepositAsset($cd_counter)
     {
+        $this->validate([
+            'cash_and_deposit_type'=>'required',
+            'cash_and_deposit_details'=>'required',
+            'cash_and_deposit_current_value'=>'required',
+        ]);
         $this->cd_counter = $cd_counter + 1;
         $detail = [
             'cash_and_deposit_type'=> $this->cash_and_deposit_type,
@@ -251,6 +293,11 @@ class MoreDocRequestDetails extends Component
 
     public function addPropertyAsset($p_counter)
     {
+        $this->validate([
+            'asset_property_type'=>'required',
+            'asset_property_details'=>'required',
+            'asset_property_current_value'=>'required',
+        ]);
         $this->p_counter = $p_counter + 1;
         $detail = [
             'asset_property_type'=> $this->asset_property_type,
@@ -262,6 +309,11 @@ class MoreDocRequestDetails extends Component
 
     public function addOthersAsset($o_counter)
     {
+        $this->validate([
+            'asset_others_type'=>'required',
+            'asset_others_details'=>'required',
+            'asset_others_current_value'=>'required',
+        ]);
         $this->o_counter = $o_counter + 1;
         $detail = [
             'asset_others_type'=> $this->asset_others_type,
@@ -308,20 +360,17 @@ class MoreDocRequestDetails extends Component
 
     public function submitMoreDocRequestReply()
     {
-        // dd($this->personal_loan_list,$this->company_loan_list);
-        // dd($this->dont_have_doc, $this->form);
-        // if (!sizeof($this->form)) {
-        //     $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
-        //     return;
-        // }
+
         $empty = true;
         // $file = "replied_with_doc\/20211203-081717\/gQT98FyyYkvWqMSZE5tEK4fh5B2lDLrZIovZyR2o.jpg";
         // dd(storage_path("app/".$file));
-        $personal_assets_list ['insurance_asset_list'] = $this->insurance_asset_list;
-        $personal_assets_list ['investment_asset_list'] = $this->investment_asset_list;
-        $personal_assets_list ['cash_and_deposit_asset_list'] = $this->cash_and_deposit_asset_list;
-        $personal_assets_list ['property_asset_list'] = $this->property_asset_list;
-        $personal_assets_list ['others_asset_list'] = $this->others_asset_list;
+        if(in_array(100,$this->quote_additional_doc_idz)){
+            $personal_assets_list ['insurance_asset_list'] = $this->insurance_asset_list;
+            $personal_assets_list ['investment_asset_list'] = $this->investment_asset_list;
+            $personal_assets_list ['cash_and_deposit_asset_list'] = $this->cash_and_deposit_asset_list;
+            $personal_assets_list ['property_asset_list'] = $this->property_asset_list;
+            $personal_assets_list ['others_asset_list'] = $this->others_asset_list;
+        }
 
         
         $replied_docs = [];
@@ -386,6 +435,12 @@ class MoreDocRequestDetails extends Component
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
         $this->form = [];
         $this->personal_loan_list = [];
+        $this->company_loan_list = [];
+        $this->insurance_asset_list = [];
+        $this->investment_asset_list = [];
+        $this->cash_and_deposit_asset_list = [];
+        $this->property_asset_list = [];
+        $this->others_asset_list = [];
         $this->i = 1;
         $this->j = 1;
         $this->reset('form');

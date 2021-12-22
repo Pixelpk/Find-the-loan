@@ -66,7 +66,7 @@
                 <div class="container py-3 info-container mt-5 info-container">
                     <div class="container">
                         {{-- <form class=""> --}}
-                            <div class="row">
+                            <div class="row align-items-end">
                                 <input type="hidden" wire:model="more_doc_request_id" value="{{ $more_doc_request_detail->id }}">
                                 @foreach ($more_doc_request_detail->more_doc_msg_desc as $item2)
                                     @if ($item2->quote_additional_doc->id == 99 || $item2->quote_additional_doc_id == 4)
@@ -82,7 +82,7 @@
                                                     <i class="fa fa-info-circle" data-toggle="tooltip"
                                                     data-original-title="{{$item2->quote_additional_doc->additional_description}}"></i>
                                                 @endif
-                                                (<input type="checkbox" id="{{$item2->quote_additional_doc->id}}" wire:change="chk({{$item2->quote_additional_doc->id}})" wire:model="dont_have_doc.{{$item2->quote_additional_doc->id}}" class="mr-2"><label for="{{$item2->quote_additional_doc->id}}">Don't have this?</label>)
+                                                {{-- (<input type="checkbox" id="{{$item2->quote_additional_doc->id}}" wire:change="chk({{$item2->quote_additional_doc->id}})" wire:model="dont_have_doc.{{$item2->quote_additional_doc->id}}" class="mr-2"><label for="{{$item2->quote_additional_doc->id}}">Don't have this?</label>) --}}
                                             </label>
                                             @if ($item2->quote_additional_doc->doc_type == 'text' || $item2->quote_additional_doc->doc_type == 'file' || $item2->quote_additional_doc->doc_type == 'number')
                                                 @if ($item2->quote_additional_doc->id == 131 || $item2->quote_additional_doc->id == 132)
@@ -97,15 +97,6 @@
 
                                                 @else
                                                 <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
-
-                                                        {{-- @if ($item2->quote_additional_doc->doc_type == 'file')
-                                                        <label class="label w-100" data-toggle="tooltip" title="Select file">
-                                                            <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
-                                                        </label>
-                                                            @else
-                                                        <input  @if(isset($dont_have_doc[$item2->quote_additional_doc->id]) == true) disabled @endif class="form-control float-right replied_docs" @if ($item2->quote_additional_doc->doc_type == 'number') min='0' @endif type="{{$item2->quote_additional_doc->doc_type}}" wire:model="form.{{$item2->quote_additional_doc->id}}.{{$item2->quote_additional_doc->info}}.{{$item2->quote_additional_doc->doc_type}}" id="">
-
-                                                        @endif --}}
                                                 @endif
                                             @elseif($item2->quote_additional_doc->doc_type == 'dropdown')
                                                     @if ($item2->quote_additional_doc->id == 101)
@@ -166,13 +157,17 @@
                                                     @endif
                                             @endif
                                         </div>
+                                        <div class="col-md-4 pb-2">
+                                            <input type="checkbox" id="{{$item2->quote_additional_doc->id}}" wire:change="chk({{$item2->quote_additional_doc->id}})" wire:model="dont_have_doc.{{$item2->quote_additional_doc->id}}" class="mr-2"><label for="{{$item2->quote_additional_doc->id}}">Don't have this?</label>
+
+                                        </div>
                                     @endif
                                     
                                 @endforeach
                                 
                             </div>
-                            <div class="mt-2 text-right">
-                                <button wire:click="submitMoreDocRequestReply()" class="btn btn-primary ">Submit</button>
+                            <div class="mt-3 px-0 text-right text-align-end">
+                                <button wire:click="submitMoreDocRequestReply()" class="btn btn-primary btn-lg">Submit</button>
                             </div>                            
                         {{-- </form> --}}
                         

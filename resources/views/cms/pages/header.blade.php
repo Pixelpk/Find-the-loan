@@ -95,7 +95,7 @@
                             $route = route($current_route);
                             }
                             @endphp
-                            @if($current_route != "applyLoan")
+                            @if($current_route != "applyLoan" && $current_route != "draftLoan")
 
                             <a href="{{$route}}" class="btn btn-h" style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;">{{ getCmsRoute($current_route)}}</a>
                             <button type="button" class="btn dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference"
@@ -141,9 +141,7 @@
                 <li>
                     <a href="#" class="nav-link">
                         @if(Auth::guard('web')->check())
-                            @if(Route::currentRouteName() != "draftLoan")
                             <a href="{{ route('draftLoan') }}" class="btnnew2 btn">Draft </a>
-                            @endif
                         @endif
                     </a>
                 </li>
