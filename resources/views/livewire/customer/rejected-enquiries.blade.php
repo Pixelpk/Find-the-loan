@@ -7,7 +7,7 @@
                         <div class="row align-items-center ">
                             <div class="col-md-8">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Loan types</h4>
+                                    <h4 class="page-title">Rejected enquiries</h4>
                                 </div>
                             </div>
                         </div>
