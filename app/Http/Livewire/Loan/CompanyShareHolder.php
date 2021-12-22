@@ -64,6 +64,7 @@ class CompanyShareHolder extends Component
     public $check;
     public $hideCompanyDocuments;
     public $test;
+    public $enableButtons = true;
 
 
     protected $listeners = [
@@ -216,6 +217,8 @@ class CompanyShareHolder extends Component
                 "nao_older" => isset($this->nao_older[$getsholder->id]) ?  $this->nao_older[$getsholder->id]->store('documents') : '',
                 "not_proof" => isset($this->not_proof[$getsholder->id]) ?  $this->not_proof[$getsholder->id] : '',
             ]);
+
+            $this->enableButtons = false;
             $this->gernal['change_color'] = 'success';
             $this->emit('alert', ['type' => 'success', 'message' => 'Shareholder person data saved.']);
             $this->lenderflag = true;
@@ -425,7 +428,8 @@ class CompanyShareHolder extends Component
     }
 
     public function searchLender()
-    {
+    {   
+        // dd('as');
         $shareHolders = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
         $error = [];
         $sr = 1;

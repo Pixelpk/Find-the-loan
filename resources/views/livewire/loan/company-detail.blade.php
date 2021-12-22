@@ -232,7 +232,7 @@
             <div class="col-md-12 col-lg-6">
                 <p style="margin-bottom: 20px;"><label for="company_name" class="form-label">Select
                         country</label></p>
-                <div class="form-group d-flex align-items-end">
+                <div class="form-group">
                     <select wire:model="country" class="form-select" aria-label="Default select example">
                         <option value="" hidden>Select</option>
                         @foreach($countries as $country)
@@ -260,22 +260,25 @@
     <div class="ro {{ $share_holder == 0 ? 'text-end' : '' }}">
         <br>
         <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
-            <div wire:loading wire:target="confirmationMessage">
+          <!--   <div wire:loading wire:target="confirmationMessage">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </div> -->
+
+            <div class="magnify-loader-background  d-none" wire:loading.longest wire:target="confirmationMessage" wire:loading.class.remove="d-none">
+                 <div class="magnify-loader" >
+                        <div class="loadingio-spinner-magnify-hz4ezng7lp">
+                            <div class="ldio-8j2236x8qt">
+                                <div><div>
+                                <div></div>
+                                <div></div>
+                                </div></div>
+                            </div>
+                        </div>
+                    <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
+                </div>
             </div>
 
-            <!-- <div class="magnify-loader d-none" wire:loading.longest wire:target="confirmationMessage" wire:loading.class.remove="d-none">
-                    <div class="loadingio-spinner-magnify-hz4ezng7lp">
-                        <div class="ldio-8j2236x8qt">
-                            <div><div>
-                            <div></div>
-                            <div></div>
-                            </div></div>
-                        </div>
-                    </div>
-                    <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
-            </div> -->
-            
+
             Save @if($share_holder == 0) & Continue @endif
         </button>
     </div>
