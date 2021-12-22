@@ -8,6 +8,7 @@ use App\Models\LoanDocument;
 use App\Models\LoanPersonShareHolder;
 use App\Models\LoanStatement;
 use App\Models\Sector;
+use Exception;
 use App\Models\ShareHolderDetail;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -175,15 +176,22 @@ class CompanyShareHolder extends Component
         $currentID = $this->share_holder;
         $getsholder = ShareHolderDetail::where('id', $currentID)->first();
         if($getsholder->share_holder_type == 1){
-        
-            $this->validate([
-                "nric_front.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
-                "nric_back.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
-                "passport.$currentID" => isset($this->nric_front[$getsholder->id]) && isset($this->nric_back[$currentID]) ? '' : 'image|required',
-                "not_proof.$currentID" => isset($this->nao_latest[$getsholder->id]) && isset($this->nao_older[$currentID]) ? '' : 'required',
-                "nao_latest.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
-                "nao_older.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
-            ]);
+            
+
+            try{
+                $rules = [
+                    "nric_front.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                    "nric_back.$currentID" => isset($this->passport[$getsholder->id])  ? '' : 'image|required',
+                    "passport.$currentID" => isset($this->nric_front[$getsholder->id]) && isset($this->nric_back[$currentID]) ? '' : 'image|required',
+                    "not_proof.$currentID" => isset($this->nao_latest[$getsholder->id]) && isset($this->nao_older[$currentID]) ? '' : 'required',
+                    "nao_latest.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                    "nao_older.$currentID" => isset($this->not_proof[$getsholder->id])  ? '' : 'image|required',
+                 ];
+                $this->validate($rules);
+            }catch(Exception $exc){
+                $this->emit('required_fields_error');
+                $this->validate($rules);
+            }
 
             $LPSH = LoanPersonShareHolder::where('share_holder_detail_id',$getsholder->id)->where('apply_loan_id', $this->apply_loan->id)->first();
             if($LPSH){
@@ -226,12 +234,19 @@ class CompanyShareHolder extends Component
         if($getsholder->share_holder_type == 2)
         {
             if(isset($this->share_holder_listed_company_check[$id]) && $this->share_holder_listed_company_check[$id]){
-                $this->validate([
-                    "share_holder_company_name.$getsholder->id" => 'required',
-                    "share_holder_country.$getsholder->id" => 'required',
-                    "share_holder_subsidiary.$getsholder->id" => 'required|mimes:jpg,jpeg,png,pdf',
-                    
-                ]);
+
+                try{
+                    $rules = [
+                       "share_holder_company_name.$getsholder->id" => 'required',
+                        "share_holder_country.$getsholder->id" => 'required',
+                        "share_holder_subsidiary.$getsholder->id" => 'required|mimes:jpg,jpeg,png,pdf',
+                     ];
+                    $this->validate($rules);
+                }catch(Exception $exc){
+                    $this->emit('required_fields_error');
+                    $this->validate($rules);
+                }
+
                 $LCD = LoanCompanyDetail::where('share_holder',$getsholder->id)->where('apply_loan_id', $this->apply_loan->id)->first();
                 if($LCD){
                     $LCD->delete();
@@ -275,18 +290,25 @@ class CompanyShareHolder extends Component
                 
             }
             
-            $this->validate([
-                "share_holder_company_name.$getsholder->id" => 'required',
-                "share_holder_company_year.$getsholder->id" => 'required',
-                "share_holder_company_month.$getsholder->id" => 'required',
-                "share_holder_number_of_share_holder.$getsholder->id" => 'required',
-                "share_holder_sector_id.$getsholder->id" => 'required',
-                "share_holder_revenue.$getsholder->id" => 'required',
-                "share_holder_percentage_shareholder.$getsholder->id" => 'required',
-                "share_holder_company_structure_type_id.$getsholder->id" => 'required',
-                "share_holder_number_of_employees.$getsholder->id" => 'required',
-                "share_holder_website.$getsholder->id" => 'nullable',
-            ]);
+            try{
+                $rules = [
+                    "share_holder_company_name.$getsholder->id" => 'required',
+                    "share_holder_company_year.$getsholder->id" => 'required',
+                    "share_holder_company_month.$getsholder->id" => 'required',
+                    "share_holder_number_of_share_holder.$getsholder->id" => 'required',
+                    "share_holder_sector_id.$getsholder->id" => 'required',
+                    "share_holder_revenue.$getsholder->id" => 'required',
+                    "share_holder_percentage_shareholder.$getsholder->id" => 'required',
+                    "share_holder_company_structure_type_id.$getsholder->id" => 'required',
+                    "share_holder_number_of_employees.$getsholder->id" => 'required',
+                    "share_holder_website.$getsholder->id" => 'nullable',
+                 ];
+                $this->validate($rules);
+            }catch(Exception $exc){
+                $this->emit('required_fields_error');
+                $this->validate($rules);
+            }
+
             if($this->share_holder_company_year[$getsholder->id] && $this->share_holder_company_month[$getsholder->id]){
                 $company_start_date = $this->share_holder_company_year[$getsholder->id].'/'.$this->share_holder_company_month[$getsholder->id];
             }else{
@@ -347,15 +369,23 @@ class CompanyShareHolder extends Component
             if(sizeof($this->share_errorArray) > 0){
                 return;
             }
-            $this->validate([
-                "share_holder_statement.$getsholder->id" => isset($this->share_holder_photo[$getsholder->id])  > 0 ? '' : 'image|required',
-                // "share_holder_statement.$getsholder->id" => 'image|required',
-                "share_holder_latest_year.$getsholder->id" => 'image|required',
-                "share_holder_year_before.$getsholder->id" => $this->share_holder_company_year[$getsholder->id] >= 3 ?  'image|required' : '',
-                "share_holder_profitable_latest_year.$getsholder->id" => 'required',
-                "share_holder_profitable_before_year.$getsholder->id" => 'required',
-                // 'current_year' => 'image',
-            ]);
+
+            try{
+                $rules = [
+                    "share_holder_statement.$getsholder->id" => isset($this->share_holder_photo[$getsholder->id])  > 0 ? '' : 'image|required',
+                    // "share_holder_statement.$getsholder->id" => 'image|required',
+                    "share_holder_latest_year.$getsholder->id" => 'image|required',
+                    "share_holder_year_before.$getsholder->id" => $this->share_holder_company_year[$getsholder->id] >= 3 ?  'image|required' : '',
+                    "share_holder_profitable_latest_year.$getsholder->id" => 'required',
+                    "share_holder_profitable_before_year.$getsholder->id" => 'required',
+                    // 'current_year' => 'image',
+                 ];
+                $this->validate($rules);
+            }catch(Exception $exc){
+                $this->emit('required_fields_error');
+                $this->validate($rules);
+            }
+
             $loanComanyDetaol = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
             ->where('share_holder',$getsholder->id)
             ->first();

@@ -9,7 +9,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 class Deposit extends Component
 {
-    
+
     use WithFileUploads;
     //parent component data
     public $main_type;
@@ -44,7 +44,7 @@ class Deposit extends Component
 
     public function store()
     {
-       
+
        if($this->tab == 2){
             $tranche = "required";
             $fd_sd = "required";
@@ -60,16 +60,24 @@ class Deposit extends Component
             $tranche = "";
             $fd_sd = "";
         }
-       $this->validate([
-           'currency' => 'required',
-           'deposit_amount' => 'required',
-           'deposit_ac_number' => 'required',
-           'bank' => 'required',
-           'other_bank_name' => $this->bank == "other" ?  'required' : '',
-           'tranche' => $tranche,
-           'fd_sd' => $fd_sd,
-       ]);
-       
+
+       try{
+            $rules = [
+                'currency' => 'required',
+                'deposit_amount' => 'required',
+                'deposit_ac_number' => 'required',
+                'bank' => 'required',
+                'other_bank_name' => $this->bank == "other" ?  'required' : '',
+                'tranche' => $tranche,
+                'fd_sd' => $fd_sd,
+            ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
+
        OverDraftDeposit::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'deposit_type' => $this->tab,
@@ -81,7 +89,7 @@ class Deposit extends Component
            'tranche' => $this->tranche,
            'fd_sd' => $this->fd_sd,
        ]);
-      
+
        $this->getDeposit();
        $this->emit('enableButton', true);
        $this->emit('alert', ['type' => 'success', 'message' => 'Deposit added successfully.']);
@@ -106,7 +114,7 @@ class Deposit extends Component
     {
         $this->square_meter = '';
     }
-    
+
 
     public function getDeposit()
     {
@@ -116,7 +124,7 @@ class Deposit extends Component
     }
     public function deleteRecord(OverDraftDeposit $OverDraftDeposit)
     {
-       
+
         $OverDraftDeposit->delete();
         $this->getDeposit();
     }
