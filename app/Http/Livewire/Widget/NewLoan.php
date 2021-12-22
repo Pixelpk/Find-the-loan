@@ -97,8 +97,8 @@ class NewLoan extends Component
                 'preferred_tenure_month' => 'required|integer|min:1',
                 'float_rate' => $this->fix_rate ? '' :  'required',
                 'fix_rate' => $this->float_rate ? '' :  'required',
-                // 'property_land_property_type' => 'required',
-                // 'property_land_graphical_location' =>  'required',
+                'property_land_property_type' => 'required',
+                'property_land_graphical_location' =>  'required',
              ];
 
        try{
