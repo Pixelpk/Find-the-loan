@@ -44,12 +44,16 @@
                                 </div>
                             </button>
 
-                            <div class="p-4 text-center">
+                            <div class="p-3 text-center">
                                 <span><b>or</b></span>
                             </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center">
-                               <span>You can also Login through Facebook</span>
-                               <a href="{{ route('facebookRedirect') }}" class="btnnew1 btn fb-btn-bg-clr"> Login with Facebook </a>
+
+                            <div class="text-center">
+                                <i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i>
+                            </div>
+                            <div class="pt-3">
+                               <span>You don't have an account?</span>
+                               <a href="{{ route('registration') }}" style="text-decoration: underline;"> Sign Up </a>
                             </div>
                         </div>
                     </div>

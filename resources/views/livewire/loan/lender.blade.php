@@ -7,7 +7,7 @@
                 <br>
 
                 <p class="text-center mt-5" style="font-size: 18px;">
-                    {{ $thank_you_message}}
+                    Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.
                 </p>
             </div>
         </div>
