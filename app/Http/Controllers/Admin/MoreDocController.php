@@ -100,15 +100,18 @@ class MoreDocController extends Controller
             ->whereHas('application_more_doc', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
                 $query->where('partner_id', '=', $partner_id);
                 //checking if finance partner admin is not loggedIn then only get assigned applications of user
-                if ($parent_id != 0) {
-                    $query->where('user_id', '=', $logged_user_id);
-                }
+                $query->where('user_id', '=', $logged_user_id);
+                // if ($parent_id != 0) {
+                //     $query->where('user_id', '=', $logged_user_id);
+                // }
             })->with([
                 'loan_company_detail', 'loan_reason',
-                'assigned_application',
+                // 'assigned_application',
                 'loan_type:id,sub_type',
                 'loan_user:id,first_name,last_name',
-            ])->paginate(20);
+            ])
+            ->whereDoesntHave('assigned_application')
+            ->paginate(20);
         // return $data; 
         return view('admin.loan_applications.more-doc-request-list', $data);
     }
@@ -129,8 +132,9 @@ class MoreDocController extends Controller
                 'loan_user:id,first_name,last_name',
             ]);
         }])
-        ->whereHas('more_doc_request_details',function($query) use($partner_id){
-            $query->where('partner_id',$partner_id);
+        ->whereHas('more_doc_request_details',function($query) use($partner_id,$logged_user_id){
+            $query->where('partner_id',$partner_id)
+            ->where('user_id', '=', $logged_user_id);
         })
         ->paginate(20);
         // return $data;
