@@ -34,22 +34,26 @@
                                 <span class="customspan">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-custom mt-3 w-100"
-                                type="button" wire:loading.attr='disabled' wire:target='loginAttemp'
-                                wire:click.prevent='loginAttemp'>
+                            {{-- <div id="g-recaptcha" class="g-recaptcha"></div> --}}
+                            <button  onclick="verifyCallBack()" class="btn btn-custom g-recaptcha mt-3 w-100"
+                                type="button" wire:loading.attr='disabled'>
                                 Login
-                                <div wire:loading wire:target="loginAttemp">
+                                <div wire:loading>
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true">
                                     </span>
                                 </div>
                             </button>
 
-                            <div class="p-4 text-center">
+                            <div class="p-3 text-center">
                                 <span><b>or</b></span>
                             </div>
-                            <div class="pt-3 d-flex justify-content-between align-items-center">
-                               <span>You can also Login through Facebook</span>
-                               <a href="{{ route('facebookRedirect') }}" class="btnnew1 btn fb-btn-bg-clr"> Login with Facebook </a>
+
+                            <div class="text-center">
+                                <i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i>
+                            </div>
+                            <div class="pt-3">
+                               <span>You don't have an account?</span>
+                               <a href="{{ route('registration') }}" style="text-decoration: underline;"> Sign Up </a>
                             </div>
                         </div>
                     </div>
@@ -65,3 +69,27 @@
     </div>
     <!--end container-->
 </section>
+<script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
+
+<script>
+    function verifyCallBack(response) {
+        console.log(response)
+        grecaptcha.ready(function () {
+            // @this.set('captcha_token', response);
+            console.log("i am in ready block");
+            // grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'loginAttemp'})
+            grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}')
+                .then(function (token) {
+                    @this.set('captcha', token);
+                    @this.call('loginAttemp');
+                });
+        });
+      };
+    //   var onloadCallback = function() {
+    //     grecaptcha.render('g-recaptcha', {
+    //         'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
+    //         'callback' : verifyCallback,
+    //         });
+    //   }
+
+</script>

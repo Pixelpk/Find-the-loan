@@ -24,12 +24,17 @@
     <nav class="navbar-custom">
         <ul class="navbar-right list-inline float-right mb-0">
             <li class="list-inline-item d-none d-md-inline-block">
+                <a href="{{ route('draftLoan') }}" class="btn btn-primary">
+                    Draft
+                </a>
+            </li>
+            <li class="list-inline-item d-none d-md-inline-block">
                 <a href="{{ route('applyLoan') }}" class="btn btn-primary">
                     Make another loan enquiry
                 </a>
             </li>
             <li class="list-inline-item d-none d-md-inline-block">
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('view-previous-enquiry') }}" class="btn btn-primary">
                     View previous enquiry
                 </a>
             </li>

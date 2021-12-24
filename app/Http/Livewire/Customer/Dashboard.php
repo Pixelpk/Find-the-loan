@@ -14,7 +14,7 @@ class Dashboard extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        $this->user_enquiries = ApplyLoan::where('user_id',$this->user->id)->count();
+        $this->user_enquiries = ApplyLoan::where('user_id',$this->user->id)->where('status','!=','0')->count();
     }
     public function render()
     {

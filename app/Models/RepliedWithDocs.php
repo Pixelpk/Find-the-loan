@@ -9,12 +9,14 @@ class RepliedWithDocs extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['more_doc_request_id','apply_loan_id','replied_docs','dont_have_doc','personal_loan_list'];
+    protected $fillable = ['more_doc_request_id','apply_loan_id','replied_docs','dont_have_doc','personal_loan_list','company_loan_list','personal_assets_list'];
 
     protected $table = "replied_with_docs";
 
     protected $casts = [
         'personal_loan_list'=>'array',
+        'company_loan_list'=>'array',
+        'personal_assets_list'=>'array',
         'dont_have_doc'=>'array'
     ];
 

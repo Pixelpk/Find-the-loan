@@ -320,7 +320,7 @@
                 <p><b> Property type</b></p>
             </div>
 
-            <div class="row">
+        <div class="row">
             <div class="col-md-2">
                 <div class="form-check mb-3">
                     <input value="Commercial" wire:model="property_land_property_type" class="form-check-input" type="radio"

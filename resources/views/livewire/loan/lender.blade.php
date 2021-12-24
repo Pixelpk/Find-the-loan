@@ -1,3 +1,27 @@
+@if($thank_you_message)
+    <section style="margin: 125px 0px;">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <span class="text-center" style="font-size: 70px;font-weight: 700;color: #3ebb60;">Thank You! </span> 
+
+                <br>
+
+                <p class="text-center mt-5" style="font-size: 18px;">
+                    Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center"><b class="text-center"></b></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 offset-md-4 text-center">
+                <a href="{{ route('home') }}" class="btnnew2 btn">Return To Home </a> 
+                 <a href="{{ route('customer-dashboard') }}" class="btnnew2 btn">Dashboard</a>
+            </div>
+        </div>
+    </section>
+@else
 <section>
     @php $NFL = [1,2,3]
     @endphp
@@ -10,7 +34,7 @@
             <br>
             Please select which of our following Financing Partners you wish to send your enquiry to.
         </p>
-       
+
     </div>
 
     <div class="row mt-3 d-flex">
@@ -52,7 +76,7 @@
                 <p class="mb-0">Excluded Moneylender</p>
                 @elseif($item == 3)
                 <p class="mb-0">Moneylender</p>
-                
+
                 @endif
                 <div class="form-check">
                     <input wire:model="selectall.{{ $item }}" wire:change="Selectall({{ $item }})" class="form-check-input" type="checkbox" value="" id="{{ $item }}">
@@ -95,8 +119,6 @@
     </div>
     @endforeach
 
-    
-
     <div class="row mb-3 mt-2 p-2" style="border: 1px solid;">
         <div class="form-check">
             <input wire:model="policy" class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
@@ -104,14 +126,20 @@
                 I/we agree the information. I/we provided is true to the best of my knowledge and I/we give consent to these Financing Partners to verify them and those that are CBS members to access my credit reports instead of furnishing them myself/ourselves. I/we also agree to <a href="{{ url('') }}">FindTheLoan.com</a>’s <a href="{{ url('privacy-policy') }}">Privacy Policy</a>, Terms of use and any related policies.
             </label>
         </div>
+
+        <div class="pt-2 pl-2">
+            @error('policy')
+                <span style="color:red;">Please, Accept this agreement, So we wil further procedd the application.</span>
+            @enderror
+        </div>
     </div>
 
     <div class="text-end">
         <button class="btn btn-custom" wire:click="storeLender">Send Enquiry</button>
     </div>
-    
-</section>
 
+</section>
+@endif
 <style type="text/css">
     .swal2-popup{
         padding: 2em 3em !important;

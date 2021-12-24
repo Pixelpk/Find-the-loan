@@ -286,6 +286,85 @@
         </div>
     </div>
 
+
+    <div class="row mt-3">
+        <p><b> Property type</b></p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-check mb-3">
+                <input value="Commercial" wire:model="property_land_property_type" class="form-check-input" type="radio"
+                    id="flexRadioDefault101">
+                <label class="form-check-label" for="flexRadioDefault101">
+                    Commercial
+
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-check mb-3">
+                <input value="Residential" wire:model="property_land_property_type" class="form-check-input"
+                    type="radio" id="flexRadioDefault202">
+                <label class="form-check-label" for="flexRadioDefault202">
+                    Residential
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-check mb-3">
+                <input value="industrial" wire:model="property_land_property_type" class="form-check-input" type="radio"
+                    id="flexRadioDefault303">
+                <label class="form-check-label" for="flexRadioDefault303">
+                    industrial
+
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @error("property_land_property_type")
+        <div style="color: red;">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
+    <div class="row mt-3">
+        <p><b> Geographical location</b></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-check mb-3">
+                <input value="Local" wire:model="property_land_graphical_location" class="form-check-input" type="radio"
+                    id="flexRadioDefault304">
+                <label class="form-check-label" for="flexRadioDefault304">
+                    Local
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-check mb-3">
+                <input  value="Foreign" wire:model="property_land_graphical_location" class="form-check-input" type="radio"
+                    id="flexRadioDefault3044">
+                <label class="form-check-label" for="flexRadioDefault3044">
+                    Foreign
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @error("property_land_graphical_location")
+        <div style="color: red;">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
+
     <div class="row mt-2">
         <div class="col-md-6">
         <div class="mb-3">

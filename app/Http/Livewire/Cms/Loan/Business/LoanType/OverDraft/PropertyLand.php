@@ -101,16 +101,24 @@ class PropertyLand extends Component
 
     public function store()
     {
-       
-       $this->validate([
-           'amount' => 'required|integer|min:1',
-           'address' => 'required',
-           'lease_remaining_year' => $this->free_hold ? '' : 'required',
-           'free_hold' => $this->lease_remaining_year ? '' : 'required',
-           'useable_area' => 'required',
-           'square_feet' => $this->square_meter ? '' : 'required',
-           'square_meter' => $this->square_feet ? '' : 'required',
-       ]);
+
+        try{
+            $rules = [
+               'amount' => 'required|integer|min:1',
+               'address' => 'required',
+               'lease_remaining_year' => $this->free_hold ? '' : 'required',
+               'free_hold' => $this->lease_remaining_year ? '' : 'required',
+               'useable_area' => 'required',
+               'square_feet' => $this->square_meter ? '' : 'required',
+               'square_meter' => $this->square_feet ? '' : 'required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
+
        $overDraft = OverDraftPropertyLand::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'address' => $this->address,

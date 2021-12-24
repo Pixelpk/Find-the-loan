@@ -139,7 +139,7 @@
         </div>
         <div class="col-md-4 mt-3">
            
-            <label class="form-label">Country incorporated</label>
+            <label class="form-label">Country Incorporated</label>
                 <select wire:model="country" class="form-select" aria-label="Default select example">
                     <option value="" hidden>Select</option>
                     @foreach($countries as $country)

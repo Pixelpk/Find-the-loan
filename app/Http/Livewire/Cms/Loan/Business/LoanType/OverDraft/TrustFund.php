@@ -53,15 +53,22 @@ class TrustFund extends Component
     public function store()
     {
         
-       $this->validate([
-           'currency' => 'required',
-           'total_indicative_value' => 'required',
-           'indicative_nav' => 'required',
-           'deposit_ac_number' => 'required',
-           'company_purchased' => 'required',
-           'fund_name' => 'required',
-           'fd_sd_date' => 'required',
-       ]);  
+        try{
+            $rules = [
+               'currency' => 'required',
+               'total_indicative_value' => 'required',
+               'indicative_nav' => 'required',
+               'deposit_ac_number' => 'required',
+               'company_purchased' => 'required',
+               'fund_name' => 'required',
+               'fd_sd_date' => 'required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+ 
        OverDraftTrustFund::forceCreate([
            'apply_loan_id' => $this->apply_loan->id,
            'total_indicative_value' => $this->total_indicative_value,

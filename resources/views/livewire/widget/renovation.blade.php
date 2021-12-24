@@ -10,8 +10,12 @@
                 :loan_type_id="$loan_type_id"
                 :share_holder="0"
                 :modell="'App\Models\LoanGernalInfo'"
-                :keyvalue="'property_renovation_tenancy_agreement'"
-                />
+                :keyvalue="'property_renovation_tenancy_agreement'"/>
+                @error("tanancy_agreement")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <livewire:widget.upload-component
@@ -21,8 +25,12 @@
             :loan_type_id="$loan_type_id"
             :share_holder="0"
             :modell="'App\Models\LoanGernalInfo'"
-            :keyvalue="'property_renovation_quotation'"
-            />
+            :keyvalue="'property_renovation_quotation'" />
+            @error("renovation_quotation")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+            @enderror
             </div>
                   <div class="mb-3">
                     <label for="amount" >Amount required
@@ -53,6 +61,11 @@
                             <label class="form-check-label" for="User Owned">
                                 User Owned
                             </label>
+                            <!--  @error("user_owned")
+                                <div style="color: red;">
+                                    {{ $message }}
+                                </div>
+                            @enderror -->
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-8">

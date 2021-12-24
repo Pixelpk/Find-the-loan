@@ -2,6 +2,7 @@
 namespace App\Http\Livewire\Cms\Loan\Business\LoanType;
 use App\Models\ApplyLoan;
 use App\Models\LoanGernalInfo;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -101,19 +102,25 @@ class PropertyBridging extends Component
     public function store()
     {
 
-       $this->validate([
-           'amount' => 'required|integer|min:1',
-        //    'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
-        //    'sold_tmonth_statement' =>  $this->sold_tmonth_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
-        //    'sold_statement' =>  $this->sold_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
-        //    'sold_lot_number' => $this->sold_address ?  '' : 'required',
-        //    'sold_address' => $this->sold_lot_number ?  '' : 'required',
-        //    'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
-        //    'sold_free_hold' => $this->sold_lease_remaining_year ? '' : 'required',
-        //    'sold_useable_area' => 'required|integer',
-        //    'sold_square_meter' => $this->sold_square_feet ? '' : 'required',
-        //    'sold_square_feet' => $this->sold_square_meter ? '' : 'required',
-       ]);
+        try{
+            $rules = [
+                'amount' => 'required|integer|min:1',
+                //    'sold_agreement' =>  $this->sold_agreement ? 'mimes:jpg,jpeg,png,pdf' : '',
+                //    'sold_tmonth_statement' =>  $this->sold_tmonth_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
+                //    'sold_statement' =>  $this->sold_statement ? 'mimes:jpg,jpeg,png,pdf' : '',
+                //    'sold_lot_number' => $this->sold_address ?  '' : 'required',
+                //    'sold_address' => $this->sold_lot_number ?  '' : 'required',
+                //    'sold_lease_remaining_year' => $this->sold_free_hold ? '' : 'required|integer|min:1',
+                //    'sold_free_hold' => $this->sold_lease_remaining_year ? '' : 'required',
+                //    'sold_useable_area' => 'required|integer',
+                //    'sold_square_meter' => $this->sold_square_feet ? '' : 'required',
+                //    'sold_square_feet' => $this->sold_square_meter ? '' : 'required',
+             ];
+            $this->validate($rules);
+        }catch(Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
        $data = [
 
             //  ['type' => 'file', 'value' => $this->sold_agreement, 'key' => 'sold_agreement'],

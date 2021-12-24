@@ -99,9 +99,19 @@ class ApplyLoan extends Component
     public $share_holder;
     ////
     public $gernalinfo;
+
+    public $hideTabs = false;
     protected $listeners = [
-        'changeTab'
+        'changeTab', 'hideTabs'
     ];
+
+    public function hideTabs($value)
+    {
+        if($value == true){
+            $this->hideTabs = true;
+        }
+    }
+
     public function changeTab(ModelsApplyLoan $apply_loan, $id)
     {
         $this->apply_loan = $apply_loan;

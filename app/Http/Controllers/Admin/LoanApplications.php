@@ -52,17 +52,24 @@ class LoanApplications extends Controller
             ->whereHas('loan_lender_details', function ($query) use ($partner_id) {
                 $query->where('lender_id', '=', $partner_id)->where('status', 1);
             })
+            ->where('status',1)
             ->where('profile', '=', $data['profile'])
             ->orderBy('id', 'desc')
             ->with([
                 'loan_type', 'loan_company_detail', 'loan_reason',
                 'assigned_application',
-                'assigned_to_user' => function ($query) use ($logged_user_id) {
-                    $query->where('assigned_by', '=', $logged_user_id);
-                },
-                'application_rejected' => $partner_filter,
-                'application_quote' => $partner_filter,
-            ])->withCount(['quotations_of_application']);
+                // 'assigned_to_user' => function ($query) use ($logged_user_id) {
+                //     $query->where('assigned_by', '=', $logged_user_id);
+                // },
+                // 'application_rejected' => $partner_filter,
+                // 'application_quote' => $partner_filter,
+            ])
+            ->whereDoesntHave('application_rejected')
+            ->whereDoesntHave('application_quote')
+            ->whereDoesntHave('assigned_application')
+            ->whereDoesntHave('application_more_doc')
+            ->whereDoesntHave('pending_meet_call')
+            ->withCount(['quotations_of_application']);
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -145,9 +152,10 @@ class LoanApplications extends Controller
             ->whereHas('application_rejected', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
                 $query->where('partner_id', '=', $partner_id);
                 //checking if finance partner admin is not loggedIn then only get assigned applications of user
-                if ($parent_id != 0) {
-                    $query->where('user_id', '=', $logged_user_id);
-                }
+                $query->where('user_id', '=', $logged_user_id);
+                // if ($parent_id != 0) {
+                //     $query->where('user_id', '=', $logged_user_id);
+                // }
             })->with([
                 'loan_company_detail', 'loan_reason',
                 'assigned_application',
@@ -180,7 +188,8 @@ class LoanApplications extends Controller
                     'loan_type:id,sub_type',
                     'loan_user:id,first_name,last_name',
                 ]
-            )->paginate(20);
+            )
+            ->paginate(20);
 
         return view('admin.loan_applications.assigned-out-applications', $data);
     }

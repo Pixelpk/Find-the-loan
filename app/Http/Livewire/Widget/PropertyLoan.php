@@ -94,25 +94,28 @@ class PropertyLoan extends Component
     }
 
     public function store()
-    {
-   
-       $this->validate([
-           'amount' => 'required|integer|min:1',
-        //    'agreement' =>  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
-        //    'tmonth_statement' => $this->tmonth_statement ?  'mimes:jpg,jpeg,png,pdf' : '',
-        //    'statement' => $this->statement ?  'mimes:jpg,jpeg,png,pdf' : '',
-           'lot_number' => $this->address ?  '' : 'required',
-           'address' => $this->lot_number ?  '' : 'required',
-           'lease_remaining_year' => 'required|integer|min:1',
-           'useable_area' => 'required|integer|min:1',
-           'preferred_tenure_year' => 'required|integer|min:1',
-           'preferred_tenure_month' => 'required|integer|min:1',
-        //    'property_land_advanced_property_type' => 'required',
-        //    'property_land_advanced_graphical_location' => 'required',
-          
-           
-       ]);
-        //    dd('asd');
+    {   
+        try{
+            $rules = [
+                'amount' => 'required|integer|min:1',
+                //    'agreement' =>  $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
+                //    'tmonth_statement' => $this->tmonth_statement ?  'mimes:jpg,jpeg,png,pdf' : '',
+                //    'statement' => $this->statement ?  'mimes:jpg,jpeg,png,pdf' : '',
+                   'lot_number' => $this->address ?  '' : 'required',
+                   'address' => $this->lot_number ?  '' : 'required',
+                   'lease_remaining_year' => 'required|integer|min:1',
+                   'useable_area' => 'required|integer|min:1',
+                   'preferred_tenure_year' => 'required|integer|min:1',
+                   'preferred_tenure_month' => 'required|integer|min:1',
+                //    'property_land_advanced_property_type' => 'required',
+                //    'property_land_advanced_graphical_location' => 'required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
        $data = [
             //  ['type' => 'file', 'value' => $this->agreement, 'key' => 'agreement'], 
             //  ['type' => 'file', 'value' => $this->tmonth_statement, 'key' => 'tmonth_statement'], 

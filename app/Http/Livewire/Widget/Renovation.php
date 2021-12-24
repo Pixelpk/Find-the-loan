@@ -65,7 +65,8 @@ class Renovation extends Component
            'user_owned' => $this->user_owned ? 'required' : '',
            'renovation_quotation' => $this->apply_loan ? '' : 'required|mimes:jpg,jpeg,png,pdf',
            'address' => $this->user_owned ? 'required' : '',
-       ]);
+       ]);  
+       
        $data = [
              ['type' => 'file', 'value' => $this->tanancy_agreement, 'key' => 'tanancy_agreement'], 
              ['type' => 'checkbox', 'value' => $this->user_owned, 'key' => 'user_owned'], 
