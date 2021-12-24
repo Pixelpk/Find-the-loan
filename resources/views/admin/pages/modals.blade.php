@@ -147,7 +147,7 @@
                         <select required style="width: 100%;" multiple class="form-control select2" name="property_types[]" id="property_types">
                                 <option value="3">Commercial Vehicle – Cars, lorries, trucks etc</option>
                                 <option value="4">Industry Vehicle – Cranes, forklift, Tractors etc</option>
-                                <option value="5">Other Commercial & Industrial Equipment</option>
+                                <option value="5">Passenger Vehicle</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -835,10 +835,6 @@
                     <div class="col-md-3">
                         <h6>Document:</h6>
                         <span>{{ $item2->quote_additional_doc->info }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Document of:</h6>
-                        <span>{{ getDocumentOf($item2->document_of) }}</span>
                     </div>
                     
                     <div class="col-md-3">

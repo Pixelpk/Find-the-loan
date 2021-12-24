@@ -12,14 +12,12 @@ class MoreDocMsgDesc extends Model
     protected $table = "more_doc_msg_desc";
     protected $fillable = [
         'more_doc_request_id',
-        'if_any',
         'from',
         'to',
         'within_days',
         'past_months',
         'valid_for',
         'more_doc_reasons',
-        'document_of',
         'quote_additional_doc_id',
     ];
 

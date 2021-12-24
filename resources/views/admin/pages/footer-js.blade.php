@@ -550,7 +550,6 @@
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
-            var document_of = $("input[name='document_of']:checked").val();
             // var more_doc_reasons = $('#more_doc_reasons').val();
             var more_doc_reasons = [];
             var more_doc_reasons_text = [];
@@ -561,10 +560,6 @@
             var quote_additional_doc_id = $("input[name='quote_additional_doc_id']:checked").val();
             // var quote_additional_doc_id = $('#quote_additional_doc_id:checked').val();
 
-            if(document_of == ""){
-                $("#document_of_error").html("Document of field is required");
-                return false;
-            }
             if(more_doc_reasons == ""){
                 $("#more_doc_reasons_error").html("Reason is required");
                 return false;
@@ -575,7 +570,6 @@
             }
             
              new_obj = {};
-             new_obj.if_any = $('#if_any').prop('checked');
              new_obj.from = $('#from').val();
              new_obj.to = $('#to').val();
              new_obj.within_days = $('#within_days').val();
@@ -587,7 +581,6 @@
             //  new_obj.signature_borrower = $('#signature_borrower').prop('checked');
             //  new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
              new_obj.more_doc_reasons = more_doc_reasons;
-             new_obj.document_of = document_of;
              new_obj.quote_additional_doc_id = quote_additional_doc_id;
             more_doc_message_array.push(new_obj);
             console.log(more_doc_message_array);
@@ -595,14 +588,12 @@
             var html = "<tr index="+more_doc_msg_index+">"
             +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
             +"<td>"+$("input[name='quote_additional_doc_id']:checked").next('label').text()+"</td>"
-            +"<td>"+$("input[name='document_of']:checked").next('label').text()+"</td>"
             +"<td>"+more_doc_reasons_text+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
             +"<td>"+new_obj.from+"</td>"
             +"<td>"+new_obj.to+"</td>"
-            +"<td>"+new_obj.if_any+"</td>"
             // +"<td>"+new_obj.latest+"</td>"
             // +"<td>"+new_obj.required_company_stamp+"</td>"
             // +"<td>"+new_obj.need_notarized+"</td>"

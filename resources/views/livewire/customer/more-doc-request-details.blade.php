@@ -23,10 +23,6 @@
                                 <h6>Document:</h6>
                                 <span>{{ $item2->quote_additional_doc->info }}</span>
                             </div>
-                            <div class="col-md-3">
-                                <h6>Document of:</h6>
-                                <span>{{ getDocumentOf($item2->document_of) }}</span>
-                            </div>
                             
                             @if ($item2->from != null)    
                             <div class="col-md-3">
