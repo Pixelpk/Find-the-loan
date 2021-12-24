@@ -27,6 +27,11 @@
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('toastr.min.js') }}"></script>
 
+@if(Route::currentRouteName() == 'partner-login' || Route::currentRouteName() == 'admin-login')
+    <script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
+@endif
+
+
 <script>
     let todayDate = new Date();
     let quoteEndDate= new Date(new Date().setDate(todayDate.getDate() + 29));
@@ -453,63 +458,14 @@
                 $("#thereafter_pa").prop('disabled', true);
             }
         });
-        //put quotation fee section validations ending
 
-        // $('.interest_reducing_balance').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_board_rate").prop('disabled', false);
-        //         $(".flat_fee_regardless").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_board_rate").prop('disabled', true);
-        //         $(".flat_fee_regardless").prop('disabled', true);
-        //     }
-        // });
+        $('#login').click(function(event){
+            event.preventDefault();
+            onloadCaptchaCallback();
+            return false;
+            
+        });
 
-        // $('.interest_board_rate').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_reducing_balance").prop('disabled', false);
-        //         $(".flat_fee_regardless").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_reducing_balance").prop('disabled', true);
-        //         $(".flat_fee_regardless").prop('disabled', true);
-        //     }
-        // });
-        // $('.flat_fee_regardless').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_reducing_balance").prop('disabled', false);
-        //         $(".interest_board_rate").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_reducing_balance").prop('disabled', true);
-        //         $(".interest_board_rate").prop('disabled', true);
-        //     }
-        // });
-        // $('#submit_quotation').click(function(event){
-        //     event.preventDefault();
-        //     var inputs = $('#quotationForm :input');
-        //     var values = {};
-        //     inputs.each(function() {
-        //         values[this.name] = $(this).val();
-        //     });
-        //     console.log(values);
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "{{ route('submit-quotation') }}",
-        //         data: values
-        //     }).done(function (result) {
-
-        //         console.log(result)
-        //         return false;
-        //     });
-        // });
         $(document).on("click", '#months_add_row', function(event) { 
             floating_count ++;
             event.preventDefault();
@@ -677,18 +633,6 @@
         $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
             $(this).closest('div .row').remove();
         });
-        // $('#quote_additional_doc_idz').change(function(e){
-        //     e.preventDefault();
-        //     $('#point_to_any_specific_doc').html();
-        //     var append_html = "";
-        //     $("#quote_additional_doc_idz option:selected").each(function() {
-        //         append_html+="<option value='"+this.value+"'>"+this.text+"</option>";
-        //         console.log(this.value+"="+this.text)        //
-        //     });
-        //     console.log(append_html)
-        //     $('#point_to_any_specific_doc').html(append_html);
-        //     // alert($('#quote_additional_doc_idz option:selected').text());
-        // });
 
         $('#more_doc_request_btn').click(function(e){
             e.preventDefault();
@@ -778,6 +722,20 @@
         $("#reject_loan_id").val(loan_apply_id)
         $('#RejectReasonModel').modal('show');
     }
+
+
+      function onCaptchaCallback() {
+          grecaptcha.ready(function () {
+              console.log("i am in ready block");
+            // grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'loginAttemp'})
+                grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}')
+                .then(function (token) {
+                    document.getElementById("captcha").value = token;
+                    $("#login-form").submit();
+                });
+            });
+        }
+
 
     function fixedOrFloating(fixed_or_floating){
         let apply_loan_id = $('#apply_loan_id').val();

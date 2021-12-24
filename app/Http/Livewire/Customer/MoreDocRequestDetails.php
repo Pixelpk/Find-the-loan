@@ -417,8 +417,9 @@ class MoreDocRequestDetails extends Component
 
         $empty = ($empty == true) && count($this->personal_loan_list) < 1 ? true : false;
         $empty = ($empty == true) && count($this->company_loan_list) < 1 ? true : false;
+        $empty = ($empty == true) && count($this->dont_have_doc) < 1 ? true : false;
         if ( $empty == true) {
-            $this->emit('danger', ['type' => 'success', 'message' => 'Oops. something went wrong. kindly upload data again.']);
+            $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
             return;
         }
 
@@ -437,6 +438,7 @@ class MoreDocRequestDetails extends Component
         $this->personal_loan_list = [];
         $this->company_loan_list = [];
         $this->insurance_asset_list = [];
+        $this->dont_have_doc = [];
         $this->investment_asset_list = [];
         $this->cash_and_deposit_asset_list = [];
         $this->property_asset_list = [];

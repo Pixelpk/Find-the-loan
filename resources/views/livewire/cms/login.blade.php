@@ -35,10 +35,10 @@
                                 @enderror
                             </div>
                             {{-- <div id="g-recaptcha" class="g-recaptcha"></div> --}}
-                            <button type="submit" data-sitekey="{{env('CAPTCHA_SITE_KEY')}}" data-callback='verifyCallBack' class="btn btn-custom g-recaptcha mt-3 w-100"
+                            <button  onclick="verifyCallBack()" class="btn btn-custom g-recaptcha mt-3 w-100"
                                 type="button" wire:loading.attr='disabled'>
                                 Login
-                                <div wire:loading wire:target="loginAttemp">
+                                <div wire:loading>
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true">
                                     </span>
                                 </div>
@@ -72,22 +72,24 @@
 <script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
 
 <script>
-    var verifyCallBack = function(response) {
+    function verifyCallBack(response) {
         console.log(response)
         grecaptcha.ready(function () {
             // @this.set('captcha_token', response);
             console.log("i am in ready block");
-            grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'submit'})
+            // grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'loginAttemp'})
+            grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}')
                 .then(function (token) {
                     @this.set('captcha', token);
+                    @this.call('loginAttemp');
                 });
         });
       };
-      var onloadCallback = function() {
-        grecaptcha.render('g-recaptcha', {
-            'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
-            'callback' : verifyCallback,
-            });
-      }
+    //   var onloadCallback = function() {
+    //     grecaptcha.render('g-recaptcha', {
+    //         'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
+    //         'callback' : verifyCallback,
+    //         });
+    //   }
 
 </script>

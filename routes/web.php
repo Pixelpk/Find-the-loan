@@ -42,6 +42,7 @@ use App\Http\Livewire\Customer\MoreDocRequests;
 use App\Http\Livewire\Customer\QuotationDetails;
 use App\Http\Livewire\Customer\Quotations;
 use App\Http\Livewire\Customer\RejectedEnquiries;
+use App\Http\Livewire\Customer\ViewPreviousEnquiry;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -254,6 +255,8 @@ Route::group(['middleware'=>['customer']],function (){
     Route::get('/customer/more-doc-requests', MoreDocRequests::class)->name('customer-more-doc-requests');
     Route::get('/customer/more-doc-request-details', MoreDocRequestDetails::class)->name('more-doc-request-details');
     Route::get('/customer/quotation-details', QuotationDetails::class)->name('quotation-details');
+    Route::get('/customer/view-previous-enquiry', ViewPreviousEnquiry::class)->name('view-previous-enquiry');
+    // Route::get('/customer/download-previous-doc', ViewPreviousEnquiry::class)->name('download-previous-doc');
 
 
 });

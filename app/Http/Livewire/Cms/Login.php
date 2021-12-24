@@ -27,11 +27,11 @@ class Login extends Component
         $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret=' . env('CAPTCHA_SECRET_KEY') . '&response=' . $token);
         $this->captcha = $response->json()['score'];
 
-        if ($this->captcha > .3) {
-            $this->loginAttemp();
-        } else {
-            return session()->flash('success', 'Google thinks you are a bot, please refresh and try again');
-        }
+        // if ($this->captcha > .3) {
+        //     $this->loginAttemp();
+        // } else {
+        //     return session()->flash('success', 'Google thinks you are a bot, please refresh and try again');
+        // }
     
     }
 
@@ -46,6 +46,7 @@ class Login extends Component
             'email' => 'required|email',
             'password' => 'required'
         ]);
+
         if ($this->captcha < 0.3) {
             $this->errorMessage = 'Google thinks you are a bot, please refresh captcha and try again';
             return;
