@@ -459,40 +459,60 @@ class CompanyShareHolder extends Component
 
     public function searchLender()
     {   
-        // dd('as');
-        $shareHolders = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
-        $error = [];
-        $sr = 1;
-        foreach($shareHolders as $key => $shareHolder)
+        $shareholder = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->pluck('id');
+        $person_share_holder = LoanPersonShareHolder::where('apply_loan_id', $this->apply_loan->id)->pluck('id');
+        $loancompanydetail = LoanCompanyDetail::where('share_holder', '!=', 0)
+        ->whereIn('share_holder', $shareholder)
+        ->where('share_holder', '!=', 0)
+        ->where('apply_loan_id', $this->apply_loan->id)->get();
+        $sum = $person_share_holder->count() + $loancompanydetail->count();
+        if($shareholder->count() >= 2 && $sum == 2)
         {
-            
-            if($shareHolder->share_holder_type == 1){
-                $personShareHolder = LoanPersonShareHolder::where('apply_loan_id', $this->apply_loan->id)
-                ->where('share_holder_detail_id', $shareHolder->id)
-                ->first();
-                
-                if(!$personShareHolder){
+            sleep(3);
+            // $shareHolders = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+            // $error = [];
+            // $sr = 1;
+            // foreach($shareHolders as $key => $shareHolder)
+            // {
+            //     if($shareHolder->share_holder_type == 1){
+            //         $personShareHolder = LoanPersonShareHolder::where('apply_loan_id', $this->apply_loan->id)
+            //         ->where('share_holder_detail_id', $shareHolder->id)
+            //         ->first();
                     
-                    $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
-                }
-            }
-            else{
+            //         if(!$personShareHolder){
+                        
+            //             $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
+            //         }
+            //     }
+            //     else{
 
-                $loanCompanyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
-                ->where('share_holder', $shareHolder->id)
-                ->first();
+            //         $loanCompanyDetail = LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)
+            //         ->where('share_holder', $shareHolder->id)
+            //         ->first();
 
-                if(!$loanCompanyDetail){
-                    
-                    $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
-                }
-            }
+            //         if(!$loanCompanyDetail){
+                        
+            //             $error[$shareHolder->id] = "Shareholder $shareHolder->id is required";
+            //         }
+            //     }
+            // }
+
+            $this->emit('changeTab',$this->apply_loan->id, 9);
         }
-
-        if(sizeof($error) > 0){
-            $this->emit('danger', ['type' => 'success', 'message' => 'Details of all shareholders required']);
+        else{
+            $this->emit('danger', ['type' => 'success', 'message' => 'Minumum 2 shareholders is required']);
             return;
         }
-        $this->emit('changeTab',$this->apply_loan->id, 9);
+        // return;
+        // dd($loancompanydetail);
+        // $loan_person_share_holder = LoanPersonShareHolder::where('apply_loan_id', $this->apply_loan->id)->count();
+        
+        // $sum = $shareholder - ($loancompanydetail - ($loan_person_share_holder + $loancompanydetail));
+        // dd($sum);
+        // dd('aaaa');
+        // return;
+        // dd($shareholder->count());
+        // if($shareholder->count() <= 2)
+        
     }
 }

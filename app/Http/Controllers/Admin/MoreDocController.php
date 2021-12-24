@@ -57,7 +57,6 @@ class MoreDocController extends Controller
             $more_doc_msg->past_months = $msg['past_months'] ?? null;
             $more_doc_msg->valid_for = $msg['valid_for'] ?? null;
             $more_doc_msg->more_doc_reasons = $msg['more_doc_reasons'];
-            $more_doc_msg->document_of = $msg['document_of'];
             $more_doc_msg->quote_additional_doc_id = $msg['quote_additional_doc_id'];
             $more_doc_msg->save();
         }
