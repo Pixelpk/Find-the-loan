@@ -7,6 +7,7 @@ use App\Models\LoanCompanyDetail;
 use App\Models\LoanLender;
 use App\Models\LoanLenderDetail;
 use App\Models\ApplyLoan;
+use App\Models\BusinessHirePurchase;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -25,19 +26,14 @@ class Lender extends Component
     public $policy;
     // public $checkSelect;
     public $checkSelect= [];
+    public $thank_you_message = false;
 
     public function mount()
     {
         $this->getFinancePartner();
 
         foreach($this->financePartners as $item){
-<<<<<<< HEAD
-
-            $this->lender[$item->id] = false;
-=======
-
             $this->lender[$item->id] = true;
->>>>>>> 67306061cf53d0c306116fa3dc2780277ddcfc8f
         }
 
     }
@@ -69,7 +65,6 @@ class Lender extends Component
         $query->where('parent_id', 0);
 
         // dd($query);
-
 
         if($loancompanyDetail){
             $lengthOfIncorporation = substr($loancompanyDetail->company_start_date, 0, strpos($loancompanyDetail->company_start_date, "/"));
@@ -200,10 +195,13 @@ class Lender extends Component
         $applyloan->status = 1;
         $applyloan->update();
 
-        if($LL){
-            $this->dispatchBrowserEvent('enquiry_submit', ['title' => 'Thank You!','message' => 'Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.', 'function' => 'redirectAfterSuccess']);
-            return;
-        }
+        $this->emit('hideTabs', true);
+        $this->thank_you_message = true;
+
+        // if($LL){
+        //     $this->dispatchBrowserEvent('enquiry_submit', ['title' => 'Thank You!','message' => 'Now just sit back and give the Financing Partners a couple of moments to look through your documents and make their offers on your dashboard – we’ll email you when an offer has been made.', 'function' => 'redirectAfterSuccess']);
+        //     return;
+        // }
 
 
         // return redirect()->route('home');

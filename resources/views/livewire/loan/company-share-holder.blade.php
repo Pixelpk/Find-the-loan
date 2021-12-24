@@ -269,7 +269,7 @@
         {{-- @if($enableButtons == false) --}}
             <button class="btn btn-custom" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
                 <div class="magnify-loader-background d-none" wire:loading.longest wire:target="searchLender" wire:loading.class.remove="d-none">
-               
+
                     <div class="magnify-loader">
                             <div class="loadingio-spinner-magnify-hz4ezng7lp">
                                 <div class="ldio-8j2236x8qt">
@@ -281,7 +281,7 @@
                             </div>
                         <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
                     </div>
-                  
+
                 </div>
                 {{-- <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span> --}}
