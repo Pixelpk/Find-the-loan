@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h3 class="text-center">Login</h3>
                             <div>
-                                <input class="contact-input white-input custominput" wire:model="email"
+                                <input class="contact-input white-input custominput" wire:model.defer="email"
                                     placeholder="Email*" type="email">
                                 @error('email')
                                 <span class="customspan">{{ $message }}</span>
@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <input style="margin-top:15px;" class="contact-input white-input custominput"
-                                    wire:model="password" placeholder="Password*" type="password">
+                                    wire:model.defer="password" placeholder="Password*" type="password">
                                 @error('password')
                                 <span class="customspan">{{ $message }}</span>
                                 @enderror
@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="text-center">
-                                <i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i>
+                                <a href="{{ route('facebookRedirect') }}"><i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i></a>
                             </div>
                             <div class="pt-3">
                                <span>You don't have an account?</span>
