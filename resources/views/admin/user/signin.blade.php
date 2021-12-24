@@ -19,8 +19,10 @@
                                     <img src="{{ asset('assets/images/logo.png') }}" class="mt-3" alt="Find the loan" style="height: 4.5em"></a>
                             </div>
 
-                            <form method="post" class="form-horizontal mt-6" action="{{ $login_url }}">
+                            <form method="post" id="login-form" class="form-horizontal mt-6" action="{{ $login_url }}">
                                 @csrf
+                                <input class="form-control" type="hidden" id="captcha" name="captcha">
+
                                 <div class="form-group">
                                     <div class="col-12">
                                         <label for="username">Email</label>
@@ -48,7 +50,8 @@
 
                                 <div class="form-group text-center mt-3">
                                     <div class="col-12">
-                                        <button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Log In</button>
+                                        <button class="btn btn-primary btn-block waves-effect waves-light g-recaptcha" data-sitekey="{{ env('CAPTCHA_SITE_KEY') }}" data-callback='onCaptchaCallback' 
+                                        data-action='submit' id="login"  type="">Log In</button>
                                     </div>
                                 </div>
 
@@ -63,4 +66,5 @@
             <!-- end row -->
         </div>
     </div>
+
 @endsection

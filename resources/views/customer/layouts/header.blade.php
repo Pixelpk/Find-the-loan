@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="list-inline-item d-none d-md-inline-block">
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('view-previous-enquiry') }}" class="btn btn-primary">
                     View previous enquiry
                 </a>
             </li>

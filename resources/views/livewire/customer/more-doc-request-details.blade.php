@@ -28,26 +28,40 @@
                                 <span>{{ getDocumentOf($item2->document_of) }}</span>
                             </div>
                             
+                            @if ($item2->from != null)    
                             <div class="col-md-3">
                                 <h6>From:</h6>
                                 <span>{{ $item2->from }}</span>
                             </div>
+                            @endif
+
+                            @if ($item2->to != null)
                             <div class="col-md-3">
                                 <h6>To:</h6>
                                 <span>{{ $item2->to }}</span>
                             </div>
+                            @endif
+
+                            @if ($item2->within_days != null)
                             <div class="col-md-3">
                                 <h6>Within days:</h6>
                                 <span>{{ $item2->within_days }}</span>
                             </div>
+                            @endif
+
+                            @if ($item2->past_months != null)
                             <div class="col-md-3">
                                 <h6>Past Months:</h6>
                                 <span>{{ $item2->past_months }}</span>
                             </div>
+                            @endif
+
+                            @if ($item2->valid_for != null)
                             <div class="col-md-3">
                                 <h6>Valid for:</h6>
                                 <span>{{ $item2->valid_for }}</span>
                             </div>
+                            @endif
                             
                             <div class="col-md-3">
                                 <h6>Reasons:</h6>
