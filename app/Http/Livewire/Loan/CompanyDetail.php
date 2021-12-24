@@ -104,6 +104,7 @@ class CompanyDetail extends Component
 
     public function confirmationMessage()
     {
+        sleep(3);
         $LCD= LoanCompanyDetail::where('apply_loan_id', $this->apply_loan->id)->where('share_holder', 0)->first();
         if($LCD && $LCD->listed_company_check != $this->listed_company_check && $this->share_holder == 0){
             $this->dispatchBrowserEvent('confirmation', ['message' => "Company detail will be deleted if update", "function" => "companyDetailStore"]);

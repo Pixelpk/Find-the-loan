@@ -18,7 +18,6 @@ class BusinessDebtConsolidation extends Component
     public $document;
     public $settlement_notice;
     public $amount;
-  
     protected $listeners = [
         'documentReq'
     ];
@@ -31,7 +30,7 @@ class BusinessDebtConsolidation extends Component
     }
     public function mount()
     {
-     
+        // dd('hello');
         $media  = Media::where('model', '\App\Models\OverDraftInsurance')
         ->whereIn('key', ['debt_consolidation_settlement_notice', 'debt_consolidation_documents'])
         ->where('apply_loan_id', $this->apply_loan->id)
