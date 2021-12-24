@@ -119,22 +119,7 @@
 
                                     </div>
                                     <hr>
-                                    <h6>Document of</h6>
-                                    <div class="row">
-                                        @php
-                                            $list = moreDocOfList();
-                                        @endphp
-                                        @for($i=1;$i<count($list);$i++)
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch"> 
-                                                <input type="radio" @if ($i==1) checked  @endif 
-                                                class="custom-control-input document_of" value="{{$i}}" name="document_of" id="document_of{{$i}}">
-                                                <label class="custom-control-label" for="document_of{{$i}}">{{$list[$i]}}</label>
-                                            </div>
-                                        </div>
-                                        @endfor
-
-                                    </div>
+                                    
                                     <hr>
                                     </section>
                                     <div class="form-group mt-1">
@@ -158,14 +143,12 @@
                                                                     <tr>
                                                                         <th>Delete</th>
                                                                         <th>Document</th>
-                                                                        <th>Document of</th>
                                                                         <th>Reasons</th>
                                                                         <th>Within(Days)</th>
                                                                         <th>Past(Months)</th>
                                                                         <th>Valid For(Months)</th>
                                                                         <th>From</th>
                                                                         <th>To</th>
-                                                                        <th>If any</th>
                                                                         
                                                                     </tr>
                                                                     </thead>
