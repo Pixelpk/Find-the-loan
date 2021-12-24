@@ -61,9 +61,10 @@ class HirePurchase extends Component
         'hirePurchase.item_value3' =>  'nullable',
         'hirePurchase.serial_number' =>  'nullable',
         'hirePurchase.register_number' =>  'nullable',
-        'hirePurchase.lta_vehicle_information' =>  'nullable',
+        // 'hirePurchase.lta_vehicle_information' =>  'nullable',
         'hirePurchase.company_name' =>  'nullable',
         'hirePurchase.sale_mane' =>  'nullable',
+        'hirePurchase.salesman_number' =>  'nullable',
     ];
     public function mount()
     { 
@@ -92,19 +93,42 @@ class HirePurchase extends Component
     {
        
         $businessHirePurchase = BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)->where('hire_purchase_type', '!=', $this->hirePurchase['hire_purchase_type'])->get();
+       
         if($businessHirePurchase){
             BusinessHirePurchase::where('apply_loan_id', $this->apply_loan->id)
             ->where('hire_purchase_type', '!=', $this->hirePurchase['hire_purchase_type'])
             ->delete();
         }
         
-        $this->validate($this->rules, [
-            'hirePurchase.address.required_if' => 'The address is required',
-            'hirePurchase.property_type.required_if' => 'The property type is required',
-        ]);
+        try{
+            
+            $this->validate($this->rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($this->rules);
+        }
+
+        try{
+            $rules = [
+                'hirePurchase.address.required_if' => 'The address is required',
+                'hirePurchase.property_type.required_if' => 'The property type is required',
+             ];
+            $this->validate($rules);
+        }catch(\Exception $exc){
+            $this->emit('required_fields_error');
+            $this->validate($rules);
+        }
+
+
+        // $this->validate($this->rules, [
+        //     'hirePurchase.address.required_if' => 'The address is required',
+        //     'hirePurchase.property_type.required_if' => 'The property type is required',
+        // ]);
        
         $this->hirePurchase['apply_loan_id'] = $this->apply_loan->id;
         $oldValue = $this->hirePurchase['hire_purchase_type'];
+         // dd( $this->hirePurchase);
+
         $this->hirePurchase->save();
         // dd( $this->hirePurchase);
         Media::where('model', '\App\Models\BusinessHirePurchase')

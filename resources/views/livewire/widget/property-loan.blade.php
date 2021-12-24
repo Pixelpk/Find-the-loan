@@ -77,8 +77,8 @@
         </div>
 </div>
 
-<div class="row mt-2">
-        <div class="col-md-6">
+<div class="row mt-2 d-flex align-items-center">
+        <div class="col-md-3">
         <div class="mb-3">
             <label for="unit" class="form-label">Unit if any
             </label>
@@ -90,7 +90,7 @@
             @enderror
         </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
        <div class="mb-3">
         <label for="building_name" class="form-label">Building name if any
         </label>
@@ -102,10 +102,8 @@
         @enderror
        </div>
         </div>
-    </div>
 
-        <div class="row mt-2 d-felx align-items-center">
-        <div class="col-md-6">
+        <div class="col-md-3">
        <div class="mb-3">
         <label for="lease_remaining" class="form-label">
             Lease Remaining
@@ -114,7 +112,7 @@
             <input wire:model="lease_remaining_year" type="text" class="form-control" aria-label="Recipient's username"
                 aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">Years</span>
+                <span class="input-group-text lh-1-3" id="basic-addon2">Years</span>
             </div>
         </div>
         @error("lease_remaining_year")
@@ -124,8 +122,8 @@
         @enderror
        </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-check form-switch mb-3">
+        <div class="col-md-3">
+            <div class="form-check form-switch mt-3">
                 <input wire:model="free_hold" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Freehold
                 </label>
@@ -133,8 +131,8 @@
         </div>
     </div>
 
-        <div class="row mt-2">
-        <div class="col-md-6">
+    <div class="row mt-2 d-flex align-items-center">
+        <div class="col-md-3">
        <div class="mb-3">
         <label for="fllor_area" class="form-label">
             Land/Floor Area
@@ -148,7 +146,7 @@
         @enderror
        </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
         <div class="mb-3">
             <label for="useable_area" class="form-label">
                 Build-in/Useable Area
@@ -161,17 +159,15 @@
             @enderror
         </div>
         </div>
-    </div>
 
-        <div class="row mt-2">
-        <div class="col-md-4 col-lg-2">
-            <div class="form-check form-switch mb-3">
+        <div class="col-md-2">
+            <div class="form-check form-switch mt-3">
                 <input wire:change="changeAreaTypee()" wire:model="square_feet" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Feet </label>
             </div>
         </div>
-        <div class="col-md-4 col-lg-2">
-            <div class="form-check form-switch mb-2">
+        <div class="col-md-2">
+            <div class="form-check form-switch mt-3">
                 <input wire:change="changeAreaType()" wire:model="square_meter" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Square Meter
                 </label>
@@ -228,7 +224,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="form-check form-switch mb-3">
+            <div class="form-check form-switch mt-1">
                 <input  wire:model="as_long_as_possiable" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">As Long As Possible
                 </label>
@@ -239,7 +235,12 @@
         <div class="row mt-2">
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="amount" class="form-label">Amount</label>
+                <label for="amount" >Amount Required
+                    <div class="tooltip-c">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="tooltip-text custom-tooltip-text">Amount required is the amount you are aiming to borrow for that loan type. You may still reduce it prior to signing Loan Offer Letter.</span>
+                    </div>
+                </label>
                 <input wire:model="amount" type="number" class="form-control" id="amount">
                 @error("amount")
                 <div style="color: red;">

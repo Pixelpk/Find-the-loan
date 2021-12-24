@@ -69,7 +69,7 @@
 <!-- 2ND SECTION -->
 <div class="border p-2 rounded mt-3">
     <div class="row mt-2 d-flex align-items-center">
-        <p>Please provide details not found in OTP or Sale/Purchase Agreement</p>
+        <p>Please provide details not found in OTP or Sale/Purchase Agreement or if there is not one </p>
         <div class="col-md-5">
             <div class="mb-3">
                 <label for="lot_number" class="form-label">Lot Number</label>
@@ -493,7 +493,12 @@
     <div class="row mt-2">
         <div class="col-md-6">
             <div class="mb-3">
-                <label for="amount" class="form-label">Amount Required</label>
+                <label for="amount" >Amount required
+                    <div class="tooltip-c">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="tooltip-text custom-tooltip-text">Amount required is the amount you are aiming to borrow for that loan type. You may still reduce it prior to signing Loan Offer Letter.</span>
+                    </div>
+                </label>
                 <input wire:model="amount" type="number" class="form-control" id="amount">
                 @error("amount")
                 <div style="color: red;">

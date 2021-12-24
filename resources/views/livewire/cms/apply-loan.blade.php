@@ -3,6 +3,9 @@
     <div class="container">
         <div class="card" style="margin-top:30px;">
             <div class="card-body">
+
+
+            @if($hideTabs == false)
                 <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a wire:click="$set('tab', '1')" style="padding: .1rem 1rem;"
@@ -61,6 +64,9 @@
                     @endif
                     {{-- @endif --}}
                 </ul>
+
+                @endif
+
                 <br>
                 <br>
                 @if(session('gernalMessage'))
@@ -208,7 +214,7 @@
                             <a class="list-group-item list-group-item-action d-flex justify-content-between">
                                 <div class="form-check form-switch">
                                     <input wire:model="values.{{ $subType->id }}"
-                                        wire:click="getLoanReason({{ $subType->id }}, {{ $key }})"
+                                        wire:click="getLoanReason({{ $subType->id }})"
                                         class="form-check-input singleCheck" type="checkbox" />
                                     <label class="form-check-label">{{ $subType->sub_type }}</label>
                                 </div>
@@ -225,6 +231,17 @@
                     </div>
                     @endif
                     @endforeach
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pt-4 pb-3">
+                            <p><b>Don’t see a loan type?</b> It could be just a different name your bank has been using. Click on the information button for more or visit our <a href="{{ url('faqs') }}">FAQ</a>/<a href="{{ url('glossary') }}">glossary</a> for help
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
                 @if(sizeof($loanReasons) > 0 && $main_type == 1)
@@ -310,6 +327,7 @@
                             @endif
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-12">
                             <br>

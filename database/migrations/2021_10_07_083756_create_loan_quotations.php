@@ -26,7 +26,7 @@ class CreateLoanQuotations extends Migration
             $table->text('if_insurance_required');
             $table->text('eir')->nullable();
             $table->text('repayment')->nullable()->comment("contains info about repayment terms, remarks(Seen by all internal users), Personal notepad (read only by me)");
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->nullable()->comment("0=quoted, 1=proceeded, 2=loan no longer required, 3=offer signed, 4=loan_disbursed");
             $table->date('quote_validity');
             $table->timestamps();
         });

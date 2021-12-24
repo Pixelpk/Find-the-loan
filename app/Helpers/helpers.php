@@ -61,7 +61,8 @@ function getFooterText()
 
 function moreDocReasons(): array
 {
-    $all = ['','Latest','Required Company stamp','Need notarized','Require Signature of borrower',"Require Signature of borrower's Customer", 'Incomplete', 'Incorrect','Unclear','In PDF','Requires supporting document','Due to quantum','Due to risk profile','Due to age','Of main applicant/s','Of all shareholders','For TDSR/DSR purpose','Need Exercised'];
+    $all = ['','If any','Latest','Required Company stamp','Need notarized','Require Signature of borrower',"Require Signature of borrower's Customer", 'Incomplete', 'Incorrect','Unclear','In PDF','Requires supporting document','Due to quantum','Due to risk profile','Due to age','Of main applicant/s','Of all shareholders','For TDSR/DSR purpose','Need Exercised',
+            'Of company', 'Of Parent Company','Of all companies in the group','Of  all Local director','Of Ultimate Beneficial Owner','Of  guarantor','Of mortgagor','Of all property/asset owner','Of new property','Of property sold','Of current property','Personal/company info not shown/Unable to correctly identify as belonging to'];
     return $all;
 }
 
@@ -70,16 +71,16 @@ function getMoreDocReason($id){
     return $all[$id];
 }
 
-function moreDocOfList()
-{
-    $all = ['', 'Of company', 'Of Parent Company','Of all companies in the group','Of  all Local director','Of Ultimate Beneficial Owner','Of  guarantor','Of mortgagor','Of all property/asset owner','Of new property','Of property sold','Of current property','Personal/company info not shown/Unable to correctly identify as belonging to'];
-    return $all;
-}
+// function moreDocOfList()
+// {
+//     $all = ['', 'Of company', 'Of Parent Company','Of all companies in the group','Of  all Local director','Of Ultimate Beneficial Owner','Of  guarantor','Of mortgagor','Of all property/asset owner','Of new property','Of property sold','Of current property','Personal/company info not shown/Unable to correctly identify as belonging to'];
+//     return $all;
+// }
 
-function getDocumentOf($id){
-    $all = moreDocOfList();
-    return $all[$id];
-}
+// function getDocumentOf($id){
+//     $all = moreDocOfList();
+//     return $all[$id];
+// }
 
 function adminTermsRequests(){
     return FinancePartner::where('status','=','1')
@@ -155,5 +156,12 @@ function isJointAccountRequired($value)
 {
     $all = ['No',"Yes"];
     return $all[$value];
+}
+
+function loan_quotation_status($status)
+{
+    //0=quoted, 1=proceeded, 2=loan no longer required, 3=offer signed, 4=loan_disbursed
+    $all = ['Quoted',"Proceeded","Loan no longer required",'Letter of offer Signed','Loan Disbursed'];
+    return $all[$status];
 }
 

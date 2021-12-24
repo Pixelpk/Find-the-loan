@@ -31,6 +31,15 @@ window.livewire.on('danger', param => {
     }
     toastr.error(param['message'])
 });
+
+window.livewire.on('required_fields_error', param => {
+    toastr.options = {
+    "positionClass": "toast-top-center",
+    }
+    toastr.error("Something is missing. Please check")
+});
+
+
 </script>
 
 </body>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\ReceiveQuote;
 use App\Models\ApplyLoan;
+use App\Models\AssignedApplication;
 use App\Models\FinancePartner;
 use Illuminate\Http\Request;
 use App\Models\LoanQuotations;
@@ -54,6 +55,7 @@ class LoanQuotationController extends Controller
     public function submitQuotation(Request $request)
     {
         $data = $request->all();
+        $loggedin_user = $request->user();
         // return $data;
         $apply_loan = ApplyLoan::where("id", "=", $data['apply_loan_id'])
         ->with('loan_user:id,first_name,last_name,email')
@@ -69,9 +71,16 @@ class LoanQuotationController extends Controller
         $fill['apply_loan_id'] = $request->apply_loan_id;
         $fill['partner_id'] = Session::get('partner_id'); // id of finance partner
         $fill['quoted_by'] = Auth::user()->id; // id of loggedin finance partner user
+        $fill['status'] = 0; // 0=quoted, 1=proceeded, 2=loan no longer required, 3=offer signed, 4=loan_disbursed
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
         $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();
+        
+        if ($loggedin_user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($request->apply_loan_id,$loggedin_user->id,1,2);
+        }
+
         try
         {
             Mail::to($apply_loan->loan_user->email)->send(new ReceiveQuote(['user'=>$apply_loan->loan_user, 'apply_loan'=>$apply_loan,'finance_partner'=>$finance_partner]));
@@ -88,7 +97,7 @@ class LoanQuotationController extends Controller
     public function quotedInvoiceFinancingData($data)
     {
         $quantum_interest = [
-            'facility_limit'=> $data['facility_limit'],
+            'quantum'=> $data['quantum'],
             'advance_percentage'=> $data['advance_percentage'],
             'is_notified'=> $data['is_notified'] ?? 0,
             'interest_calculated_by'=> $data['interest_calculated_by'] ?? null, //1=per year, 2=per month, 3=per week, 4=per day
@@ -121,8 +130,8 @@ class LoanQuotationController extends Controller
 
         $if_insurance_required = [
             'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
-            'range_value_from'=> $data['if_insurance_start_value'] ?? "",'range_value_from'=> $data['if_insurance_end_value'] ?? "",
-            'range_percentage_from'=> $data['if_insurance_start_percent'] ?? "",'range_percentage_from'=> $data['if_insurance_end_value'] ?? "",
+            'range_value_from'=> $data['if_insurance_start_value'] ?? "",'range_value_to'=> $data['if_insurance_end_value'] ?? "",
+            'range_percentage_from'=> $data['if_insurance_start_percent'] ?? "",'range_percentage_to'=> $data['if_insurance_end_value'] ?? "",
             'which_higher'=>1
         ];
         $eir = [

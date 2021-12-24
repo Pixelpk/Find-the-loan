@@ -68,6 +68,8 @@ class ApplyLoan extends Component
     public $errorMessage;
     public $photo;
     public $errorArray = [];
+    public $draft;
+    protected $queryString = ['draft'];
 
     public $nric_front;
     public $nric_back;
@@ -97,9 +99,19 @@ class ApplyLoan extends Component
     public $share_holder;
     ////
     public $gernalinfo;
+
+    public $hideTabs = false;
     protected $listeners = [
-        'changeTab'
+        'changeTab', 'hideTabs'
     ];
+
+    public function hideTabs($value)
+    {
+        if($value == true){
+            $this->hideTabs = true;
+        }
+    }
+
     public function changeTab(ModelsApplyLoan $apply_loan, $id)
     {
         $this->apply_loan = $apply_loan;
@@ -128,9 +140,23 @@ class ApplyLoan extends Component
     }
     public function mount()
     {
+
         $this->share_holder = 0;
         $this->mainTypes = [];
         $this->loanReasons = [];
+        if($this->draft)
+        {
+            $this->apply_loan = ModelsApplyLoan::find($this->draft);
+            $this->main_type = $this->apply_loan->profile;
+            $this->getMainType();
+            $this->values[$this->apply_loan->loan_type_id] = $this->apply_loan->loan_type_id;
+            // array_push($this->values[0], $this->apply_loan->loan_type_id);
+            // dd($this->values);
+            // $this->values[$this->apply_loan->loan_type_id] = $this->apply_loan->loan_type_id;
+            $this->getLoanReason($this->apply_loan->loan_type_id);
+            $this->pushReason($this->apply_loan->reason_id);
+
+        }
     }
 
     public function pushReason($id)
@@ -154,7 +180,7 @@ class ApplyLoan extends Component
         // }
 
     }
-    public function getLoanReason($loan_type_id, $key)
+    public function getLoanReason($loan_type_id)
     {
         if(!$this->values[$loan_type_id]){
             $this->values[$loan_type_id] =  true;
@@ -242,6 +268,7 @@ class ApplyLoan extends Component
 
     public function getMainType()
     {
+
         $this->reasonValue = [];
         $this->loan_type_id = '';
         $this->loanReasons = [];
@@ -353,7 +380,7 @@ class ApplyLoan extends Component
     public function store()
     {
         // dd('asda');
-        // dd($this->gernalinfo['user_owned']);
+        // dd(Config::get("gernalinfo.".$this->loan_type_id));
         foreach(Config::get("gernalinfo.".$this->loan_type_id)  as $key => $item){
             $this->validate([
                 'gernalinfo.'.$item['key'] =>  $item['required'].$item['regax'].$item['image_formart'],

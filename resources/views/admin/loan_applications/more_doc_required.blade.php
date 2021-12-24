@@ -51,14 +51,14 @@
                                     <section id="more_doc_section">
                                     {{-- <h5 class="">Message description</h5> --}}
                                     <h6 class="">You may pick a combination of the following reasons to be displayed along with the info/document asked to the borrower.</h6>
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group custom-switch">
                                                 <input type="checkbox" class="custom-control-input" name="if_any" id="if_any">
                                                 <label class="custom-control-label" for="if_any">If any</label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
@@ -119,22 +119,7 @@
 
                                     </div>
                                     <hr>
-                                    <h6>Document of</h6>
-                                    <div class="row">
-                                        @php
-                                            $list = moreDocOfList();
-                                        @endphp
-                                        @for($i=1;$i<count($list);$i++)
-                                        <div class="col-md-3">
-                                            <div class="form-group custom-switch"> 
-                                                <input type="radio" @if ($i==1) checked  @endif 
-                                                class="custom-control-input document_of" value="{{$i}}" name="document_of" id="document_of{{$i}}">
-                                                <label class="custom-control-label" for="document_of{{$i}}">{{$list[$i]}}</label>
-                                            </div>
-                                        </div>
-                                        @endfor
-
-                                    </div>
+                                    
                                     <hr>
                                     </section>
                                     <div class="form-group mt-1">
@@ -158,14 +143,12 @@
                                                                     <tr>
                                                                         <th>Delete</th>
                                                                         <th>Document</th>
-                                                                        <th>Document of</th>
                                                                         <th>Reasons</th>
                                                                         <th>Within(Days)</th>
                                                                         <th>Past(Months)</th>
                                                                         <th>Valid For(Months)</th>
                                                                         <th>From</th>
                                                                         <th>To</th>
-                                                                        <th>If any</th>
                                                                         
                                                                     </tr>
                                                                     </thead>

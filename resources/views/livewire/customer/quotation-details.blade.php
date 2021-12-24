@@ -7,19 +7,27 @@
                 <div class="page-title-box">
     
                     <div class="row align-items-center ">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <div class="page-title-box">
                                 <h4 class="page-title">Quotation details</h4>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        
                             {{-- href="{{ route('proceed-with-quotation',['quote_id'=>$quotation_details->id]) }}" --}}
-                            @if ($quotation_details->status != '1')
-                                <a wire:click="proceedAlert()" data-toggle="tooltip"
+                            @if ($quotation_details->status == '0' || $quotation_details->status == null)
+                            <div class="col-md-4">
+                                <a wire:click="proceedAlert('I give consent to selected financing partner to contact me to complete the loan application.','proceedWithQuotation','Proceed')" data-toggle="tooltip"
                                 data-original-title="" class="btn btn-primary"
                                     aria-current="page">
                                     Proceed
                                 </a>
+                                <a wire:click="proceedAlert('Are you sure loan no longer required?','loanNoLongerRequired','Confirm')" data-toggle="tooltip"
+                                data-original-title="" class="btn btn-primary"
+                                    aria-current="page">
+                                    Loan no longer required
+                                </a>
+                            </div>
+                            
                             @endif
                         </div>
                     </div>
@@ -36,7 +44,7 @@
                             @if (in_array($quotation_details->loan_application->loan_type_id,[5,6]))
                                 <div class="col-md-3">
                                     <h6>Facility Limit</h6>
-                                    <span>32-12-32132</span>
+                                    <span>{{$quotation_details->quantum_interest->quantum}}</span>
                                 </div>
                                 <div class="col-md-3">
                                     <h6>Advance Percentage</h6>
@@ -193,10 +201,12 @@
                             </div>
                             <div class="col-md-3">
                                 <h6>If Insurance required</h6>
-                                <span>
-                                    ${{ $quotation_details->if_insurance_required->range_value_from }}
-                                    or
-                                    {{ $quotation_details->if_insurance_required->range_percentage_from }}%
+                                <span>                                    
+                                    @if ($quotation_details->if_insurance_required->range_value_from != "")
+                                    ${{ $quotation_details->if_insurance_required->range_value_from."-$".$quotation_details->if_insurance_required->range_value_to }}
+                                    @else
+                                    {{ $quotation_details->if_insurance_required->range_percentage_from."%-".$quotation_details->if_insurance_required->range_value_to."%" }}
+                                    @endif
                                 </span>
                             </div>
                             <div class="col-md-3">
@@ -256,7 +266,7 @@
                     showCancelButton: true,
                     confirmButtonColor: 'rgb(221, 51, 51)',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Proceed',
+                    confirmButtonText: event.detail.confirmButtonText,
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.value) {

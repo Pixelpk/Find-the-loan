@@ -82,7 +82,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 d-flex align-items-center">
+                        <span style="padding: 43px 10px 0px 10px;"><b>or</b></span>
                         <div x-data="{ isUploading: false, progress: 0 }"
                             x-on:livewire-upload-start="isUploading = true"
                             x-on:livewire-upload-finish="isUploading = false"
@@ -110,8 +111,23 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <p class="mb-1"> <b>Personal NOA</b></p>
+
+                    <span class="d-flex">
+                        <p class="mb-1">
+
+                        <b>Personal NOA</b>
+
+                        &nbsp;&nbsp;
+                        <div class="tooltip-c" style="font-size: 16px; color: #ff0000c4;">
+                            <i class="fa fa-info-circle"></i>
+                            <span class="tooltip-text">Hello World</span>
+                        </div>
+                    </p>
+
+                    </span>
                     <p class="mb-1">(Notice of Assessment) 2 Years</p>
+
+
                 </div>
 
                 <div class="row">
@@ -122,7 +138,7 @@
                             x-on:livewire-upload-error="isUploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
                             <div class="form-group">
-                                <br>
+                                <!-- <br> -->
                                 <label for="">Latest</label>
                                 <input wire:model="nao_latest.{{ $share_holder }}"
                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
@@ -148,7 +164,7 @@
                             x-on:livewire-upload-error="isUploading = false"
                             x-on:livewire-upload-progress="progress = $event.detail.progress">
                             <div class="form-group">
-                                <br>
+                                <!-- <br> -->
                                 <label for="">Older</label>
                                 <input wire:model="nao_older.{{ $share_holder }}"
                                     accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
@@ -249,10 +265,35 @@
     </div>
     <div class="ro text-end">
 
-        <button class="btn btn-custom" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
-            <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
-                aria-hidden="true"></span>
-            Save Continue
-        </button>
+
+        {{-- @if($enableButtons == false) --}}
+            <button class="btn btn-custom" type="button" wire:target='searchLender' wire:click.prevent='searchLender'>
+                <div class="magnify-loader-background d-none" wire:loading.longest wire:target="searchLender" wire:loading.class.remove="d-none">
+
+                    <div class="magnify-loader">
+                            <div class="loadingio-spinner-magnify-hz4ezng7lp">
+                                <div class="ldio-8j2236x8qt">
+                                    <div><div>
+                                    <div></div>
+                                    <div></div>
+                                    </div></div>
+                                </div>
+                            </div>
+                        <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
+                    </div>
+
+                </div>
+                {{-- <span wire:loading wire:target="searchLender" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span> --}}
+                Save Continue
+            </button>
+        {{-- @else
+            <button class="btn btn-custom" disabled>
+                <span class="spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                Save Continue
+            </button>
+        @endif --}}
+
     </div>
 </section>

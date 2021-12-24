@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h3 class="text-center">Login</h3>
                             <div>
-                                <input class="contact-input white-input custominput" wire:model="email"
+                                <input class="contact-input white-input custominput" wire:model.defer="email"
                                     placeholder="Email*" type="email">
                                 @error('email')
                                 <span class="customspan">{{ $message }}</span>
@@ -29,20 +29,32 @@
                             </div>
                             <div>
                                 <input style="margin-top:15px;" class="contact-input white-input custominput"
-                                    wire:model="password" placeholder="Password*" type="password">
+                                    wire:model.defer="password" placeholder="Password*" type="password">
                                 @error('password')
                                 <span class="customspan">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-custom mt-3 w-100"
-                                type="button" wire:loading.attr='disabled' wire:target='loginAttemp'
-                                wire:click.prevent='loginAttemp'>
+                            {{-- <div id="g-recaptcha" class="g-recaptcha"></div> --}}
+                            <button  onclick="verifyCallBack()" class="btn btn-custom g-recaptcha mt-3 w-100"
+                                type="button" wire:loading.attr='disabled'>
                                 Login
-                                <div wire:loading wire:target="loginAttemp">
+                                <div wire:loading>
                                     <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true">
                                     </span>
                                 </div>
                             </button>
+
+                            <div class="p-3 text-center">
+                                <span><b>or</b></span>
+                            </div>
+
+                            <div class="text-center">
+                                <a href="{{ route('facebookRedirect') }}"><i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i></a>
+                            </div>
+                            <div class="pt-3">
+                               <span>You don't have an account?</span>
+                               <a href="{{ route('registration') }}" style="text-decoration: underline;"> Sign Up </a>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -57,3 +69,27 @@
     </div>
     <!--end container-->
 </section>
+<script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
+
+<script>
+    function verifyCallBack(response) {
+        console.log(response)
+        grecaptcha.ready(function () {
+            // @this.set('captcha_token', response);
+            console.log("i am in ready block");
+            // grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'loginAttemp'})
+            grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}')
+                .then(function (token) {
+                    @this.set('captcha', token);
+                    @this.call('loginAttemp');
+                });
+        });
+      };
+    //   var onloadCallback = function() {
+    //     grecaptcha.render('g-recaptcha', {
+    //         'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
+    //         'callback' : verifyCallback,
+    //         });
+    //   }
+
+</script>

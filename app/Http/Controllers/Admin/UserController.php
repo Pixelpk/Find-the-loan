@@ -17,6 +17,7 @@ use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,6 +33,12 @@ class UserController extends Controller
         }else{
             return redirect(route('admin-dashboard'));
         }
+    }
+
+    public function updatedCaptcha($token)
+    {
+        $response = Http::post('https://www.google.com/recaptcha/api/siteverify?secret=' . env('CAPTCHA_SECRET_KEY') . '&response=' . $token);
+        return $response->json()['score'] ?? null;
     }
 
     public function partnerLogin(Request $request)
@@ -50,11 +57,18 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'captcha' => 'required'
         ]);
         if ($validator->fails()){
             return redirect(route('admin-login'))->withErrors($validator);
         }
+
+        $captcha = $this->updatedCaptcha($request->captcha);
+        if ($captcha < 0.3 || $captcha == null) {
+            return redirect(route('admin-login'))->with('error','Google thinks you are a bot, please refresh captcha and try again');
+        }
+
         if (Auth::guard('users')->attempt(['email'=>$request->email, 'password'=>$request->password, 'role_id'=>1,'status'=>1])){
             return redirect(route('admin-dashboard'))->with('success','You are successfully logged in.');
         }else{
@@ -66,11 +80,18 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'captcha' => 'required'
         ]);
         if ($validator->fails()){
             return redirect(route('partner-login'))->withErrors($validator);
         }
+
+        $captcha = $this->updatedCaptcha($request->captcha);
+        if ($captcha < 0.3 || $captcha == null) {
+            return redirect(route('partner-login'))->with('error','Google thinks you are a bot, please refresh captcha and try again');
+        }
+
         $credentials = ['email'=>$request->email, 'password'=>$request->password,'status'=>1];
         if (Auth::guard('partners')->attempt($credentials)){
             $user = Auth::guard('partners')->user();
@@ -119,6 +140,12 @@ class UserController extends Controller
         return view('admin.user.profile');
     }
 
+    // Customer Profile
+     public function customerProfile(Request $request)
+    {
+        return view('admin.user.profile');
+    }
+    
     public function partnerProfile(Request $request)
     {
         $data['structures'] = CompanyStructure::where('status','=','1')

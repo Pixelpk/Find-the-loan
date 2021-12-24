@@ -23,7 +23,7 @@
                             <div class="card-body">
 
                                 <div class="table-rep-plugin">
-                                    <div class="table-responsive loan_application_table-w b-0" data-pattern="priority-columns">
+                                    <div class="table-responsive b-0" data-pattern="priority-columns">
                                         <table id="loan_application_table" class="table table-hover table-striped text-center">
                                             <thead>
                                             <tr>

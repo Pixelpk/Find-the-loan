@@ -9,11 +9,15 @@ use App\Models\FinancePartner;
 use App\Models\FinancePartnerMeta;
 use App\Models\LoanType;
 use App\Models\MainType;
+use App\Models\PartnerMetaRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+
+use function PHPUnit\Framework\returnSelf;
 
 class FinancePartnerController extends Controller
 {
@@ -33,45 +37,171 @@ class FinancePartnerController extends Controller
         return view('admin.finance_partners.partners',$data);
     }
 
-    public function enquiryColor(Request $request){
+    public function partnerMeta(Request $request){
         $data = $request->all();
-        $user = $request->user();
         $partner_id = Session::get('partner_id');
 
-        $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
+        $data['partners_meta'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
             ->pluck('value', 'key_name');
-        return view('admin.finance_partners.edit_enquiry_color',$data);
+            // return $data;
+        return view('admin.finance_partners.partner_meta',$data);
     }
 
-    function submitPartnerMeta(Request $request){
+    public function updatePartnerMeta(Request $request){
         $data = $request->all();
+        $partner_id = Session::get('partner_id');
+
+        $data['partner_meta'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
+            ->pluck('value', 'key_name');
+            // return $data;
+        return view('admin.finance_partners.update_partner_meta',$data);
+    }
+
+    // public function enquiryColor(Request $request){
+    //     $data = $request->all();
+    //     $user = $request->user();
+    //     $partner_id = Session::get('partner_id');
+
+    //     $data['enquiry_data'] = FinancePartnerMeta::where('partner_id','=',$partner_id)
+    //         ->pluck('value', 'key_name');
+    //     return view('admin.finance_partners.edit_enquiry_color',$data);
+    // }
+
+    function submitPartnerMetaRequest(Request $request){
+        $data = $request->except('_token');
+
+        // return $data;
         $user = $request->user();
         $partner_id = Session::get('partner_id');
-//        dd($request->all());
-        foreach ($data as $key=>$value){
-            if ($key != '_token'){
-                $web_data = FinancePartnerMeta::where('key_name','=',$key)
-                    ->where('partner_id','=',$partner_id)
-                    ->first();
-                if (!$web_data){
-                    $web_data = new FinancePartnerMeta();
-                }
-                $web_data->partner_id = $partner_id;
-                $web_data->key_name = $key;
-                $web_data->value = $value;
-                $web_data->save();
-            }
+        $meta = new PartnerMetaRequest();
+        $meta->user_id = $user->id;
+        $meta->partner_id = $partner_id;
+        $meta->requested_data = $data;
+
+        $meta->status = 1; //1=means request is forward to super admin of plateform. 0=means request is forward to bank admin(request by any finance partner user)
+        
+        $message = "Request is forward to super admin to update your details";
+
+        //if logged user is not bank admin then send request to bankadmin for approval
+        if($user->parent_id != 0){
+            $meta->status = 0;
+            $message = "Request is forward to bank admin.";
         }
-        return redirect(route('enquiry-color'))->with('success','Data is updated successfully.');
+        $meta->save();
+        return redirect(route('partner-meta'))->with('success',$message);
 
     }
+
+    //listing at super admin side
+    function partnerMetaRequests(Request $request){
+        $query = PartnerMetaRequest::query();
+        if(Auth::guard('partners')->check()){
+            $query->where('status',0)
+            ->get();
+        }else{
+            $query->where('status',1)
+            ->get();
+        }
+        
+        $data['meta_requests'] = $query->get();
+        
+        // return $data;
+        return view('admin.finance_partners.partner_meta_requests',$data);
+    }
+
+
+    //accept, reject partner update details request by super admin and bank admin
+    //if status of request is 0(requested by partner user) then bank admin wil accept/reject
+    //if status of request is 1(requested by partner admin) then bank admin wil accept/reject
+    public function acceptMetaRequest(Request $request){
+        try {
+            $data = $request->all();
+            $partner_id = Session::get('partner_id');
+            if (!isset($data['status']) || !isset($data['id'])){
+                return redirect()->back()->with('error',"Oops. something went wrong");
+            }
+
+            $status = (int)$data['status'];
+            $id = (int)$data['id'];
+            if ($status != 0 && $status != 1){
+                return redirect()->back()->with('error',"Oops. something went wrong");
+            }
+
+            $query = PartnerMetaRequest::query()->where('id',$id);
+            if(Auth::guard('partners')->check()){
+                $query->where('partner_id',$partner_id)->where('status',0);
+            }else{
+                $query->where('status',1);
+            }
+            $meta_request = $query->first();
+            if (!$meta_request) {
+                return redirect(route('partner-meta-requests'))->with("error", "Oops. something went wrong.");
+            }
+
+            if ($status == 0){
+                $meta_request->delete();
+                $message ="Request is rejected successfully.";
+            }elseif($status == 1 && $meta_request->status == 0){
+                $meta_request->status = 1;
+                $meta_request->save();
+                $message = "Request is forward to super admin for approval.";
+            }elseif($status == 1 && $meta_request->status == 1){
+                $message = "Requested details are updated successfully.";
+                //here update details of finance partner
+
+                foreach($meta_request->requested_data as $key=>$item){
+                    if($item != null){
+                        $update_details =  FinancePartnerMeta::where('partner_id',$meta_request->partner_id)
+                        ->where('key_name',$key)->first();
+                        if(!$update_details){
+                            $update_details = new FinancePartnerMeta();
+                            $update_details->key_name = $key;
+                            $update_details->partner_id = $meta_request->partner_id;
+                        }
+                        $update_details->value = $item;
+                        $update_details->save();
+                    }
+
+                }
+                $meta_request->delete();
+                 
+            }
+            return redirect(route('partner-meta-requests'))->with("success", $message);
+
+        } catch (\Exception $exception){
+            return redirect(route('partner-meta-requests'))->with("error", $exception->getMessage());
+        }
+    }
+
+    // function submitPartnerMeta(Request $request){
+    //     $data = $request->all();
+    //     $user = $request->user();
+    //     $partner_id = Session::get('partner_id');
+    // //    dd($request->all());
+    //     foreach ($data as $key=>$value){
+    //         if (($key != '_token') && ($value != null)){
+    //             $web_data = FinancePartnerMeta::where('key_name','=',$key)
+    //                 ->where('partner_id','=',$partner_id)
+    //                 ->first();
+    //             if (!$web_data){
+    //                 $web_data = new FinancePartnerMeta();
+    //             }
+    //             $web_data->partner_id = $partner_id;
+    //             $web_data->key_name = $key;
+    //             $web_data->value = ($key == 'board_rate') ? json_encode($value) : $value;
+    //             $web_data->save();
+    //         }
+    //     }
+    //     return redirect(route('partner-meta'))->with('success','Data is updated successfully.');
+
+    // }
 
     function partnerDetail(Request $request)
     {
         try {
             $data = $request->all();
             $id = $data['id'] ?? '';
-            $partner = FinancePartner::where("id", "=", $id)
+            $partner = FinancePartner::with('partner_terms_condition')->where("id", "=", $id)
                 ->first();
             if (!$partner){
                 return $this->resp(0,'not found',['partner'=>null],401);
@@ -123,27 +253,31 @@ class FinancePartnerController extends Controller
         $data['property_types'] = implode(',',$data['property_types']);
         $data['equipment_types'] = implode(',',$data['equipment_types']);
 
-//        $partner->parent_id = 0;
-//        $partner->name = $data['name'];
-//        $partner->email = $data['email'];
-//        $partner->phone = $data['phone'];
-//        $partner->password = Hash::make($data['password']);
-
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = 'partner' . date("Ymd-his") . '.' . $file->getClientOriginalExtension();
             $destinationPath = public_path("uploads/financePartnerImages/" . $filename);
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destinationPath) && $data['image']) {
                 if (file_exists($destinationPath)) {
-//                    $partner->image = $filename;
                     $data['image'] = $filename;
                 } else {
                     return redirect(route('finance-partners'))->with('error',"Oops. Something went wrong with image");
                 }
             }
         }
-
         $partner->fill($data)->save();
+
+        //update meta details of finance partner
+        $update_details =  FinancePartnerMeta::where('partner_id',$partner->id)
+        ->where('key_name','terms_condition')->first();
+        if(!$update_details){
+            $update_details = new FinancePartnerMeta();
+            $update_details->key_name = "terms_condition";
+            $update_details->partner_id = $partner->id;
+        }
+        $update_details->value = $data['terms_condition'];
+        $update_details->save();
+
         $info = array(
             'name' => $data['name'],
             'phone' => $data['phone'],
@@ -210,6 +344,18 @@ class FinancePartnerController extends Controller
             }
         }
         $partner->fill($data)->save();
+
+        //update meta details of finance partner
+        $update_details =  FinancePartnerMeta::where('partner_id',$data['id'])
+        ->where('key_name','terms_condition')->first();
+        if(!$update_details){
+            $update_details = new FinancePartnerMeta();
+            $update_details->key_name = "terms_condition";
+            $update_details->partner_id = $data['id'];
+        }
+        $update_details->value = $data['terms_condition'];
+        $update_details->save();
+        
         if (isset($request->password)){
             $info = array(
                 'name' => $partner->name,

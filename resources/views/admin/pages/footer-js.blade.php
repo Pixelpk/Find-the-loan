@@ -27,6 +27,11 @@
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('toastr.min.js') }}"></script>
 
+@if(Route::currentRouteName() == 'partner-login' || Route::currentRouteName() == 'admin-login')
+    <script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
+@endif
+
+
 <script>
     let todayDate = new Date();
     let quoteEndDate= new Date(new Date().setDate(todayDate.getDate() + 29));
@@ -70,6 +75,15 @@
     let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
     let floating_count = 0;
+
+    @if(Route::currentRouteName() == 'update-partner-meta')
+        let board_rate_count = 0;
+
+        @if(isset($partner_meta['board_rate']))
+            board_rate_count = {{count($partner_meta['board_rate'])}}-1;
+        @endif
+    @endif
+    
     $(document).ready(function() {
 
         var pass_array = [];
@@ -207,7 +221,7 @@
                     'selected_list':SelectedList
                 }
             }).done(function (data) {
-                window.location.href = "{{ route('loan-applications') }}";
+                window.location.href = "{{ route('loan-applications',['profile'=>$_GET['profile'] ?? 1]) }}";
             });
         });
         // $('#application_filter_btn').click(function (){
@@ -444,63 +458,14 @@
                 $("#thereafter_pa").prop('disabled', true);
             }
         });
-        //put quotation fee section validations ending
 
-        // $('.interest_reducing_balance').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_board_rate").prop('disabled', false);
-        //         $(".flat_fee_regardless").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_board_rate").prop('disabled', true);
-        //         $(".flat_fee_regardless").prop('disabled', true);
-        //     }
-        // });
+        $('#login').click(function(event){
+            event.preventDefault();
+            onloadCaptchaCallback();
+            return false;
+            
+        });
 
-        // $('.interest_board_rate').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_reducing_balance").prop('disabled', false);
-        //         $(".flat_fee_regardless").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_reducing_balance").prop('disabled', true);
-        //         $(".flat_fee_regardless").prop('disabled', true);
-        //     }
-        // });
-        // $('.flat_fee_regardless').keyup(function(){
-        //     console.log($(this).val().length)
-        //     if($(this).val().length < 1){
-        //         $(".interest_flat").prop('disabled', false);
-        //         $(".interest_reducing_balance").prop('disabled', false);
-        //         $(".interest_board_rate").prop('disabled', false);
-        //     }else{
-        //         $(".interest_flat").prop('disabled', true);
-        //         $(".interest_reducing_balance").prop('disabled', true);
-        //         $(".interest_board_rate").prop('disabled', true);
-        //     }
-        // });
-        // $('#submit_quotation').click(function(event){
-        //     event.preventDefault();
-        //     var inputs = $('#quotationForm :input');
-        //     var values = {};
-        //     inputs.each(function() {
-        //         values[this.name] = $(this).val();
-        //     });
-        //     console.log(values);
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "{{ route('submit-quotation') }}",
-        //         data: values
-        //     }).done(function (result) {
-
-        //         console.log(result)
-        //         return false;
-        //     });
-        // });
         $(document).on("click", '#months_add_row', function(event) { 
             floating_count ++;
             event.preventDefault();
@@ -551,9 +516,40 @@
             $('.month_vise_pa_or_spread').append(append_html);   
         });
 
+        $(document).on("click", '#add_board_rate_row', function(event) { 
+            board_rate_count ++;
+            event.preventDefault();
+            
+            var append_html = '<div class="row " >'+
+            '    <div class="form-group col-md-4">'+
+            '        <label class="col-form-label">'+
+            '            Date'+
+            '        </label>'+
+            '        <input type="text" class="form-control date-picker" row_index="'+board_rate_count+'" name="board_rate['+board_rate_count+']['+'date'+']" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-4">'+
+            '        <label class="col-form-label">'+
+            '            Rate'+
+            '        </label>'+
+            '        <input type="number" min="1" row_index="'+board_rate_count+'" name="board_rate['+board_rate_count+']['+'rate'+']" class="form-control" >'+
+            '    </div>'+
+            '    <div class="form-group col-md-1">'+
+            '        <label class="col-form-label">'+
+            '            '+
+            '        </label>'+
+            '   <a href="javascript:void(0)"  data-original-title="Remove"><i class="mt-5 remove_board_rate_row fa fa-trash"></i></a>'
+            '    </div>'+
+            '</div>';
+	
+            $('.add_board_rate_div').append(append_html);   
+        });
+
+        $(document).on("click", '.remove_board_rate_row', function(event) { 
+            $(this).closest('div .row').remove();
+        });
+
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
-            var document_of = $("input[name='document_of']:checked").val();
             // var more_doc_reasons = $('#more_doc_reasons').val();
             var more_doc_reasons = [];
             var more_doc_reasons_text = [];
@@ -564,10 +560,6 @@
             var quote_additional_doc_id = $("input[name='quote_additional_doc_id']:checked").val();
             // var quote_additional_doc_id = $('#quote_additional_doc_id:checked').val();
 
-            if(document_of == ""){
-                $("#document_of_error").html("Document of field is required");
-                return false;
-            }
             if(more_doc_reasons == ""){
                 $("#more_doc_reasons_error").html("Reason is required");
                 return false;
@@ -578,7 +570,6 @@
             }
             
              new_obj = {};
-             new_obj.if_any = $('#if_any').prop('checked');
              new_obj.from = $('#from').val();
              new_obj.to = $('#to').val();
              new_obj.within_days = $('#within_days').val();
@@ -590,7 +581,6 @@
             //  new_obj.signature_borrower = $('#signature_borrower').prop('checked');
             //  new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
              new_obj.more_doc_reasons = more_doc_reasons;
-             new_obj.document_of = document_of;
              new_obj.quote_additional_doc_id = quote_additional_doc_id;
             more_doc_message_array.push(new_obj);
             console.log(more_doc_message_array);
@@ -598,14 +588,12 @@
             var html = "<tr index="+more_doc_msg_index+">"
             +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
             +"<td>"+$("input[name='quote_additional_doc_id']:checked").next('label').text()+"</td>"
-            +"<td>"+$("input[name='document_of']:checked").next('label').text()+"</td>"
             +"<td>"+more_doc_reasons_text+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
             +"<td>"+new_obj.from+"</td>"
             +"<td>"+new_obj.to+"</td>"
-            +"<td>"+new_obj.if_any+"</td>"
             // +"<td>"+new_obj.latest+"</td>"
             // +"<td>"+new_obj.required_company_stamp+"</td>"
             // +"<td>"+new_obj.need_notarized+"</td>"
@@ -636,18 +624,6 @@
         $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
             $(this).closest('div .row').remove();
         });
-        // $('#quote_additional_doc_idz').change(function(e){
-        //     e.preventDefault();
-        //     $('#point_to_any_specific_doc').html();
-        //     var append_html = "";
-        //     $("#quote_additional_doc_idz option:selected").each(function() {
-        //         append_html+="<option value='"+this.value+"'>"+this.text+"</option>";
-        //         console.log(this.value+"="+this.text)        //
-        //     });
-        //     console.log(append_html)
-        //     $('#point_to_any_specific_doc').html(append_html);
-        //     // alert($('#quote_additional_doc_idz option:selected').text());
-        // });
 
         $('#more_doc_request_btn').click(function(e){
             e.preventDefault();
@@ -737,6 +713,20 @@
         $("#reject_loan_id").val(loan_apply_id)
         $('#RejectReasonModel').modal('show');
     }
+
+
+      function onCaptchaCallback() {
+          grecaptcha.ready(function () {
+              console.log("i am in ready block");
+            // grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}', {action: 'loginAttemp'})
+                grecaptcha.execute('{{env('CAPTCHA_SITE_KEY')}}')
+                .then(function (token) {
+                    document.getElementById("captcha").value = token;
+                    $("#login-form").submit();
+                });
+            });
+        }
+
 
     function fixedOrFloating(fixed_or_floating){
         let apply_loan_id = $('#apply_loan_id').val();

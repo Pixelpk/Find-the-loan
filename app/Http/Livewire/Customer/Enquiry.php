@@ -28,9 +28,12 @@ class Enquiry extends Component
     {
         $getLoans = ApplyLoan::where('user_id', $this->user->id)
         ->with(['loan_type','loan_company_detail','loan_reason'])
+        // ->whereHas('loan_lender_details')
+        ->where('status','!=',0)
         ->where('profile', $this->profile)
         ->orderBy('id','desc')
         ->paginate(20);
+        $getLoans->appends(['profile' => $this->profile]);
 
         return view('livewire.customer.enquiry',['getLoans' => $getLoans])->layout('customer.layouts.master');;
     }

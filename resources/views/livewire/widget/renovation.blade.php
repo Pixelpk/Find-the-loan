@@ -10,8 +10,12 @@
                 :loan_type_id="$loan_type_id"
                 :share_holder="0"
                 :modell="'App\Models\LoanGernalInfo'"
-                :keyvalue="'property_renovation_tenancy_agreement'"
-                />
+                :keyvalue="'property_renovation_tenancy_agreement'"/>
+                @error("tanancy_agreement")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <livewire:widget.upload-component
@@ -21,11 +25,21 @@
             :loan_type_id="$loan_type_id"
             :share_holder="0"
             :modell="'App\Models\LoanGernalInfo'"
-            :keyvalue="'property_renovation_quotation'"
-            />
+            :keyvalue="'property_renovation_quotation'" />
+            @error("renovation_quotation")
+                <div style="color: red;">
+                    {{ $message }}
+                </div>
+            @enderror
             </div>
                   <div class="mb-3">
-                    <label for="amount" class="form-label">Amount Required</label>
+                    <label for="amount" >Amount required
+                        <div class="tooltip-c">
+                            <i class="fa fa-info-circle"></i>
+                            <span class="tooltip-text custom-tooltip-text">Amount required is the amount you are aiming to borrow for that loan type. You may still reduce it prior to signing Loan Offer Letter.</span>
+                        </div>
+                    </label>
+                    
                     <input wire:model="amount" type="number" class="form-control" id="amount">
                     @error("amount")
                     <div style="color: red;">
@@ -47,6 +61,11 @@
                             <label class="form-check-label" for="User Owned">
                                 User Owned
                             </label>
+                            <!--  @error("user_owned")
+                                <div style="color: red;">
+                                    {{ $message }}
+                                </div>
+                            @enderror -->
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-8">

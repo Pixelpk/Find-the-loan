@@ -52,17 +52,24 @@ class LoanApplications extends Controller
             ->whereHas('loan_lender_details', function ($query) use ($partner_id) {
                 $query->where('lender_id', '=', $partner_id)->where('status', 1);
             })
+            ->where('status',1)
             ->where('profile', '=', $data['profile'])
             ->orderBy('id', 'desc')
             ->with([
                 'loan_type', 'loan_company_detail', 'loan_reason',
                 'assigned_application',
-                'assigned_to_user' => function ($query) use ($logged_user_id) {
-                    $query->where('assigned_by', '=', $logged_user_id);
-                },
-                'application_rejected' => $partner_filter,
-                'application_quote' => $partner_filter,
-            ])->withCount(['quotations_of_application']);
+                // 'assigned_to_user' => function ($query) use ($logged_user_id) {
+                //     $query->where('assigned_by', '=', $logged_user_id);
+                // },
+                // 'application_rejected' => $partner_filter,
+                // 'application_quote' => $partner_filter,
+            ])
+            ->whereDoesntHave('application_rejected')
+            ->whereDoesntHave('application_quote')
+            ->whereDoesntHave('assigned_application')
+            ->whereDoesntHave('application_more_doc')
+            ->whereDoesntHave('pending_meet_call')
+            ->withCount(['quotations_of_application']);
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user
         $is_parent = $loggedin_user->parent_id;
@@ -126,6 +133,7 @@ class LoanApplications extends Controller
             $data['applications']->appends(['to_date' => $to_date]);
         }
         //=================================
+        // return $data;
 
         return view('admin.loan_applications.loan_applications', $data);
     }
@@ -144,9 +152,10 @@ class LoanApplications extends Controller
             ->whereHas('application_rejected', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
                 $query->where('partner_id', '=', $partner_id);
                 //checking if finance partner admin is not loggedIn then only get assigned applications of user
-                if ($parent_id != 0) {
-                    $query->where('user_id', '=', $logged_user_id);
-                }
+                $query->where('user_id', '=', $logged_user_id);
+                // if ($parent_id != 0) {
+                //     $query->where('user_id', '=', $logged_user_id);
+                // }
             })->with([
                 'loan_company_detail', 'loan_reason',
                 'assigned_application',
@@ -156,33 +165,6 @@ class LoanApplications extends Controller
             ])->paginate(20);
 
         return view('admin.loan_applications.rejected-loan-applications', $data);
-    }
-
-    public function askMoreDocsApplications(Request $request)
-    {
-        $loggedin_user = $request->user();
-        $logged_user_id = $loggedin_user->id;
-        $partner_id = Session::get('partner_id');
-        $parent_id = $loggedin_user->parent_id;
-
-        $data['applications'] = ApplyLoan::select('*')
-            ->whereHas('loan_lender_details', function ($query) use ($partner_id) {
-                $query->where('lender_id', '=', $partner_id)->where('status', 1);
-            })
-            ->whereHas('application_more_doc', function ($query) use ($partner_id, $parent_id, $logged_user_id) {
-                $query->where('partner_id', '=', $partner_id);
-                //checking if finance partner admin is not loggedIn then only get assigned applications of user
-                if ($parent_id != 0) {
-                    $query->where('user_id', '=', $logged_user_id);
-                }
-            })->with([
-                'loan_company_detail', 'loan_reason',
-                'assigned_application',
-                'loan_type:id,sub_type',
-                'loan_user:id,first_name,last_name',
-            ])->paginate(20);
-        // return $data; 
-        return view('admin.loan_applications.more-doc-request-list', $data);
     }
 
 
@@ -206,7 +188,8 @@ class LoanApplications extends Controller
                     'loan_type:id,sub_type',
                     'loan_user:id,first_name,last_name',
                 ]
-            )->paginate(20);
+            )
+            ->paginate(20);
 
         return view('admin.loan_applications.assigned-out-applications', $data);
     }
@@ -217,6 +200,7 @@ class LoanApplications extends Controller
         $partner_id = Session::get('partner_id');
         $logged_in_user = $request->user();
         $logged_user_id = $logged_in_user->id;
+
 
         $data['customer_reject_reasons'] = RejectReason::where('type', '=', 2)->get();
         $data['internal_reject_reasons'] = RejectReason::where('type', '=', 1)->get();
@@ -229,7 +213,7 @@ class LoanApplications extends Controller
                 $query->where('lender_id', '=', $partner_id)->where('status', 1);
             })
             ->with([
-                'loan_type', 'loan_company_detail', 'loan_reason',
+                'loan_type', 'loan_company_detail', 'loan_reason','assigned_application',
                 'application_rejected' => $partner_filter,
                 'application_quote' => $partner_filter,
                 'application_more_doc' => $partner_filter,
@@ -241,16 +225,25 @@ class LoanApplications extends Controller
                 },
             ])
             ->first();
+            // return $data['application'];
 
         if ($id == null || !$data['application']) {
             return redirect()->back()->with('error', 'Oops. something went wrong.');
         }
+        
+
         if ($logged_in_user->parent_id != 0) {
-            //if partner user have viewed the loan application then update the viewed_at column value.
+            $if_action_not_performed = AssignedApplication::where('user_id', $logged_in_user->id)
+                ->where('status','=',1) //0=not viewed, 1= viewed, 2=action performed
+                ->first();
+            if($if_action_not_performed &&($if_action_not_performed->apply_loan_id != $id) && ($data['application']->assigned_application->status != '2')){
+                return redirect()->back()->with('error','Kindly perform any opertion on previously view application.');
+            }
+
             AssignedApplication::where('apply_loan_id', $id)
                 ->where('user_id', $logged_in_user->id)
-                ->whereNull('viewed_at')
-                ->update(['viewed_at' => date("Y-m-d H:i:s")]);
+                ->where('status','=',0) //0=not viewed, 1= viewed, 2=action performed
+                ->update(['viewed_at' => date("Y-m-d H:i:s"),'status'=>1]);
         }
 
         // return $data;
@@ -495,6 +488,12 @@ class LoanApplications extends Controller
         $reject->customer_reject_reason_id = $request->customer_reject_reason_id;
         $reject->other_reasons = $request->other_reasons ?? null;
         $reject->save();
+
+        if ($user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($apply_loan_id,$user->id,1,2);
+        }
+
 
         return redirect()->back()->with('success', 'Loan application is rejected successfully');
     }

@@ -22,20 +22,45 @@
             </div>
             @endif
         </div>
-        <div class="col-md-1">
+
+        @if(sizeof($personalDetail) > 0)
+
+        <!-- <div class="col-md-1">
             <br>
             <br>
             <b>OR</b>
-        </div>
-        <div class="col-md-3 text-left">
-            <livewire:widget.upload-component :label="'Passport/Indentity Card (Foreigner only)'"
-                :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_passport_or_identity_card'" />
-            @if(isset($customValidation['personal_document_passport_or_identity_card']))
-            <div style="color:red;">
-                {{ $customValidation['personal_document_passport_or_identity_card'] }}
+        </div> -->
+
+        <div class="col-md-3 text-left d-flex align-middle">
+
+            <div class="w-15" style="padding-top: 35px;"><b>OR</b></div>
+            <div class="w-85" style="margin-left:10px;"><livewire:widget.upload-component :label="'Or Birth Certificate'" :apply_loan="$apply_loan"
+                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_birth_certificate'" />
+
+                 @if(isset($customValidation['personal_document_birth_certificate']))
+                <div style="color:red;">
+                    {{ $customValidation['personal_document_birth_certificate'] }}
+                </div>
+                @endif
+
             </div>
-            @endif
+        </div>
+
+        @endif
+
+        <div class="col-md-3 text-left  d-flex align-middle">
+                <div class="w-10" style="padding-top: 35px;"><b>OR</b></div>
+            <div class="w-90" style="margin-left:5px;">
+                <livewire:widget.upload-component :label="'Passport/Indentity Card (Foreigner only)'"
+                    :apply_loan="$apply_loan" :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
+                    :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_passport_or_identity_card'" />
+                @if(isset($customValidation['personal_document_passport_or_identity_card']))
+                <div style="color:red;">
+                    {{ $customValidation['personal_document_passport_or_identity_card'] }}
+                </div>
+                @endif
+            </div>
         </div>
         <div class="col-md-4">
             <br>
@@ -181,11 +206,7 @@
             <br>
             <hr>
         </div>
-        <div class="col-md-12 text-left">
-            <livewire:widget.upload-component :label="'Or Birth Certificate'" :apply_loan="$apply_loan"
-                :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="0"
-                :modell="'App\Models\PersonalDetail'" :keyvalue="'personal_document_birth_certificate'" />
-        </div>
+
         <div class="col-md-12">
             <br>
             He/she does not have any income proof as he/she is a
@@ -245,7 +266,7 @@
             <br>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-check">
                 <input value="Spouse" wire:model="relation" class="form-check-input" type="radio"
                     id="flexRadioDefault11">
@@ -254,7 +275,7 @@
                 </label>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-check">
                 <input value="Parent" wire:model="relation" class="form-check-input" type="radio"
                     id="flexRadioDefault22">
@@ -263,7 +284,7 @@
                 </label>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-check">
                 <input value="Sibling" wire:model="relation" class="form-check-input" type="radio"
                     id="flexRadioDefault33">
@@ -272,12 +293,21 @@
                 </label>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="form-check">
                 <input value="Child" wire:model="relation" class="form-check-input" type="radio"
                     id="flexRadioDefault355">
                 <label class="form-check-label" for="flexRadioDefault355">
                     Child
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-check">
+                <input value="other" wire:model="relation" class="form-check-input" type="radio"
+                    id="flexRadioDefault356">
+                <label class="form-check-label" for="flexRadioDefault356">
+                    Other
                 </label>
             </div>
         </div>
@@ -287,22 +317,46 @@
         </div>
         @enderror
         @endif
-
-
     </div>
     <div class="row mt-3 text-end">
 
+        @if($relation == 'other')
+        <div class="col-md 8">
+
+        </div>
+        <div class="col-md-4">
+           <div class="mb-3 text-start">
+            <label for="other_relation" class="form-label">
+                Other Relation
+            </label>
+            <div class="input-form mb-3">
+                <input wire:model="other_relation" type="text" class="form-control" aria-label="other_relation"
+                    aria-describedby="basic-addon2">
+
+            </div>
+            @error("other_relation")
+            <div style="color: red;">
+                {{ $message }}
+            </div>
+            @enderror
+           </div>
+        </div>
+        @endif
+
         <div class="col-md-12">
+            <button class="btn custom-info-btn" type="button" style="color: #6c6868 !important;">
+                Why these documents ?
+            </button>
             <button  wire:loading.attr='disabled' class="btn"
-                type="button" wire:target='' wire:click.prevent=''>
-                <div wire:loading wire:target="">
+                type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
+                <div wire:loading wire:target="goTolender">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </div>
                 Save & Add joint applicant
             </button>
             <button  wire:loading.attr='disabled' class="btn"
-                type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
-                <div wire:loading wire:target="goTolender">
+                type="button" wire:target='goToNextTab' wire:click.prevent='goToNextTab'>
+                <div wire:loading wire:target="goToNextTab">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </div>
                 Save & Continue
