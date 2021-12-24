@@ -230,8 +230,7 @@
                 @enderror
             </div>
             <div class="col-md-12 col-lg-6">
-                <p style="margin-bottom: 20px;"><label for="company_name" class="form-label">Select
-                        country</label></p>
+                <p style="margin-bottom: 20px;"><label for="company_name" class="form-label">Country Incorporated</label></p>
                 <div class="form-group">
                     <select wire:model="country" class="form-select" aria-label="Default select example">
                         <option value="" hidden>Select</option>
@@ -249,7 +248,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 mt-4">
-                <livewire:widget.upload-component :label="'Subsidiary'" :apply_loan="$apply_loan"
+                <livewire:widget.upload-component :label="'Subsidiary’s (borrower) M&AA'" :apply_loan="$apply_loan"
                     :main_type="$main_type" :loan_type_id="$loan_type_id" :share_holder="$share_holder"
                     :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'parent_company_subsidairy'" />
             </div>
