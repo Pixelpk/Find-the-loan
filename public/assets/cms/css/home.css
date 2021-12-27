@@ -281,7 +281,8 @@ background-color: #000 !important;
 }
 #footer .footer-bottom{
     background-color: #3EBB60;
-    padding: .6rem;
+    padding: 0 .6rem;
+    font-size: .8125rem;
 }
 #footer .footer-bottom .footer__links li a{
     padding-top: .2rem ;
@@ -289,6 +290,7 @@ background-color: #000 !important;
     color: #fff;
     padding-left: 0;
     padding-right: 1rem;
+    font-size: .8125rem;
 }
 .footer__links li{
     position: relative;
