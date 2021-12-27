@@ -830,44 +830,56 @@
             </div>
             <div class="modal-body" style="max-height:350px;overflow:auto">
                 @foreach ($application->application_more_doc as $item)
-                @foreach ($item->more_doc_msg_desc as $item2)
-                <div class="row">
-                    <div class="col-md-3">
-                        <h6>Document:</h6>
-                        <span>{{ $item2->quote_additional_doc->info }}</span>
+                    @foreach ($item->more_doc_msg_desc as $item2)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>Document:</h6>
+                            <span>{{ $item2->quote_additional_doc->info }}</span>
+                        </div>
+                        @if ($item2->from)
+                        <div class="col-md-3">
+                            <h6>From:</h6>
+                            <span>{{ $item2->from }}</span>
+                        </div>
+                        @endif
+                        @if ($item2->to)
+                        <div class="col-md-3">
+                            <h6>To:</h6>
+                            <span>{{ $item2->to }}</span>
+                        </div>
+                        @endif
+
+                        @if ($item2->within_days)                        
+                        <div class="col-md-3">
+                            <h6>Within days:</h6>
+                            <span>{{ $item2->within_days }}</span>
+                        </div>
+                        @endif
+
+                        @if ($item2->past_months)    
+                        <div class="col-md-3">
+                            <h6>Past Months:</h6>
+                            <span>{{ $item2->past_months }}</span>
+                        </div>
+                        @endif
+
+                        @if ($item2->valid_for)                        
+                        <div class="col-md-3">
+                            <h6>Valid for:</h6>
+                            <span>{{ $item2->valid_for }}</span>
+                        </div>
+                        @endif
+                        
+                        <div class="col-md-3">
+                            <h6>Reasons:</h6>
+                            <span>
+                                @foreach ($item2->more_doc_reasons as $reason)
+                                {{ getMoreDocReason($reason) }},
+                                @endforeach
+                            </span>
+                        </div>
                     </div>
-                    
-                    <div class="col-md-3">
-                        <h6>From:</h6>
-                        <span>{{ $item2->from }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>To:</h6>
-                        <span>{{ $item2->to }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Within days:</h6>
-                        <span>{{ $item2->within_days }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Past Months:</h6>
-                        <span>{{ $item2->past_months }}</span>
-                    </div>
-                    <div class="col-md-3">
-                        <h6>Valid for:</h6>
-                        <span>{{ $item2->valid_for }}</span>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <h6>Reasons:</h6>
-                        <span>
-                            @foreach ($item2->more_doc_reasons as $reason)
-                            {{ getMoreDocReason($reason) }},
-                            @endforeach
-                        </span>
-                    </div>
-                </div>
-                <hr>
+                    {{-- <hr> --}}
                     @endforeach
             
                 @endforeach

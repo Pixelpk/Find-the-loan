@@ -121,7 +121,7 @@
                         
                     ${{ $application->application_quote->if_insurance_required->range_value_from."-$".$application->application_quote->if_insurance_required->range_value_to }}
                     @else
-                    {{ $application->application_quote->if_insurance_required->range_percentage_from."%-".$application->application_quote->if_insurance_required->range_value_to."%" }}
+                    {{ $application->application_quote->if_insurance_required->range_percentage_from."%-".$application->application_quote->if_insurance_required->range_percentage_to."%" }}
                     @endif
                 </span>
 

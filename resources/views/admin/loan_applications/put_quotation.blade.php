@@ -213,7 +213,7 @@
                         <span>-</span>
                     </div>
                     <div class="col-md-2">
-                        <input type="number" min="0" name="if_insurance_end_value"
+                        <input type="number" min="0" name="if_insurance_end_percent"
                             class="form-control if_insurance_required_percent" placeholder="%" id="input7">
                     </div>
                 </div>
