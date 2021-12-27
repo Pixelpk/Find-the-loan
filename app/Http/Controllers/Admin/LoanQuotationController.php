@@ -221,10 +221,10 @@ class LoanQuotationController extends Controller
         $legal_fee = ['range_from'=> $data['legal_fee_start_range'] ?? "",'range_to'=> $data['legal_fee_end_range'] ?? ""];
 
         $if_insurance_required = [
-            // 'value_type'=>1, //1 for flat value, 2 for percentage, 3 if entered both
-            'range_value_from'=> $data['if_insurance_start_value'] ?? "",'range_value_from'=> $data['if_insurance_end_value'] ?? "",
-            'range_percentage_from'=> $data['if_insurance_start_percent'] ?? "",'range_percentage_from'=> $data['if_insurance_end_value'] ?? "",
-            // 'which_higher'=>1
+            'range_value_from'=> $data['if_insurance_start_value'] ?? "",
+            'range_value_to'=> $data['if_insurance_end_value'] ?? "",
+            'range_percentage_from'=> $data['if_insurance_start_percent'] ?? "",
+            'range_percentage_to'=> $data['if_insurance_end_percent'] ?? "",
         ];
         $eir = [
             // 'value_type'=>1, //1 for p_a_percentage, 2 for p_a_percentage

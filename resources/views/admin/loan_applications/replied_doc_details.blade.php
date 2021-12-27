@@ -100,207 +100,216 @@
                             @endforeach
                             @endisset
                         </div>
+                        
                         @isset($more_doc_request_detail->replied_doc_details->personal_loan_list)
-                        <div class="row">
-                            <h6>Personal outstanding loans & borrowing </h6>
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Bank / Financial Institution</th>
-                                            <th>Type of Facility</th>
-                                            <th>Original Loan amount</th>
-                                            <th>Interest per year</th>
-                                            <th>Outstanding Loan Amount</th>
-                                            <th>Monthly Installment Amount</th>
-                                            <th>Start Date MM/YY</th>
-                                            <th>Duration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_loan_list as $doc)
-                                        <tr>
-                                            <td>{{$doc['bank_institution']}}</td>
-                                            <td>{{$doc['facility_type']}}</td>
-                                            <td>{{$doc['original_loan_amount']}}</td>
-                                            <td>{{$doc['interest_per_year']}}</td>
-                                            <td>{{$doc['outstanding_loan_amount']}}</td>
-                                            <td>{{$doc['monthly_installment_amount']}}</td>
-                                            <td>{{$doc['start_date']}}</td>
-                                            <td>{{$doc['duration']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <hr>
+                            @if (count($more_doc_request_detail->replied_doc_details->personal_loan_list) > 0)
+                                <div class="row">
+                                    <h6>Personal outstanding loans & borrowing </h6>
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bank / Financial Institution</th>
+                                                    <th>Type of Facility</th>
+                                                    <th>Original Loan amount</th>
+                                                    <th>Interest per year</th>
+                                                    <th>Outstanding Loan Amount</th>
+                                                    <th>Monthly Installment Amount</th>
+                                                    <th>Start Date MM/YY</th>
+                                                    <th>Duration</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_loan_list as $doc)
+                                                <tr>
+                                                    <td>{{$doc['bank_institution']}}</td>
+                                                    <td>{{$doc['facility_type']}}</td>
+                                                    <td>{{$doc['original_loan_amount']}}</td>
+                                                    <td>{{$doc['interest_per_year']}}</td>
+                                                    <td>{{$doc['outstanding_loan_amount']}}</td>
+                                                    <td>{{$doc['monthly_installment_amount']}}</td>
+                                                    <td>{{$doc['start_date']}}</td>
+                                                    <td>{{$doc['duration']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
                         @endisset
+
                         @isset($more_doc_request_detail->replied_doc_details->company_loan_list)
-                        <div class="row">
-                            <h6>Company's outstanding loans & borrowing </h6>
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Bank / Financial Institution</th>
-                                            <th>Type of Facility</th>
-                                            <th>Original Loan amount</th>
-                                            <th>Interest per year</th>
-                                            <th>Outstanding Loan Amount</th>
-                                            <th>Monthly Installment Amount</th>
-                                            <th>Start Date MM/YY</th>
-                                            <th>Duration</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->company_loan_list as $doc)
-                                        <tr>
-                                            <td>{{$doc['bank_institution']}}</td>
-                                            <td>{{$doc['facility_type']}}</td>
-                                            <td>{{$doc['original_loan_amount']}}</td>
-                                            <td>{{$doc['interest_per_year']}}</td>
-                                            <td>{{$doc['outstanding_loan_amount']}}</td>
-                                            <td>{{$doc['monthly_installment_amount']}}</td>
-                                            <td>{{$doc['start_date']}}</td>
-                                            <td>{{$doc['duration']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <hr>
+                            @if (count($more_doc_request_detail->replied_doc_details->company_loan_list) > 0)
+                                <div class="row">
+                                    <h6>Company's outstanding loans & borrowing </h6>
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Bank / Financial Institution</th>
+                                                    <th>Type of Facility</th>
+                                                    <th>Original Loan amount</th>
+                                                    <th>Interest per year</th>
+                                                    <th>Outstanding Loan Amount</th>
+                                                    <th>Monthly Installment Amount</th>
+                                                    <th>Start Date MM/YY</th>
+                                                    <th>Duration</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->company_loan_list as $doc)
+                                                <tr>
+                                                    <td>{{$doc['bank_institution']}}</td>
+                                                    <td>{{$doc['facility_type']}}</td>
+                                                    <td>{{$doc['original_loan_amount']}}</td>
+                                                    <td>{{$doc['interest_per_year']}}</td>
+                                                    <td>{{$doc['outstanding_loan_amount']}}</td>
+                                                    <td>{{$doc['monthly_installment_amount']}}</td>
+                                                    <td>{{$doc['start_date']}}</td>
+                                                    <td>{{$doc['duration']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
                         @endisset
 
                         @isset($more_doc_request_detail->replied_doc_details->personal_assets_list)
-                        <div class="row mt-2">
-                            <h6>Local assets such as Investment, Life Insurance, Property</h6>
-                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list['insurance_asset_list']) > 0)                                
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Insurance</th>
-                                            <th>Details</th>
-                                            <th>Current value</th>
-                                            <th>Maturity Date</th>
-                                            <th>Year Purchased</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['insurance_asset_list'] as $doc)
-                                        <tr>
-                                            <td>{{$doc['insurance_type']}}</td>
-                                            <td>{{$doc['insurance_details']}}</td>
-                                            <td>{{$doc['insurance_current_value']}}</td>
-                                            <td>{{$doc['insurance_maturity_date']}}</td>
-                                            <td>{{$doc['insurance_year_purchased']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
-                            @endif
+                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list) > 0)
+                                
+                                <div class="row mt-2">
+                                    <h6>Local assets such as Investment, Life Insurance, Property</h6>
+                                    @if (isset($more_doc_request_detail->replied_doc_details->personal_assets_list['insurance_asset_list']))                                
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Insurance</th>
+                                                    <th>Details</th>
+                                                    <th>Current value</th>
+                                                    <th>Maturity Date</th>
+                                                    <th>Year Purchased</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['insurance_asset_list'] as $doc)
+                                                <tr>
+                                                    <td>{{$doc['insurance_type']}}</td>
+                                                    <td>{{$doc['insurance_details']}}</td>
+                                                    <td>{{$doc['insurance_current_value']}}</td>
+                                                    <td>{{$doc['insurance_maturity_date']}}</td>
+                                                    <td>{{$doc['insurance_year_purchased']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    @endif
 
-                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list['investment_asset_list']) > 0)                                
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Investment</th>
-                                            <th>Details</th>
-                                            <th>Current value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['investment_asset_list'] as $doc)
-                                        <tr>
-                                            <td style="width: 33%">{{$doc['investment_type']}}</td>
-                                            <td style="width: 33%">{{$doc['investment_details']}}</td>
-                                            <td style="width: 33%">{{$doc['investment_current_value']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
-                            @endif
+                                    @if (isset($more_doc_request_detail->replied_doc_details->personal_assets_list['investment_asset_list']) > 0)                                
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Investment</th>
+                                                    <th>Details</th>
+                                                    <th>Current value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['investment_asset_list'] as $doc)
+                                                <tr>
+                                                    <td style="width: 33%">{{$doc['investment_type']}}</td>
+                                                    <td style="width: 33%">{{$doc['investment_details']}}</td>
+                                                    <td style="width: 33%">{{$doc['investment_current_value']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    @endif
 
-                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list['cash_and_deposit_asset_list']) > 0)
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Cash & Deposit</th>
-                                            <th>Details</th>
-                                            <th>Current value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['cash_and_deposit_asset_list'] as $doc)
-                                        <tr>
-                                            <td style="width: 33%">{{$doc['cash_and_deposit_type']}}</td>
-                                            <td style="width: 33%">{{$doc['cash_and_deposit_details']}}</td>
-                                            <td style="width: 33%">{{$doc['cash_and_deposit_value']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
-                            @endif
+                                    @if (isset($more_doc_request_detail->replied_doc_details->personal_assets_list['cash_and_deposit_asset_list']) > 0)
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cash & Deposit</th>
+                                                    <th>Details</th>
+                                                    <th>Current value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['cash_and_deposit_asset_list'] as $doc)
+                                                <tr>
+                                                    <td style="width: 33%">{{$doc['cash_and_deposit_type']}}</td>
+                                                    <td style="width: 33%">{{$doc['cash_and_deposit_details']}}</td>
+                                                    <td style="width: 33%">{{$doc['cash_and_deposit_value']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    @endif
 
-                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list['property_asset_list']) > 0)                                
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Property</th>
-                                            <th>Details</th>
-                                            <th>Current value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['property_asset_list'] as $doc)
-                                        <tr>
-                                            <td style="width: 33%">{{$doc['asset_property_type']}}</td>
-                                            <td style="width: 33%">{{$doc['asset_property_details']}}</td>
-                                            <td style="width: 33%">{{$doc['asset_property_current_value']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
-                            @endif
+                                    @if (isset($more_doc_request_detail->replied_doc_details->personal_assets_list['property_asset_list']) > 0)                                
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Property</th>
+                                                    <th>Details</th>
+                                                    <th>Current value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['property_asset_list'] as $doc)
+                                                <tr>
+                                                    <td style="width: 33%">{{$doc['asset_property_type']}}</td>
+                                                    <td style="width: 33%">{{$doc['asset_property_details']}}</td>
+                                                    <td style="width: 33%">{{$doc['asset_property_current_value']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    @endif
 
-                            @if (count($more_doc_request_detail->replied_doc_details->personal_assets_list['others_asset_list']) > 0)                                
-                            <div class="col-md-12">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Others</th>
-                                            <th>Details</th>
-                                            <th>Current value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['others_asset_list'] as $doc)
-                                        <tr>
-                                            <td style="width: 33%">{{$doc['asset_others_type']}}</td>
-                                            <td style="width: 33%">{{$doc['asset_others_details']}}</td>
-                                            <td style="width: 33%">{{$doc['asset_others_current_value']}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr>
+                                    @if (isset($more_doc_request_detail->replied_doc_details->personal_assets_list['others_asset_list']) > 0)                                
+                                    <div class="col-md-12">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Others</th>
+                                                    <th>Details</th>
+                                                    <th>Current value</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($more_doc_request_detail->replied_doc_details->personal_assets_list['others_asset_list'] as $doc)
+                                                <tr>
+                                                    <td style="width: 33%">{{$doc['asset_others_type']}}</td>
+                                                    <td style="width: 33%">{{$doc['asset_others_details']}}</td>
+                                                    <td style="width: 33%">{{$doc['asset_others_current_value']}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr>
+                                    @endif
+                                </div>
+                                <hr>
                             @endif
-                        </div>
-                        <hr>
                         @endisset
                     </div>
                 </div>

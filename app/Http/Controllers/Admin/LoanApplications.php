@@ -64,11 +64,21 @@ class LoanApplications extends Controller
                 // 'application_rejected' => $partner_filter,
                 // 'application_quote' => $partner_filter,
             ])
-            ->whereDoesntHave('application_rejected')
-            ->whereDoesntHave('application_quote')
-            ->whereDoesntHave('assigned_application')
-            ->whereDoesntHave('application_more_doc')
-            ->whereDoesntHave('pending_meet_call')
+            ->whereDoesntHave('application_rejected',function($query) use($logged_user_id){
+                $query->where('user_id', '=', $logged_user_id);
+            })
+            ->whereDoesntHave('application_quote',function($query) use($logged_user_id){
+                $query->where('quoted_by', '=', $logged_user_id);
+            })
+            ->whereDoesntHave('assigned_to_user',function($query) use($logged_user_id){
+                $query->where('assigned_by', '=', $logged_user_id);
+            })
+            ->whereDoesntHave('application_more_doc',function($query) use($logged_user_id){
+                $query->where('user_id', '=', $logged_user_id);
+            })
+            ->whereDoesntHave('pending_meet_call',function($query) use($logged_user_id){
+                $query->where('partner_user_id', '=', $logged_user_id);
+            })
             ->withCount(['quotations_of_application']);
 
         //checking if finance partner admin is not loggedIn then only get assigned applications of user

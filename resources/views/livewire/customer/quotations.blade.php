@@ -61,7 +61,7 @@
                                                             {{ $quote->quantum_interest->fixed->tenure->years." Years ".$quote->quantum_interest->fixed->tenure->months." Months" }}
                                                         @endif
                                                         @endisset
-                                                </td>
+                                                    </td>
                                                     <td></td>
                                                     <td>
                                                         @isset($quote->quantum_interest->fixed_or_floating)
@@ -72,7 +72,11 @@
                                                     </td>
                                                     <td>{{ $quote->repayment->repayment_terms ?? "" }}</td>
                                                     <td>
-                                                        {{ "$".$quote->one_time_fee->flat_value." & ".$quote->one_time_fee->percentage." %"}}
+                                                        @if ($quote->one_time_fee->flat_value != "")
+                                                        {{ "$".$quote->one_time_fee->flat_value}}
+                                                        @else
+                                                        {{ $quote->one_time_fee->percentage." %"}}
+                                                        @endif
                                                     </td>
                                                     <td>{{ $quote->legal_fee->range_from."-".$quote->legal_fee->range_to }}</td>
                                                     <td>

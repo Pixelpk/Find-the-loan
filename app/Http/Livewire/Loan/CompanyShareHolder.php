@@ -369,7 +369,6 @@ class CompanyShareHolder extends Component
             if(sizeof($this->share_errorArray) > 0){
                 return;
             }
-
             try{
                 $rules = [
                     "share_holder_statement.$getsholder->id" => isset($this->share_holder_photo[$getsholder->id])  > 0 ? '' : 'image|required',
@@ -466,9 +465,23 @@ class CompanyShareHolder extends Component
         ->where('share_holder', '!=', 0)
         ->where('apply_loan_id', $this->apply_loan->id)->get();
         $sum = $person_share_holder->count() + $loancompanydetail->count();
+        // dd($shareholder->count());
         // dd($sum);
-        if($shareholder->count() >= 2 && $sum == 2)
+        if($shareholder->count() == 1 && $sum == 1 && $sum != 0)
         {
+            sleep(3);
+            $this->emit('changeTab',$this->apply_loan->id, 9);
+            return;
+        }
+        if($shareholder->count() == 2 && $sum == 2 && $sum != 0)
+        {
+            sleep(3);
+            $this->emit('changeTab',$this->apply_loan->id, 9);
+            return;
+        }
+        if($shareholder->count() >= 2 && $sum >= 2 && $sum != 0)
+        {
+            // dd('asd');
             sleep(3);
             // $shareHolders = ShareHolderDetail::where('apply_loan_id', $this->apply_loan->id)->get();
             // $error = [];
