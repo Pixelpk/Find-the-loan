@@ -24,3 +24,19 @@
         height: auto;
     }
 }
+
+
+
+/* GLOSSARY */
+.glossary-tabs .nav-link{
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.nav-link{
+    color: #000000;
+}
+.nav-link:hover{
+    color: #3EBB60;
+}

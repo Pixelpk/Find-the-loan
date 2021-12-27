@@ -323,13 +323,11 @@ background-color: #000 !important;
 .about-slider {
     width:100%;
     height: 600px;
-    /* background-color: aqua; */
 }
 .about-slider .carousel-inner .carousel-item{
     max-height: 100%;
     height: 600px;
     max-width: 100%;
-    background-color: aqua;
 }
 .about-slider .carousel-inner .carousel-item > img{
     max-height: 100%;
