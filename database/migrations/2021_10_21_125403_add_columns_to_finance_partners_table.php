@@ -14,9 +14,9 @@ class AddColumnsToFinancePartnersTable extends Migration
     public function up()
     {
         Schema::table('finance_partners', function (Blueprint $table) {
-            $table->string('property_types')->comment('1=Commercial Vehicle – Cars, lorries, trucks etc, 2=Industry Vehicle – 
+            $table->string('property_types')->nullable()->comment('1=Commercial Vehicle – Cars, lorries, trucks etc, 2=Industry Vehicle – 
             Cranes, forklift, Tractors etc, 3=Other Commercial & Industrial Equipment');
-            $table->string('equipment_types')->comment('1=Office Equipment, 2=Other Commercial & Industrial Equipment');
+            $table->string('equipment_types')->nullable()->comment('1=Office Equipment, 2=Other Commercial & Industrial Equipment');
         });
     }
 
