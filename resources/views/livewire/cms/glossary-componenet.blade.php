@@ -39,15 +39,27 @@
         {{-- GLOSSARY CONTENT --}}
         <section id="sec1">
     <div class="row">
-        <div class="col-12">
+        <div class="col">
             <div class="card my-3">
                 <div class="card-body">
-                 <h5 class="text-custom">2<sup>nd</sup> Charge, Caveat Loan</h5>
-                 <p>2nd charge loans are often used when the interest rate environment has moved up from the time of the 1st property loan.</p>
-                 <p>Take, for example, Daniel took up a $700,000 loan on his property worth 1 million with ABC bank some years ago at 2% p.a with just $300,000 outstanding now. Interest rates have fallen below that of that the 1st loan and Daniel can by refinancing with another bank at 1%, enjoy a lower rate for his current outstanding or he can gear up and borrow all $700,000 for cash flow purposes.</p>
-                <p> But if interest rates have risen - instead of gearing up and borrowing $700,000 and having to pay a higher interest, he could take a 2nd bank loan of only $400,000 while he still services the $300,000 outstanding with the 1st bank at a lower rate concurrently. The secondary lender places a lien/caveat on the property to protect its interests and it is called a second charge because the lender is second in line after the primary mortgage lender. The term “caveat” is a Latin term that translates to “let him beware”. It acts as a warning for third parties that the lodging party, known as the “Caveator”, has an interest in the property/land. A caveat may prevent the owner of the land from transferring, selling the asset without the prior consent of the Caveator.</p>
-                <p>2nd charge loan is also used when cashflow is required only for a short period, such as a few months to a year, when the 1st loan is still locked-in, or when the borrower has very bad credit.</p>
-                <p>Not sure if you should gear up or go for a 2nd charge loan? With FindTheLoan.com you can easily reach multiple lenders with just one submission making it easy to Find The Loan you need.</p>
+                  <div class="row">
+                      <div class="col-12 col-md-4" style="border-right: 1px solid #cdcdcd">
+                        <div class="nav flex-column nav-pills glossary-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-second-loan-tab" data-toggle="pill" href="#v-pills-second-loan" role="tab" aria-controls="v-pills-second-loan" aria-selected="true">2nd Charge, Caveat Loan</a>
+                            <a class="nav-link" id="v-pills-amortization-tab" data-toggle="pill" href="#v-pills-amortization" role="tab" aria-controls="v-pills-amortization" aria-selected="false">Amortization </a>
+                            <a class="nav-link" id="v-pills-ensure-article-tab" data-toggle="pill" href="#v-pills-ensure-article" role="tab" aria-controls="v-pills-ensure-article" aria-selected="false">Please ensure links on articles to another article if any are added</a>
+                          </div>
+                      </div>
+                      <div class="col-12 col-md-8">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-second-loan" role="tabpanel" aria-labelledby="v-pills-second-loan-tab">2nd Charge Loan</div>
+                            <div class="tab-pane fade" id="v-pills-amortization" role="tabpanel" aria-labelledby="v-pills-amortization-tab">Amortization</div>
+                            <div class="tab-pane fade" id="v-pills-ensure-article" role="tabpanel" aria-labelledby="v-pills-ensure-article-tab">Please ensure links on articles to another article if any are added</div>
+                          
+                          </div>
+                      </div>
+                  </div>
+                    
                 </div>
             </div>
         </div>

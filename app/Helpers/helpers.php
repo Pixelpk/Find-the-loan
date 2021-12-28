@@ -50,6 +50,7 @@ function getCmsRoute($route_name): string
         'financial-inclusion'=>"Financial Inclusion",
         'glossary'=>"Glossary",
         'apply-loan'=>"Apply loan",
+        'calculator'=>"Tools and Calculators",
     ];
     return $all[$route_name] ?? '';
 }

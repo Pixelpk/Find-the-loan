@@ -43,6 +43,7 @@ use App\Http\Livewire\Customer\QuotationDetails;
 use App\Http\Livewire\Customer\Quotations;
 use App\Http\Livewire\Customer\RejectedEnquiries;
 use App\Http\Livewire\Customer\ViewPreviousEnquiry;
+use App\Http\Livewire\Cms\QuotationComparisonCalculator;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,6 +89,8 @@ Route::get('terms-conditions',TermsConditionsComponent::class)->name('terms-cond
 Route::get('blog',BlogDetailComponent::class)->name('blog');
 Route::get('about-us',AboutUs::class)->name('about-us');
 Route::get('contact-us',ContactUs::class)->name('contact-us');
+Route::get('calculator', QuotationComparisonCalculator::class)->name('calculator');
+
 
 
 // Admin routes
