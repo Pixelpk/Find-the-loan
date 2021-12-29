@@ -19,11 +19,11 @@ class UploadComponent extends Component
     public $keyvalue;
     public $share_holder;
     public $modell;
-    
+
     protected $listeners = [
         'getImage'
     ];
-    
+
     public function render()
     {
         $this->getImage();
@@ -34,13 +34,13 @@ class UploadComponent extends Component
         $this->validate([
             "images.*" =>'required|mimes:jpg,jpeg,png,pdf',
         ]);
-        
+
         foreach ($this->images as $image) {
             $media = new Media();
             $media->model = $this->modell;
             $media->key = $this->keyvalue;
             $media->share_holder = $this->share_holder;
-            $media->image =  $image->store(date('Y').'/'.date('m').'/'.date('d'));
+            $media->image =  $image->store('public/'.date('Y').'/'.date('m').'/'.date('d'));
             $media->orignal_name =  $image->getClientOriginalName();
             if($this->apply_loan){
                 $media->apply_loan_id  = $this->apply_loan->id;
@@ -49,10 +49,10 @@ class UploadComponent extends Component
             $this->getImage();
             $this->emit('documentReq', 'pass');
         }
-        
+
     }
     public function getImage()
-    {   
+    {
         $this->getImages = Media::where('apply_loan_id', $this->apply_loan->id)
         ->where('model', $this->modell)
         ->where('key', $this->keyvalue)
@@ -62,11 +62,11 @@ class UploadComponent extends Component
         if(sizeof($this->getImages) > 0){
             $this->emit('documentReq', 'pass');
         }
-       
+
     }
     public function removePhoto(Media $media)
     {
-      
+
         if(Storage::exists($media->image)) {
             Storage::delete($media->image);
         }

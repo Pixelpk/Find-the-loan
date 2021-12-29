@@ -501,7 +501,7 @@ class CompanyShareHolder extends Component
             $this->emit('changeTab',$this->apply_loan->id, 9);
         }
         else{
-            $this->emit('danger', ['type' => 'success', 'message' => 'Minumum 2 shareholders is required']);
+            $this->emit('danger', ['type' => 'success', 'message' => 'Field is required']);
             return;
         }
         // return;

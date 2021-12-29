@@ -28,7 +28,10 @@
 
                                     <input class="form-control" type="hidden" name="apply_loan_id" value="{{$apply_loan_id}}" id="apply_loan_id">
                                     <h6>Additional Information/Documents required for quotation.</h6>
-                                    <p>Please reserve information/documents required for application until later if possible. Grouping name is only for ease of use and is not shown to borrower</p>
+                                    <p class="lh-1">Please reserve information/documents required for application after the borrower has chosen to proceed with your quote.
+                                    Grouping name is only for your ease of use and is not shown to borrower. There will be additional description shown to 
+the borrower for uncommon documents, to help them understand what are you requesting for. We will also send a 
+reminder for the customer to upload and furnish the required info/doc automatically.</p>
 
                                         @foreach($additional_docs as $key=>$items)
                                         <h6>{{ getAdditionDocInfoType($key) }}</h6>
@@ -125,7 +128,7 @@
                                     <div class="form-group mt-1">
                                         <div>
                                             <button type="button" id="add_more_message_desc" class="btn btn-primary waves-effect waves-light">
-                                                Save and Add more+
+                                                Save
                                             </button>
 
                                         </div>

@@ -78,7 +78,7 @@ class RegisterComponent extends Component
         {
 
         }
-        $this->message = 'We have sent confirmation link to your email please verify';
+        // $this->message = 'We have sent confirmation link to your email please verify';
         $this->first_name = '';
         $this->last_name = '';
         $this->email = '';
@@ -86,6 +86,6 @@ class RegisterComponent extends Component
         $this->password = '';
         $this->confirm_password = '';
 
-    //    return redirect()->route('registration')->with('message', 'We have sent confirmation link to your email please verify');
+       return redirect()->route('login')->with('message', 'Alert! We have sent confirmation link to your email please verify.');
     }
 }
