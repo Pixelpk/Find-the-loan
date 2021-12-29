@@ -281,7 +281,8 @@ background-color: #000 !important;
 }
 #footer .footer-bottom{
     background-color: #3EBB60;
-    padding: .6rem;
+    padding: 0 .6rem;
+    font-size: .8125rem;
 }
 #footer .footer-bottom .footer__links li a{
     padding-top: .2rem ;
@@ -289,6 +290,7 @@ background-color: #000 !important;
     color: #fff;
     padding-left: 0;
     padding-right: 1rem;
+    font-size: .8125rem;
 }
 .footer__links li{
     position: relative;
@@ -321,13 +323,11 @@ background-color: #000 !important;
 .about-slider {
     width:100%;
     height: 600px;
-    /* background-color: aqua; */
 }
 .about-slider .carousel-inner .carousel-item{
     max-height: 100%;
     height: 600px;
     max-width: 100%;
-    background-color: aqua;
 }
 .about-slider .carousel-inner .carousel-item > img{
     max-height: 100%;

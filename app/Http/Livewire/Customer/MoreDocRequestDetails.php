@@ -431,9 +431,10 @@ class MoreDocRequestDetails extends Component
         $reply->dont_have_doc = $this->dont_have_doc;
         $reply->personal_loan_list = $this->personal_loan_list;
         $reply->company_loan_list = $this->company_loan_list;
-        $reply->personal_assets_list = $personal_assets_list;
+        $reply->personal_assets_list = $this->personal_assets_list;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
+        
         $this->form = [];
         $this->personal_loan_list = [];
         $this->company_loan_list = [];
@@ -445,6 +446,11 @@ class MoreDocRequestDetails extends Component
         $this->others_asset_list = [];
         $this->i = 1;
         $this->j = 1;
+        $this->insurance_counter = 1;
+        $this->investment_counter = 1;
+        $this->cd_counter = 1;
+        $this->p_counter = 1;
+        $this->o_counter = 1;
         $this->reset('form');
         $this->mount();
         return;

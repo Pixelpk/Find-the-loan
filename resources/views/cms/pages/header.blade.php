@@ -72,6 +72,7 @@
                 <li><a href="{{ route('all-blogs') }}" class="nav-link">Blog</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Faq</a></li>
                 {{-- <li><a href="{{ route('financial-inclusion') }}" class="nav-link">Financial Inclusion</a></li> --}}
+                <li><a href="{{ route('calculator') }}" class="nav-link">Tools and Calculators</a></li>
                 <li><a href="{{ route('glossary') }}" class="nav-link">Glossary</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Terms of use</a></li>
                 <li><a href="{{ route('faqs') }}" class="nav-link">Privacy policy</a></li>
@@ -108,6 +109,7 @@
                                 <li><a href="{{ route('all-blogs') }}" class="dropdown-item">Blog</a></li>
                                 <li><a href="{{ route('faqs') }}" class="dropdown-item">Faq</a></li>
                                 {{-- <li><a href="{{ route('financial-inclusion') }}" class="dropdown-item">Financial Inclusion</a></li> --}}
+                                <li><a href="{{ route('calculator') }}" class="dropdown-item">Tools and Calculators</a></li>
                                 <li><a href="{{ route('glossary') }}" class="dropdown-item">Glossary</a></li>
                                 <li><a href="{{ route('terms-conditions') }}" class="dropdown-item">Terms of use</a></li>
                                 <li><a href="{{ route('privacy-policy') }}" class="dropdown-item">Privacy policy</a></li>
