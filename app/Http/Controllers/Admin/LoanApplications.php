@@ -316,6 +316,10 @@ class LoanApplications extends Controller
             $application->save();
         }
         Session::flash('success', 'Applications are assigned to the user');
+        if ($logged_in_user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($apply_loan_id,$logged_in_user->id,1,2);
+        }
         return 1;
     }
 
