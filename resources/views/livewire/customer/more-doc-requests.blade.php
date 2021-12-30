@@ -25,6 +25,8 @@
                                                         <th>Enquiry ID</th>
                                                         <th>Profile</th>
                                                         <th>Loan type</th>
+                                                        <th>Document</th>
+                                                        <th>Reason</th>
                                                         <th>Amount</th>
                                                         <th>Reply</th>
                                                     </tr>
@@ -38,8 +40,25 @@
                                                         <td>
                                                             {{ $application->loan_application->loan_type->sub_type }}
                                                         </td>
+
+                                                    <td class="text-left">
+                                                        @foreach ($application->more_doc_msg_desc as $item2)
+                                                            {{ $item2->quote_additional_doc->info }}
+                                                            <br>
+                                                        @endforeach
+                                                    </td>
+
+                                                    <td class="text-left">
+                                                        @foreach ($application->more_doc_msg_desc as $item2)
+                                                            @foreach ($item2->more_doc_reasons as $reason)
+                                                                {{ getMoreDocReason($reason) }}
+                                                                <br>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </td>
+
                                                         <td>{{ $application->loan_application->amount }}</td>
-                                                        <td><a href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
+                                                        <td><a style="font-size:8px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
                                                             Reply with doc
                                                         </a></td>
                                                     </tr>
