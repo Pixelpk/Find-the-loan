@@ -958,6 +958,14 @@ dt {
   color: #9ca8b3;
 }
 
+.lh-1{
+  line-height: 1 !important;
+}
+
+.lh-1-8{
+  line-height: 1.8 !important;
+}
+
 /* Search */
 .search-wrap {
   background-color: #dce7f4;
@@ -1059,6 +1067,13 @@ dt {
 }
 
 /******* Sidemenu *******/
+.c-menu-icon{
+   content: '\f015';
+   font-family: FontAwesome;
+}
+.c-menu-icon:before{
+  background: url('https://api.iconify.design/mdi-light/arrow-right.svg') no-repeat center center / contain;
+}
 .side-menu {
   width: 240px;
   z-index: 10;
@@ -2269,6 +2284,9 @@ label {
   color: #ffffff;
 }
 
+table{
+  font-size: 10px !important;
+}
 .table-condensed thead th, .table-condensed tbody td {
   padding: 5px;
 }

@@ -31,6 +31,25 @@
     <script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
 @endif
 
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $(".mdi-arrow-left").click(function(){
+            $('.mdi-arrow-right').removeClass('d-none');
+            $('.mdi-arrow-left').addClass('d-none');
+           
+        });
+
+        $(".mdi-arrow-right").click(function(){
+            $('.mdi-arrow-left').removeClass('d-none');
+            $('.mdi-arrow-right').addClass('d-none');
+           
+        });
+      
+    });
+
+</script>
 
 <script>
     let todayDate = new Date();
@@ -604,6 +623,10 @@
             more_doc_msg_index++;
             if(more_doc_message_array.length > 0){
                 $('#more_doc_msg_list').show();
+
+                // Text Change from Save to Add More Button
+                $('#add_more_message_desc').html('');
+                $('#add_more_message_desc').html('Add More +');
             }
             $( '#more_doc_form' ).each(function(){
                 this.reset();
@@ -615,9 +638,13 @@
             console.log("index of"+index)
             $(this).closest('tr').remove();
             remove_more_doc_message_array.push(index);
+            
+            // alert(more_doc_message_array.length);
+
             if(more_doc_message_array.length < 1){
                 $('#more_doc_msg_list').hide();
             }
+
             console.log('after remove'+remove_more_doc_message_array);
         });
 
@@ -646,6 +673,7 @@
                 console.log("submit array")
                 console.log(more_doc_message_array)
                 $('#more_doc_error').html('Please select any doc with reason and add.');
+                showNotificationModal('Please select any doc with reason and add.','alert-warning',"top","right");
                 return false;
             }
             

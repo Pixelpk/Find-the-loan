@@ -186,7 +186,16 @@ class PersonalDetail extends Component
     }
 
     public function goToNextTab(){
-        $this->emit('changeTab',$this->apply_loan->id, 9);
+
+        $applicant = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->where('type', 'Applicant')->first();
+        $joint_applicant = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->where('type', 'Joint Applicant')->first();
+
+        if($applicant && $joint_applicant){
+            $this->emit('changeTab',$this->apply_loan->id, 9);
+        }else{
+            $this->emit('danger', ['type' => 'success', 'message' => 'Field is required']);
+            return;
+        }
     }
 
     public function deleteRecord(ModelsPersonalDetail $PersonalDetail)

@@ -26,9 +26,10 @@
                     <i class="fa fa-info-circle"></i>
                     <span class="tooltip-text">Hello World</span>
                 </div>
-                <p>You can click both</p>
+                <br>
+                <span style="font-size:12px;">(You can click both)</span>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="margin-top:12px;">
 
                 <div class="form-check form-switch">
                     <input wire:model="notified" class="form-check-input" type="checkbox"
@@ -63,7 +64,7 @@
                 @enderror
             </div>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-md-5">
             <div class="mb-3">
                 <label for="amount" >Amount required
                     <div class="tooltip-c">
@@ -72,7 +73,7 @@
                     </div>
                 </label>
                 <br>
-                <span style="font-size:12px;"> (It should not be more than outstanding value of invoice)
+                <span style="font-size:12px;"> (It should not be more than outstanding value of all the invoices attached)
                 </span>
                 <input wire:model="amount" type="number" class="form-control" id="amount">
                 @error("amount")

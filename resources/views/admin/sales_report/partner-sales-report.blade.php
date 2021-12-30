@@ -166,7 +166,7 @@
                                                                 Average loan size: {{ $month['quoted']['quoted_average_loan_size'] }}<br>
                                                                 Average interest: {{ $month['quoted']['quoted_average_interest'] }}<br>
                                                                 Average tenure: {{ $month['quoted']['quoted_average_tenure'] }}<br>
-                                                                Among xx cases: {{$month['quoted']['quoted_count']}}<br>
+                                                                Among no. of cases: {{$month['quoted']['quoted_count']}}<br>
                                                                 Disbursed to quoted ratio: <br>
                                                             </td>
                                                             <td>
@@ -174,7 +174,7 @@
                                                                 Average loan size: {{ $month['disbursed']['disbursed_average_loan_size'] }}<br>
                                                                 Average interest: {{ $month['disbursed']['disbursed_average_interest'] }}<br>
                                                                 Average tenure: {{ $month['disbursed']['disbursed_average_tenure'] }}<br>
-                                                                Among xx cases: {{$month['disbursed']['disubursed_count']}}
+                                                                Among no. of cases: {{$month['disbursed']['disubursed_count']}}
                                                             </td>
                                                         </tr>
                                                 @endforeach

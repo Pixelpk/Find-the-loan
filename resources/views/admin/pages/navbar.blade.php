@@ -168,7 +168,7 @@
 
                     <li>
                         <a href="{{ route('finance-partners') }}" class="waves-effect @if(Route::CurrentRouteName() == 'finance-partners')  mm-active @endif">
-                            <i class="fa fa-handshake"></i><span> Finance partners </span>
+                            <i class="fa fa-handshake"></i><span> Financing partners </span>
                         </a>
                     </li>
                     <li>
