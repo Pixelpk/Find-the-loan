@@ -91,7 +91,6 @@
 <script>
     // let more_doc_array = [];
     let more_doc_message_array = [];
-    let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
     let floating_count = 0;
 
@@ -569,7 +568,6 @@
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
-            // var more_doc_reasons = $('#more_doc_reasons').val();
             var more_doc_reasons = [];
             var more_doc_reasons_text = [];
             $('input[name=more_doc_reasons]:checked').map(function() {
@@ -577,7 +575,6 @@
                 more_doc_reasons_text.push($(this).next('label').text());
             });
             var quote_additional_doc_id = $("input[name='quote_additional_doc_id']:checked").val();
-            // var quote_additional_doc_id = $('#quote_additional_doc_id:checked').val();
 
             if(more_doc_reasons == ""){
                 $("#more_doc_reasons_error").html("Reason is required");
@@ -594,30 +591,21 @@
              new_obj.within_days = $('#within_days').val();
              new_obj.past_months = $('#past_months').val();
              new_obj.valid_for = $('#valid_for').val();
-            //  new_obj.latest = $('#latest').prop('checked');
-            //  new_obj.required_company_stamp = $('#required_company_stamp').prop('checked');
-            //  new_obj.need_notarized = $('#need_notarized').prop('checked');
-            //  new_obj.signature_borrower = $('#signature_borrower').prop('checked');
-            //  new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
              new_obj.more_doc_reasons = more_doc_reasons;
              new_obj.quote_additional_doc_id = quote_additional_doc_id;
-            more_doc_message_array.push(new_obj);
+            // more_doc_message_array.push(new_obj); //not working good
+            more_doc_message_array[more_doc_msg_index] = new_obj;
             console.log(more_doc_message_array);
 
             var html = "<tr index="+more_doc_msg_index+">"
             +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
             +"<td>"+$("input[name='quote_additional_doc_id']:checked").next('label').text()+"</td>"
-            +"<td>"+more_doc_reasons_text+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
+            +"<td>"+more_doc_reasons_text+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
             +"<td>"+new_obj.from+"</td>"
             +"<td>"+new_obj.to+"</td>"
-            // +"<td>"+new_obj.latest+"</td>"
-            // +"<td>"+new_obj.required_company_stamp+"</td>"
-            // +"<td>"+new_obj.need_notarized+"</td>"
-            // +"<td>"+new_obj.signature_borrower+"</td>"
-            // +"<td>"+new_obj.signature_borrowers_customer+"</td>"
             +"</tr>";
             $('#more_doc_msg_table').append(html);
             more_doc_msg_index++;
@@ -635,17 +623,13 @@
 
         $(document).on("click", '.remove_more_doc_msg', function(event) { 
             var index = $(this).closest('tr').attr('index');
-            console.log("index of"+index)
             $(this).closest('tr').remove();
-            remove_more_doc_message_array.push(index);
+            more_doc_message_array.splice(index,1);
             
-            // alert(more_doc_message_array.length);
-
             if(more_doc_message_array.length < 1){
                 $('#more_doc_msg_list').hide();
             }
 
-            console.log('after remove'+remove_more_doc_message_array);
         });
 
         $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
@@ -656,22 +640,13 @@
             e.preventDefault();
             $("#add_doc_id_error").html("");
             $("#more_doc_error").html("");
-            console.log("remove array"+remove_more_doc_message_array)
-            console.log("add array"+more_doc_message_array)
-            if(remove_more_doc_message_array.length > 0){
-                $.each(remove_more_doc_message_array, function(index, item) {
-                    more_doc_message_array.splice(index,1);
-                    console.log("item is"+item)
-                    index_of_remove_array = remove_more_doc_message_array.indexOf(item)
-                    remove_more_doc_message_array.splice(index_of_remove_array,1);
 
-                });
-                console.log('after removing'+remove_more_doc_message_array)
-            }
-
+            //reset array keys
+            more_doc_message_array = more_doc_message_array.filter(function (item) {
+                return item !== undefined;
+            });
+            
             if(more_doc_message_array.length <=0){
-                console.log("submit array")
-                console.log(more_doc_message_array)
                 $('#more_doc_error').html('Please select any doc with reason and add.');
                 showNotificationModal('Please select any doc with reason and add.','alert-warning',"top","right");
                 return false;
