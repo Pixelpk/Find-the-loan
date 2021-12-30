@@ -75,7 +75,14 @@
                 @elseif($item == 2)
                 <p class="mb-0">Excluded Moneylender</p>
                 @elseif($item == 3)
-                <p class="mb-0">Moneylender</p>
+                
+                <div class="d-flex">
+                    <p class="mb-0 d-flex">Moneylender</p>&nbsp;
+                    <div class="tooltip-text">
+                        <a href="{{ route('faqs') }}"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                </div>
+                
 
                 @endif
                 <div class="form-check">

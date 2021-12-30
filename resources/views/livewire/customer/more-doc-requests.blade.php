@@ -42,18 +42,26 @@
                                                         </td>
 
                                                     <td class="text-left">
+                                                        @php $i=1; @endphp
                                                         @foreach ($application->more_doc_msg_desc as $item2)
-                                                            {{ $item2->quote_additional_doc->info }}
-                                                            <br>
+                                                            @if($i < 6)
+                                                                {{ Str::limit($item2->quote_additional_doc->info, 50) }}<br>
+                                                            @endif
+                                                            @php $i++; @endphp
                                                         @endforeach
                                                     </td>
 
                                                     <td class="text-left">
+                                                        @php $i=1; @endphp
                                                         @foreach ($application->more_doc_msg_desc as $item2)
+                                                            
+                                                            @if($i < 6)
                                                             @foreach ($item2->more_doc_reasons as $reason)
-                                                                {{ getMoreDocReason($reason) }}
-                                                                <br>
+                                                                {{ Str::limit(getMoreDocReason($reason), 40) }}<br>
                                                             @endforeach
+                                                            @endif
+                                                            
+                                                            @php $i++; @endphp
                                                         @endforeach
                                                     </td>
 

@@ -38,15 +38,15 @@
         $(".mdi-arrow-left").click(function(){
             $('.mdi-arrow-right').removeClass('d-none');
             $('.mdi-arrow-left').addClass('d-none');
-           
+
         });
 
         $(".mdi-arrow-right").click(function(){
             $('.mdi-arrow-left').removeClass('d-none');
             $('.mdi-arrow-right').addClass('d-none');
-           
+
         });
-      
+
     });
 
 </script>
@@ -101,7 +101,7 @@
             board_rate_count = {{count($partner_meta['board_rate'])}}-1;
         @endif
     @endif
-    
+
     $(document).ready(function() {
 
         var pass_array = [];
@@ -128,7 +128,7 @@
                }
            });
        });
-        
+
         $( '.ckeditor.editor' ).ckeditor();
         @if(Route::currentRouteName() == 'loan-application-summary')
         fixedOrFloating(1);
@@ -144,7 +144,7 @@
             // button's stuff
             e.stopImmediatePropagation();
         });
-        
+
 
         $('#internal').change(function (){
             console.log($(this).val())
@@ -178,7 +178,7 @@
             format: 'yyyy-mm-dd',
             pickTime:false
         });
-        
+
         $('.date-picker-quote').datetimepicker({
             minView: 2,
             format: 'yyyy-mm-dd',
@@ -212,7 +212,7 @@
         //     e.stopPropagation();
         //     return false;
         // });
-        
+
 
         $("#bulk_assign").click(function (event) {
             console.log('asdfasdf')
@@ -259,7 +259,7 @@
                 getLoanType(main_type);
             }
         });
-        
+
         $('#is_joint_account_required').change(function(){
             var value = $(this).val();
             if ( $(this).is(':checked') ){
@@ -271,7 +271,7 @@
                 $('#joint_account_cost_from').prop('disabled',true);
                 $('#joint_account_cost_to').prop('disabled',true);
             }
-            
+
         });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {
@@ -301,7 +301,7 @@
 
 
         //put quotation fee section validations starting
-        $(document).on("input", '#one_time_fee_value', function(event) { 
+        $(document).on("input", '#one_time_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#one_time_fee_percent").prop('disabled', false);
@@ -310,7 +310,7 @@
             }
         });
 
-        $(document).on("input", '#one_time_fee_percent', function(event) { 
+        $(document).on("input", '#one_time_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#one_time_fee_value").prop('disabled', false);
@@ -318,8 +318,8 @@
                 $("#one_time_fee_value").prop('disabled', true);
             }
         });
-        
-        $(document).on("input", '#monthly_fee_value', function(event) { 
+
+        $(document).on("input", '#monthly_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#monthly_fee_percent").prop('disabled', false);
@@ -328,7 +328,7 @@
             }
         });
 
-        $(document).on("input", '#monthly_fee_percent', function(event) { 
+        $(document).on("input", '#monthly_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#monthly_fee_value").prop('disabled', false);
@@ -337,7 +337,7 @@
             }
         });
 
-        $(document).on("input", '#annual_fee_value', function(event) { 
+        $(document).on("input", '#annual_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#annual_fee_percent").prop('disabled', false);
@@ -346,7 +346,7 @@
             }
         });
 
-        $(document).on("input", '#annual_fee_percent', function(event) { 
+        $(document).on("input", '#annual_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#annual_fee_value").prop('disabled', false);
@@ -355,7 +355,7 @@
             }
         });
 
-        $(document).on("input", '.if_insurance_required_value', function(event) { 
+        $(document).on("input", '.if_insurance_required_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $(".if_insurance_required_percent").prop('disabled', false);
@@ -364,7 +364,7 @@
             }
         });
 
-        $(document).on("input", '.if_insurance_required_percent', function(event) { 
+        $(document).on("input", '.if_insurance_required_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $(".if_insurance_required_value").prop('disabled', false);
@@ -373,7 +373,7 @@
             }
         });
 
-        $(document).on("input", '#eir_pa', function(event) { 
+        $(document).on("input", '#eir_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#eir_pm").prop('disabled', false);
@@ -382,7 +382,7 @@
             }
         });
 
-        $(document).on("input", '#eir_pm', function(event) { 
+        $(document).on("input", '#eir_pm', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#eir_pa").prop('disabled', false);
@@ -391,7 +391,7 @@
             }
         });
 
-        $(document).on("input", '#interest_pa', function(event) { 
+        $(document).on("input", '#interest_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#interest_pm").prop('disabled', false);
@@ -400,7 +400,7 @@
             }
         });
 
-        $(document).on("input", '#interest_pm', function(event) { 
+        $(document).on("input", '#interest_pm', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#interest_pa").prop('disabled', false);
@@ -410,7 +410,7 @@
         });
         //---------------
         //put quotation floating pa months and spread input validation
-        $(document).on("input", '.pa_months', function(event) { 
+        $(document).on("input", '.pa_months', function(event) {
             let row_index = $(this).attr('row_index');
             if($(this).val().length < 1){
                 $(".pa_spread[row_index='"+row_index+"']").prop('disabled', false);
@@ -422,7 +422,7 @@
         $(document).on("input",'#current_value_indicative',function(event){
             let current_value_indivative = $(this).val();
             let sum = 0;
-            $('.calculated_spread_pa').each(function(){           
+            $('.calculated_spread_pa').each(function(){
                 let row_index = $(this).attr('row_index');
                 let current_value = $(".pa_spread[row_index='"+row_index+"']").val();
 
@@ -436,7 +436,7 @@
             });
         });
 
-        $(document).on("input", '.pa_spread', function(event) { 
+        $(document).on("input", '.pa_spread', function(event) {
             $('#current_value_indicative_error').html('');
             let current_value_indicative = $('#current_value_indicative').val();
             let row_index = $(this).attr('row_index');
@@ -445,7 +445,7 @@
                 $('#current_value_indicative_error').html('First add current value');
                 return false;
             }
-            
+
             let calculated_spread_pa = parseInt(pa_spread_value) + parseInt(current_value_indicative);
             console.log("calculated_spread_pa"+calculated_spread_pa)
 
@@ -459,7 +459,7 @@
             }
         });
 
-        $(document).on("input", '#thereafter_pa', function(event) { 
+        $(document).on("input", '#thereafter_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#thereafter_spread").prop('disabled', false);
@@ -468,7 +468,7 @@
             }
         });
 
-        $(document).on("input", '#thereafter_spread', function(event) { 
+        $(document).on("input", '#thereafter_spread', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#thereafter_pa").prop('disabled', false);
@@ -481,13 +481,13 @@
             event.preventDefault();
             onloadCaptchaCallback();
             return false;
-            
+
         });
 
-        $(document).on("click", '#months_add_row', function(event) { 
+        $(document).on("click", '#months_add_row', function(event) {
             floating_count ++;
             event.preventDefault();
-            
+
             var append_html = '<div class="row " >'+
             '    <div class="form-group col-md-2">'+
             '        <label class="col-form-label">'+
@@ -528,16 +528,16 @@
             '   <a href="javascript:void(0)"  data-original-title="Delete"><i class="mt-5 remove_month_vise_pa_or_spread fa fa-trash"></i></a>'
             '    </div>'+
             '</div>';
-	
+
 
             console.log('afdfadsf')
-            $('.month_vise_pa_or_spread').append(append_html);   
+            $('.month_vise_pa_or_spread').append(append_html);
         });
 
-        $(document).on("click", '#add_board_rate_row', function(event) { 
+        $(document).on("click", '#add_board_rate_row', function(event) {
             board_rate_count ++;
             event.preventDefault();
-            
+
             var append_html = '<div class="row " >'+
             '    <div class="form-group col-md-4">'+
             '        <label class="col-form-label">'+
@@ -558,11 +558,11 @@
             '   <a href="javascript:void(0)"  data-original-title="Remove"><i class="mt-5 remove_board_rate_row fa fa-trash"></i></a>'
             '    </div>'+
             '</div>';
-	
-            $('.add_board_rate_div').append(append_html);   
+
+            $('.add_board_rate_div').append(append_html);
         });
 
-        $(document).on("click", '.remove_board_rate_row', function(event) { 
+        $(document).on("click", '.remove_board_rate_row', function(event) {
             $(this).closest('div .row').remove();
         });
 
@@ -584,7 +584,7 @@
                 $("#add_doc_id_error").html("Document field is required");
                 return false;
             }
-            
+
              new_obj = {};
              new_obj.from = $('#from').val();
              new_obj.to = $('#to').val();
@@ -621,18 +621,18 @@
             });
         });
 
-        $(document).on("click", '.remove_more_doc_msg', function(event) { 
+        $(document).on("click", '.remove_more_doc_msg', function(event) {
             var index = $(this).closest('tr').attr('index');
             $(this).closest('tr').remove();
             more_doc_message_array.splice(index,1);
-            
+
             if(more_doc_message_array.length < 1){
                 $('#more_doc_msg_list').hide();
             }
 
         });
 
-        $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
+        $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) {
             $(this).closest('div .row').remove();
         });
 
@@ -641,19 +641,23 @@
             $("#add_doc_id_error").html("");
             $("#more_doc_error").html("");
 
-            //reset array keys
-            more_doc_message_array = more_doc_message_array.filter(function (item) {
-                return item !== undefined;
-            });
-            
+
             if(more_doc_message_array.length <=0){
                 $('#more_doc_error').html('Please select any doc with reason and add.');
                 showNotificationModal('Please select any doc with reason and add.','alert-warning',"top","right");
                 return false;
             }
-            
+
+            //reset array keys
+            more_doc_message_array = more_doc_message_array.filter(function (item) {
+                return item !== undefined;
+            });
             // return false; //remove this line after debug
             var apply_loan_id = $('#apply_loan_id').val();
+
+            // On Submit Button Disabled and show loader
+            $('#more_doc_request_btn').addClass('disabled');
+            $('#btn-loading').removeClass('d-none');
 
             $.ajax({
                 method: "POST",
@@ -672,7 +676,7 @@
             });
 
             console.log("on submit"+more_doc_message_array);
-            
+
         });
 
         // $('.js-exportable').DataTable({
@@ -681,7 +685,7 @@
         //         'copy', 'excel'
         //     ]
         // });
-        
+
 
         // $('#partner_sales_report').DataTable({
         //     paging: false,
@@ -697,7 +701,7 @@
             searching: false,
             "info": false,
             order: [[4, 'desc'],[5,'desc']],
-            
+
             columnDefs: [
                 {
                     "orderable": false,

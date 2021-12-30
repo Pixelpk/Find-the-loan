@@ -171,6 +171,7 @@ reminder for the customer to upload and furnish the required info/doc automatica
                                     <div class="form-group mt-1">
                                         <div>
                                             <button type="submit" id="more_doc_request_btn" class="btn float-right btn-primary waves-effect waves-light">
+                                                <i class="fa fa-spinner fa-spin d-none" id="btn-loading"></i>
                                                 Send request
                                             </button>
                                         </div>
