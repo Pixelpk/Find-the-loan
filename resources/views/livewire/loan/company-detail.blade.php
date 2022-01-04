@@ -293,10 +293,11 @@ e.g NASDAQ: GOOGL</label>
     <script>
         window.addEventListener('name-updated', event => {
             Swal.fire({
-                title: event.detail.newName,
+                text: event.detail.newName,
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: 'Update',
+                confirmButtonColor: '#27B34D',
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {

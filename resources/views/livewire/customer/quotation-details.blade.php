@@ -262,10 +262,10 @@
             window.addEventListener('proceed_with_quotation', event => {
                 Swal.fire({
                     // title: event.detail.message,
-                    html: '<p class="lh-1-8">' + event.detail.message + '</p>'
+                    html: '<p class="lh-1-8">' + event.detail.message + '</p>',
                     showDenyButton: true,
                     showCancelButton: true,
-                    confirmButtonColor: 'rgb(221, 51, 51)',
+                    confirmButtonColor: '#27B34D',
                     cancelButtonColor: '#d33',
                     confirmButtonText: event.detail.confirmButtonText,
                 }).then((result) => {

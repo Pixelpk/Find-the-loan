@@ -160,11 +160,13 @@
  <script>
         window.addEventListener('enquiry_submit', event => {
             Swal.fire({
-                text: event.detail.message,
+                // text: event.detail.message,
+                html: '<p class="lh-1-8">' + event.detail.message + '</p>',
                 width: 750,
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Ok',
+                confirmButtonColor: '#27B34D',
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {
