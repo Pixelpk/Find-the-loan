@@ -32,9 +32,9 @@
                                                 <th>Customer Name</th>
                                                 <th>Loan type</th>
                                                 <th>Amount</th>
-                                                <th>Assigned to</th>
+                                                {{-- <th>Assigned to</th>
                                                 <th>Date Assigned</th>
-                                                <th>Action Done</th>
+                                                <th>Action Done</th> --}}
                                                 <th>Market Status</th>
                                             </tr>
                                         </thead>
@@ -51,7 +51,7 @@
                                                         {{ $application->loan_type->sub_type }}
                                                     </td>
                                                     <td>{{ $application->amount }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if($application->assigned_to_user != null)
                                                             {{ $application->assigned_to_user->user->name }}
                                                         @endif
@@ -67,7 +67,7 @@
                                                         @elseif($application->application_quote)
                                                         <span class="badge badge-info">Quoted</span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
                                                     
                                                 </tr>

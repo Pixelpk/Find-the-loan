@@ -39,7 +39,7 @@
                                                 <th>Processing fee</th>
                                                 <th>Legal Fee</th>
                                                 <th>Other application Fee</th>
-                                                <th>Floating/fixed</th>
+                                                <th>Floating/<br>Fixed</th>
                                                 <th>Quoted validity</th>
                                             </tr>
                                             </thead>

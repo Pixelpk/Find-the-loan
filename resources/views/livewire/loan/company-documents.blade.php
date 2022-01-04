@@ -254,6 +254,7 @@
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Ok',
+                confirmButtonColor: '#27B34D',
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {

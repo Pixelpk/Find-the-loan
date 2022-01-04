@@ -382,6 +382,10 @@ class SalesReportController extends Controller
             $query->whereDate('created_at',">=",$start_date_from)
             ->whereDate('created_at',"<=",$start_date_to);                    
         };
+        $viewed_filter = function($query) use($start_date_from,$start_date_to){
+            $query->whereDate('viewed_at',">=",$start_date_from)
+            ->whereDate('viewed_at',"<=",$start_date_to);                    
+        };
         $disbursed_filter = function($query) use($start_date_from,$start_date_to){
             $query->whereDate('offer_disbursed_at',">=",$start_date_from)
             ->whereDate('offer_disbursed_at',"<=",$start_date_to);                       
@@ -409,7 +413,7 @@ class SalesReportController extends Controller
         return FinancePartner::select('id','partner_id','parent_id','name')->where('id',$partner_user_id)
         ->where('parent_id',$parent_id)
         ->with('assigned_application',$date_filter)
-        ->with('viewed_applications',$date_filter)
+        ->with('viewed_applications',$viewed_filter)
         ->with('user_all_rejected_applications',$date_filter)
         ->with('user_all_quoted_applications',$date_filter)
         ->with('user_all_more_doc_requests',$date_filter)

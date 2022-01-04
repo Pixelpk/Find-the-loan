@@ -32,7 +32,7 @@ class Login extends Component
         // } else {
         //     return session()->flash('success', 'Google thinks you are a bot, please refresh and try again');
         // }
-    
+
     }
 
     public function render()
@@ -55,15 +55,18 @@ class Login extends Component
         $approve = User::where('email', $this->email)->where('status', '!=',2)
         ->where('role_id', 2)->first();
         if(!$approve){
-           
             $this->errorMessage = 'User not exists';
             return;
         }
+
         if($approve && $approve->status == 1 && $approve->role_id == 2){
             Auth::guard('web')->attempt(['email' => $this->email, 'password' => $this->password]);
             return redirect()->route('home');
         }elseif($approve && $approve->status == 0 && $approve->role_id == 2){
             $this->errorMessage = 'User deactivated';
+            return;
+        }elseif($approve && $approve->status == 3){
+            $this->errorMessage = 'Your email address has not been verified!';
             return;
         }
     }

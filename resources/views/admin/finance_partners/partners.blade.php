@@ -35,7 +35,7 @@
                                                 <th data-priority="1">Image</th>
                                                 <th data-priority="3">Name</th>
                                                 <th data-priority="3">Email</th>
-                                                <th data-priority="3">Phone</th>
+                                                {{-- <th data-priority="3">Phone</th> --}}
                                                 <th data-priority="1">Status</th>
                                                 <th data-priority="3">Actions</th>
                                             </tr>
@@ -54,7 +54,7 @@
                                                     </td>
                                                     <td>{{$item->name}}</td>
                                                     <td>{{$item->email}}</td>
-                                                    <td>{{$item->phone}}</td>
+                                                    {{-- <td>{{$item->phone}}</td> --}}
                                                     <td>{{ getStatus($item->status) }}</td>
                                                     <td>
                                                         <a href="#" onclick="getFinancePartnerDetail({{$item->id}})" class="edit_partner_btn icons-td" data-toggle="tooltip" data-original-title="Edit">

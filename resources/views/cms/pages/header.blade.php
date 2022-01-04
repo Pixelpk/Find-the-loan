@@ -144,6 +144,7 @@
                     <a href="#" class="nav-link">
                         @if(Auth::guard('web')->check())
                             <a href="{{ route('draftLoan') }}" class="btnnew2 btn">Draft </a>
+                            <a href="{{ route('customer-dashboard') }}" class="btnnew2 btn">Dashboard</a>
                         @endif
                     </a>
                 </li>

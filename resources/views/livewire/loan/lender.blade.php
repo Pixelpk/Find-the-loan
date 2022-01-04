@@ -75,7 +75,14 @@
                 @elseif($item == 2)
                 <p class="mb-0">Excluded Moneylender</p>
                 @elseif($item == 3)
-                <p class="mb-0">Moneylender</p>
+                
+                <div class="d-flex">
+                    <p class="mb-0 d-flex">Moneylender</p>&nbsp;
+                    <div class="tooltip-text">
+                        <a href="{{ route('faqs') }}"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                </div>
+                
 
                 @endif
                 <div class="form-check">
@@ -153,11 +160,13 @@
  <script>
         window.addEventListener('enquiry_submit', event => {
             Swal.fire({
-                text: event.detail.message,
+                // text: event.detail.message,
+                html: '<p class="lh-1-8">' + event.detail.message + '</p>',
                 width: 750,
                 showDenyButton: true,
                 showCancelButton: false,
                 confirmButtonText: 'Ok',
+                confirmButtonColor: '#27B34D',
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {

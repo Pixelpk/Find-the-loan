@@ -318,8 +318,8 @@
         @enderror
         @endif
     </div>
-    <div class="row mt-3 text-end">
 
+    <div class="row mt-3 text-end">
         @if($relation == 'other')
         <div class="col-md 8">
 
@@ -342,18 +342,27 @@
            </div>
         </div>
         @endif
+    </div>
 
+    <div class="row mt-3 text-start">
+        <div class="col-md-12">
+            <div class="text-left">
+                <button  wire:loading.attr='disabled' class="btn"
+                type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
+                    <div wire:loading wire:target="goTolender">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </div>
+                    Save & Add joint applicant
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 text-end">
         <div class="col-md-12">
             <button class="btn custom-info-btn" type="button" style="color: #6c6868 !important;">
                 Why these documents ?
             </button>
-            <button  wire:loading.attr='disabled' class="btn"
-                type="button" wire:target='goTolender' wire:click.prevent='goTolender'>
-                <div wire:loading wire:target="goTolender">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                </div>
-                Save & Add joint applicant
-            </button>
+           
             <button  wire:loading.attr='disabled' class="btn"
                 type="button" wire:target='goToNextTab' wire:click.prevent='goToNextTab'>
                 <div wire:loading wire:target="goToNextTab">

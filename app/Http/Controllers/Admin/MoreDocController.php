@@ -109,7 +109,7 @@ class MoreDocController extends Controller
                 'loan_type:id,sub_type',
                 'loan_user:id,first_name,last_name',
             ])
-            ->whereDoesntHave('assigned_application')
+            // ->whereDoesntHave('assigned_application')
             ->paginate(20);
         // return $data; 
         return view('admin.loan_applications.more-doc-request-list', $data);

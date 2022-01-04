@@ -31,6 +31,25 @@
     <script src="https://www.google.com/recaptcha/api.js?render={{env('CAPTCHA_SITE_KEY')}}"></script>
 @endif
 
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $(".mdi-arrow-left").click(function(){
+            $('.mdi-arrow-right').removeClass('d-none');
+            $('.mdi-arrow-left').addClass('d-none');
+
+        });
+
+        $(".mdi-arrow-right").click(function(){
+            $('.mdi-arrow-left').removeClass('d-none');
+            $('.mdi-arrow-right').addClass('d-none');
+
+        });
+
+    });
+
+</script>
 
 <script>
     let todayDate = new Date();
@@ -72,7 +91,6 @@
 <script>
     // let more_doc_array = [];
     let more_doc_message_array = [];
-    let remove_more_doc_message_array = [];
     let more_doc_msg_index = 0;
     let floating_count = 0;
 
@@ -83,7 +101,7 @@
             board_rate_count = {{count($partner_meta['board_rate'])}}-1;
         @endif
     @endif
-    
+
     $(document).ready(function() {
 
         var pass_array = [];
@@ -110,7 +128,7 @@
                }
            });
        });
-        
+
         $( '.ckeditor.editor' ).ckeditor();
         @if(Route::currentRouteName() == 'loan-application-summary')
         fixedOrFloating(1);
@@ -126,7 +144,7 @@
             // button's stuff
             e.stopImmediatePropagation();
         });
-        
+
 
         $('#internal').change(function (){
             console.log($(this).val())
@@ -160,7 +178,7 @@
             format: 'yyyy-mm-dd',
             pickTime:false
         });
-        
+
         $('.date-picker-quote').datetimepicker({
             minView: 2,
             format: 'yyyy-mm-dd',
@@ -194,7 +212,7 @@
         //     e.stopPropagation();
         //     return false;
         // });
-        
+
 
         $("#bulk_assign").click(function (event) {
             console.log('asdfasdf')
@@ -241,7 +259,7 @@
                 getLoanType(main_type);
             }
         });
-        
+
         $('#is_joint_account_required').change(function(){
             var value = $(this).val();
             if ( $(this).is(':checked') ){
@@ -253,7 +271,7 @@
                 $('#joint_account_cost_from').prop('disabled',true);
                 $('#joint_account_cost_to').prop('disabled',true);
             }
-            
+
         });
 
         $("#mobile-dropdown .dropdown-toggle").click(function() {
@@ -283,7 +301,7 @@
 
 
         //put quotation fee section validations starting
-        $(document).on("input", '#one_time_fee_value', function(event) { 
+        $(document).on("input", '#one_time_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#one_time_fee_percent").prop('disabled', false);
@@ -292,7 +310,7 @@
             }
         });
 
-        $(document).on("input", '#one_time_fee_percent', function(event) { 
+        $(document).on("input", '#one_time_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#one_time_fee_value").prop('disabled', false);
@@ -300,8 +318,8 @@
                 $("#one_time_fee_value").prop('disabled', true);
             }
         });
-        
-        $(document).on("input", '#monthly_fee_value', function(event) { 
+
+        $(document).on("input", '#monthly_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#monthly_fee_percent").prop('disabled', false);
@@ -310,7 +328,7 @@
             }
         });
 
-        $(document).on("input", '#monthly_fee_percent', function(event) { 
+        $(document).on("input", '#monthly_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#monthly_fee_value").prop('disabled', false);
@@ -319,7 +337,7 @@
             }
         });
 
-        $(document).on("input", '#annual_fee_value', function(event) { 
+        $(document).on("input", '#annual_fee_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#annual_fee_percent").prop('disabled', false);
@@ -328,7 +346,7 @@
             }
         });
 
-        $(document).on("input", '#annual_fee_percent', function(event) { 
+        $(document).on("input", '#annual_fee_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#annual_fee_value").prop('disabled', false);
@@ -337,7 +355,7 @@
             }
         });
 
-        $(document).on("input", '.if_insurance_required_value', function(event) { 
+        $(document).on("input", '.if_insurance_required_value', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $(".if_insurance_required_percent").prop('disabled', false);
@@ -346,7 +364,7 @@
             }
         });
 
-        $(document).on("input", '.if_insurance_required_percent', function(event) { 
+        $(document).on("input", '.if_insurance_required_percent', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $(".if_insurance_required_value").prop('disabled', false);
@@ -355,7 +373,7 @@
             }
         });
 
-        $(document).on("input", '#eir_pa', function(event) { 
+        $(document).on("input", '#eir_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#eir_pm").prop('disabled', false);
@@ -364,7 +382,7 @@
             }
         });
 
-        $(document).on("input", '#eir_pm', function(event) { 
+        $(document).on("input", '#eir_pm', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#eir_pa").prop('disabled', false);
@@ -373,7 +391,7 @@
             }
         });
 
-        $(document).on("input", '#interest_pa', function(event) { 
+        $(document).on("input", '#interest_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#interest_pm").prop('disabled', false);
@@ -382,7 +400,7 @@
             }
         });
 
-        $(document).on("input", '#interest_pm', function(event) { 
+        $(document).on("input", '#interest_pm', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#interest_pa").prop('disabled', false);
@@ -392,7 +410,7 @@
         });
         //---------------
         //put quotation floating pa months and spread input validation
-        $(document).on("input", '.pa_months', function(event) { 
+        $(document).on("input", '.pa_months', function(event) {
             let row_index = $(this).attr('row_index');
             if($(this).val().length < 1){
                 $(".pa_spread[row_index='"+row_index+"']").prop('disabled', false);
@@ -404,7 +422,7 @@
         $(document).on("input",'#current_value_indicative',function(event){
             let current_value_indivative = $(this).val();
             let sum = 0;
-            $('.calculated_spread_pa').each(function(){           
+            $('.calculated_spread_pa').each(function(){
                 let row_index = $(this).attr('row_index');
                 let current_value = $(".pa_spread[row_index='"+row_index+"']").val();
 
@@ -418,7 +436,7 @@
             });
         });
 
-        $(document).on("input", '.pa_spread', function(event) { 
+        $(document).on("input", '.pa_spread', function(event) {
             $('#current_value_indicative_error').html('');
             let current_value_indicative = $('#current_value_indicative').val();
             let row_index = $(this).attr('row_index');
@@ -427,7 +445,7 @@
                 $('#current_value_indicative_error').html('First add current value');
                 return false;
             }
-            
+
             let calculated_spread_pa = parseInt(pa_spread_value) + parseInt(current_value_indicative);
             console.log("calculated_spread_pa"+calculated_spread_pa)
 
@@ -441,7 +459,7 @@
             }
         });
 
-        $(document).on("input", '#thereafter_pa', function(event) { 
+        $(document).on("input", '#thereafter_pa', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#thereafter_spread").prop('disabled', false);
@@ -450,7 +468,7 @@
             }
         });
 
-        $(document).on("input", '#thereafter_spread', function(event) { 
+        $(document).on("input", '#thereafter_spread', function(event) {
             console.log($(this).val().length)
             if($(this).val().length < 1){
                 $("#thereafter_pa").prop('disabled', false);
@@ -463,13 +481,13 @@
             event.preventDefault();
             onloadCaptchaCallback();
             return false;
-            
+
         });
 
-        $(document).on("click", '#months_add_row', function(event) { 
+        $(document).on("click", '#months_add_row', function(event) {
             floating_count ++;
             event.preventDefault();
-            
+
             var append_html = '<div class="row " >'+
             '    <div class="form-group col-md-2">'+
             '        <label class="col-form-label">'+
@@ -510,16 +528,16 @@
             '   <a href="javascript:void(0)"  data-original-title="Delete"><i class="mt-5 remove_month_vise_pa_or_spread fa fa-trash"></i></a>'
             '    </div>'+
             '</div>';
-	
+
 
             console.log('afdfadsf')
-            $('.month_vise_pa_or_spread').append(append_html);   
+            $('.month_vise_pa_or_spread').append(append_html);
         });
 
-        $(document).on("click", '#add_board_rate_row', function(event) { 
+        $(document).on("click", '#add_board_rate_row', function(event) {
             board_rate_count ++;
             event.preventDefault();
-            
+
             var append_html = '<div class="row " >'+
             '    <div class="form-group col-md-4">'+
             '        <label class="col-form-label">'+
@@ -540,17 +558,16 @@
             '   <a href="javascript:void(0)"  data-original-title="Remove"><i class="mt-5 remove_board_rate_row fa fa-trash"></i></a>'
             '    </div>'+
             '</div>';
-	
-            $('.add_board_rate_div').append(append_html);   
+
+            $('.add_board_rate_div').append(append_html);
         });
 
-        $(document).on("click", '.remove_board_rate_row', function(event) { 
+        $(document).on("click", '.remove_board_rate_row', function(event) {
             $(this).closest('div .row').remove();
         });
 
         $('#add_more_message_desc').click(function(e){
             e.preventDefault();
-            // var more_doc_reasons = $('#more_doc_reasons').val();
             var more_doc_reasons = [];
             var more_doc_reasons_text = [];
             $('input[name=more_doc_reasons]:checked').map(function() {
@@ -558,7 +575,6 @@
                 more_doc_reasons_text.push($(this).next('label').text());
             });
             var quote_additional_doc_id = $("input[name='quote_additional_doc_id']:checked").val();
-            // var quote_additional_doc_id = $('#quote_additional_doc_id:checked').val();
 
             if(more_doc_reasons == ""){
                 $("#more_doc_reasons_error").html("Reason is required");
@@ -568,60 +584,55 @@
                 $("#add_doc_id_error").html("Document field is required");
                 return false;
             }
-            
+
              new_obj = {};
              new_obj.from = $('#from').val();
              new_obj.to = $('#to').val();
              new_obj.within_days = $('#within_days').val();
              new_obj.past_months = $('#past_months').val();
              new_obj.valid_for = $('#valid_for').val();
-            //  new_obj.latest = $('#latest').prop('checked');
-            //  new_obj.required_company_stamp = $('#required_company_stamp').prop('checked');
-            //  new_obj.need_notarized = $('#need_notarized').prop('checked');
-            //  new_obj.signature_borrower = $('#signature_borrower').prop('checked');
-            //  new_obj.signature_borrowers_customer = $('#signature_borrowers_customer').prop('checked');
              new_obj.more_doc_reasons = more_doc_reasons;
              new_obj.quote_additional_doc_id = quote_additional_doc_id;
-            more_doc_message_array.push(new_obj);
+            // more_doc_message_array.push(new_obj); //not working good
+            more_doc_message_array[more_doc_msg_index] = new_obj;
             console.log(more_doc_message_array);
 
             var html = "<tr index="+more_doc_msg_index+">"
             +"<td><a href='javascript:void(0)' index='"+more_doc_msg_index+"' data-original-title='Delete'><i class='m-2 remove_more_doc_msg fa fa-trash'></i></a></td>"
             +"<td>"+$("input[name='quote_additional_doc_id']:checked").next('label').text()+"</td>"
-            +"<td>"+more_doc_reasons_text+"</td>" //+"<td>"+$("#more_doc_reasons option:selected").text();+"</td>"
+            +"<td>"+more_doc_reasons_text+"</td>"
             +"<td>"+new_obj.within_days+"</td>"
             +"<td>"+new_obj.past_months+"</td>"
             +"<td>"+new_obj.valid_for+"</td>"
             +"<td>"+new_obj.from+"</td>"
             +"<td>"+new_obj.to+"</td>"
-            // +"<td>"+new_obj.latest+"</td>"
-            // +"<td>"+new_obj.required_company_stamp+"</td>"
-            // +"<td>"+new_obj.need_notarized+"</td>"
-            // +"<td>"+new_obj.signature_borrower+"</td>"
-            // +"<td>"+new_obj.signature_borrowers_customer+"</td>"
             +"</tr>";
             $('#more_doc_msg_table').append(html);
             more_doc_msg_index++;
             if(more_doc_message_array.length > 0){
                 $('#more_doc_msg_list').show();
+
+                // Text Change from Save to Add More Button
+                $('#add_more_message_desc').html('');
+                $('#add_more_message_desc').html('Add More +');
             }
             $( '#more_doc_form' ).each(function(){
                 this.reset();
             });
         });
 
-        $(document).on("click", '.remove_more_doc_msg', function(event) { 
+        $(document).on("click", '.remove_more_doc_msg', function(event) {
             var index = $(this).closest('tr').attr('index');
-            console.log("index of"+index)
             $(this).closest('tr').remove();
-            remove_more_doc_message_array.push(index);
+            more_doc_message_array.splice(index,1);
+
             if(more_doc_message_array.length < 1){
                 $('#more_doc_msg_list').hide();
             }
-            console.log('after remove'+remove_more_doc_message_array);
+
         });
 
-        $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) { 
+        $(document).on("click", '.remove_month_vise_pa_or_spread', function(event) {
             $(this).closest('div .row').remove();
         });
 
@@ -629,28 +640,24 @@
             e.preventDefault();
             $("#add_doc_id_error").html("");
             $("#more_doc_error").html("");
-            console.log("remove array"+remove_more_doc_message_array)
-            console.log("add array"+more_doc_message_array)
-            if(remove_more_doc_message_array.length > 0){
-                $.each(remove_more_doc_message_array, function(index, item) {
-                    more_doc_message_array.splice(index,1);
-                    console.log("item is"+item)
-                    index_of_remove_array = remove_more_doc_message_array.indexOf(item)
-                    remove_more_doc_message_array.splice(index_of_remove_array,1);
 
-                });
-                console.log('after removing'+remove_more_doc_message_array)
-            }
 
             if(more_doc_message_array.length <=0){
-                console.log("submit array")
-                console.log(more_doc_message_array)
                 $('#more_doc_error').html('Please select any doc with reason and add.');
+                showNotificationModal('Please select any doc with reason and add.','alert-warning',"top","right");
                 return false;
             }
-            
+
+            //reset array keys
+            more_doc_message_array = more_doc_message_array.filter(function (item) {
+                return item !== undefined;
+            });
             // return false; //remove this line after debug
             var apply_loan_id = $('#apply_loan_id').val();
+
+            // On Submit Button Disabled and show loader
+            $('#more_doc_request_btn').addClass('disabled');
+            $('#btn-loading').removeClass('d-none');
 
             $.ajax({
                 method: "POST",
@@ -669,7 +676,7 @@
             });
 
             console.log("on submit"+more_doc_message_array);
-            
+
         });
 
         // $('.js-exportable').DataTable({
@@ -678,7 +685,7 @@
         //         'copy', 'excel'
         //     ]
         // });
-        
+
 
         // $('#partner_sales_report').DataTable({
         //     paging: false,
@@ -694,7 +701,7 @@
             searching: false,
             "info": false,
             order: [[4, 'desc'],[5,'desc']],
-            
+
             columnDefs: [
                 {
                     "orderable": false,

@@ -26,7 +26,7 @@ class MoreDocRequests extends Component
                 'finance_partner:id,name',
             ])->paginate(20);
 
-        // dd($more_doc_requests[0]->loan_application);
+        // dd($more_doc_requests);
         return view('livewire.customer.more-doc-requests',['applications'=>$more_doc_requests])->layout('customer.layouts.master');
     }
 }

@@ -247,7 +247,7 @@ class LoanApplications extends Controller
                 ->where('status','=',1) //0=not viewed, 1= viewed, 2=action performed
                 ->first();
             if($if_action_not_performed &&($if_action_not_performed->apply_loan_id != $id) && ($data['application']->assigned_application->status != '2')){
-                return redirect()->back()->with('error','Kindly perform any opertion on previously view application.');
+                return redirect()->back()->with('error','Kindly perform any operation on previously view application.');
             }
 
             AssignedApplication::where('apply_loan_id', $id)
@@ -316,6 +316,10 @@ class LoanApplications extends Controller
             $application->save();
         }
         Session::flash('success', 'Applications are assigned to the user');
+        if ($logged_in_user->parent_id != 0) {
+            //updating status to opertion_performed 
+            AssignedApplication::updateViewedStatus($apply_loan_id,$logged_in_user->id,1,2);
+        }
         return 1;
     }
 

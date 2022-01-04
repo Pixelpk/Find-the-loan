@@ -219,9 +219,8 @@
         @else
         <div class="row">
             <div class="col-md-12 col-lg-6">
-                <label for="company_name" class="form-label">Please provide either parent company name
-                    or
-                    its ticker number followed by which stock exchange</label>
+                <label for="company_name" class="form-label">Please provide company name or its ticker number and which stock exchange
+e.g NASDAQ: GOOGL</label>
                 <input wire:model="company_name" type="text" class="form-control" id="company_name">
                 @error('company_name')
                 <div style="color: red;">
@@ -294,10 +293,11 @@
     <script>
         window.addEventListener('name-updated', event => {
             Swal.fire({
-                title: event.detail.newName,
+                text: event.detail.newName,
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: 'Update',
+                confirmButtonColor: '#27B34D',
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value) {
