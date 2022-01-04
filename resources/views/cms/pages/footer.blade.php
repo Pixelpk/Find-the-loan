@@ -1,6 +1,6 @@
 <hr>
 <!-- FOOTER -->
-<footer id="footer" class="footer">
+<footer id="footer" class="footer position-relative z-10">
     <div class="container">
         <!-- CONTENT -->
         <div class="row">

@@ -307,18 +307,7 @@ background-color: #000 !important;
 #footer .footer-bottom .footer__links li a:hover{
     color: #000000;
 }
-#about{
-    overflow: hidden;
-  position: relative;
-}
-.about-bg {
-    opacity: 0.1;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: auto;
-  }
+
 
 .about-slider {
     width:100%;

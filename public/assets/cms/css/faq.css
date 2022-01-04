@@ -1,9 +1,25 @@
 .accordion-button{
     padding: 0.7rem 1rem !important;
 }
+#about{
+    overflow: hidden;
+  position: relative;
+}
+#about p{
+    font-size: 1rem;
+    line-height: 1.8rem;
+}
+.about-bg {
+    opacity: 0.1;
+    position: fixed;
+    left: 0;
+    bottom: 1rem;
+    width: 100%;
+    height: auto;
+  }
 .about-grid{
     display: grid;
-    grid-template-columns: repeat(5, 250px);
+    grid-template-columns: repeat(5, 210px);
     grid-auto-flow: row;
 }
 .about--img_box > img{
@@ -12,7 +28,7 @@
 }
 @media screen and (max-width: 768px) {
     .about-grid{
-        grid-template-columns: repeat(3, 250px);
+        grid-template-columns: repeat(3, 210px);
     }
 }
 @media(max-width:576px){
