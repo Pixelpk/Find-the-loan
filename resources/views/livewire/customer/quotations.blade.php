@@ -17,7 +17,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-rep-plugin">
-                                        <div class="table-responsive b-0" data-pattern="priority-columns">
+                                        <div class="b-0" data-pattern="priority-columns">
                                             <table id="" class="table  table-striped">
                                                 <thead>
                                                 <tr>
@@ -97,7 +97,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $quote->quote_validity }}</td>
-                                                
+
                                                 </tr>
                                                 @endforeach
                                                 </tbody>

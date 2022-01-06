@@ -15,6 +15,9 @@ class Login extends Component
     public $errorMessage;
     public $captcha = 0;
 
+    // public $redirectFrom;
+    // protected $queryString = ['redirectFrom'];
+
     public function mount()
     {
         if(Auth::check()){

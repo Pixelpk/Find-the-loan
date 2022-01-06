@@ -35,7 +35,7 @@
                                 @elseif($application->application_quote->status == '4')
                                     <b style="color: #27B34D">(Loan offer disbursed)</b>
                                 @endif
-                                
+
                             @endif
                         </span>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -45,15 +45,17 @@
                         </button>
 
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                            
+
                             <ul class="navbar-nav sum-nav me-auto mb-2 mb-lg-0">
-                                @if($application->assigned_to_user == null)
+                                @if($application->assigned_to_user == null && $application->application_quote->status != '4')
                                     <li class="nav-item">
 
                                         <div class="dropdown dropleft">
                                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              Actions
+                                                Actions
                                             </button>
+
+
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                                 @if($application->assigned_to_user == null)
                                                     @if (!$application->pending_meet_call)
@@ -62,7 +64,7 @@
                                                 @endif
 
                                                 @if ($application->application_quote)
-                                                    @if ($application->application_quote->status == '1') 
+                                                    @if ($application->application_quote->status == '1')
                                                     <a href="{{ route('loan-offer-sign',['quote_id'=>$application->application_quote->id, 'status'=>'3']) }}" type="button" class="dropdown-item change_status" msg="Are you sure to sign loan offer?" >Loan Offer sign</a>
                                                     @elseif($application->application_quote->status == '3')
                                                     <a href="{{ route('loan-offer-sign',['quote_id'=>$application->application_quote->id, 'status'=>'4']) }}" type="button" class="dropdown-item change_status" msg="Are you sure to change status to loan offer disbursed?">Loan Disbursed</a>
@@ -71,7 +73,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                
+
                                     @if(!$application->application_rejected && !$application->application_quote)
                                         <li class="nav-item">
                                             <a href="#" onclick="rejectApplication({{$application->id}});" data-toggle="tooltip"
@@ -87,7 +89,7 @@
 
                                         @if (!$application->application_more_doc->isEmpty())
                                         <li class="nav-item">
-                                            <a class="btn btn-primary" id="view_more_doc_detail_btn" data-toggle="modal" data-target="#ViewMoreDocDetails" data-dismiss="modal" aria-label="Close" 
+                                            <a class="btn btn-primary" id="view_more_doc_detail_btn" data-toggle="modal" data-target="#ViewMoreDocDetails" data-dismiss="modal" aria-label="Close"
                                                 href="javascript:void(0)">
                                                 View requested doc
                                             </a>
@@ -96,7 +98,7 @@
                                     @endif
                                 @endif
 
-                                
+
                                 <li class="nav-item">
                                     <a class="btn btn-primary" data-original-title="Download All Documents"
                                         aria-current="page"
@@ -116,14 +118,14 @@
                 <!-- SEC 1 -->
                 <div class="container">
                     <div class="sumary-list same-gp">
-                        
+
                         <span class="info__text">Loan type looking for</span>
                         <span class="info__field">{{ $application->loan_type->sub_type }}</span>
                         <span class="info__text">Amount looking at</span>
                         <span class="info__field">${{ $application->amount }}</span>
                         <span class="info__text">Reason for loan</span>
                         <span class="info__field">{{ $application->loan_reason->reason ?? "" }}</span>
-                        
+
                         <span class="info__text">Market Status</span>
                         <span class="info__field">{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</span>
                         <span class="info__text">Assigned to</span>
@@ -177,10 +179,10 @@
                         <span class="info__field"></span>
                         <span class="info__text">Estimated monthly income</span>
                         <span class="info__field"></span>
-                            
+
                         @endif
-                        
-                        
+
+
                         @if ($application->application_rejected != null)
                         <span class="info__text">Rejected by</span>
                         <span class="info__field">{{ $application->application_rejected->rejected_by->name }}</span>

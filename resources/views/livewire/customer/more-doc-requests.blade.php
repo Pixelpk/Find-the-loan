@@ -25,8 +25,8 @@
                                                         <th>Enquiry ID</th>
                                                         <th>Profile</th>
                                                         <th>Loan type</th>
-                                                        <th>Document</th>
-                                                        <th>Reason</th>
+                                                        <th>Documents</th>
+                                                        <th>Reasons</th>
                                                         <th>Amount</th>
                                                         <th>Reply</th>
                                                     </tr>
@@ -66,7 +66,7 @@
                                                     </td>
 
                                                         <td>{{ $application->loan_application->amount }}</td>
-                                                        <td><a style="font-size:8px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
+                                                        <td><a style="font-size:12px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
                                                             Reply with doc
                                                         </a></td>
                                                     </tr>

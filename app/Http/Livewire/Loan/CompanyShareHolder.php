@@ -41,6 +41,7 @@ class CompanyShareHolder extends Component
     public $share_holder_current_year;
     public $share_holder_subsidiary;
     public $share_holder_country;
+    public $share_holder_constitution;
     public $apply_loan;
     public $get_share_holder_type = [];
     public $checkShareHolder;
@@ -195,6 +196,9 @@ class CompanyShareHolder extends Component
 
             $LPSH = LoanPersonShareHolder::where('share_holder_detail_id',$getsholder->id)->where('apply_loan_id', $this->apply_loan->id)->first();
             if($LPSH){
+                if($LPSH && Storage::exists($LPSH->share_holder_constitution)) {
+                    Storage::delete($LPSH->share_holder_constitution);
+                }
                 if($LPSH && Storage::exists($LPSH->nric_front)) {
                     Storage::delete($LPSH->nric_front);
                 }
@@ -218,6 +222,7 @@ class CompanyShareHolder extends Component
             LoanPersonShareHolder::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,
                 'share_holder_detail_id' => $getsholder->id,
+                "constitution" => isset($this->share_holder_constitution[$getsholder->id]) ?  $this->share_holder_constitution[$getsholder->id]->store('documents') : '',
                 "nric_front" => isset($this->nric_front[$getsholder->id]) ?  $this->nric_front[$getsholder->id]->store('documents') : '',
                 "nric_back" => isset($this->nric_back[$getsholder->id]) ?  $this->nric_back[$getsholder->id]->store('documents') : '',
                 "passport" => isset($this->passport[$getsholder->id]) ?  $this->passport[$getsholder->id]->store('documents') : '',

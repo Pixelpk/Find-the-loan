@@ -52,8 +52,8 @@
                             <div class="text-center">
                                 <a href="{{ route('facebookRedirect') }}"><i class="fab fa-facebook-square" style="font-size: 35px; color: #105785;"></i></a>
                             </div>
-                            <div class="pt-3">
-                               <span>You don't have an account?</span>
+                            <div class="pt-3 text-center">
+                               <span>Don't have an account?</span>
                                <a href="{{ route('registration') }}" style="text-decoration: underline;"> Sign Up </a>
                             </div>
                         </div>
@@ -92,5 +92,41 @@
     //         'callback' : verifyCallback,
     //         });
     //   }
+
+</script>
+
+ <script>
+
+    $(document).ready(function() {
+        const params = new URLSearchParams(window.location.search)
+        if(params.has('redirectFrom')){
+            // alert(params.get('redirectFrom'));
+            window.onload = codeAddress;
+        }
+    });
+
+    function codeAddress() {
+        Swal.fire({
+        text: 'A verification email has been sent. Please check your spam/junk box if not received.',
+        width: 500,
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#27B34D',
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.value) {
+                // calling destroy method to delete
+                window.location.href = "{{ route('login')}}";
+                // success response
+
+            } else {
+
+            }
+        })
+
+
+    }
+
 
 </script>

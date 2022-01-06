@@ -25,6 +25,7 @@
                     <br>
                     <br>
                 </div>
+
                 <div class="row">
                     <p class="mb-1"> <b>NRIC</b> or <b>Passport/Identity Card</b> (
                         Foreigner)</p>
@@ -205,6 +206,43 @@
                         @enderror
                     </div>
                 </div>
+
+                <br>
+                <hr>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="mb-1">
+                            If your company constitution allows for borrowing without the approval of the majority of the shareholders, please attach your constitution/M&AA
+                            Most Financing Partners need to see at least 30-51% of shareholder information & may still ask for additional shareholder information later via this platform OR if they deem profile of above shareholder/s not strong enough due to e.g NOA, credit score etc
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div x-data="{ isUploading: false, progress: 0 }"
+                            x-on:livewire-upload-start="isUploading = true"
+                            x-on:livewire-upload-finish="isUploading = false"
+                            x-on:livewire-upload-error="isUploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress">
+                            <div class="form-group">
+                                <label for="">Choose File</label>
+                                <input wire:model="share_holder_constitution.{{ $share_holder }}"
+                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" type="file"
+                                    class="form-control" id="vehicleimage" name="" id="">
+                                </label>
+                            </div>
+                            {{-- @error("share_holder_constitution.$share_holder")
+                            <div style="color: red;">
+                                @php $message = preg_replace('/[0-9]+/', '', $message);
+                                @endphp
+                                {{ $message }}
+                            </div>
+                            @enderror --}}
+                            <div x-show="isUploading">
+                                <progress max="100" x-bind:value="progress"></progress>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="ro">
                     <br>
                     <button class="btn btn-custom" type="button" wire:target='share_holder_document_store'

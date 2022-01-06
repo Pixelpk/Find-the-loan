@@ -52,13 +52,13 @@
                                                     </td>
                                                     <td>{{ $application->amount }}</td>
                                                     <td>
-                                                        @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->user->name }}
+                                                        @if($application->assigned_application != null)
+                                                            {{ $application->assigned_application[0]->user->name }}
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if($application->assigned_to_user != null)
-                                                            {{ $application->assigned_to_user->created_at }}
+                                                            {{ $application->assigned_application[0]->created_at }}
                                                         @endif
                                                     </td>
                                                     {{-- <td>
@@ -69,7 +69,7 @@
                                                         @endif
                                                     </td> --}}
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
-                                                    
+
                                                 </tr>
 
                                             @endforeach

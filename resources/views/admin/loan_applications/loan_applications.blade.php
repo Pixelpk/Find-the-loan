@@ -153,9 +153,9 @@
                                                         @endif
                                                     </td> --}}
                                                     <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
-                                                    
-                                                    
-                                                    
+
+
+
                                                 </tr>
 
                                             @endforeach
@@ -216,7 +216,7 @@
                                                     {{ $application->loan_type->sub_type }}
                                                 </td>
                                                 <td>
-                                                    
+
                                                     {{ date('Y-m-d',strtotime($application->created_at)) }}
                                                 </td>
                                                 {{-- <td>
@@ -227,9 +227,9 @@
                                                     @endif
                                                 </td> --}}
                                                 <td>{{ $application->quotations_of_application_count ?? 0}} Finance partners have quoted</td>
-                                                
-                                                    
-                                                    
+
+
+
                                             </tr>
 
                                             @endforeach

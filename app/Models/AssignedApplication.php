@@ -22,9 +22,13 @@ class AssignedApplication extends Model
         return $this->belongsTo(FinancePartner::class,'user_id','id')->select('id','name');
     }
 
+    public function assigned_by(){
+        return $this->belongsTo(FinancePartner::class,'assigned_by','id')->select('id','name');
+    }
+
     public function reject_application(){
         return $this->hasOne(UserLoanRejectReason::class,'partner_id','id');
     }
 
-    
+
 }

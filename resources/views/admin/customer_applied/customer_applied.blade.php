@@ -28,14 +28,16 @@
                                                 {{-- <th>Enquiry Status</th> --}}
                                                 <th>Enquiry Id</th>
                                                 <th>Profile</th>
-                                                <th>Date Received</th>
+                                                <th>Contact No.</th>
+                                                <th>Email</th>
+                                                {{-- <th>Date Received</th> --}}
                                                 <th>Loan type</th>
                                                 <th>Customer name</th>
                                                 <th>Quotation Date</th>
                                                 <th>Customer apply date</th>
                                                 {{-- <th>Offer signed at</th>
                                                 <th>Offer disbursed at</th> --}}
-                                                
+
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -52,14 +54,16 @@
                                                 </td> --}}
                                                 <td>{{ $quote->loan_application->enquiry_id }}</td>
                                                 <td>{{ getProfile($quote->loan_application->profile) }}</td>
-                                                <td>{{ $quote->loan_application->created_at }}</td>
+                                                <td>{{ $quote->loan_application->loan_user->phone }}</td>
+                                                <td>{{ $quote->loan_application->loan_user->email }}</td>
+                                                {{-- <td>{{ $quote->loan_application->created_at }}</td> --}}
                                                 <td>{{ $quote->loan_application->loan_type->sub_type }}</td>
                                                 <td>{{ $quote->loan_application->loan_user->first_name." ".$quote->loan_application->loan_user->last_name }}</td>
                                                 <td>{{ $quote->created_at }}</td>
                                                 <td>{{ $quote->proceeded_at }}</td>
                                                 {{-- <td>{{ $quote->offer_signed_at }}</td>
                                                 <td>{{ $quote->offer_disbursed_at }}</td> --}}
-                                                
+
                                             </tr>
                                             @endforeach
                                             </tbody>

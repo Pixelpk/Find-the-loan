@@ -28,6 +28,35 @@
 <script src="{{ asset('toastr.min.js') }}"></script>
 @livewireScripts
 
+
+{{-- Hide Quotation No Longer Required Modal--}}
+<script type="text/javascript">
+    window.livewire.on('alert', () => {
+        // $('#exampleModal').modal('hide');
+        $(".modal-backdrop").remove();
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $(".mdi-arrow-left").click(function(){
+            $('.mdi-arrow-right').removeClass('d-none');
+            $('.mdi-arrow-left').addClass('d-none');
+
+        });
+
+        $(".mdi-arrow-right").click(function(){
+            $('.mdi-arrow-left').removeClass('d-none');
+            $('.mdi-arrow-right').addClass('d-none');
+
+        });
+
+    });
+
+</script>
+
 <script>
     let todayDate = new Date();
     function showNotificationModal(message,colorName,placementFrom,placementAlign){
@@ -87,7 +116,7 @@
         toastr.error(param['message'])
     });
 
- 
+
 </script>
 
 

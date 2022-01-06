@@ -245,6 +245,8 @@ e.g NASDAQ: GOOGL</label>
                 </div>
             </div>
         </div>
+
+        @if($share_holder != 0)
         <div class="row">
             <div class="col-md-4 mt-4">
                 <livewire:widget.upload-component :label="'Subsidiary’s (borrower) M&AA'" :apply_loan="$apply_loan"
@@ -252,6 +254,8 @@ e.g NASDAQ: GOOGL</label>
                     :modell="'App\Models\LoanCompanyDetail'" :keyvalue="'parent_company_subsidairy'" />
             </div>
         </div>
+        @endif
+
         @endif
     </div>
     <!-- SAVE & CONTINUE BUTTON -->
@@ -269,7 +273,7 @@ e.g NASDAQ: GOOGL</label>
         <button class="btn btn-custom" type="button" wire:target='confirmationMessage' wire:click.prevent='confirmationMessage'>
             @if($listed_company_check && $share_holder == 0)
             <div class="magnify-loader-background d-none" wire:loading.longest wire:target="confirmationMessage" wire:loading.class.remove="d-none">
-               
+
                 <div class="magnify-loader">
                         <div class="loadingio-spinner-magnify-hz4ezng7lp">
                             <div class="ldio-8j2236x8qt">
@@ -281,7 +285,7 @@ e.g NASDAQ: GOOGL</label>
                         </div>
                     <p class="text-center fw-bold" style="color:black;">Please wait... <br> calculating which Financing Partner you can talk to..</p>
                 </div>
-              
+
             </div>
             @endif
             Save @if($share_holder == 0) & Continue @endif
