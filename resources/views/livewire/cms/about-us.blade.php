@@ -27,7 +27,7 @@
     
     </div>
     <!--end breadcrumb-wrapper-->
-  <section class="section-white-services" id="about">
+  <section class="section-white-services pt-5" id="about">
       <img
       class="about-bg"
       src="{{ asset('assets/cms/img/Home/about-bg1.jpg') }}"
@@ -36,7 +36,6 @@
       <div class="container position-relative">
           <div class="row">
               <div class="about-content mx-auto w-75">
-                  <h2 class="fw-bold text-center">About Us</h2>
             <p class="lead">  {!! $about_us->value !!}</p>
               </div>
           </div>
