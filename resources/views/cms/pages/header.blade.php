@@ -91,8 +91,10 @@
                             }else if( ($current_route == 'login')){
                             $route = route('home');
                             $current_route = 'home';
-                            }
-                            else {
+                            }else if( ($current_route == 'registration')){
+                            $route = route('home');
+                            $current_route = 'home';
+                            }else {
                             $route = route($current_route);
                             }
                             @endphp
@@ -160,7 +162,7 @@
                                 <img height="40" src="{{ asset('assets/cms/img/Home/user.svg') }}" alt="user">
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                                <li><a class="dropdown-item" href="{{ route('customer-dashboard') }}">Dashboard</a></li>
+                                {{-- <li><a class="dropdown-item" href="{{ route('customer-dashboard') }}">Dashboard</a></li> --}}
                                 <li><a class="dropdown-item" href="{{ route('customer-logout') }}">Logout</a></li>
                             </ul>
                         </div>

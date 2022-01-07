@@ -417,7 +417,15 @@ class MoreDocRequestDetails extends Component
 
         $empty = ($empty == true) && count($this->personal_loan_list) < 1 ? true : false;
         $empty = ($empty == true) && count($this->company_loan_list) < 1 ? true : false;
-        $empty = ($empty == true) && count($this->dont_have_doc) < 1 ? true : false;
+        
+
+        if($this->dont_have_doc){
+            $empty = ($empty == true) && count($this->dont_have_doc) < 1 ? true : false;
+        }else{
+            $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
+            return;
+        }
+        
         if ( $empty == true) {
             $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
             return;

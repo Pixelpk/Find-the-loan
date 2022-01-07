@@ -181,6 +181,7 @@ class LoanApplications extends Controller
     public function assginedOutApplications(Request $request)
     {
         $loggedin_user = $request->user();
+        // return $loggedin_user;
         $logged_user_id = $loggedin_user->id;
         $partner_id = Session::get('partner_id');
         $parent_id = $loggedin_user->parent_id;
@@ -194,12 +195,15 @@ class LoanApplications extends Controller
             })->with(
                 [
                     'loan_company_detail', 'loan_reason',
-                    'assigned_application',
+                    'assigned_application'=> function ($query) use ($logged_user_id) {
+                        $query->where('assigned_by', '=', $logged_user_id);
+                    },
                     'loan_type:id,sub_type',
                     'loan_user:id,first_name,last_name',
                 ]
             )
             ->paginate(20);
+            // return $data['applications'];
 
         return view('admin.loan_applications.assigned-out-applications', $data);
     }
@@ -240,7 +244,7 @@ class LoanApplications extends Controller
         if ($id == null || !$data['application']) {
             return redirect()->back()->with('error', 'Oops. something went wrong.');
         }
-        
+
 
         if ($logged_in_user->parent_id != 0) {
             $if_action_not_performed = AssignedApplication::where('user_id', $logged_in_user->id)
@@ -317,7 +321,7 @@ class LoanApplications extends Controller
         }
         Session::flash('success', 'Applications are assigned to the user');
         if ($logged_in_user->parent_id != 0) {
-            //updating status to opertion_performed 
+            //updating status to opertion_performed
             AssignedApplication::updateViewedStatus($apply_loan_id,$logged_in_user->id,1,2);
         }
         return 1;
@@ -504,7 +508,7 @@ class LoanApplications extends Controller
         $reject->save();
 
         if ($user->parent_id != 0) {
-            //updating status to opertion_performed 
+            //updating status to opertion_performed
             AssignedApplication::updateViewedStatus($apply_loan_id,$user->id,1,2);
         }
 

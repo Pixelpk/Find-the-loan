@@ -12,6 +12,8 @@ class QuotationDetails extends Component
     public $user;
     public $quote_id;
     public $quotation_details;
+    public $no_loan_reason;
+    public $no_loan_reason_ellaborate;
     protected $queryString = ['quote_id'];
     public function mount()
     {
@@ -56,17 +58,46 @@ class QuotationDetails extends Component
         }
     }
 
-    public function loanNoLongerRequired()
-    {
+    public function loanNoLongerRequiredReason(){
+
+        // dd($this->no_loan_reason);
+
+        $this->validate([
+            'no_loan_reason' => 'required',
+            'no_loan_reason_ellaborate' => $this->no_loan_reason == 'Other' ? 'required': ''
+            ],[
+            'no_loan_reason.required' => 'The reason field is required',
+            'no_loan_reason_ellaborate.required' => 'The field is required'
+        ]);
+
         try{
-            LoanQuotations::where('id',$this->quote_id)->where('status',0)->update(['status'=>2,'loan_not_required_at'=>date('Y-m-d H:i')]); //status=>2=Loan no longer required
+            LoanQuotations::where('id', $this->quote_id)->where('status', 0)->update([
+                'status' => 2,
+                'loan_not_required_at' => date('Y-m-d H:i'),
+                'no_loan_reason' => $this->no_loan_reason,
+                'no_loan_reason_ellaborate' => $this->no_loan_reason_ellaborate,
+            ]);
+
             $this->emit('alert', ['type' => 'success', 'message' => 'Loan no longer required is successfully done.']);
             $this->mount();
+
         }catch(Exception $exception){
             $this->emit('danger', ['type' => 'error', 'message' => 'Oops. something went wrong.']);
-
             $this->mount();
         }
     }
+
+    // public function loanNoLongerRequired()
+    // {
+    //     try{
+    //         LoanQuotations::where('id',$this->quote_id)->where('status',0)->update(['status'=>2,'loan_not_required_at'=>date('Y-m-d H:i')]); //status=>2=Loan no longer required
+    //         $this->emit('alert', ['type' => 'success', 'message' => 'Loan no longer required is successfully done.']);
+    //         $this->mount();
+    //     }catch(Exception $exception){
+    //         $this->emit('danger', ['type' => 'error', 'message' => 'Oops. something went wrong.']);
+
+    //         $this->mount();
+    //     }
+    // }
 
 }

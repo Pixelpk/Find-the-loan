@@ -46,7 +46,7 @@ class ApplyLoan extends Model
     }
 
     public function assigned_application(){
-        return $this->hasOne(AssignedApplication::class,'apply_loan_id','id')->with(['user']);
+        return $this->hasMany(AssignedApplication::class,'apply_loan_id','id')->with(['user','assigned_by']);
     }
 
     public function assigned_to_user(){

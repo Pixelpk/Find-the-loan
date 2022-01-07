@@ -12,7 +12,7 @@ class CustomerAppliedController extends Controller
 
     public function customerApplied(Request $request)
     {
-        $partner_id = Session::get('partner_id');        
+        $partner_id = Session::get('partner_id');
         $data['quotations'] = $this->getCustomerAppliedQuotations(partner_id: $partner_id, status:1);
         return view('admin.customer_applied.customer_applied',$data);
     }
@@ -22,7 +22,7 @@ class CustomerAppliedController extends Controller
         return LoanQuotations::Query()
         ->where('partner_id',$partner_id)
         ->where('status',$status)
-        ->with(['loan_application'])->paginate(20);
+        ->with(['loan_application', 'loan_application.loan_user'])->paginate(20);
     }
 
     public function loanOfferSigned()
@@ -51,7 +51,7 @@ class CustomerAppliedController extends Controller
         if(($quote_id == null || $status == null) || !in_array($status,['3','4'])){
             return redirect()->back('error','Oops. something went wrong.');
         }
-        
+
         $quotation = LoanQuotations::Query()
         ->where('partner_id',$partner_id)
         ->where('id',$request->quote_id)
@@ -75,7 +75,7 @@ class CustomerAppliedController extends Controller
         $quotation->status = $status; //3=loan offer signed, 4=loan offer disbursed
         $quotation->save();
 
-        return redirect()->back()->with('success',$message); 
+        return redirect()->back()->with('success',$message);
 
 
     }

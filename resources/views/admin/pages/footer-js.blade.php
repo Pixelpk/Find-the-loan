@@ -285,11 +285,11 @@
             var type = ($(this).attr('type'));
             var url = ($(this).attr('href'));
             Swal.fire({
-                title: msg,
+                text: msg,
                 type: type,
                 showCancelButton: true,
                 cancelButtonText: "No",
-                confirmButtonColor: 'rgb(221, 51, 51)',
+                confirmButtonColor: '#27B34D',
                 cancelButtonColor: '#d33',
                 confirmButtonText: "Yes"
             }).then((result) => {
@@ -656,7 +656,7 @@
             var apply_loan_id = $('#apply_loan_id').val();
 
             // On Submit Button Disabled and show loader
-            $('#more_doc_request_btn').addClass('disabled');
+            $("#more_doc_request_btn").prop('disabled', true);
             $('#btn-loading').removeClass('d-none');
 
             $.ajax({

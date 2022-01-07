@@ -10,7 +10,7 @@ class LoanQuotations extends Model
 {
     use HasFactory;
     protected $table = "loan_quotations";
-     
+
     //defining mutators for column values that we want to store as json
     public function setQuantumInterestAttribute($value){
         $this->attributes['quantum_interest'] = json_encode($value);
@@ -106,7 +106,7 @@ class LoanQuotations extends Model
     protected $fillable = [
         'apply_loan_id','partner_id','quoted_by','quantum_interest','one_time_fee',
         'monthly_fee','annual_fee','legal_fee','if_insurance_required','eir',
-        'repayment','quote_validity','status'
+        'repayment','quote_validity','status','no_loan_reason','no_loan_reason_ellaborate'
     ];
 
     public function loan_application()

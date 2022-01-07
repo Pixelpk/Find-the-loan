@@ -2,17 +2,23 @@
     <div class="content-page">
         <!-- Start content -->
         <div class="content">
-    
+
             <div class="container-fluid">
                 <div class="page-title-box">
-    
+
                     <div class="row align-items-center ">
                         <div class="col-md-8">
-                            <div class="page-title-box">
-                                <h4 class="page-title">Quotation details</h4>
+                            <div class="page-title-box d-flex">
+                                <h4 class="page-title">Quotation details
+                                    @if($quotation_details->status == '1')
+                                    <span class="c-s-status pl-3">(Proceeded)</span>
+                                    @elseif ($quotation_details->status == '2')
+                                    <b class="c-s-status pl-3">(No Longer Required)</b>
+                                    @endif
+                                </h4>
                             </div>
                         </div>
-                        
+
                             {{-- href="{{ route('proceed-with-quotation',['quote_id'=>$quotation_details->id]) }}" --}}
                             @if ($quotation_details->status == '0' || $quotation_details->status == null)
                             <div class="col-md-4">
@@ -21,13 +27,20 @@
                                     aria-current="page">
                                     Proceed
                                 </a>
-                                <a wire:click="proceedAlert('Are you sure loan no longer required?','loanNoLongerRequired','Confirm')" data-toggle="tooltip"
+
+                                @include('livewire.modal.reject-reason')
+                                {{-- <a wire:click="proceedAlert('Are you sure loan no longer required?','loanNoLongerRequired','Confirm')" data-toggle="tooltip"
+                                data-original-title="" class="btn btn-primary"
+                                    aria-current="page">
+                                    Loan no longer required
+                                </a> --}}
+                                <a  data-toggle="modal" data-target="#exampleModal" data-toggle="tooltip"
                                 data-original-title="" class="btn btn-primary"
                                     aria-current="page">
                                     Loan no longer required
                                 </a>
                             </div>
-                            
+
                             @endif
                         </div>
                     </div>
@@ -35,7 +48,7 @@
 
                 <div class="container py-3 info-container">
                     <div class="container">
-                        
+
                         <div class="row">
                             <div class="col-md-3">
                                 <h6>Quotation Date:</h6>
@@ -91,12 +104,12 @@
                                     <h6>Fixed or floating</h6>
                                     <span>{{ getFixedFloating($quotation_details->quantum_interest->fixed_or_floating) }}</span>
                                 </div>
-                            
+
                                 {{-- if fixed --}}
                                 @if ($quotation_details->quantum_interest->fixed_or_floating == 1)
                                     <div class="col-md-3">
                                         <h6>Interest</h6>
-                                        <span> 
+                                        <span>
                                             @if ($quotation_details->quantum_interest->fixed->interest->interest_pa != "")
                                             {{$quotation_details->quantum_interest->fixed->interest->interest_pa}}(pa)
                                             @else
@@ -107,16 +120,16 @@
 
                                     <div class="col-md-3">
                                         <h6>Tenure</h6>
-                                        <span> 
-                                            {{ $quotation_details->quantum_interest->fixed->tenure->years }} Years & 
+                                        <span>
+                                            {{ $quotation_details->quantum_interest->fixed->tenure->years }} Years &
                                             {{ $quotation_details->quantum_interest->fixed->tenure->months }} months
                                         </span>
                                     </div>
 
                                     <div class="col-md-3">
                                         <h6>Lock in</h6>
-                                        <span> 
-                                            {{ $quotation_details->quantum_interest->fixed->lock_in->years }} Years & 
+                                        <span>
+                                            {{ $quotation_details->quantum_interest->fixed->lock_in->years }} Years &
                                         {{ $quotation_details->quantum_interest->fixed->lock_in->months }} months
                                         </span>
                                     </div>
@@ -156,7 +169,7 @@
                                         <h6>Thereafter Pa</h6>
                                         <span>{{ $quotation_details->quantum_interest->floating->thereafter_pa }}</span>
                                     </div>
-                                    
+
 
                                 @endif
                             {{-- if floating --}}
@@ -201,7 +214,7 @@
                             </div>
                             <div class="col-md-3">
                                 <h6>If Insurance required</h6>
-                                <span>                                    
+                                <span>
                                     @if ($quotation_details->if_insurance_required->range_value_from != "")
                                     ${{ $quotation_details->if_insurance_required->range_value_from."-$".$quotation_details->if_insurance_required->range_value_to }}
                                     @else
@@ -214,7 +227,7 @@
                                 <span>
                                     @if ($quotation_details->eir->pa_percentage != "")
                                     {{ $quotation_details->eir->pa_percentage }}(pa)
-                                    @else 
+                                    @else
                                     {{ $quotation_details->eir->pm_percentage }} (pm)
                                     @endif
                                 </span>
@@ -255,8 +268,8 @@
 
                     </div>
                 </div>
-    
-    
+
+
         @include('admin.pages.footer')
         <script>
             window.addEventListener('proceed_with_quotation', event => {
@@ -274,13 +287,13 @@
                         // calling destroy method to delete
                         @this.call(event.detail.function)
                         // success response
-    
+
                     } else {
-    
+
                     }
                 })
             })
-    
+
         </script>
     </div>
 </div>

@@ -23,7 +23,7 @@ class RegisterComponent extends Component
     public $message;
 
     public function mount()
-    {
+    {   
         if(Auth::check()){
             return redirect()->route('home');
         }
@@ -86,6 +86,8 @@ class RegisterComponent extends Component
         $this->password = '';
         $this->confirm_password = '';
 
-       return redirect()->route('login')->with('message', 'Alert! We have sent confirmation link to your email please verify.');
+        return redirect()->route('login',['redirectFrom'=> 'signup']);
+
+        // return redirect()->route('login',['redirectFrom'=> 'signup'])->with('message', 'Alert! We have sent confirmation link to your email please verify.');
     }
 }

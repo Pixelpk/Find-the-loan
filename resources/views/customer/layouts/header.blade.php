@@ -65,7 +65,9 @@
         <ul class="list-inline menu-left mb-0">
             <li class="float-left">
                 <button class="button-menu-mobile open-left waves-effect">
-                    <i class="mdi mdi-menu"></i>
+                    <!-- <i class="mdi mdi-menu"></i> -->
+                    <i class="mdi mdi-arrow-left"></i>
+                    <i class="mdi mdi-arrow-right d-none"></i>
                 </button>
             </li>
         </ul>
