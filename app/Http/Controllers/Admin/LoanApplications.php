@@ -239,7 +239,7 @@ class LoanApplications extends Controller
                 },
             ])
             ->first();
-            // return $data['application'];
+            // return $data;
 
         if ($id == null || !$data['application']) {
             return redirect()->back()->with('error', 'Oops. something went wrong.');

@@ -352,7 +352,7 @@
                     <div wire:loading wire:target="goTolender">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     </div>
-                    Save & Add joint applicant
+                    Save or Add joint applicant
                 </button>
             </div>
         </div>
@@ -362,14 +362,24 @@
             <button class="btn custom-info-btn" type="button" style="color: #6c6868 !important;">
                 Why these documents ?
             </button>
-           
-            <button  wire:loading.attr='disabled' class="btn"
-                type="button" wire:target='goToNextTab' wire:click.prevent='goToNextTab'>
-                <div wire:loading wire:target="goToNextTab">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                </div>
-                Save & Continue
-            </button>
+
+            @if($isDisabled == false)
+                <button  wire:loading.attr='disabled' class="btn"
+                    type="button" wire:target='goToNextTab' wire:click.prevent='goToNextTab' disabled>
+                    <div wire:loading wire:target="goToNextTab">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </div>
+                    Save & Continue
+                </button>
+            @else
+                <button  wire:loading.attr='disabled' class="btn"
+                    type="button" wire:target='goToNextTab' wire:click.prevent='goToNextTab'>
+                    <div wire:loading wire:target="goToNextTab">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </div>
+                    Save & Continue
+                </button>
+            @endif
         </div>
     </div>
     <div class="row mt-3">

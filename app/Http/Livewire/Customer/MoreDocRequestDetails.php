@@ -20,7 +20,7 @@ class MoreDocRequestDetails extends Component
     protected $queryString = ['more_doc_request_id'];
 
     //personal loan list counter
-    public $i = 1; 
+    public $i = 1;
     //company loan list counter
     public $j = 1;
     //personal asset list => insurance asset counter
@@ -82,7 +82,7 @@ class MoreDocRequestDetails extends Component
     {
         $this->user = Auth::user();
         $this->more_doc_request_detail = MoreDocRequireRequest::where('id', $this->more_doc_request_id)
-            ->with('more_doc_msg_desc')
+            ->with('more_doc_msg_desc', 'replied_doc_details')
             ->first();
         $this->quote_additional_doc_idz = $this->more_doc_request_detail->more_doc_msg_desc->pluck('quote_additional_doc_id')->toArray();
         if (!$this->more_doc_request_detail) {
@@ -124,7 +124,7 @@ class MoreDocRequestDetails extends Component
     }
 
     public function chk($id){
-        
+
         if($id == 99){
             $this->personal_loan_list = [];
             $this->pl_bank_institution = "";
@@ -160,7 +160,7 @@ class MoreDocRequestDetails extends Component
 
         if($this->dont_have_doc[$id] == false){
             unset($this->dont_have_doc[$id]);
-            
+
         }
         // dd($this->personal_loan_list);
     }
@@ -372,7 +372,7 @@ class MoreDocRequestDetails extends Component
             $personal_assets_list ['others_asset_list'] = $this->others_asset_list;
         }
 
-        
+
         $replied_docs = [];
         $i = 0;
         foreach ($this->form as $key1 => $value) {
@@ -417,15 +417,15 @@ class MoreDocRequestDetails extends Component
 
         $empty = ($empty == true) && count($this->personal_loan_list) < 1 ? true : false;
         $empty = ($empty == true) && count($this->company_loan_list) < 1 ? true : false;
-        
 
-        if($this->dont_have_doc){
-            $empty = ($empty == true) && count($this->dont_have_doc) < 1 ? true : false;
-        }else{
-            $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
-            return;
-        }
-        
+        // $empty = ($empty == true) && count($this->dont_have_doc) < 1 ? true : false;
+
+        // if($this->dont_have_doc){
+        // }else{
+        //     $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
+        //     return;
+        // }
+
         if ( $empty == true) {
             $this->emit('danger', ['type' => 'success', 'message' => 'Oops. You have not given any details.']);
             return;
@@ -442,7 +442,9 @@ class MoreDocRequestDetails extends Component
         $reply->personal_assets_list = $this->personal_assets_list;
         $reply->save();
         $this->emit('alert', ['type' => 'success', 'message' => 'Requested documents are submitted successfully.']);
-        
+
+        return redirect()->route('customer-more-doc-requests');
+
         $this->form = [];
         $this->personal_loan_list = [];
         $this->company_loan_list = [];
@@ -461,6 +463,6 @@ class MoreDocRequestDetails extends Component
         $this->o_counter = 1;
         $this->reset('form');
         $this->mount();
-        return;
+
     }
 }
