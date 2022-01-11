@@ -19,9 +19,11 @@ class PersonalDetail extends Component
     public $other_relation;
     public $customValidation;
     public $employee_type = "self_employee";
+    public $isDisabled = false;
+
     public function mount()
     {
-        $this->getData();
+       $this->getData();
        $personalDetail = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->first();
        $this->income_proof = $personalDetail->income_proof  ?? '';
        $this->relation = $personalDetail->relation  ?? '';
@@ -155,7 +157,6 @@ class PersonalDetail extends Component
             $this->income_proof = '';
             $this->relation = '';
         }else{
-
             $PD = ModelsPersonalDetail::forceCreate([
                 'apply_loan_id' => $this->apply_loan->id,
                 'type' => 'Applicant',
@@ -178,6 +179,12 @@ class PersonalDetail extends Component
 
     public function getData(){
         $this->personalDetail = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->get();
+        // dd($this->personalDetail);
+        if(sizeof($this->personalDetail)){
+            $this->isDisabled = true;
+        }else{
+            $this->isDisabled = false;
+        }
     }
 
     public function goTolender()
@@ -190,7 +197,7 @@ class PersonalDetail extends Component
         $applicant = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->where('type', 'Applicant')->first();
         $joint_applicant = ModelsPersonalDetail::where('apply_loan_id', $this->apply_loan->id)->where('type', 'Joint Applicant')->first();
 
-        if($applicant && $joint_applicant){
+        if($applicant){
             $this->emit('changeTab',$this->apply_loan->id, 9);
         }else{
             $this->emit('danger', ['type' => 'success', 'message' => 'Field is required']);

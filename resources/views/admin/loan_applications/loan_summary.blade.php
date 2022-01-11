@@ -47,7 +47,7 @@
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 
                             <ul class="navbar-nav sum-nav me-auto mb-2 mb-lg-0">
-                                @if($application->assigned_to_user == null && $application->application_quote->status != '4')
+                                @if($application->assigned_to_user == null || (isset($application->application_quote) && $application->application_quote->status != '4'))
                                     <li class="nav-item">
 
                                         <div class="dropdown dropleft">
