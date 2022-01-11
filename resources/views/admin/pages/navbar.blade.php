@@ -33,6 +33,11 @@
                             <i class="fa fa-money-bill-alt"></i><span> Quoted customer </span>
                         </a>
                     </li>
+                     <li>
+                        <a href="{{ route('no-longer-quoted-customer') }}" class="@if(Route::CurrentRouteName() == 'no-longer-quoted-customer') mm-active @endif">
+                            <i class="fa fa-money-bill-alt"></i><span>No Longer Quoted</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('rejected-applications') }}" class="@if(Route::CurrentRouteName() == 'rejected-applications') mm-active @endif">
                             <i class="fa fa-money-bill-alt"></i><span> Rejected </span>

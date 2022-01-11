@@ -54,23 +54,33 @@
                                                     <td class="text-left">
                                                         @php $i=1; @endphp
                                                         @foreach ($application->more_doc_msg_desc as $item2)
-                                                            
+
                                                             @if($i < 6)
                                                             @foreach ($item2->more_doc_reasons as $reason)
                                                                 {{ Str::limit(getMoreDocReason($reason), 40) }}<br>
                                                             @endforeach
                                                             @endif
-                                                            
+
                                                             @php $i++; @endphp
                                                         @endforeach
                                                     </td>
 
                                                         <td>{{ $application->loan_application->amount }}</td>
-                                                        <td><a style="font-size:12px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
+                                                        @if ($application->replied_doc_details == null)
+                                                        <td>
+                                                            <a style="font-size:12px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
                                                             Reply with doc
-                                                        </a></td>
+                                                            </a>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <a style="font-size:12px;" href="{{ route('more-doc-request-details',['more_doc_request_id'=> $application->id]) }}" class="btn btn-primary">
+                                                            View Docs
+                                                            </a>
+                                                        </td>
+                                                        @endif
                                                     </tr>
-    
+
                                                 @endforeach
                                                 </tbody>
                                             </table>

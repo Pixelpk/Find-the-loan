@@ -1,11 +1,11 @@
-.accordion-button {
+.accordion-button{
     padding: 0.7rem 1rem !important;
 }
-#about {
+#about{
     overflow: hidden;
-    position: relative;
+  position: relative;
 }
-#about p {
+#about p{
     font-size: 1rem;
     line-height: 1.8rem;
 }
@@ -16,41 +16,43 @@
     bottom: 1rem;
     width: 100%;
     height: auto;
-}
-.about-grid {
+  }
+.about-grid{
     display: grid;
     grid-template-columns: repeat(5, 210px);
     grid-auto-flow: row;
 }
-.about--img_box > img {
+.about--img_box > img{
     width: 100%;
     height: 100%;
 }
 @media screen and (max-width: 768px) {
-    .about-grid {
+    .about-grid{
         grid-template-columns: repeat(3, 210px);
     }
 }
-@media (max-width: 576px) {
-    .about-grid {
+@media(max-width:576px){
+    .about-grid{
         grid-template-columns: 1fr;
     }
-    .about--img_box {
+    .about--img_box{
         width: 100%;
         height: auto;
     }
 }
 
+
+
 /* GLOSSARY */
-.glossary-tabs .nav-link {
+.glossary-tabs .nav-link{
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.nav-link {
+.nav-link{
     color: #000000;
 }
-.nav-link:hover {
-    color: #3ebb60;
+.nav-link:hover{
+    color: #3EBB60;
 }

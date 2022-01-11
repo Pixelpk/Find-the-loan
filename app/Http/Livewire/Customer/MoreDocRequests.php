@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class MoreDocRequests extends Component
-{    
+{
     public $user;
 
     public function mount()
@@ -23,6 +23,7 @@ class MoreDocRequests extends Component
         ->with(
             [
                 'loan_application',
+                'replied_doc_details',
                 'finance_partner:id,name',
             ])->paginate(20);
 

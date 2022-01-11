@@ -208,6 +208,8 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
 
 
         Route::get('quoted-customer',[LoanQuotationController::class,'quotedCustomer'])->name('quoted-customer');
+        Route::get('no-longer-quoted-customer',[LoanQuotationController::class,'noLongerQuotedCustomer'])->name('no-longer-quoted-customer');
+
         Route::get('quote-all-loan',[LoanQuotationController::class,'quoteAllOtherLoan'])->name('quote-all-loan');
         Route::get('quote-property-land-loan',[LoanQuotationController::class,'quotePropertyLand'])->name('quote-property-land-loan');
         Route::post('submit-quotation',[LoanQuotationController::class,'submitQuotation'])->name('submit-quotation');

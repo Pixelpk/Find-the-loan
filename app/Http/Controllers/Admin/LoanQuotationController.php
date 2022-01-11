@@ -21,14 +21,14 @@ class LoanQuotationController extends Controller
 {
     public function fixedOrFloating(Request $request)
     {
-        
+
         $data['loan_type'] = ApplyLoan::where('id',$request->apply_loan_id)
         ->first()->loan_type_id;
 
         $data['fixed_or_floating'] = $request->fixed_or_floating;
         return view('admin.loan_applications.fixed_or_floating',$data);
     }
-    
+
     // public function putQuotation(Request $request){
     //     $data['apply_loan_id'] = $request->apply_loan_id ?? '';
     //     $data['apply_loan'] = ApplyLoan::where("id", "=", $data['apply_loan_id'])
@@ -44,13 +44,27 @@ class LoanQuotationController extends Controller
     {
         $loggedin_user = $request->user();
         $partner_id = Session::get('partner_id');
-        
+
         $data['quotations'] = LoanQuotations::Query()
         ->where('partner_id',$partner_id)
         ->with(['loan_application'])->paginate(20);
-        // return $data; 
+        // return $data;
         return view('admin.loan_applications.quotations',$data);
     }
+
+    public function noLongerQuotedCustomer(Request $request)
+    {
+        $loggedin_user = $request->user();
+        $partner_id = Session::get('partner_id');
+
+        $data['quotations'] = LoanQuotations::Query()
+        ->where('partner_id',$partner_id)
+        ->where('status',2)
+        ->with(['loan_application'])->paginate(20);
+        // return $data;
+        return view('admin.loan_applications.no-longer-quotations',$data);
+    }
+
 
     public function submitQuotation(Request $request)
     {
@@ -75,9 +89,9 @@ class LoanQuotationController extends Controller
         $quote = new LoanQuotations();
         $quote->fill($fill)->save();
         $finance_partner = FinancePartner::select('id','name','email')->where('id',Session::get('partner_id'))->first();
-        
+
         if ($loggedin_user->parent_id != 0) {
-            //updating status to opertion_performed 
+            //updating status to opertion_performed
             AssignedApplication::updateViewedStatus($request->apply_loan_id,$loggedin_user->id,1,2);
         }
 
@@ -159,7 +173,7 @@ class LoanQuotationController extends Controller
             "if_insurance_required"=>$if_insurance_required,
             "eir"=>$eir,
             "repayment"=>$repayment,
-            "quote_validity"=>$quote_validity 
+            "quote_validity"=>$quote_validity
         );
     }
 
@@ -251,7 +265,7 @@ class LoanQuotationController extends Controller
             "if_insurance_required"=>$if_insurance_required,
             "eir"=>$eir,
             "repayment"=>$repayment,
-            "quote_validity"=>$quote_validity 
+            "quote_validity"=>$quote_validity
         );
     }
 }
