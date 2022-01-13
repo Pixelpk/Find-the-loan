@@ -244,13 +244,14 @@ class LoanApplications extends Controller
         if ($id == null || !$data['application']) {
             return redirect()->back()->with('error', 'Oops. something went wrong.');
         }
-
+        // return $data['application'];
 
         if ($logged_in_user->parent_id != 0) {
             $if_action_not_performed = AssignedApplication::where('user_id', $logged_in_user->id)
                 ->where('status','=',1) //0=not viewed, 1= viewed, 2=action performed
                 ->first();
-            if($if_action_not_performed &&($if_action_not_performed->apply_loan_id != $id) && ($data['application']->assigned_application->status != '2')){
+                // return $if_action_not_performed;
+            if($if_action_not_performed &&($if_action_not_performed->apply_loan_id != $id) && ($data['application']->assigned_application[0]->status != '2')){
                 return redirect()->back()->with('error','Kindly perform any operation on previously view application.');
             }
 
