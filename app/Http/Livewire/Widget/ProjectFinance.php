@@ -23,7 +23,7 @@ class ProjectFinance extends Component
     public $apply_loan;
     public $gernalInfo;
     public $images = [];
-   
+
 
     protected $listeners = [
         'documentReq'
@@ -45,14 +45,14 @@ class ProjectFinance extends Component
     {
         return view('livewire.widget.project-finance');
     }
-   
-    
-   
+
+
+
     public function store()
-    {  
+    {
 
         $exist =  Media::where('apply_loan_id', $this->apply_loan->id)->first();
-       
+
         if(!$exist){
             $this->validate([
                'amount' => 'required|integer|min:1',
@@ -64,8 +64,8 @@ class ProjectFinance extends Component
         }
 
        $data = [
-             ['type' => 'number', 'value' => $this->tenure, 'key' => 'tenure'], 
-             ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'], 
+             ['type' => 'number', 'value' => $this->tenure, 'key' => 'tenure'],
+             ['type' => 'number', 'value' => $this->amount, 'key' => 'amount'],
        ];
        if($this->apply_loan){
             LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->delete();
@@ -108,4 +108,8 @@ class ProjectFinance extends Component
        $this->gernalInfo = LoanGernalInfo::where('apply_loan_id', $this->apply_loan->id)->get();
        $this->emit('changeTab',$this->apply_loan->id, 4);
     }
+
+    // public function nextTab(){
+    //    $this->emit('changeTab',$this->apply_loan->id, 4);
+    // }
 }
