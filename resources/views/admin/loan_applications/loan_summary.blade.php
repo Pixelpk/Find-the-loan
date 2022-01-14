@@ -26,7 +26,7 @@
                             @if ($application->application_rejected)
                                 <b style="color: #27B34D">(Rejected)</b>
                             @elseif($application->application_quote)
-                                @if ($application->application_quote->status == null)
+                                @if ($application->application_quote->status == '0')
                                     <b style="color: #27B34D">(Quoted)</b>
                                 @elseif($application->application_quote->status == '1')
                                     <b style="color: #27B34D">(Customer Applied)</b>
