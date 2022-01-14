@@ -78,7 +78,10 @@ Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('storage:link');
 });
 //CMS routes
-Route::get('/',Home::class)->name('home');
+Route::get('/',function(){
+    return view('comming-soon');
+})->name('index');
+Route::get('/home',Home::class)->name('home');
 Route::get('all-blogs',BlogComponent::class)->name('all-blogs');
 Route::get('registration',RegisterComponent::class)->name('registration');
 Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
