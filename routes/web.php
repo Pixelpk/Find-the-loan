@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CompanyStructureController;
 use App\Http\Controllers\Admin\CustomerAppliedController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FinancePartnerController;
+use App\Http\Controllers\Admin\GlossaryController;
 use App\Http\Controllers\Admin\LoanApplications;
 use App\Http\Controllers\Admin\LoanReasonController;
 use App\Http\Controllers\Admin\LoanTypeController;
@@ -78,7 +79,10 @@ Route::get('clear-cache',function (){
    \Illuminate\Support\Facades\Artisan::call('storage:link');
 });
 //CMS routes
-Route::get('/',Home::class)->name('home');
+Route::get('/',function(){
+    return view('comming-soon');
+})->name('index');
+Route::get('/home',Home::class)->name('home');
 Route::get('all-blogs',BlogComponent::class)->name('all-blogs');
 Route::get('registration',RegisterComponent::class)->name('registration');
 Route::get('verify',[CommonController::class,'verifyEmail'])->name('verifyEmail');
@@ -120,6 +124,11 @@ Route::group(['middleware'=>['auth:users,partners']],function (){
         Route::post('faq-detail', [FaqController::class,'faqDetail'])->name('faq-detail');
         Route::post('sort-faq-submitted', [FaqController::class,'sortSubmit'])->name('sort-faq-submitted');
         Route::get('change-faq-status', [FaqController::class,'changeStatus'])->name('change-faq-status');
+
+        Route::get('/glosssary', [GlossaryController::class,'glossary'])->name('view-glossary');
+        Route::post('add-glossary', [GlossaryController::class,'addGlossary'])->name('add-glossary');
+        Route::post('glossary-detail', [GlossaryController::class,'glossaryDetail'])->name('glossary-detail');
+        Route::get('change-glossary-status', [GlossaryController::class,'changeStatus'])->name('change-glossary-status');
 
         Route::get('/blogs', [BlogController::class,'blogs'])->name('blogs');
         Route::post('add-blog', [BlogController::class,'addBlog'])->name('add-blog');

@@ -107,7 +107,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row" style="@if(sizeof($application->assigned_application) && $application->assigned_application[0]->status == 0 && Auth::user()->parent_id != 0) background-color:#27b34d @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;">
+                                            <tr class="loan_application_row" style="@if(sizeof($application->assigned_application) && $application->assigned_application[0]->status != 0 && Auth::user()->parent_id != 0) background-color:#27b34d @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary" style="cursor: pointer;">
                                                 <td class="selected_application">
                                                         {{-- @if($application->assigned_to_user == null && $application->application_quote == null && $application->application_rejected == null) --}}
                                                         <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
@@ -190,7 +190,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($applications as $application)
-                                            <tr class="loan_application_row  @if($application->assigned_application != null && $application->assigned_application->status == 1 && Auth::user()->parent_id != 0) shake @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary"  style="cursor: pointer;">
+                                            <tr class="loan_application_row  style="@if(sizeof($application->assigned_application) && $application->assigned_application[0]->status != 0 && Auth::user()->parent_id != 0) background-color:#27b34d @endif" url="{{ route('loan-application-summary',['apply_loan_id'=>$application->id]) }}" title="Show summary"  style="cursor: pointer;">
                                                 <td class="selected_application">
                                                     <input style="height: 16px;width: 16px" name="selected_application" class="form-control" value="{{$application->id}}" id="application{{$application->id}}" type="checkbox"/>
                                                 </td>
