@@ -86,12 +86,6 @@
                 });
         });
       };
-    //   var onloadCallback = function() {
-    //     grecaptcha.render('g-recaptcha', {
-    //         'sitekey' : '{{env('CAPTCHA_SITE_KEY')}}',
-    //         'callback' : verifyCallback,
-    //         });
-    //   }
 
 </script>
 

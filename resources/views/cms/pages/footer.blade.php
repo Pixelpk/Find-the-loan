@@ -1,6 +1,6 @@
 <hr>
 <!-- FOOTER -->
-<footer id="footer" class="footer position-relative z-10">
+<footer id="footer" class="footer position-relative z-10 px-0">
     <div class="container">
         <!-- CONTENT -->
         <div class="row">
@@ -39,7 +39,7 @@
     <!-- COPYRIGHT -->
     <div class="footer-bottom mt-4">
         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-5">
+            <div class="col-sm-12 col-md-12 col-xl-5 text-sm-center text-xl-start mt-1">
                 <span class="lea text-white">Copyright 2021 Find The Loan. All Rights Reserved.</span>
 
                 <span>
@@ -121,8 +121,8 @@
                     </svg>
                 </span>
             </div>
-            <div class="d-flex align-items-center justify-content-xl-end col-sm-12 col-md-12 col-lg-8 col-xl-7">
-                <ul class="nav footer__links flex-column flex-md-row justify-content-xl-right">
+            <div class="d-flex align-items-center justify-content-sm-center justify-content-xl-end col-sm-12 col-md-12 col-xl-7">
+                <ul class="nav footer__links flex-column flex-md-row justify-content-xl-right mb-2">
                     <li class="nav-item">
                         <a href="{{ route('about-us') }}" class="nav-link">About Us</a>
                     </li>
