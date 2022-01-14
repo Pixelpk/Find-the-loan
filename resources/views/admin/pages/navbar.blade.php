@@ -132,6 +132,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('view-glossary') }}" class="@if(Route::CurrentRouteName() == 'view-glossary')  mm-active @endif">
+                                    <i class="dripicons-question"></i><span> Glossary </span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('testimonials') }}" class="@if(Route::CurrentRouteName() == 'testimonials')  mm-active @endif">
                                     <i class="fa fa-quote-left"></i><span> Testimonials </span>
                                 </a>

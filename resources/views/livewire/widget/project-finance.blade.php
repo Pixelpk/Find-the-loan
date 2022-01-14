@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     <div class="row">
         <div class="col-md-12">
             <div class="mb-3">
@@ -52,11 +52,11 @@
             @enderror
         </div>
     </div>
-</div>
+</div> --}}
 
-<hr>
+{{-- <hr> --}}
 <!-- Optional Documents -->
-<div class="row mt-2">
+{{-- <div class="row mt-2">
     <div class="col-md-12">
        <label>Submitting the following optional documents may help to give our Financing Partners more <br> confidence  in your repayment ability, if they suggest cashflow coming into the company <br>  over the tenure of the loan. E.g Aging list (account receivable) contract, LC, PO/invoices etc.</label>
        <br>
@@ -83,15 +83,23 @@
             @enderror -->
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="mt-2 text-end">
+{{-- <div class="mt-2 text-end">
     <button class="btn" type="button" wire:target="store" wire:click.prevent="store">
         <span wire:loading="" wire:target="store" class="spinner-border spinner-border-sm" role="status"
         aria-hidden="true"></span>
         Save &amp; Continue
     </button>
-</div>
+</div> --}}
+
+{{-- <div class="mt-2 text-end">
+    <button class="btn" type="button" wire:target="nextTab" wire:click.prevent="nextTab">
+        <span wire:loading="" wire:target="nextTab" class="spinner-border spinner-border-sm" role="status"
+        aria-hidden="true"></span>
+        Continue
+    </button>
+</div> --}}
 
 
 <script type="text/javascript">

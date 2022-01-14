@@ -47,8 +47,10 @@ class LoanQuotationController extends Controller
 
         $data['quotations'] = LoanQuotations::Query()
         ->where('partner_id',$partner_id)
-        ->with(['loan_application'])->paginate(20);
-        // return $data;
+        ->where('quoted_by', $loggedin_user->id)
+        ->where('status', 0)
+        ->with(['loan_application','loan_application.pending_meet_call'])->paginate(20);
+        // return $data['quotations'];
         return view('admin.loan_applications.quotations',$data);
     }
 

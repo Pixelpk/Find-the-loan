@@ -1,3 +1,39 @@
+@if(Route::currentRouteName() == 'view-glossary')
+<div class="modal fade bs-example-modal-center" id="GlossaryModal" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="glossary_modal_heading">Add faq</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="glossary-form" method="post" action="{{ route('add-glossary') }}">
+                    @csrf
+                    <input type="hidden" name="id" id="update_glossary_id">
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Title:</label>
+                        <textarea required id="glossary_title" name="title" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label mb-10">Description:</label>
+                        <textarea required id="glossary_description" name="description" class="form-control ckeditor"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn admin-c-btn" data-dismiss="modal">Close</button>
+                        <button type="submit" id="glossary_modal_btn" class="btn admin-btn">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@endif
 @if(Route::currentRouteName() == 'faq')
 <div class="modal fade bs-example-modal-center" id="FaqModal" tabindex="-1" role="dialog"
     aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -139,7 +175,7 @@
                                     </optgroup>
                                 @endforeach
                             </optgroup>
-                            
+
                         </select>
                     </div>
                     <div class="form-group">
@@ -282,7 +318,7 @@
                             </optgroup>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Type of properties:</label>
                         <select required style="width: 100%;" multiple class="form-control mb-10 select2" name="property_types[]" id="edit_property_types">
@@ -306,7 +342,7 @@
                         <label for="" class="control-label mb-10">Minimum % of local shareholding required</label>
                         <input type="number" min="0" class="form-control" name="local_shareholding" id="edit_local_shareholding">
                     </div>
-                    
+
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="subsidiaries" id="edit_subsidiaries">
                         <label class="custom-control-label" for="edit_subsidiaries">Subsidiaries</label>
@@ -803,7 +839,7 @@
                         <div class="form-group">
                             <label for="internal">Please eleborate</label>
                             <input class="form-control" name="other_reasons" required disabled  id="reject_other_reasons" value="">
-                                
+
                         </div>
 
                         <div class="modal-footer">
@@ -849,27 +885,27 @@
                         </div>
                         @endif
 
-                        @if ($item2->within_days)                        
+                        @if ($item2->within_days)
                         <div class="col-md-3">
                             <h6>Within days:</h6>
                             <span>{{ $item2->within_days }}</span>
                         </div>
                         @endif
 
-                        @if ($item2->past_months)    
+                        @if ($item2->past_months)
                         <div class="col-md-3">
                             <h6>Past Months:</h6>
                             <span>{{ $item2->past_months }}</span>
                         </div>
                         @endif
 
-                        @if ($item2->valid_for)                        
+                        @if ($item2->valid_for)
                         <div class="col-md-3">
                             <h6>Valid for:</h6>
                             <span>{{ $item2->valid_for }}</span>
                         </div>
                         @endif
-                        
+
                         <div class="col-md-3">
                             <h6>Reasons:</h6>
                             <span>
@@ -881,7 +917,7 @@
                     </div>
                     {{-- <hr> --}}
                     @endforeach
-            
+
                 @endforeach
 
             </div>
